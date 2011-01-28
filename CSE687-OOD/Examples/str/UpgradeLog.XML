@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="str">
+</Property><Property Name="Solution File" Value="C:\Users\Ider\Desktop\CSE687-OOD\Examples\str\str.sln">
+</Property><Property Name="Date" Value="Thursday, January 27, 2011">
+</Property><Property Name="Time" Value="17:27 PM">
+</Property></Properties><Event ErrorLevel="0" Project="str" Source="str.vcproj" Description="Converting project file 'C:\Users\Ider\Desktop\CSE687-OOD\Examples\str\str.vcproj'.">
+</Event><Event ErrorLevel="1" Project="str" Source="str.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="1" Project="str" Source="str.vcproj" Description="Attribute 'Detect64BitPortabilityProblems' of 'VCCLCompilerTool' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="str" Source="str.vcproj" Description="Attribute 'Detect64BitPortabilityProblems' of 'VCCLCompilerTool' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="0" Project="str" Source="str.vcproj" Description="Done converting to new project file 'C:\Users\Ider\Desktop\CSE687-OOD\Examples\str\str.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="str" Source="str.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="UseStr" Source="UseStr\UseStr.vcproj" Description="Converting project file 'C:\Users\Ider\Desktop\CSE687-OOD\Examples\str\UseStr\UseStr.vcproj'.">
+</Event><Event ErrorLevel="1" Project="UseStr" Source="UseStr\UseStr.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="1" Project="UseStr" Source="UseStr\UseStr.vcproj" Description="Attribute 'Detect64BitPortabilityProblems' of 'VCCLCompilerTool' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="UseStr" Source="UseStr\UseStr.vcproj" Description="Attribute 'Detect64BitPortabilityProblems' of 'VCCLCompilerTool' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="0" Project="UseStr" Source="UseStr\UseStr.vcproj" Description="Done converting to new project file 'C:\Users\Ider\Desktop\CSE687-OOD\Examples\str\UseStr\UseStr.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="UseStr" Source="UseStr\UseStr.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="str.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="str.sln" Description="Converted">
+</Event></UpgradeLog>

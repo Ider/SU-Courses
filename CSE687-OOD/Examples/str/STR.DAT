@@ -1,0 +1,84 @@
+
+  Testing str class 
+ ===================
+
+  testing promotion constructor 
+ -------------------------------
+  new str object: this is a string
+
+  testing copy constructor 
+ --------------------------
+  copy of original:    this is a string
+
+  testing index operator 
+ ------------------------
+  second character is: h
+  modifying fourth character: thix is a string
+
+  testing appends 
+ -----------------
+  appending vowel characters:
+  this is a stringa
+  this is a stringae
+  this is a stringaei
+  this is a stringaeio
+  this is a stringaeiou
+  size of str object is 21
+
+  appending string "yyy": this is a stringaeiouyyy
+  size of str object is now 24
+  appending a long string to str object:
+  this is a stringaeiouyyy and the rain in Spain falls mainly on the plain
+  size of str object is now 72
+
+
+  testing addition operator 
+ -----------------------------
+  Original string - this is a concatenated part
+
+  testing assignment operator 
+ -----------------------------
+  assigning the original's copy to this string: thix is a string
+  size of str object is now 16
+
+
+  testing memory resizing by multiple appends 
+ ---------------------------------------------
+  appending "C++ is great!!! " several times to this string:
+
+  thix is a stringC++ is great!!! 
+  size of str object is now 32
+
+  thix is a stringC++ is great!!! C++ is great!!! 
+  size of str object is now 48
+
+  thix is a stringC++ is great!!! C++ is great!!! C++ is great!!! 
+  size of str object is now 64
+
+  thix is a stringC++ is great!!! C++ is great!!! C++ is great!!! C++ is great!!! 
+  size of str object is now 80
+
+  thix is a stringC++ is great!!! C++ is great!!! C++ is great!!! C++ is great!!! C++ is great!!! 
+  size of str object is now 96
+
+
+  testing insertion and extraction operators 
+ --------------------------------------------
+  Now is the time for all good men to come to the aid of their country
+  The rain in Spain falls mainly on the plain
+  This is the last line
+  
+
+
+  testing cast operator 
+ --------------------------------------------
+  The string below is a const char* holding address of last str's character memory:
+
+  This is the last line
+
+
+  testing index operator 
+ --------------------------------------------
+  012345 - 0 1 2 3 4 5 
+  index out of bounds in operator[]
+

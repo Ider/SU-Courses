@@ -1,0 +1,66 @@
+
+           ANAL - Code Analysis Program
+  ----------------------------------------------
+       copyright (c) Jim Fawcett, 1992-1999
+           all rights granted to users
+             except right to publish
+
+
+  file path:
+  D:\cse687\ppts\str
+
+
+  01/17/2000  05:01:50 PM      7357  str.cpp        
+ ==================================================
+   cyclo lines function name
+     2     8   str
+     3    10   str
+     3    11   str
+     1     5   str
+     6    20   operator=
+     2     9   operator[]
+  - static: safe
+     2     9   operator[]
+  - static: safe
+     4    22   operator+=
+     5    22   operator+=
+     2     7   operator<<
+     2    11   operator>>
+     5   105   main
+
+  01/17/2000  03:28:26 PM      3812  str.h          
+ ==================================================
+   cyclo lines function name
+  - type:   class str 
+     1     1   size
+     1     1   flush
+
+  module summary:
+ ================
+  lines of function code: 241
+  lines of code text:     398
+  cyclomatic complexity:  39
+
+  02/18/1999  09:44:34 AM       907  usestr.cpp     
+ ==================================================
+   cyclo lines function name
+     1    13   main
+
+  module summary:
+ ================
+  lines of function code: 13
+  lines of code text:     25
+  cyclomatic complexity:  1
+
+ =================================================
+          summary statistics - all files:
+ =================================================
+
+[   40,  254] - total cyclo, total function lines
+         423  - total lines
+
+  functions exceeding cc or line limits: 
+ ----------------------------------------
+     5   105   main
+
+
