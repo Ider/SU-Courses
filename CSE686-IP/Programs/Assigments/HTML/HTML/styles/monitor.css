@@ -1,0 +1,117 @@
+﻿
+#monitor
+{
+    padding: 0px 10px 0px 10px;
+    width: 550px;
+    height: 500px;
+}
+
+#monitor .header
+{
+    background: url(../images/monitor_header.png) no-repeat center top;
+    height: 32px;
+    width: 540px;
+}
+#monitor .body
+{
+    background: url(../images/monitor_body.png) no-repeat center top;
+    height: 259px;
+    width: 540px;
+    color: #FFF;
+}
+#monitor .footer
+{
+    background: url(../images/monitor_footer.png) no-repeat center top;
+    height: 206px;
+    width: 540px;
+    text-align: center;
+}
+
+#monitor .body .content
+{
+    width: 460px;
+    height: 200px;
+    padding: 10px 0px 10px 40px;
+}
+
+#monitor .body .content .innerDiv
+{
+    padding-bottom: 15px;
+}
+#monitor .body .content .caption, #monitor .body .content .innerDiv .caption
+{
+    width: 100%;
+    text-align: justify;
+    font-size: 25px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+}
+
+#monitor .body .content .main_text, #monitor .body .content .innerDiv .main_text
+{
+    width: 100%;
+    font-size: 15px;
+    padding-top: 5px 0px 10px 0px;
+}
+
+#monitor .body .content .main_text span
+{
+    color: #CCCCCC;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+
+.imagebtn
+{
+    margin-top: 15px;
+    -moz-box-shadow: 2px 2px 2px #888;
+    -webkit-box-shadow: 2px 2px 2px #888;
+    box-shadow: 2px 2px 2px #888;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+#hint
+{
+    margin-top:5px;
+    text-align: center;
+    width:100%;
+    position:relative;
+}
+
+
+
+#hint .content
+{
+    background-color:White;
+    height: 8px;
+    margin: 0 0 -8px -7px;
+    position:absolute;  
+    left:170px;
+    -moz-box-shadow: 2px 2px 2px #888;
+    -webkit-box-shadow: 2px 2px 2px #888;
+    box-shadow: 2px 2px 2px #888;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: 210px;
+    height: 30px;
+}
+
+#hint .content .caret
+{
+    background: url(../images/caret_up.png);
+    height: 8px;
+    position:absolute;  
+    left: 100px;
+    width: 15px;
+}
+
+#hint .content .literal
+{
+   padding-top:5px;
+}

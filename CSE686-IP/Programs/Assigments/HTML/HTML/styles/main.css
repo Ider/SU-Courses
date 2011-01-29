@@ -1,0 +1,14 @@
+﻿/* TAGS */
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
+/* GLOBAL */
+#header, #content, #footer
+{
+	font-size: 0.875em;
+	width: 600px;
+	margin: 100px auto;
+}
