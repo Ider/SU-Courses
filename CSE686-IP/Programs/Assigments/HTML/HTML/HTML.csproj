@@ -51,10 +51,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="home.aspx" />
-    <Content Include="home.htm" />
     <Content Include="images\scores.png" />
+    <Content Include="images\sitemap-orange.jpg" />
     <Content Include="js\interface.js" />
     <Content Include="js\jquery.js" />
+    <Content Include="js\jquery1.4.2.js" />
+    <Content Include="js\modernizr.js" />
     <Content Include="main.htm" />
     <Content Include="sitemap.htm" />
     <Content Include="images\btn-arrow-down.gif" />
@@ -69,11 +71,13 @@
     <Content Include="images\apple.png" />
     <Content Include="styles\dock.css" />
     <Content Include="images\home.png" />
+    <Content Include="styles\nav.css" />
     <Content Include="styles\progress.css" />
     <Content Include="styles\main.css" />
     <Content Include="styles\monitor.css" />
     <Content Include="images\search.png" />
     <Content Include="images\site-map.png" />
+    <Content Include="test.htm" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
