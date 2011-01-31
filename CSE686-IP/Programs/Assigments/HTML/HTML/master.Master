@@ -17,39 +17,43 @@
             var el = document.getElementsByTagName("body")[0];
             el.className = "";
         </script>
-        <nav id="topNav">
-        	<ul>
-            	<li><a href="home.aspx" title="Home" >Home</a></li>
-          		<li><a href="#" title="Lab">Lab Requirement</a>
-                    <ul>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment1.htm">
-                            Assignemt #1</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment2.htm">
-                            Assignemt #2</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment3.htm">
-                            Assignemt #3</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment4.htm">
-                            Assignemt #4</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment5.htm">
-                            Assignemt #5</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment6.htm">
-                            Assignemt #6</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment7.htm">
-                            Assignemt #7</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment8.htm">
-                            Assignemt #8</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment9.htm">
-                            Assignemt #9</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment10.htm">
-                            Assignemt #10</a></li>
-                        <li class="last"><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment11.htm">
-                            Assignemt #11</a></li>
-                    </ul>       
-                </li>
-              <li><a href="#" title="Galary">Galary</a></li>
-              <li><a href="#" title="Experimental Field">Experimental Field</a></li>
-              <li class="last"><a href="sitemap.htm" title="Site Map">Site Map</a></li>
-          </ul>
+        <nav id="topNav">  
+        <ul>
+            <li><a href="home.aspx" title="Home">Home</a></li>
+            <li><a href="#" title="Lab">Lab Section</a>
+                <ul>
+                    <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment1.htm">
+                        Assignemt #1</a></li>
+                    <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment2.htm">
+                        Assignemt #2</a></li>
+                    <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment3.htm">
+                        Assignemt #3</a></li>
+                    <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment4.htm">
+                        Assignemt #4</a></li>
+                    <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment5.htm">
+                        Assignemt #5</a></li>
+                    <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment6.htm">
+                        Assignemt #6</a></li>
+                    <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment7.htm">
+                        Assignemt #7</a></li>
+                    <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment8.htm">
+                        Assignemt #8</a></li>
+                    <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment9.htm">
+                        Assignemt #9</a></li>
+                    <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment10.htm">
+                        Assignemt #10</a></li>
+                    <li class="last"><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment11.htm">
+                        Assignemt #11</a></li>
+                </ul>
+            </li>
+            <li><a href="#" title="Experimental Field">Experimental Field</a>
+                <ul>
+                    <li><a href="experimental/matrixeffect/matrixeffect.htm">Matrix Effect</a></li>
+                </ul>
+            </li>
+            <li><a href="#" title="Galary">Galary</a></li>
+            <li class="last"><a href="sitemap.htm" title="Site Map">Site Map</a></li>
+        </ul>
         </nav>
         <script type="text/javascript">
             (function ($) {

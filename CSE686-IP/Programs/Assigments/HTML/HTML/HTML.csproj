@@ -50,6 +50,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="experimental\matrixeffect\matrixeffect.htm" />
+    <Content Include="experimental\matrixeffect\matrixeffect.js" />
     <Content Include="home.aspx" />
     <Content Include="images\scores.png" />
     <Content Include="images\sitemap-orange.jpg" />
