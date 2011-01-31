@@ -4,6 +4,14 @@
     <title>Ider - A person who means Identity</title>
     <link href="styles/monitor.css" rel="stylesheet" type="text/css" />
     <link href="styles/progress.css" rel="stylesheet" type="text/css" />
+    <link href="styles/dock.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/jquery1.4.2.js"></script>
+    <script type="text/javascript" src="js/interface.js"></script>
+    <!--[if lt IE 7]>
+ <style type="text/css">
+ .dock img { behavior: url(iepngfix.htc) }
+ </style>
+<![endif]-->
     <script type="text/javascript">
         function mouseoverevent() {
             document.getElementById("hint").style.display = "block";
@@ -39,21 +47,61 @@
                 </div>
             </div>
             <div class="footer">
-                <a href="sitemap.htm">
+                <a href="home.aspx">
                     <img src="images/button.png" class="imagebtn" alt="apple" /></a>
                 <div id="hint" style="display: none;">
                     <div class="content">
                         <div class="caret">
                         </div>
                         <div class="literal">
-                            Click here to site map
+                            Click here to home map
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="progress">
+    </div>
+    <!--bottom dock -->
+    <div class="dock" id="dock2">
+        <div class="dock-container2">
+            <a class="dock-item2" href="home.aspx"><span>Home</span>
+                <img src="images/home.png" alt="home" />
+            </a>
+            <a class="dock-item2" href="http://www.google.com"><span>Google</span>
+                <img src="images/search.png" alt="google" />
+            </a>
+            <a class="dock-item2" href="http://www.apple.com"><span>Apple</span>
+                <img src="images/apple.png" alt="apple" />
+            </a>
+            <a class="dock-item2" href="#"><span>Scores</span>
+                <img src="images/Scores.png" alt="scores" />
+            </a>
+            <a class="dock-item2" href="/sitemap.htm"><span>Site Map</span>
+                <img src="images/site-map.png" alt="sitemap" />
+            </a>
         </div>
     </div>
+    <!--dock menu JS options -->
+    <script type="text/javascript">
+
+        $(document).ready(
+		function () {
+		    $('#dock2').Fisheye(
+				{
+				    maxWidth: 60,
+				    items: 'a',
+				    itemsText: 'span',
+				    container: '.dock-container2',
+				    itemWidth: 40,
+				    proximity: 80,
+				    alignment: 'left',
+				    valign: 'bottom',
+				    halign: 'center'
+				}
+			)
+		}
+	);
+
+    </script>
 </body>
 </html>
