@@ -9,9 +9,9 @@ nav
 {
     display: block;
     margin: 0 auto 20px;
-    border: 1px solid #222;
+    border: 1px solid #a62315;
     position: relative;
-    background-color: #6a6a6a;
+    background-color: #CE4B1B;
     font: 16px Tahoma, Sans-serif;
 }
 nav ul
@@ -37,8 +37,8 @@ nav li a
 {
     display: block;
     padding: 10px 20px;
-    border-left: 1px solid #999;
-    border-right: 1px solid #222;
+    border-left: 1px solid #f47321;
+    border-right: 1px solid #a62315;
     color: #eee;
     text-decoration: none;
 }
@@ -67,7 +67,7 @@ nav ul ul
     width: 100%;
     position: absolute;
     left: 0;
-    background: #6a6a6a;
+    background: #CE4B1B;
 }
 nav ul ul li
 {
@@ -82,7 +82,7 @@ nav ul ul a
 }
 nav ul ul a:hover
 {
-    background-color: #555;
+    background-color: #CE4B1B;
 }
 
 /* CSS3  */
@@ -94,8 +94,8 @@ nav ul ul a:hover
 }
 .cssgradients nav
 {
-    background-image: -moz-linear-gradient(0% 22px 90deg, #222, #999);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 70%, from(#999), to(#222));
+    background-image: -moz-linear-gradient(0% 22px 90deg, #a62315, #f47321);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 70%, from(#f47321), to(#a62315));
 }
 .boxshadow.rgba nav
 {
@@ -105,8 +105,8 @@ nav ul ul a:hover
 }
 .cssgradients nav li:hover
 {
-    background-image: -moz-linear-gradient(0% 100px 90deg, #999, #222);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222), to(#555));
+    background-image: -moz-linear-gradient(0% 100px 90deg, #f47321, #a62315);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#a62315), to(#CE4B1B));
 }
 .borderradius nav ul ul
 {
@@ -119,7 +119,7 @@ nav ul ul a:hover
 }
 .boxshadow.rgba nav ul ul
 {
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(f4,73,21,0.8);
     -moz-box-shadow: 2px 2px 2px rgba(0,0,0,.8);
     -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,.8);
     box-shadow: 2px 2px 2px rgba(0,0,0,.8);
@@ -131,7 +131,7 @@ nav ul ul a:hover
 }
 .rgba nav ul ul a:hover
 {
-    background-color: rgba(85,85,85,.9);
+    background-color: #a62315;
 }
 .borderradius.rgba nav ul ul li.last
 {

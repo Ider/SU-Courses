@@ -50,6 +50,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="experimental\kwicks\custom.js" />
+    <Content Include="experimental\kwicks\end.jpg" />
+    <Content Include="experimental\kwicks\jquery-1.2.6.min.js" />
+    <Content Include="experimental\kwicks\kwicks.js" />
+    <Content Include="experimental\kwicks\kwicks_final.html" />
+    <Content Include="experimental\kwicks\kwicks_sprite.jpg" />
+    <Content Include="experimental\kwicks\no_flicker.jpg" />
+    <Content Include="experimental\kwicks\style.css" />
+    <Content Include="experimental\kwicks\_notes\dwsync.xml" />
     <Content Include="experimental\matrixeffect\matrixeffect.htm" />
     <Content Include="experimental\matrixeffect\matrixeffect.js" />
     <Content Include="home.aspx" />
@@ -105,7 +114,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="master.Master" />
   </ItemGroup>
