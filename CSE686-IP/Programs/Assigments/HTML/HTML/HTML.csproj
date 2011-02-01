@@ -50,6 +50,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="cd_catalog.xml" />
     <Content Include="experimental\kwicks\custom.js" />
     <Content Include="experimental\kwicks\end.jpg" />
     <Content Include="experimental\kwicks\jquery-1.2.6.min.js" />
@@ -64,10 +65,13 @@
     <Content Include="home.aspx" />
     <Content Include="images\scores.png" />
     <Content Include="images\sitemap-orange.jpg" />
+    <Content Include="js\ajax\ajax.js" />
+    <Content Include="js\ajax\load_lab.js" />
     <Content Include="js\interface.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\jquery1.4.2.js" />
     <Content Include="js\modernizr.js" />
+    <Content Include="lab.xml" />
     <Content Include="main.htm" />
     <Content Include="sitemap.htm" />
     <Content Include="images\btn-arrow-down.gif" />

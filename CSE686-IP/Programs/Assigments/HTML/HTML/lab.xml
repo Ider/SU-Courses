@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- Edited by XMLSpy® -->
+<CSE>
+
+	<lab>
+		<number>#1</number>
+		<requirement>
+			<text>Assigment #1</text>
+			<url>assignment1.htm</url>
+		</requirement>
+		<page>
+			<text>Main Page</text>
+			<url>Main.htm</url>
+		</page>
+		<score>A</score>
+	</lab>
+
+	<lab>
+		<number>#2</number>
+		<requirement>
+			<text>Assigment #2</text>
+			<url>assignment2.htm</url>
+		</requirement>
+		<page>
+			<text>Home Page</text>
+			<url>home.aspx</url>
+		</page>
+		<score>A</score>
+	</lab>
+
+	<lab>
+		<number>#3</number>
+		<requirement>
+			<text>Assigment #3</text>
+			<url>assignment3.htm</url>
+		</requirement>
+		<page>
+			<text>Under Construction...</text>
+			<url></url>
+		</page>
+		<score></score>
+	</lab>
+
+	<lab>
+		<number>#4</number>
+		<requirement>
+			<text>Assigment #4</text>
+			<url>assignment4.htm</url>
+		</requirement>
+		<page>
+			<text>Under Construction...</text>
+			<url></url>
+		</page>
+		<score></score>
+	</lab>
+
+	<lab>
+		<number>#5</number>
+		<requirement>
+			<text>Assigment #5</text>
+			<url>assignment5.htm</url>
+		</requirement>
+		<page>
+			<text>Under Construction...</text>
+			<url></url>
+		</page>
+		<score></score>
+	</lab>
+
+	<lab>
+		<number>#6</number>
+		<requirement>
+			<text>Assigment #6</text>
+			<url>assignment6.htm</url>
+		</requirement>
+		<page>
+			<text>Under Construction...</text>
+			<url></url>
+		</page>
+		<score></score>
+	</lab>
+
+	<lab>
+		<number>#7</number>
+		<requirement>
+			<text>Assigment #7</text>
+			<url>assignment7.htm</url>
+		</requirement>
+		<page>
+			<text>Under Construction...</text>
+			<url></url>
+		</page>
+		<score></score>
+	</lab>
+
+	<lab>
+		<number>#8</number>
+		<requirement>
+			<text>Assigment #8</text>
+			<url>assignment8.htm</url>
+		</requirement>
+		<page>
+			<text>Under Construction...</text>
+			<url></url>
+		</page>
+		<score></score>
+	</lab>
+
+	<lab>
+		<number>#9</number>
+		<requirement>
+			<text>Assigment #9</text>
+			<url>assignment9.htm</url>
+		</requirement>
+		<page>
+			<text>Under Construction...</text>
+			<url></url>
+		</page>
+		<score></score>
+	</lab>
+
+	<lab>
+		<number>#10</number>
+		<requirement>
+			<text>Assigment #10</text>
+			<url>assignment10.htm</url>
+		</requirement>
+		<page>
+			<text>Under Construction...</text>
+			<url></url>
+		</page>
+		<score></score>
+	</lab>
+
+	<lab>
+		<number>#11</number>
+		<requirement>
+			<text>Assigment #11</text>
+			<url>assignment11.htm</url>
+		</requirement>
+		<page>
+			<text>Under Construction...</text>
+			<url></url>
+		</page>
+		<score></score>
+	</lab>
+
+</CSE>
