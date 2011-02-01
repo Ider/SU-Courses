@@ -1,11 +1,12 @@
 ﻿var xmlhttp;
 var container;
 var cssclass;
-
-function loadXMLLab(div, style) {
+var imgbtn;
+function loadXMLLab(div, style, imgandsrc) {
 
     container = div;
     cssclass = style ? style : "";
+    imgbtn = imgandsrc ? imgandsrc : "";
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     }
@@ -32,6 +33,9 @@ function presentLab() {
 
         txt = txt + "</tr></table>";
         document.getElementById(container).innerHTML = txt;
+        if (imgbtn) {
+            imgbtn.src = "images/btn-arrow-down.gif";
+        }
     }
 }
 
@@ -40,7 +44,7 @@ function getRequirmentList() {
     var list, i;
     var text, url, link;
     var x = xmlhttp.responseXML.documentElement.getElementsByTagName("requirement");
-    link = "http:\/\/www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/";
+    link = "http:\/\/www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/";
     list = "<ul>";
 
     for (i = 0; i < x.length; i++) {

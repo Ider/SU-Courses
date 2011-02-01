@@ -56,6 +56,7 @@
             width: 33.3%;
         }
     </style>
+    <script src="js/ajax/load_lab.js" type="text/javascript"></script>
 </head>
 <body>
     <div id="header">
@@ -118,77 +119,80 @@
     &nbsp;
     <div class="caption">
         CSE686 Lab Assigments
-        <img src="images/btn-arrow-down.gif" alt="arrow" id="img1" />
+        <img src="images/btn-arrow-up.gif" alt="arrow" id="img-lab" onclick="togglelab(this);" />
+        <img src="images/loading-icon.gif" alt="arrow" id="img-waiting" style="display: none" />
     </div>
-    <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map">
-        <thead>
-            <tr>
-                <td>
-                    Requirements
-                </td>
-                <td>
-                    Pages
-                </td>
-                <td>
-                    Scores
-                </td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <ul>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment1.htm">
-                            Assignemt #1</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment2.htm">
-                            Assignemt #2</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment3.htm">
-                            Assignemt #3</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment4.htm">
-                            Assignemt #4</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment5.htm">
-                            Assignemt #5</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment6.htm">
-                            Assignemt #6</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment7.htm">
-                            Assignemt #7</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment8.htm">
-                            Assignemt #8</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment9.htm">
-                            Assignemt #9</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment10.htm">
-                            Assignemt #10</a></li>
-                        <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment11.htm">
-                            Assignemt #11</a></li>
-                    </ul>
-                </td>
-                <td>
-                    <ul style="list-style-type: decimal;">
-                        <li><a href="main.htm">Main Page</a></li>
-                        <li>Under construction...</li>
-                        <li>Under construction...</li>
-                        <li>Under construction...</li>
-                        <li>Under construction...</li>
-                        <li>Under construction...</li>
-                        <li>Under construction...</li>
-                        <li>Under construction...</li>
-                        <li>Under construction...</li>
-                        <li>Under construction...</li>
-                        <li>Under construction...</li>
-                    </ul>
-                </td>
-                <td>
-                    <ul>
-                        <li>Unknow</li>
-                    </ul>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="lab">
+    </div>
+    <!-- <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map"> -->
+    <!--         <thead> -->
+    <!--             <tr> -->
+    <!--                 <td> -->
+    <!--                     Requirements -->
+    <!--                 </td> -->
+    <!--                 <td> -->
+    <!--                     Pages -->
+    <!--                 </td> -->
+    <!--                 <td> -->
+    <!--                     Scores -->
+    <!--                 </td> -->
+    <!--             </tr> -->
+    <!--         </thead> -->
+    <!--         <tbody> -->
+    <!--             <tr> -->
+    <!--                 <td> -->
+    <!--                     <ul> -->
+    <!--                         <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment1.htm"> -->
+    <!--                             Assignemt #1</a></li> -->
+    <!--                         <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment2.htm"> -->
+    <!--                             Assignemt #2</a></li> -->
+    <!--                         <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment3.htm"> -->
+    <!--                             Assignemt #3</a></li> -->
+    <!--                         <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment4.htm"> -->
+    <!--                             Assignemt #4</a></li> -->
+    <!--                         <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment5.htm"> -->
+    <!--                             Assignemt #5</a></li> -->
+    <!--                         <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment6.htm"> -->
+    <!--                             Assignemt #6</a></li> -->
+    <!--                         <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment7.htm"> -->
+    <!--                             Assignemt #7</a></li> -->
+    <!--                         <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment8.htm"> -->
+    <!--                             Assignemt #8</a></li> -->
+    <!--                         <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment9.htm"> -->
+    <!--                             Assignemt #9</a></li> -->
+    <!--                         <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment10.htm"> -->
+    <!--                             Assignemt #10</a></li> -->
+    <!--                         <li><a href="http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/assignment11.htm"> -->
+    <!--                             Assignemt #11</a></li> -->
+    <!--                     </ul> -->
+    <!--                 </td> -->
+    <!--                 <td> -->
+    <!--                     <ul style="list-style-type: decimal;"> -->
+    <!--                         <li><a href="main.htm">Main Page</a></li> -->
+    <!--                         <li>Under construction...</li> -->
+    <!--                         <li>Under construction...</li> -->
+    <!--                         <li>Under construction...</li> -->
+    <!--                         <li>Under construction...</li> -->
+    <!--                         <li>Under construction...</li> -->
+    <!--                         <li>Under construction...</li> -->
+    <!--                         <li>Under construction...</li> -->
+    <!--                         <li>Under construction...</li> -->
+    <!--                         <li>Under construction...</li> -->
+    <!--                         <li>Under construction...</li> -->
+    <!--                     </ul> -->
+    <!--                 </td> -->
+    <!--                 <td> -->
+    <!--                     <ul> -->
+    <!--                         <li>Unknow</li> -->
+    <!--                     </ul> -->
+    <!--                 </td> -->
+    <!--             </tr> -->
+    <!--         </tbody> -->
+    <!--     </table> -->
     &nbsp;
     <div class="caption">
         References
-        <img src="images/btn-arrow-down.gif" alt="arrow" id="img2" />
+        <img src="images/btn-arrow-down.gif" alt="arrow" id="img-ref" />
     </div>
     <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map">
         <thead>
@@ -225,5 +229,24 @@
             </tr>
         </tbody>
     </table>
+    <script type="text/javascript">
+
+        function togglelab(img) {
+            img.src = "images/loading-icon.gif"
+            var labdiv = document.getElementById("lab");
+            if (labdiv.innerHTML && labdiv.getElementsByTagName("table").length) {
+                labdiv.style.display = labdiv.style.display == "" ? "none" : "";
+                img.src = labdiv.style.display == "" ? "images/btn-arrow-down.gif" : "images/btn-arrow-up.gif";
+            }
+            else {
+                loadXMLLab("lab", "map", img);
+                labdiv.style.display = "";
+            }
+
+        }
+
+    
+
+    </script>
 </body>
 </html>

@@ -63,6 +63,7 @@
     <Content Include="experimental\matrixeffect\matrixeffect.htm" />
     <Content Include="experimental\matrixeffect\matrixeffect.js" />
     <Content Include="home.aspx" />
+    <Content Include="images\loading-icon.gif" />
     <Content Include="images\scores.png" />
     <Content Include="images\sitemap-orange.jpg" />
     <Content Include="js\ajax\ajax.js" />
@@ -129,7 +130,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>58181</DevelopmentServerPort>
+          <DevelopmentServerPort>54399</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
