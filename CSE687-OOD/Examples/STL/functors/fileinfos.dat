@@ -1,0 +1,49 @@
+
+    Demonstrating Control of Order of fileInfo Objects  
+                           in                           
+           Associative Container with Functor           
+ =======================================================
+
+  Compare by file time and date 
+ -------------------------------
+
+                          .    03:19 pm  02/11/2001
+              fileInfos.plg    03:18 pm  02/11/2001
+    fileInfos___Win32_Debug    03:18 pm  02/11/2001
+                   temp.dat    03:12 pm  02/11/2001
+                   vc60.pdb    03:12 pm  02/11/2001
+                  order.dsp    01:25 pm  02/11/2001
+              fileInfos.dsp    01:25 pm  02/11/2001
+               functors.opt    01:25 pm  02/11/2001
+                  files.cpp    01:24 pm  02/11/2001
+               functors.dsw    12:48 am  02/11/2001
+                  order.plg    12:45 am  02/11/2001
+                      Debug    12:45 am  02/11/2001
+                  order.cpp    12:45 am  02/11/2001
+               functors.ncb    10:58 am  02/11/2001
+               FILEINFO.DAT    06:35 pm  06/12/2000
+               FILEINFO.CPP    06:33 pm  06/12/2000
+                 FILEINFO.H    06:33 pm  06/12/2000
+
+
+  Compare by file name 
+ ----------------------
+
+                          .    03:19 pm  02/11/2001
+                      Debug    12:45 am  02/11/2001
+               FILEINFO.CPP    06:33 pm  06/12/2000
+               FILEINFO.DAT    06:35 pm  06/12/2000
+                 FILEINFO.H    06:33 pm  06/12/2000
+              fileInfos.dsp    01:25 pm  02/11/2001
+              fileInfos.plg    03:18 pm  02/11/2001
+    fileInfos___Win32_Debug    03:18 pm  02/11/2001
+                  files.cpp    01:24 pm  02/11/2001
+               functors.dsw    12:48 am  02/11/2001
+               functors.ncb    10:58 am  02/11/2001
+               functors.opt    01:25 pm  02/11/2001
+                  order.cpp    12:45 am  02/11/2001
+                  order.dsp    01:25 pm  02/11/2001
+                  order.plg    12:45 am  02/11/2001
+                   temp.dat    03:12 pm  02/11/2001
+                   vc60.pdb    03:12 pm  02/11/2001
+

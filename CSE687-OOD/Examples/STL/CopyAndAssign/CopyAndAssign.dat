@@ -1,0 +1,33 @@
+
+  Demonstrate Container Copy and Assignment
+ ===========================================
+
+  Vector of Animals
+ -------------------
+  ardvarrk platypus owl mule ox panther 
+
+
+  Copy of Vector of Animals
+ ---------------------------
+  ardvarrk platypus owl mule ox panther 
+
+
+  Empty after Assignment from Vector of Animals
+ -----------------------------------------------
+  ardvarrk platypus owl mule ox panther 
+
+
+  list copy constructed from vector
+ -----------------------------------
+  ardvarrk platypus owl mule ox panther 
+
+
+  List is Copy of Vector using Copy Algorithm with back_inserter
+ ----------------------------------------------------------------
+  ardvarrk platypus owl mule ox panther 
+
+
+  List is Copy of Vector using Copy Algorithm with front_inserter
+ -----------------------------------------------------------------
+  panther ox mule owl platypus ardvarrk 
+

@@ -1,0 +1,71 @@
+/////////////////////////////////////////////////////////////////
+// foreach.cpp - demonstrates use of foreach algorithms        //
+//                                                             //
+// Jim Fawcett, CSE687 - Object Oriented Design, Spring 2005   //
+/////////////////////////////////////////////////////////////////
+
+#include <algorithm>
+#include <list>
+#include <vector>
+#include <iostream>
+
+template <typename T>
+struct showEach
+{
+  void operator()(const T& t) const { std::cout << t << " "; }
+};
+
+template <typename C>
+void show(const C& c)
+{
+  std::cout << "\n  ";
+  for_each(c.begin(), c.end(), showEach<C::value_type>());
+  std::cout << "\n";
+}
+
+template <typename T>
+class Sum 
+{
+public:
+  Sum() : sum_(0) {}
+  void operator()(T& t) { sum_ += t; }
+  T result() { return sum_; }
+private: 
+  T sum_;
+};
+
+void main()
+{
+  std::cout << "\n  Demonstrating for_each Algorithm "
+            << "\n ==================================\n";
+
+  int array[13] = { -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+  std::list<int> li(&array[0], &array[13]);
+  show(li);
+  
+  // foreach is the only algorithm that returns its operation, e.g., Sum()
+
+  int sum = for_each(li.begin(),li.end(),Sum<int>()).result();
+  std::cout << "\n  sum of list = " << sum << "\n\n";
+
+  double darray[10] = { -2.5, -1.5, 0, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5 };
+  std::vector<double> vd(&darray[0], &darray[10]);
+  show(vd);
+
+  double dsum = for_each(vd.begin(),vd.end(),Sum<double>()).result();
+  std::cout << "\n  sum of list = " << dsum << "\n\n";
+}
+
+  Demonstrating for_each Algorithm 
+ ==================================
+
+  -2 -1 0 1 2 3 4 5 6 7 8 9 10 
+
+  sum of list = 52
+
+
+  -2.5 -1.5 0 1.5 2.5 3.5 4.5 5.5 6.5 7.5 
+
+  sum of list = 27.5
+
+

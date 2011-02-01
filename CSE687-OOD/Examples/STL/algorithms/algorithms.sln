@@ -1,0 +1,37 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "algo1", "ALGO1\algo1.vcproj", "{FE98F32B-9876-4711-8AE3-603B95F3A1EA}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "algo2", "algo2\algo2.vcproj", "{69976F11-FD72-436B-91F0-0621828AB1E3}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Algo3", "Algo3\Algo3.vcproj", "{2CB2BB29-ED49-42B6-ABE0-4CEEA6A421D4}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{FE98F32B-9876-4711-8AE3-603B95F3A1EA}.Debug.ActiveCfg = Debug|Win32
+		{FE98F32B-9876-4711-8AE3-603B95F3A1EA}.Debug.Build.0 = Debug|Win32
+		{FE98F32B-9876-4711-8AE3-603B95F3A1EA}.Release.ActiveCfg = Release|Win32
+		{FE98F32B-9876-4711-8AE3-603B95F3A1EA}.Release.Build.0 = Release|Win32
+		{69976F11-FD72-436B-91F0-0621828AB1E3}.Debug.ActiveCfg = Debug|Win32
+		{69976F11-FD72-436B-91F0-0621828AB1E3}.Debug.Build.0 = Debug|Win32
+		{69976F11-FD72-436B-91F0-0621828AB1E3}.Release.ActiveCfg = Release|Win32
+		{69976F11-FD72-436B-91F0-0621828AB1E3}.Release.Build.0 = Release|Win32
+		{2CB2BB29-ED49-42B6-ABE0-4CEEA6A421D4}.Debug.ActiveCfg = Debug|Win32
+		{2CB2BB29-ED49-42B6-ABE0-4CEEA6A421D4}.Debug.Build.0 = Debug|Win32
+		{2CB2BB29-ED49-42B6-ABE0-4CEEA6A421D4}.Release.ActiveCfg = Release|Win32
+		{2CB2BB29-ED49-42B6-ABE0-4CEEA6A421D4}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

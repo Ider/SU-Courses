@@ -1,0 +1,37 @@
+--------------------Configuration: algo1 - Win32 Debug--------------------
+Begining build with project "E:\su\CSE687\s98\demos\stl\algorithms\algo1\algo1.dsp", at root.
+Active configuration is Win32 (x86) Console Application (based on Win32 (x86) Console Application)
+
+Project's tools are:
+			"32-bit C/C++ Compiler for 80x86" with flags "/nologo /MLd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/algo1.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /c "
+			"Win32 Resource Compiler" with flags "/l 0x409 /d "_DEBUG" "
+			"Browser Database Maker" with flags "/nologo /o"Debug/algo1.bsc" "
+			"COFF Linker for 80x86" with flags "kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/algo1.pdb" /debug /machine:I386 /out:"Debug/algo1.exe" /pdbtype:sept "
+			"Custom Build" with flags ""
+			"<Component 0xa>" with flags ""
+
+Creating temp file "E:\TEMP\RSP879.tmp" with contents </nologo /MLd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/algo1.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /c 
+"E:\su\CSE687\s98\demos\stl\algorithms\algo1\algo1.cpp"
+>
+Creating command line "cl.exe @E:\TEMP\RSP879.tmp" 
+Creating temp file "E:\TEMP\RSP87A.tmp" with contents <kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/algo1.pdb" /debug /machine:I386 /out:"Debug/algo1.exe" /pdbtype:sept 
+.\Debug\algo1.obj>
+Creating command line "link.exe @E:\TEMP\RSP87A.tmp" 
+Compiling...
+algo1.cpp
+E:\su\CSE687\s98\demos\stl\algorithms\algo1\algo1.cpp(47) : warning C4786: 'std::reverse_bidirectional_iterator<std::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>::iterator,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> *,int>' : identifier was truncated to '255' characters in the debug information
+E:\su\CSE687\s98\demos\stl\algorithms\algo1\algo1.cpp(47) : warning C4786: 'std::reverse_bidirectional_iterator<std::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>::const_iterator,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::basic_string<char,std::char_traits<char>,std::allocator<char>> const &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> const *,int>' : identifier was truncated to '255' characters in the debug information
+E:\Program Files\DevStudio\VC\INCLUDE\iterator(24) : warning C4786: 'reverse_bidirectional_iterator<std::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>::iterator,std::basic_string<char,std::char_traits<char>,std::a' : identifier was truncated to '255' characters in the debug information
+E:\Program Files\DevStudio\VC\INCLUDE\iterator(24) : warning C4786: 'std::reverse_bidirectional_iterator<std::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>::iterator,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> *,int>' : identifier was truncated to '255' characters in the debug information
+E:\Program Files\DevStudio\VC\INCLUDE\iterator(24) : warning C4786: 'reverse_bidirectional_iterator<std::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>::const_iterator,std::basic_string<char,std::char_traits<char>,' : identifier was truncated to '255' characters in the debug information
+E:\Program Files\DevStudio\VC\INCLUDE\iterator(24) : warning C4786: 'std::reverse_bidirectional_iterator<std::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>::const_iterator,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::basic_string<char,std::char_traits<char>,std::allocator<char>> const &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> const *,int>' : identifier was truncated to '255' characters in the debug information
+E:\Program Files\DevStudio\VC\INCLUDE\list(127) : warning C4786: 'std::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>' : identifier was truncated to '255' characters in the debug information
+E:\Program Files\DevStudio\VC\INCLUDE\list(145) : warning C4786: 'std::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>::~list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>' : identifier was truncated to '255' characters in the debug information
+E:\Program Files\DevStudio\VC\INCLUDE\iterator(123) : warning C4786: 'std::insert_iterator<std::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>>::insert_iterator<std::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>>' : identifier was truncated to '255' characters in the debug information
+warning C4786: 'std::reverse_bidirectional_iterator<std::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>::const_iterator,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::basic_string<char,std::char_traits<char>,std::allocator<char>> const &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> const *,int>' : identifier was truncated to '255' characters in the debug information
+warning C4786: 'std::reverse_bidirectional_iterator<std::list<std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::allocator<std::basic_string<char,std::char_traits<char>,std::allocator<char>>>>::iterator,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &,std::basic_string<char,std::char_traits<char>,std::allocator<char>> *,int>' : identifier was truncated to '255' characters in the debug information
+Linking...
+
+
+
+algo1.exe - 0 error(s), 11 warning(s)

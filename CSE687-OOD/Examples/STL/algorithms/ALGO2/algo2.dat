@@ -1,0 +1,69 @@
+
+  finished processing file
+
+   0: ///////////////////////////////////////////////////////////////
+   1: //  algo2.cpp - demonstrate generate algorithm on a semi-    //
+   2: //              useful application                           //
+   3: //                                                           //
+   4: //  Jim Fawcett, 4/5/98                                      //
+   5: ///////////////////////////////////////////////////////////////
+   6: 
+   7: #include <iostream>
+   8: #include <strstream>
+   9: #include <fstream>
+  10: #include <iomanip>
+  11: #include <algorithm>    // fill, fill_n, copy, generate
+  12: #include <iterator>     // ostream_iterator
+  13: #include <list>
+  14: #include <string>
+  15: 
+  16: #pragma warning(disable : 4786)
+  17: 
+  18: using namespace std;
+  19: 
+  20: ///////////////////////////////////////////////////////////
+  21: //  use this global because in Visual C++ generator must //
+  22: //  take no arguments, but stringGen needs access to the //
+  23: //  input stream -- will show alternative in next demo.  //
+  24: ///////////////////////////////////////////////////////////
+  25: ifstream in;
+  26: 
+  27: string stringGen() {
+  28: 
+  29:   static count = 0;
+  30:   ostrstream temp;
+  31:   temp.flush();
+  32:   temp << setw(4) << count++ << ": ";
+  33:   const int MAX = 75;
+  34:   char buffer[MAX];
+  35:   if(!in.good())
+  36:     throw "finished processing file\n";
+  37:   in.getline(buffer,MAX);
+  38:   temp << buffer << '\n' << ends;
+  39:   return temp.str();
+  40: }
+  41: 
+  42: void main(int argc, char *argv[]) {
+  43: 
+  44:   in.open(argv[argc-1]);
+  45:   if(!in.good() || argc == 1) {
+  46:     cout << "  can't open file " << argv[argc-1] << endl;
+  47:     return;
+  48:   }
+  49:   
+  50:   const int MAXLines = 1000;
+  51:   list<string> fileLines;
+  52:   try {
+  53:     generate_n(
+  54:       inserter(fileLines, fileLines.begin()), 
+  55:       MAXLines, 
+  56:       stringGen 
+  57:     );
+  58:   }
+  59:   catch(char *msg) {
+  60:     cout << "\n  " << msg << endl;
+  61:   }
+  62:   ostream_iterator<string> outString(cout);
+  63:   copy(fileLines.begin(), fileLines.end(), outString);
+  64: }
+  65: 

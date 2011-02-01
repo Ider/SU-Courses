@@ -1,0 +1,21 @@
+
+    Demonstrating Control of Order   
+                  in                 
+  Associative Container with Functor 
+ ====================================
+
+  fifth  string
+  first  string
+  fourth string
+  second string
+  sixth  string
+  third  string
+
+
+  third  string
+  sixth  string
+  second string
+  fourth string
+  first  string
+  fifth  string
+

@@ -1,0 +1,38 @@
+
+  Testing Fileinfo objects 
+ ==========================
+  path = C:\SU\CSE687\STL\functors\fileInfo
+
+  Files in FindNextFile Order
+                .         0  02/12/2001  10:23 am  D
+               ..         0  02/12/2001  10:23 am  D
+            Debug         0  02/12/2001  10:21 am  D
+     FILEINFO.DAT         0  02/12/2001  10:23 am  A
+     fileInfo.dsp      4392  02/12/2001  10:21 am  A
+     fileInfo.plg      1327  02/12/2001  10:21 am  A
+
+  Files ordered alphabetically:
+                .         0  02/12/2001  10:23 am  D
+               ..         0  02/12/2001  10:23 am  D
+            Debug         0  02/12/2001  10:21 am  D
+     FILEINFO.DAT         0  02/12/2001  10:23 am  A
+     fileInfo.dsp      4392  02/12/2001  10:21 am  A
+     fileInfo.plg      1327  02/12/2001  10:21 am  A
+
+  Files ordered by date:
+            Debug         0  02/12/2001  10:21 am  D
+     fileInfo.plg      1327  02/12/2001  10:21 am  A
+     fileInfo.dsp      4392  02/12/2001  10:21 am  A
+                .         0  02/12/2001  10:23 am  D
+               ..         0  02/12/2001  10:23 am  D
+     FILEINFO.DAT         0  02/12/2001  10:23 am  A
+
+  Files ordered by size:
+                .         0  02/12/2001  10:23 am  D
+               ..         0  02/12/2001  10:23 am  D
+            Debug         0  02/12/2001  10:21 am  D
+     FILEINFO.DAT         0  02/12/2001  10:23 am  A
+     fileInfo.plg      1327  02/12/2001  10:21 am  A
+     fileInfo.dsp      4392  02/12/2001  10:21 am  A
+
+

@@ -1,0 +1,737 @@
+/////////////////////////////////////////////////////////////////
+//  files.cpp - demonstrate use of functor to control order    //
+//              of an STL set holding fileInfo objects         //
+//                                                             //
+//  Jim Fawcett, CSE 687 - Object Oriented Design, Spring 2001 //
+/////////////////////////////////////////////////////////////////
+
+#pragma warning(disable : 4786)
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <set>
+#include "fileInfo.h"
+using namespace std;
+
+//----< comparison functor >-----------------------------------
+
+class compareFI {
+
+  public:
+    bool operator()(const fileInfo &fi1, const fileInfo &fi2);
+};
+
+bool compareFI::operator()(const fileInfo &fi1, const fileInfo &fi2) {
+
+  return (fi1.later(fi2));
+}
+
+//----< test stub >--------------------------------------------
+
+void main() {
+
+  cout << "\n  Demonstrate Using Functor to Control Order of  "
+       << "\n                fileInfo Objects                 "
+       << "\n            in Associative Container             "
+       << "\n ===============================================\n";
+
+  cout << "\n  Compare by file time and date using functor "
+       << "\n      based on fileInfo later(...) member     "
+       << "\n ---------------------------------------------";
+
+  set<fileInfo,compareFI> filesByDate;
+  fileInfo getFile(".");
+
+  if(getFile.firstFile("*.*"))
+    filesByDate.insert(getFile);
+  while(getFile.nextFile())
+    filesByDate.insert(getFile);
+  getFile.closeFile();
+
+  set<fileInfo, compareFI>::iterator it;
+  for(it = filesByDate.begin(); it != filesByDate.end(); it++)
+    cout << "\n  " << setw(25) << it->name() 
+                   << setw(12) << it->time() 
+                   << setw(12) << it->date();
+  cout << "\n\n";
+
+//
+  cout << "\n  Compare by file name using fileInfo operator<(...) "
+       << "\n ----------------------------------------------------";
+
+  set<fileInfo> filesByName;
+  for(it = filesByDate.begin(); it != filesByDate.end(); it++)
+    filesByName.insert(*it);
+
+  set<fileInfo>::iterator nit;
+  for(nit = filesByName.begin(); nit != filesByName.end(); nit++)
+    cout << "\n  " << setw(25) << nit->name() 
+                   << setw(12) << nit->time() 
+                   << setw(12) << nit->date();
+  cout << "\n\n";
+}
+
+
+
+  Demonstrate Using Functor to Control Order of  
+                fileInfo Objects                 
+            in Associative Container             
+ ===============================================
+
+  Compare by file time and date using functor 
+      based on fileInfo later(...) member     
+ ---------------------------------------------
+
+                          .    07:04 pm  02/11/2001
+                      lines    07:04 pm  02/11/2001
+                  files.cpp    07:03 pm  02/11/2001
+              fileinfos.prn    07:01 pm  02/11/2001
+                  order.dsp    07:00 pm  02/11/2001
+              fileInfos.dsp    07:00 pm  02/11/2001
+               functors.opt    07:00 pm  02/11/2001
+              fileInfos.plg    06:59 pm  02/11/2001
+    fileInfos___Win32_Debug    06:59 pm  02/11/2001
+                         ff    03:19 pm  02/11/2001
+              fileinfos.dat    03:19 pm  02/11/2001
+                   temp.dat    03:12 pm  02/11/2001
+                   vc60.pdb    03:12 pm  02/11/2001
+               functors.dsw    12:48 am  02/11/2001
+                  order.plg    12:45 am  02/11/2001
+                      Debug    12:45 am  02/11/2001
+                  order.cpp    12:45 am  02/11/2001
+               functors.ncb    10:58 am  02/11/2001
+               FILEINFO.CPP    06:33 pm  06/12/2000
+                 FILEINFO.H    06:33 pm  06/12/2000
+
+
+  Compare by file name using fileInfo operator<(...) 
+ ----------------------------------------------------
+
+                          .    07:04 pm  02/11/2001
+                      Debug    12:45 am  02/11/2001
+               FILEINFO.CPP    06:33 pm  06/12/2000
+                 FILEINFO.H    06:33 pm  06/12/2000
+                         ff    03:19 pm  02/11/2001
+              fileInfos.dsp    07:00 pm  02/11/2001
+              fileInfos.plg    06:59 pm  02/11/2001
+    fileInfos___Win32_Debug    06:59 pm  02/11/2001
+              fileinfos.dat    03:19 pm  02/11/2001
+              fileinfos.prn    07:01 pm  02/11/2001
+                  files.cpp    07:03 pm  02/11/2001
+               functors.dsw    12:48 am  02/11/2001
+               functors.ncb    10:58 am  02/11/2001
+               functors.opt    07:00 pm  02/11/2001
+                      lines    07:04 pm  02/11/2001
+                  order.cpp    12:45 am  02/11/2001
+                  order.dsp    07:00 pm  02/11/2001
+                  order.plg    12:45 am  02/11/2001
+                   temp.dat    03:12 pm  02/11/2001
+                   vc60.pdb    03:12 pm  02/11/2001
+
+#ifndef FILEINFO_H
+#define FILEINFO_H
+///////////////////////////////////////////////////////////////
+//                                                           //
+//  fileInfo.h  -  manage file information extracted         //
+//  ver 1.5        from win32 API                            //
+//                                                           //
+//  Language:      Visual C++, ver 5.0                       //
+//  Platform:      Micron Dual Pentium 200, Windows NT 4.0   //
+//  Application:   CSE687 Project #1, S98                    //
+//  Author:        Jim Fawcett, CST 2-187, (315) 443-3948    //
+//                 fawcett@neptune.syr.edu                   //
+//                                                           //
+///////////////////////////////////////////////////////////////
+/*
+
+    class fileInfo Operations:
+    --------------------------
+    The fileInfo class acquires file information from win32 API
+    functions and returns parts of the information on demand.
+    Specifically a fileInfo object extracts file name, size,
+    and time and date of last modification for each file matching
+    a pattern in the current directory.
+
+    A fileInfo object saves the current directory path when created
+    and its destructor restores that original path before the object
+    is destroyed.
+
+    Public Interface:
+    -----------------
+      fileInfo fi;                     void construct
+      fileInfo fi(d:\test);            constructor setting path
+      fileInfo fi2 = fi1;              copy constructor
+      bool b = fi.firstFile("*.cpp");  find first file matching in
+                                       current dir, true if exists
+      bool b = fi.nextFile();          find next file matching
+                                       pattern in current dir
+      fi.closeFile();                  close file search
+      string n = fi.name();            file name
+      string d = fi.date();            file date last modified
+      string t = fi.time();            file time last modified
+      unsigned long int s = fi.size(); file size
+      if(fi1 <  fi2) {...}             test file name order
+      if(fi1 == fi2) {...}             test file name equality
+      if(fi1.later(fi2)) {...}         test file time
+      if(fi1.earlier(fi2)) {...}       test file time
+      if(fi1.smaller(fi2)) {...}       test file size
+      if(fi1.larger (fi2)) {...}       test file size
+      fi.showData(cout);               display file data
+      fi.showData(cout,'');            display with no return
+
+      string path = fi.getPath();      get name of current dir
+      fi.setPath(const string &path);  set current dir to path
+
+    See test stub for example of how to use fileInfo object with STL
+    containers to get sets of files, sorted by name, date, or size.
+*/
+
+//
+
+///////////////////////////////////////////////////////////////
+//                      maintenance page                     //
+///////////////////////////////////////////////////////////////
+//  Build Process                                            //
+//                                                           //
+//  Files Required:                                          //
+//    fileInfo.h, fileInfo.cpp                               //
+//                                                           //
+//  Building with Visual C++ , ver 5.0, from command line:   //
+//    cl -GX -DTEST_FILEINFO fileInfo.cpp                    //
+//                                                           //
+///////////////////////////////////////////////////////////////
+/*
+
+    Maintenance History
+    ===================
+      ver 1.5 : 12 Jun 00
+        - added extraction of attributes
+	ver 1.4 : 29 Jan 00
+        - added tests for earlier and smaller member functions in 
+          test stub
+      ver 1.3 : 14 Jul 99
+        - more cosmetic modification to header file
+      ver 1.2 : 11 Jul 99
+        - added member function fileClose()
+        - cosmetic modifications to both header and implem. files.
+      ver 1.1 : 05 Jul 99
+        - modified member function args, removing WIN32_FIND_DATA
+          structures from all member function parameter lists
+        - added firstFile(...) and nextFile() functions
+        - save and restore original path
+      ver 1.0 : 07 Feb 98
+        - first release
+
+    Planned Modifications:
+    ======================
+    - none
+
+*/
+//
+
+///////////////////////////////////////////////////////////////
+//                         Declarations                      //
+///////////////////////////////////////////////////////////////
+
+#include <windows.h>
+#include <string>
+
+class fileInfo {
+
+  friend class navig;
+
+public:
+  fileInfo();
+  fileInfo(const fileInfo &fi);
+  fileInfo(const std::string &path);
+  ~fileInfo();
+
+  bool firstFile(const std::string &filePattern);
+  bool nextFile();
+  void closeFile();
+  std::string       name() const;
+  unsigned long int size() const;
+  std::string       date() const;
+  std::string       time() const;
+  std::string       attributes() const;
+  bool isArchive()     const;
+  bool isCompressed() const;
+  bool isDirectory()  const;
+  bool isEncrypted()  const;
+  bool isHidden()     const;
+  bool isNormal()     const;
+  bool isOffLine()    const;
+  bool isReadOnly()   const;
+  bool isSystem()     const;
+  bool isTemporary()  const;
+
+  fileInfo& operator=(const fileInfo &fi);
+  bool operator< (const fileInfo &fi) const;
+  bool operator==(const fileInfo &fi) const;
+  bool earlier   (const fileInfo &fi) const;
+  bool later     (const fileInfo &fi) const;
+  bool smaller   (const fileInfo &fi) const;
+  bool larger    (const fileInfo &fi) const;
+
+  void showData  (std::ostream &out,char ch='\n') const;
+  std::string getPath(void);
+  void setPath(const std::string &s);
+
+private:
+  WIN32_FIND_DATA data;
+  HANDLE _handle;
+  std::string _origPath;
+  SYSTEMTIME DateAndTime() const;
+};
+
+
+//
+
+//----< return file name >-------------------------------------
+
+inline std::string fileInfo::name() const { return data.cFileName; }
+
+//----< less than operator >-----------------------------------
+
+inline bool fileInfo::operator<(const fileInfo &fd) const {
+
+  return (strcmp(data.cFileName,fd.data.cFileName) == -1);
+}
+
+//----< comparison operator >----------------------------------
+
+inline bool fileInfo::operator==(const fileInfo &fi) const { 
+  
+  return (strcmp(data.cFileName,fi.data.cFileName) == 0);
+}
+
+//----< comparison of file time and date >---------------------
+
+inline bool fileInfo::earlier(const fileInfo &fi) const {
+
+  return (
+    CompareFileTime(&data.ftLastWriteTime,&fi.data.ftLastWriteTime) == -1
+  );
+}
+
+//----< comparison of file time and date >---------------------
+
+inline bool fileInfo::later(const fileInfo &fi) const {
+
+  return (
+    CompareFileTime(&data.ftLastWriteTime,&fi.data.ftLastWriteTime) == 1
+  );
+}
+
+#endif
+///////////////////////////////////////////////////////////////
+//                                                           //
+//  fileInfo.cpp - manage file information extracted         //
+//  ver 1.5        from win32 API                            //
+//                                                           //
+//  Language:      Visual C++, ver 5.0                       //
+//  Platform:      Micron Dual Pentium 200, Windows NT 4.0   //
+//  Application:   CSE687 Project #1, S98                    //
+//  Author:        Jim Fawcett, CST 2-187, (315) 443-3948    //
+//                 fawcett@ecs.syr.edu                       //
+//                                                           //
+///////////////////////////////////////////////////////////////
+
+#pragma warning(disable : 4786)
+#include <iostream>
+#include <iomanip>
+#include <set>
+#include "fileInfo.h"
+
+using namespace std;
+
+//----< void constructor >-------------------------------------
+
+fileInfo::fileInfo() {
+
+  _origPath = getPath();
+}
+
+//----< constructor taking path >------------------------------
+
+fileInfo::fileInfo(const string &path) {
+
+  _origPath = getPath();
+  setPath(path);
+}
+
+//
+
+//----< copy constructor >-------------------------------------
+
+fileInfo::fileInfo(const fileInfo &fi) {
+
+  data.dwFileAttributes    = fi.data.dwFileAttributes;
+  data.ftCreationTime      = fi.data.ftCreationTime;  
+  data.ftLastAccessTime    = fi.data.ftLastAccessTime;
+  data.ftLastWriteTime     = fi.data.ftLastWriteTime; 
+  data.nFileSizeHigh       = fi.data.nFileSizeHigh;
+  data.nFileSizeLow        = fi.data.nFileSizeLow; 
+  data.dwReserved0         = fi.data.dwReserved0;
+  data.dwReserved1         = fi.data.dwReserved1;
+  int i;
+  for(i=0; i<MAX_PATH; i++) {
+    data.cFileName[i]      = fi.data.cFileName[i];
+    if(fi.data.cFileName[i] == '\0')
+      break;
+  }
+  for(i=0; i<14; i++)
+    data.cAlternateFileName[i] = fi.data.cAlternateFileName[i];
+  _origPath = getPath();
+}
+
+//----< destructor >-------------------------------------------
+
+fileInfo::~fileInfo() {
+
+  setPath(_origPath);
+}
+
+//----< assignment operator >----------------------------------
+
+fileInfo& fileInfo::operator=(const fileInfo &fi) {
+
+  if(this == &fi) return *this;
+  data.dwFileAttributes    = fi.data.dwFileAttributes;
+  data.ftCreationTime      = fi.data.ftCreationTime;  
+  data.ftLastAccessTime    = fi.data.ftLastAccessTime;
+  data.ftLastWriteTime     = fi.data.ftLastWriteTime; 
+  data.nFileSizeHigh       = fi.data.nFileSizeHigh;
+  data.nFileSizeLow        = fi.data.nFileSizeLow; 
+  data.dwReserved0         = fi.data.dwReserved0;
+  data.dwReserved1         = fi.data.dwReserved1;
+  int i;
+  for(i=0; i<MAX_PATH; i++)
+    data.cFileName[i]      = fi.data.cFileName[i];
+  for(i=0; i<14; i++)
+    data.cAlternateFileName[i] = fi.data.cAlternateFileName[i];
+  return *this;
+}
+
+//
+
+//----< get file size >----------------------------------------
+
+unsigned long int fileInfo::size() const {
+
+  DWORDLONG myDWL = (data.nFileSizeHigh << 32);
+  myDWL += (data.nFileSizeLow & 0xFFFFFFFF);
+  return static_cast<unsigned long int>(myDWL);
+}
+
+//----< is my size smaller? >----------------------------------
+
+bool fileInfo::smaller(const fileInfo &fi) const {
+  
+  DWORDLONG myDWL = (data.nFileSizeHigh << 32);
+  myDWL += data.nFileSizeLow & 0xFFFFFFFF;
+  DWORDLONG fiDWL = (fi.data.nFileSizeHigh << 32);
+  fiDWL += fi.data.nFileSizeLow & 0xFFFFFFFF;
+  return (myDWL < fiDWL);
+}
+
+//----< is my size larger? >-----------------------------------
+
+bool fileInfo::larger(const fileInfo &fi) const {
+  
+  DWORDLONG myDWL = (data.nFileSizeHigh << 32);
+  myDWL += data.nFileSizeLow & 0xFFFFFFFF;
+  DWORDLONG fiDWL = (fi.data.nFileSizeHigh << 32);
+  fiDWL += fi.data.nFileSizeLow & 0xFFFFFFFF;
+  return (myDWL > fiDWL);
+}
+
+//----< private date and time extraction >---------------------
+
+SYSTEMTIME fileInfo::DateAndTime() const {
+
+ SYSTEMTIME st;
+ FILETIME  lft;
+ FileTimeToLocalFileTime(&data.ftLastWriteTime,&lft);
+ FileTimeToSystemTime(&lft,&st);
+ return st;
+}
+
+//
+
+//----< get file date string >---------------------------------
+
+string fileInfo::date() const {
+
+  SYSTEMTIME st = DateAndTime();
+  string date;
+  date.resize(0);
+  date += '0' + (st.wMonth / 10);
+  date += '0' + (st.wMonth % 10);
+  date += '/';
+  date += '0' + (st.wDay / 10);
+  date += '0' + (st.wDay % 10);
+  date += '/';
+  int tmp = st.wYear;
+  date += '0' + (tmp/1000);
+  tmp  %= 1000;
+  date += '0' + (tmp / 100);
+  tmp %= 100;
+  date += '0' + (tmp / 10);
+  tmp %= 10;
+  date += '0' + (tmp);
+  return date;
+}
+
+//----< get file time string >---------------------------------
+
+string fileInfo::time() const {
+
+  SYSTEMTIME st = DateAndTime();
+  string time;
+  string AMPM = "am";
+  if(st.wHour > 12) {
+    st.wHour -= 12;
+    AMPM = "pm";
+  }
+  time.erase();
+  time += '0' + (st.wHour   / 10);
+  time += '0' + (st.wHour   % 10);
+  time += ':';
+  time += '0' + (st.wMinute / 10);
+  time += '0' + (st.wMinute % 10);
+//  time += ':';
+//  time += '0' + (st.wSecond / 10);
+//  time += '0' + (st.wSecond % 10);
+  time += " ";
+  time += AMPM;
+  return time;
+}
+
+//
+
+//----< make attributes string >-------------------------------
+
+string fileInfo::attributes() const {
+
+  string temp;
+  if(isArchive()   ) temp += 'A';
+  if(isCompressed()) temp += 'C';
+  if(isDirectory() ) temp += 'D';
+  if(isEncrypted() ) temp += 'E';
+  if(isHidden()    ) temp += 'H';
+  if(isOffLine()   ) temp += 'O';
+  if(isReadOnly()  ) temp += 'R';
+  if(isSystem()    ) temp += 'S';
+  if(isTemporary() ) temp += 'T';
+  return temp;
+}
+
+//----< pragma needed to disable performance warning >---------
+//
+//  for some reason casts don't inhibit warning as they should
+
+#pragma warning(disable : 4800)
+
+//----< is this file Archive? >--------------------------------
+
+bool fileInfo::isArchive() const { 
+  
+  return (data.dwFileAttributes & FILE_ATTRIBUTE_ARCHIVE);
+}
+
+//----< is this file Compressed? >-----------------------------
+
+bool fileInfo::isCompressed() const { 
+  
+  return (data.dwFileAttributes & FILE_ATTRIBUTE_COMPRESSED); 
+}
+
+//----< is this file Directory? >------------------------------
+
+bool fileInfo::isDirectory() const { 
+  
+  return (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY); 
+}
+
+//----< is this file Encrypted? >------------------------------
+
+bool fileInfo::isEncrypted() const { 
+  
+  return (data.dwFileAttributes & FILE_ATTRIBUTE_ENCRYPTED); 
+}
+
+//----< is this file Hidden? >---------------------------------
+
+bool fileInfo::isHidden() const { 
+  
+  return (data.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN); 
+}
+
+//----< is this file Normal? >---------------------------------
+
+bool fileInfo::isNormal() const { 
+  
+  return (data.dwFileAttributes & FILE_ATTRIBUTE_NORMAL); 
+}
+
+//----< is this file OffLine? >--------------------------------
+
+bool fileInfo::isOffLine() const { 
+  
+  return (data.dwFileAttributes & FILE_ATTRIBUTE_OFFLINE); 
+}
+
+//----< is this file ReadOnly? >-------------------------------
+
+bool fileInfo::isReadOnly() const { 
+  
+  return (data.dwFileAttributes & FILE_ATTRIBUTE_READONLY); 
+}
+
+//----< is this file System? >---------------------------------
+
+bool fileInfo::isSystem() const { 
+  
+  return (data.dwFileAttributes & FILE_ATTRIBUTE_SYSTEM); 
+}
+
+//----< is this file Temporary? >------------------------------
+
+bool fileInfo::isTemporary() const { 
+  
+  return (data.dwFileAttributes & FILE_ATTRIBUTE_TEMPORARY); 
+}
+
+//
+
+//----< display line of file data >----------------------------
+
+void fileInfo::showData(ostream &out, char ch) const {
+
+  out << "  " << setw(15) << name();
+  out << setw(10) << size();
+  out << "  " << date();
+  out << "  " << time();
+  out << "  " << attributes();
+  out << ch;
+}
+
+//----< get current directory >--------------------------------
+
+string fileInfo::getPath() {
+
+  char buffer[256];
+  GetCurrentDirectory(256,buffer);
+  return buffer;
+}
+
+//----< set current directory >--------------------------------
+
+void fileInfo::setPath(const string &s) {
+
+  SetCurrentDirectory(s.c_str());
+}
+
+//----< find first file >--------------------------------------
+
+bool fileInfo::firstFile(const string &filePattern) {
+
+  _handle = FindFirstFile(filePattern.c_str(),&data);
+  return (_handle != INVALID_HANDLE_VALUE);
+}
+
+//----< find next file >---------------------------------------
+
+bool fileInfo::nextFile() {
+
+  if(_handle == INVALID_HANDLE_VALUE)
+    return false;
+  return (FindNextFile(_handle,&data) == TRUE);
+}
+
+//----< close search for current file >------------------------
+
+void fileInfo::closeFile() {  FindClose(_handle); }
+
+//
+
+//----< test stub >--------------------------------------------
+
+#ifdef TEST_FILEINFO
+
+//----< function object which detects date order >-------------
+
+class earlier {
+  
+public:
+  bool operator()(const fileInfo &fi1, const fileInfo &fi2) {
+    return fi1.earlier(fi2);
+  }
+};
+
+//----< function object which detects size order >-------------
+
+class smaller {
+  
+public:
+  bool operator()(const fileInfo &fi1, const fileInfo &fi2) {
+    return fi1.smaller(fi2);
+  }
+};
+
+//----< test entry point >-------------------------------------
+
+void main(int argc, char *argv[]) {
+
+  cout << "\n  Testing Fileinfo objects "
+       << "\n ==========================\n";
+
+  typedef set< fileInfo, less<fileInfo> > setNames;   // names are unique
+  typedef multiset< fileInfo, earlier > setDates;     // dates may not be
+  typedef multiset< fileInfo, smaller > setSizes;     // sizes may not be
+
+  fileInfo f;
+  if(argc > 1)
+    f.setPath(argv[1]);
+  cout << "  path = " << f.getPath() << endl;
+
+//
+
+  cout << "\n  Files in FindNextFile Order\n";
+  setNames sn;
+  setDates sd;
+  setSizes ss;
+
+  if(!f.firstFile("*.*"))
+    return;
+  sn.insert(f);
+  sd.insert(f);
+  ss.insert(f);
+  f.showData(cout);
+  while(f.nextFile()) {
+    sn.insert(f);
+    sd.insert(f);
+    ss.insert(f);
+    f.showData(cout);
+  }
+
+  cout << "\n  Files ordered alphabetically:\n";
+  setNames::iterator fnIt;
+  for(fnIt = sn.begin(); fnIt != sn.end(); fnIt++) {
+    fnIt->showData(cout);
+  }
+  cout << "\n  Files ordered by date:\n";
+  setDates::iterator fdIt;
+  for(fdIt = sd.begin(); fdIt != sd.end(); fdIt++) {
+    fdIt->showData(cout);
+  }
+  cout << "\n  Files ordered by size:\n";
+  setSizes::iterator fsIt;
+  for(fsIt = ss.begin(); fsIt != ss.end(); fsIt++) {
+    fsIt->showData(cout);
+  }
+  cout << "\n\n";
+}
+
+#endif

@@ -1,0 +1,204 @@
+///////////////////////////////////////////////////////////////
+//  algo2b.cpp - demonstrate generate algorithm on a semi-   //
+//              useful application                           //
+//                                                           //
+//  Jim Fawcett, 4/5/98                                      //
+///////////////////////////////////////////////////////////////
+
+#include <iostream>     // cout
+#include <strstream>    // ostrstream
+#include <fstream>      // ifstream
+#include <iomanip>      // setw(n)
+#include <algorithm>    // copy, generate
+#include <iterator>     // ostream_iterator
+#include <list>       
+#include <string>
+
+#pragma warning(disable : 4786)
+
+using namespace std;
+
+/////////////////////////////////////////////////////////////
+//  stringGen -- a string generator function               //
+//               Reads an input stream, collecting lines   //
+//               and prepending a line count.  It returns  //
+//               the numbered line as a string.            //
+/////////////////////////////////////////////////////////////
+
+string stringGen(istream &in) {
+
+  static count = 0;
+    // capture line number and line text in a strstream
+  ostrstream temp;
+  temp.flush();
+  temp << setw(4) << count++ << ": ";
+  const int MAX = 75;
+  char buffer[MAX];
+  if(!in.good())
+    throw "finished processing file\n";
+  in.getline(buffer,MAX);
+  temp << buffer << '\n' << ends;
+  return temp.str();
+}
+
+//
+/////////////////////////////////////////////////////////////
+//  strGen -- a function object                            //
+//            Input stream is captured with constructor    //
+//            and stored as a private member, nicely       //
+//            encapsulated.  The operator() member now     //
+//            serves as the generator function!            //
+/////////////////////////////////////////////////////////////
+            
+class strGen {
+
+  public:
+    strGen(istream &in) : _in(in) { }
+    string operator()() { return stringGen(_in); }
+  private:
+    istream &_in;
+};
+
+void main(int argc, char *argv[]) {
+
+  ifstream in(argv[argc-1]);
+  if(!in.good() || argc == 1) {
+    cout << "  can't open file " << argv[argc-1] << endl;
+    return;
+  }
+  
+  /////////////////////////////////////////////////////
+  // declare function object for use as a generator  //
+  /////////////////////////////////////////////////////
+
+  strGen sG(in);  
+
+  /////////////////////////////////////////////////
+  // store numbered lines in a list of strings   //
+  /////////////////////////////////////////////////
+
+  const int MAXLines = 1000;
+  list<string> fileLines;
+
+  try {
+    generate_n(
+      inserter(fileLines, fileLines.begin()),  // insert in list
+      MAXLines,                                // line limit 
+      sG                                       // invoke sG() 
+    );
+  }
+  catch(char *msg) {
+    cout << "\n  " << msg << endl;
+  }
+
+  /////////////////////////////////////
+  //  send numbered lines to output  //
+  /////////////////////////////////////
+
+  ostream_iterator<string> outString(cout);
+  copy(fileLines.begin(), fileLines.end(), outString);
+}
+
+  finished processing file
+
+   0: ///////////////////////////////////////////////////////////////
+   1: //  algo2b.cpp - demonstrate generate algorithm on a semi-   //
+   2: //              useful application                           //
+   3: //                                                           //
+   4: //  Jim Fawcett, 4/5/98                                      //
+   5: ///////////////////////////////////////////////////////////////
+   6: 
+   7: #include <iostream>     // cout
+   8: #include <strstream>    // ostrstream
+   9: #include <fstream>      // ifstream
+  10: #include <iomanip>      // setw(n)
+  11: #include <algorithm>    // copy, generate
+  12: #include <iterator>     // ostream_iterator
+  13: #include <list>       
+  14: #include <string>
+  15: 
+  16: #pragma warning(disable : 4786)
+  17: 
+  18: using namespace std;
+  19: 
+  20: /////////////////////////////////////////////////////////////
+  21: //  stringGen -- a string generator function               //
+  22: //               Reads an input stream, collecting lines   //
+  23: //               and prepending a line count.  It returns  //
+  24: //               the numbered line as a string.            //
+  25: /////////////////////////////////////////////////////////////
+  26: 
+  27: string stringGen(istream &in) {
+  28: 
+  29:   static count = 0;
+  30:     // capture line number and line text in a strstream
+  31:   ostrstream temp;
+  32:   temp.flush();
+  33:   temp << setw(4) << count++ << ": ";
+  34:   const int MAX = 75;
+  35:   char buffer[MAX];
+  36:   if(!in.good())
+  37:     throw "finished processing file\n";
+  38:   in.getline(buffer,MAX);
+  39:   temp << buffer << '\n' << ends;
+  40:   return temp.str();
+  41: }
+  42: 
+  43: //
+  44: /////////////////////////////////////////////////////////////
+  45: //  strGen -- a function object                            //
+  46: //            Input stream is captured with constructor    //
+  47: //            and stored as a private member, nicely       //
+  48: //            encapsulated.  The operator() member now     //
+  49: //            serves as the generator function!            //
+  50: /////////////////////////////////////////////////////////////
+  51:             
+  52: class strGen {
+  53: 
+  54:   public:
+  55:     strGen(istream &in) : _in(in) { }
+  56:     string operator()() { return stringGen(_in); }
+  57:   private:
+  58:     istream &_in;
+  59: };
+  60: 
+  61: void main(int argc, char *argv[]) {
+  62: 
+  63:   ifstream in(argv[argc-1]);
+  64:   if(!in.good() || argc == 1) {
+  65:     cout << "  can't open file " << argv[argc-1] << endl;
+  66:     return;
+  67:   }
+  68:   
+  69:   /////////////////////////////////////////////////////
+  70:   // declare function object for use as a generator  //
+  71:   /////////////////////////////////////////////////////
+  72: 
+  73:   strGen sG(in);  
+  74: 
+  75:   /////////////////////////////////////////////////
+  76:   // store numbered lines in a list of strings   //
+  77:   /////////////////////////////////////////////////
+  78: 
+  79:   const int MAXLines = 1000;
+  80:   list<string> fileLines;
+  81: 
+  82:   try {
+  83:     generate_n(
+  84:       inserter(fileLines, fileLines.begin()),  // insert in list
+  85:       MAXLines,                                // line limit 
+  86:       sG                                       // invoke sG() 
+  87:     );
+  88:   }
+  89:   catch(char *msg) {
+  90:     cout << "\n  " << msg << endl;
+  91:   }
+  92: 
+  93:   /////////////////////////////////////
+  94:   //  send numbered lines to output  //
+  95:   /////////////////////////////////////
+  96: 
+  97:   ostream_iterator<string> outString(cout);
+  98:   copy(fileLines.begin(), fileLines.end(), outString);
+  99: }
+ 100: 

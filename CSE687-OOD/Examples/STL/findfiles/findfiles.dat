@@ -1,0 +1,41 @@
+
+  Directory - C:\SU\CSE687\Code\STL\findfiles\*.*
+
+  Directory - C:\SU\CSE687\Code\STL\findfiles\Debug\*.*
+      BuildLog.htm	(2354)
+     findfiles.exe	(286720)
+     findfiles.obj	(512179)
+     findfiles.pdb	(1641472)
+          vc70.idb	(166912)
+          vc70.pdb	(651264)
+        WS_FTP.LOG	(3212)
+
+  Directory - C:\SU\CSE687\Code\STL\findfiles\*.*
+     findfiles.cpp	(2752)
+     findfiles.dat	(0)
+     findfiles.dsp	(4320)
+     findfiles.dsw	(541)
+     findfiles.exe	(155648)
+     findfiles.obj	(203740)
+     findfiles.sln	(907)
+     findfiles.suo	(8704)
+  findfiles.vcproj	(4050)
+        WS_FTP.LOG	(3806)
+
+  Directory - C:\SU\CSE687\Code\STL\findfiles\*.*
+
+  sorted list of all files:
+    BuildLog.htm
+    WS_FTP.LOG
+    findfiles.cpp
+    findfiles.dat
+    findfiles.dsp
+    findfiles.dsw
+    findfiles.exe
+    findfiles.obj
+    findfiles.pdb
+    findfiles.sln
+    findfiles.suo
+    findfiles.vcproj
+    vc70.idb
+    vc70.pdb

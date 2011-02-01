@@ -1,0 +1,17 @@
+
+  Demonstrating Set Intersection 
+ ================================
+
+  Show input sets 
+ -----------------
+
+    aardvark man owl platypus snake 
+
+    aardvark elephant man mule platypus zebra 
+
+  Show set intersection 
+ -----------------------
+
+    aardvark man platypus 
+
+
