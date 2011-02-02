@@ -1,12 +1,12 @@
 ﻿var xmlhttp;
 var container;
 var cssclass;
-var imgbtn;
+var imgsrc;
 function loadXMLLab(div, style, imgandsrc) {
 
     container = div;
     cssclass = style ? style : "";
-    imgbtn = imgandsrc ? imgandsrc : "";
+    imgsrc = imgandsrc ? imgandsrc : "";
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     }
@@ -33,8 +33,15 @@ function presentLab() {
 
         txt = txt + "</tr></table>";
         document.getElementById(container).innerHTML = txt;
-        if (imgbtn) {
-            imgbtn.src = "images/btn-arrow-down.gif";
+        if (imgsrc) {
+            try {
+                var str = imgsrc.split(",");
+                var img = document.getElementById(str[0]);
+
+                img.src = str[1];
+            }
+            catch (er) {
+            }
         }
     }
 }

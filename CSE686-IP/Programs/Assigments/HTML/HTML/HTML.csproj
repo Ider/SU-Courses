@@ -73,6 +73,7 @@
     <Content Include="js\jquery1.4.2.js" />
     <Content Include="js\modernizr.js" />
     <Content Include="lab.xml" />
+    <Content Include="labinfo.aspx" />
     <Content Include="main.htm" />
     <Content Include="sitemap.htm" />
     <Content Include="images\btn-arrow-down.gif" />
@@ -103,12 +104,21 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\Common.cs" />
+    <Content Include="App_Code\Model\Lab.cs" />
     <Compile Include="home.aspx.cs">
       <DependentUpon>home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="home.aspx.designer.cs">
       <DependentUpon>home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="labinfo.aspx.cs">
+      <DependentUpon>labinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="labinfo.aspx.designer.cs">
+      <DependentUpon>labinfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="master.Master.cs">
       <DependentUpon>master.Master</DependentUpon>
@@ -122,6 +132,7 @@
   <ItemGroup>
     <Content Include="master.Master" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>
@@ -130,7 +141,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54399</DevelopmentServerPort>
+          <DevelopmentServerPort>62273</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <!-- Edited by XMLSpy® -->
-<CSE>
+<CSE686>
 
 	<lab>
 		<number>#1</number>
@@ -23,10 +23,10 @@
 			<url>assignment2.htm</url>
 		</requirement>
 		<page>
-			<text>Home Page</text>
-			<url>home.aspx</url>
+			<text>Lab Infomation</text>
+			<url>labinfo.aspx</url>
 		</page>
-		<score>A</score>
+		<score></score>
 	</lab>
 
 	<lab>
@@ -146,4 +146,4 @@
 		<score></score>
 	</lab>
 
-</CSE>
+</CSE686>
