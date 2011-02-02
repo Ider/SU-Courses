@@ -1,0 +1,145 @@
+
+C:\SU\CSE687\Code\Parser\SEMIEX~1
+>SemiExpression ../semiexpression.h ../semiexpression.cpp 
+
+  Testing SemiExp class
+ =======================
+
+  Note that comments and quotes are returned as single tokens
+
+
+  Processing file ../semiexpression.h
+  -----------------------------------
+
+  # ifndef SEMIEXPRESSION_H
+  # define SEMIEXPRESSION_H
+  # include < string >
+  # include < iostream >
+  # include < fstream >
+  # include < vector >
+  # include "tokenizer.h"
+  class SemiExp {
+  public : SemiExp ( Toker * pTokr ) ;
+  ~ SemiExp ( ) ;
+  bool getSemiExp ( ) ;
+  int length ( ) ;
+  std :: string & operator [ ] ( int n ) ;
+  int find ( const std :: string & tok ) ;
+  void push_back ( const std :: string & tok ) ;
+  bool remove ( const std :: string & tok ) ;
+  void trimFront ( ) ;
+  void clear ( ) ;
+  std :: string showSemiExp ( ) ;
+  void verbose ( bool v = true ) ;
+  private : Toker * pToker ;
+  std :: vector < std :: string > toks ;
+  bool isTerminator ( std :: string tok ) ;
+  bool Verbose ;
+  }
+  ;
+  inline int SemiExp :: length ( ) {
+  return ( int ) toks . size ( ) ;
+  }
+  inline void SemiExp :: verbose ( bool v ) {
+  Verbose = v ;
+  }
+  inline void SemiExp :: clear ( ) {
+  toks . clear ( ) ;
+  }
+  inline void SemiExp :: push_back ( const std :: string & tok ) {
+  toks . push_back ( tok ) ;
+  }
+  # endif
+
+
+
+  Processing file ../semiexpression.cpp
+  -------------------------------------
+
+  # include < algorithm >
+  # include "SemiExpression.h"
+  SemiExp :: SemiExp ( Toker * pTokr ) : pToker ( pTokr ) , Verbose ( false ) {
+  }
+  SemiExp ::~ SemiExp ( ) {
+  }
+  bool SemiExp :: isTerminator ( std :: string tok ) {
+  if ( tok . length ( ) == 0 ) return false ;
+  if ( tok == "{" || tok == "}" || tok == ";" ) return true ;
+  if ( tok == "\n" ) {
+  int n = find ( "#" ) ;
+  if ( n < length ( ) ) return true ;
+  }
+  return false ;
+  }
+  bool SemiExp :: getSemiExp ( ) {
+  toks . clear ( ) ;
+  std :: string tok ;
+  do {
+  if ( pToker -> isFileEnd ( ) ) return false ;
+  tok = pToker -> getTok ( ) ;
+  if ( Verbose ) {
+  if ( tok != "\n" ) std :: cout << "\n--tok=" << tok << std :: endl ;
+  else std :: cout << "\n--tok=newline\n" ;
+  }
+  toks . push_back ( tok ) ;
+  }
+  while ( ! isTerminator ( tok ) ) ;
+  return true ;
+  }
+  std :: string & SemiExp :: operator [ ] ( int n ) {
+  if ( n < 0 || toks . size ( ) <= ( size_t ) n ) throw std :: exception ( "SemiExp index out of range" ) ;
+  return toks [ n ] ;
+  }
+  std :: string SemiExp :: showSemiExp ( ) {
+  if ( toks . size ( ) == 0 ) return "" ;
+  std :: string temp ( " " ) ;
+  for ( size_t i = 0 ;
+  i < toks . size ( ) ;
+  ++ i ) if ( toks [ i ] != "\n" ) temp . append ( " " ) . append ( toks [ i ] ) ;
+  return temp ;
+  }
+  int SemiExp :: find ( const std :: string & tok ) {
+  for ( int i = 0 ;
+  i < length ( ) ;
+  ++ i ) if ( tok == toks [ i ] ) return i ;
+  return length ( ) ;
+  }
+  bool SemiExp :: remove ( const std :: string & tok ) {
+  std :: vector < std :: string >:: iterator it ;
+  it = std :: find ( toks . begin ( ) , toks . end ( ) , tok ) ;
+  if ( it != toks . end ( ) ) {
+  toks . erase ( it ) ;
+  return true ;
+  }
+  return false ;
+  }
+  void SemiExp :: trimFront ( ) {
+  while ( toks . size ( ) > 0 && toks [ 0 ] == "\n" ) remove ( "\n" ) ;
+  }
+  # ifdef TEST_SEMIEXPRESSION
+  int main ( int argc , char * argv [ ] ) {
+  std :: cout << "\n  Testing SemiExp class\n " << std :: string ( 23 , '=' ) << std :: endl ;
+  std :: cout << "\n  Note that comments and quotes are returned as single tokens\n\n" ;
+  if ( argc < 2 ) {
+  std :: cout << "\n  please enter name of file to process on command line\n\n" ;
+  return 1 ;
+  }
+  for ( int i = 1 ;
+  i < argc ;
+  ++ i ) {
+  std :: cout << "\n  Processing file " << argv [ i ] ;
+  std :: cout << "\n  " << std :: string ( 16 + strlen ( argv [ i ] ) , '-' ) << "\n\n" ;
+  try {
+  Toker toker ( argv [ i ] ) ;
+  SemiExp se ( & toker ) ;
+  while ( se . getSemiExp ( ) ) std :: cout << se . showSemiExp ( ) . c_str ( ) << std :: endl ;
+  std :: cout << "\n\n" ;
+  }
+  catch ( std :: exception ex ) {
+  std :: cout << "\n  " << ex . what ( ) << "\n\n" ;
+  }
+  }
+  }
+  # endif
+
+

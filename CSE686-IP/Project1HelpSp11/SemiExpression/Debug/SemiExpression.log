@@ -1,0 +1,32 @@
+﻿Build started 1/25/2011 8:08:18 AM.
+     1>Project "C:\Users\Ider\Project\Project1HelpSp11\SemiExpression\SemiExpression.vcxproj" on node 4 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\SemiExpression.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (Ider)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D TEST_SEMIEXPRESSION /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ..\SemiExpression.cpp ..\Tokenizer.cpp
+         Tokenizer.cpp
+         SemiExpression.cpp
+         Generating Code...
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\SemiExpression.exe.embed.manifest.res" Debug\SemiExpression_manifest.rc 
+       Link:
+         C:\Program Files (Ider)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ider\Project\Project1HelpSp11\Debug\SemiExpression.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\SemiExpression.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Ider\Project\Project1HelpSp11\Debug\SemiExpression.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\Ider\Project\Project1HelpSp11\Debug\SemiExpression.lib" /MACHINE:X86 Debug\SemiExpression.exe.embed.manifest.res
+         Debug\SemiExpression.obj
+         Debug\Tokenizer.obj
+         LINK : C:\Users\Ider\Project\Project1HelpSp11\Debug\SemiExpression.exe not found or not built by the last incremental link; performing full link
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\SemiExpression.exe.embed.manifest" /manifest Debug\SemiExpression.exe.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"Debug\SemiExpression.exe.embed.manifest.res" Debug\SemiExpression_manifest.rc 
+       LinkEmbedManifest:
+         C:\Program Files (Ider)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ider\Project\Project1HelpSp11\Debug\SemiExpression.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\SemiExpression.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Ider\Project\Project1HelpSp11\Debug\SemiExpression.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\Ider\Project\Project1HelpSp11\Debug\SemiExpression.lib" /MACHINE:X86 Debug\SemiExpression.exe.embed.manifest.res
+         Debug\SemiExpression.obj
+         Debug\Tokenizer.obj
+         SemiExpression.vcxproj -> C:\Users\Ider\Project\Project1HelpSp11\Debug\SemiExpression.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\SemiExpression.unsuccessfulbuild".
+         Touching "Debug\SemiExpression.lastbuildstate".
+     1>Done Building Project "C:\Users\Ider\Project\Project1HelpSp11\SemiExpression\SemiExpression.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.41

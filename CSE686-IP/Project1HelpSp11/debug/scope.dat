@@ -1,0 +1,114 @@
+
+  Code Scope Analysis Demo
+ ==========================
+
+  Processing file ..\semiexpression.cpp
+  -------------------------------------
+
+  Walking code scopes in ..\semiexpression.cpp
+  --------------------------------------------
+
+  scope stack: 
+  SemiExp :: SemiExp ( Toker * pTokr ) : pToker ( pTokr ) , Verbose ( false ) , commentIsSemiExp ( false ) {
+  scope stack: function 
+  }
+  scope stack: 
+
+  SemiExp ::~ SemiExp ( ) {
+  scope stack: function 
+  }
+  scope stack: 
+
+  bool SemiExp :: isTerminator ( std :: string tok ) {
+  scope stack: function 
+  if ( tok == "\n" ) {
+  scope stack: function if 
+  }
+  scope stack: function 
+  }
+  scope stack: 
+
+  bool SemiExp :: get ( ) {
+  scope stack: function 
+  do {
+  scope stack: function do 
+  if ( pToker -> isFileEnd ( ) ) {
+  scope stack: function do if 
+  }
+  scope stack: function do 
+  if ( Verbose ) {
+  scope stack: function do if 
+  }
+  scope stack: function do 
+  }
+  scope stack: function 
+  }
+  scope stack: 
+
+  bool SemiExp :: isComment ( const std :: string & tok ) {
+  scope stack: function 
+  }
+  scope stack: 
+
+  std :: string & SemiExp :: operator [ ] ( int n ) {
+  scope stack: function 
+  }
+  scope stack: 
+
+  std :: string SemiExp :: show ( ) {
+  scope stack: function 
+  }
+  scope stack: 
+
+  int SemiExp :: find ( const std :: string & tok ) {
+  scope stack: function 
+  }
+  scope stack: 
+
+  bool SemiExp :: remove ( const std :: string & tok ) {
+  scope stack: function 
+  if ( it != toks . end ( ) ) {
+  scope stack: function if 
+  }
+  scope stack: function 
+  }
+  scope stack: 
+
+  void SemiExp :: trimFront ( ) {
+  scope stack: function 
+  }
+  scope stack: 
+
+  void SemiExp :: toLower ( ) {
+  scope stack: function 
+  ++ i ) {
+  scope stack: function ) 
+  ++ j ) {
+  scope stack: function ) ) 
+  }
+  scope stack: function ) 
+  }
+  scope stack: function 
+  }
+  scope stack: 
+
+  int main ( int argc , char * argv [ ] ) {
+  scope stack: function 
+  if ( argc < 2 ) {
+  scope stack: function if 
+  }
+  scope stack: function 
+  ++ i ) {
+  scope stack: function ) 
+  try {
+  scope stack: function ) try 
+  }
+  scope stack: function ) 
+  catch ( std :: exception ex ) {
+  scope stack: function ) catch 
+  }
+  scope stack: function ) 
+  }
+  scope stack: function 
+  }
+  scope stack: 

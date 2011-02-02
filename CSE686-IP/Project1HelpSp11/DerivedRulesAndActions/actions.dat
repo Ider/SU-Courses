@@ -1,0 +1,25 @@
+
+C:\SU\CSE687\Code\Parser\DerivedRulesAndActions
+>actionsandrules ../actionsandrules.h 
+
+  Testing ActionsAndRules class
+ ==============================
+
+  Preproc Stmt:   # ifndef ACTIONSANDRULES_H
+  Preproc Stmt:   # define ACTIONSANDRULES_H
+  Preproc Stmt:   # include < queue >
+  Preproc Stmt:   # include < string >
+  Preproc Stmt:   # include "Parser.h"
+  Preproc Stmt:   # include "semiexpression.h"
+  Pretty Stmt:      bool doTest ( SemiExp & se ) 
+  Pretty Stmt:      bool isSpecialKeyWord ( const std :: string & tok ) 
+  Pretty Stmt:      bool doTest ( SemiExp & se ) 
+  Pretty Stmt:      void doAction ( SemiExp & se ) 
+  Pretty Stmt:      void doAction ( SemiExp & se ) 
+  Pretty Stmt:      void doAction ( SemiExp & se ) 
+  Pretty Stmt:      PreprocToQ ( std :: queue < std :: string >& resultQ ) 
+  Pretty Stmt:      void doAction ( SemiExp & se ) 
+  Pretty Stmt:      PrettyPrintToQ ( std :: queue < std :: string >& resultQ ) 
+  Pretty Stmt:      void doAction ( SemiExp & se ) 
+  Preproc Stmt:   # endif
+

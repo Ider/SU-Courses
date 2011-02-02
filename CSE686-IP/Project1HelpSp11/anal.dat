@@ -1,0 +1,467 @@
+
+        ANAL, v1.6 - Code Analysis Program
+  ----------------------------------------------
+       copyright (c) Jim Fawcett, 1992-2007
+           all rights granted to users
+             except right to publish
+
+
+  file path:
+  c:\su\CSE687\code\parser
+
+
+  02/01/2009  03:21:31 PM      1638  ActionsAndRules.cpp
+ ==================================================
+   cyclo lines function name
+     3    36   main
+
+  02/01/2009  03:21:30 PM      5480  ActionsAndRules.h
+ ==================================================
+   cyclo lines function name
+  - type:   class PreprocStatement : public IRule 
+     2    10   doTest
+  - type:   class FunctionDefinition : public IRule 
+     3    10   isSpecialKeyWord
+     3    14   doTest
+  - type:   class PrintPreproc : public IAction 
+     1     5   doAction
+  - type:   class PrintFunction : public IAction 
+     1     5   doAction
+  - type:   class PrettyPrintFunction : public IAction 
+     2    11   doAction
+  - type:   class PreprocToQ : public IAction 
+     1     4   PreprocToQ
+     1     4   doAction
+  - type:   class PrettyPrintToQ : public IAction 
+     1     4   PrettyPrintToQ
+     2    11   doAction
+
+  module summary:
+ ================
+  lines of function code: 114
+  lines of code text:     247
+  cyclomatic complexity:  20
+
+  02/01/2009  03:21:26 PM      6699  ConfigureParser.cpp
+ ==================================================
+   cyclo lines function name
+     1     3   ConfigParseToConsole::ConfigParseToConsole
+     1    13   ConfigParseToConsole
+     2     6   ConfigParseToConsole::Attach
+     1    31   ConfigParseToConsole::Build
+     1     3   ConfigParseToQueue::ConfigParseToQueue
+     1    13   ConfigParseToQueue
+     2     6   ConfigParseToQueue::Attach
+     1    30   ConfigParseToQueue::Build
+    12    88   main
+
+  02/01/2009  03:21:25 PM      3717  ConfigureParser.h
+ ==================================================
+   cyclo lines function name
+  - pointer returned from public member function:
+      Parser *Build(); 
+  - type:   class ConfigParseToConsole : IBuilder 
+  - pointer returned from public member function:
+      Parser *Build(); 
+  - pointer returned from public member function:
+      std::queue < std::string > *GetQueue(); 
+  - type:   class ConfigParseToQueue : IBuilder 
+     1     4   ConfigParseToQueue::GetQueue
+
+  module summary:
+ ================
+  lines of function code: 197
+  lines of code text:     365
+  cyclomatic complexity:  23
+
+  02/01/2009  03:21:21 PM     15507  FileInfo.cpp   
+ ==================================================
+   cyclo lines function name
+     1     6   fileInfo::fileInfo
+     1     7   fileInfo::fileInfo
+     5    26   fileInfo::fileInfo
+     1     1   fileInfo
+     4    26   operator=
+     1     6   fileInfo::size
+     1     8   fileInfo::smaller
+     1     8   fileInfo::larger
+     1     6   fileInfo::getFILETIME
+     1     5   fileInfo::compareFileTime
+     1     8   fileInfo::DateAndTime
+     1    21   fileInfo::date
+     3    26   fileInfo::time
+    10    14   fileInfo::attributes
+     1     4   fileInfo::isArchive
+     1     4   fileInfo::isCompressed
+     1     4   fileInfo::isDirectory
+     1     4   fileInfo::isEncrypted
+     1     4   fileInfo::isHidden
+     1     4   fileInfo::isNormal
+     1     4   fileInfo::isOffLine
+     1     4   fileInfo::isReadOnly
+     1     4   fileInfo::isSystem
+     1     4   fileInfo::isTemporary
+     5    18   fileInfo::showData
+     1     6   fileInfo::getPath
+     2     9   fileInfo::setPath
+     2    10   fileInfo::firstFile
+     2     6   fileInfo::nextFile
+     1     1   fileInfo::closeFile
+  - type:   class lessNoCase 
+     3     9   operator()
+  - type:   class earlier 
+     1     4   operator()
+  - type:   class smaller 
+     1     4   operator()
+    17   120   main
+
+  02/01/2009  03:21:21 PM     10342  FileInfo.h     
+ ==================================================
+   cyclo lines function name
+  - type:   class fileInfo 
+     1     1   fileInfo::lastSetPath
+     1     1   fileInfo::name
+     1     4   operator<
+     1     4   operator==
+     1     6   fileInfo::earlier
+     1     6   fileInfo::later
+     1     4   fileInfo::showSize
+     1     4   fileInfo::showTime
+     1     4   fileInfo::showSeconds
+     1     4   fileInfo::showDate
+     1     4   fileInfo::showAttributes
+
+  module summary:
+ ================
+  lines of function code: 437
+  lines of code text:     804
+  cyclomatic complexity:  88
+
+  02/01/2009  03:21:17 PM      3861  Parser.cpp     
+ ==================================================
+   cyclo lines function name
+     1     4   Parser::addRule
+     3    10   Parser::parse
+     1     4   IRule::addAction
+     3     6   IRule::doActions
+    12    88   main
+
+  02/01/2009  03:21:16 PM      4094  Parser.h       
+ ==================================================
+   cyclo lines function name
+  - global data declaration:
+      class Parser; 
+  - type:   class IBuilder 
+     1     2   IBuilder
+  - type:   class IAction 
+     1     2   IAction
+  - type:   class IRule 
+     1     2   IRule
+  - type:   class Parser 
+     1     1   Parser::Parser
+     1     1   Parser
+     1     1   Parser::next
+
+  module summary:
+ ================
+  lines of function code: 121
+  lines of code text:     274
+  cyclomatic complexity:  26
+
+  02/01/2009  03:21:11 PM      3245  ScopeAnalysisDemo.cpp
+ ==================================================
+   cyclo lines function name
+     3    16   scoper::showStack
+    10    46   scoper::walkScopes
+     3    32   main
+
+  02/01/2009  03:21:11 PM      1686  ScopeAnalysisDemo.h
+ ==================================================
+   cyclo lines function name
+  - type:   class scoper 
+     1     2   scoper
+
+  module summary:
+ ================
+  lines of function code: 96
+  lines of code text:     159
+  cyclomatic complexity:  17
+
+  02/01/2009  03:21:09 PM      4738  SemiExpression.cpp
+ ==================================================
+   cyclo lines function name
+     1     4   SemiExp::SemiExp
+     1     3   SemiExp
+     6    16   SemiExp::isTerminator
+     6    24   SemiExp::get
+     4     7   SemiExp::isComment
+     2     6   operator[]
+     4    10   SemiExp::show
+     3     7   SemiExp::find
+     2    11   SemiExp::remove
+     2     5   SemiExp::trimFront
+     3    10   SemiExp::toLower
+     4    35   main
+
+  02/01/2009  03:21:09 PM      4373  SemiExpression.h
+ ==================================================
+   cyclo lines function name
+  - type:   class SemiExp : public ITokCollection 
+     1     1   SemiExp::length
+     1     1   SemiExp::verbose
+     1     4   SemiExp::makeCommentSemiExp
+     1     1   SemiExp::clear
+     1     4   SemiExp::push_back
+
+  module summary:
+ ================
+  lines of function code: 149
+  lines of code text:     303
+  cyclomatic complexity:  43
+
+  02/01/2009  03:21:08 PM       209  stdafx.cpp     
+ ==================================================
+   cyclo lines function name
+
+  02/01/2009  03:21:09 PM       242  stdafx.h       
+ ==================================================
+   cyclo lines function name
+
+  module summary:
+ ================
+  lines of function code: 0
+  lines of code text:     13
+  cyclomatic complexity:  0
+
+  02/01/2009  03:21:07 PM      9278  Tokenizer.cpp  
+ ==================================================
+   cyclo lines function name
+     4    17   Toker::Toker
+     3    12   Toker
+     2     7   Toker::setMode
+     1     5   Toker::setSingleCharTokens
+     4    17   Toker::attach
+     2     8   Toker::peek
+     1     7   Toker::putback
+     2    10   Toker::get
+     4    16   Toker::getChar
+     2     6   Toker::isSingleCharTok
+     3     9   Toker::stripWhiteSpace
+     2     6   Toker::isIdentifierChar
+     6    14   Toker::isTokEnd
+     3    14   Toker::isBeginComment
+     3     8   Toker::isEndComment
+     3    18   Toker::eatComment
+     3    14   Toker::isBeginQuote
+     4    11   Toker::isEndQuote
+     2    14   Toker::eatQuote
+    11    47   Toker::getTok
+     8    62   main
+
+  02/01/2009  03:21:07 PM      4975  Tokenizer.h    
+ ==================================================
+   cyclo lines function name
+  - type:   class Toker 
+     1     4   Toker::returnComments
+     1     1   Toker::isFileEnd
+     1     1   Toker::lines
+     1     1   Toker::braceLevel
+
+  module summary:
+ ================
+  lines of function code: 329
+  lines of code text:     529
+  cyclomatic complexity:  77
+
+  02/01/2009  03:21:06 PM      4349  xmlElementParts.cpp
+ ==================================================
+   cyclo lines function name
+     1     3   XmlParts::XmlParts
+     1     3   XmlParts
+     3     8   XmlParts::isTerminator
+     9    30   XmlParts::get
+     2     6   operator[]
+     4    10   XmlParts::show
+     3     7   XmlParts::find
+     2    11   XmlParts::remove
+     2     5   XmlParts::trimFront
+     3    10   XmlParts::toLower
+     4    34   main
+
+  02/01/2009  03:21:06 PM      3931  xmlElementParts.h
+ ==================================================
+   cyclo lines function name
+  - type:   class XmlParts : public ITokCollection 
+     1     1   XmlParts::length
+     1     1   XmlParts::verbose
+     1     1   XmlParts::clear
+     1     4   XmlParts::push_back
+
+  module summary:
+ ================
+  lines of function code: 134
+  lines of code text:     277
+  cyclomatic complexity:  38
+
+  02/01/2009  03:21:29 PM      1334  AssemblyInfo.cpp
+ ==================================================
+   cyclo lines function name
+
+  module summary:
+ ================
+  lines of function code: 0
+  lines of code text:     40
+  cyclomatic complexity:  0
+
+  02/01/2009  03:21:25 PM      4034  ConsoleExec.cpp
+ ==================================================
+   cyclo lines function name
+    12    88   main
+
+  module summary:
+ ================
+  lines of function code: 88
+  lines of code text:     143
+  cyclomatic complexity:  12
+
+  02/01/2009  03:21:23 PM       612  Executive.cpp  
+ ==================================================
+   cyclo lines function name
+     1    11   main
+
+  module summary:
+ ================
+  lines of function code: 11
+  lines of code text:     20
+  cyclomatic complexity:  1
+
+  02/01/2009  03:21:20 PM     13141  Form1.h        
+ ==================================================
+   cyclo lines function name
+  - type:   ref class Form1 : public System::Windows::Forms::Form 
+     1     5   Form1
+     2     9   Form1
+     1   102   InitializeComponent
+     5    34   button2_Click
+     1     8   Form1_Load
+     2    24   button1_Click
+     6    51   DisplayAnalysis
+
+  module summary:
+ ================
+  lines of function code: 233
+  lines of code text:     341
+  cyclomatic complexity:  18
+
+  02/01/2009  03:21:19 PM      1836  itokcollection.h
+ ==================================================
+   cyclo lines function name
+  - type:   struct ITokCollection 
+     1     1   ITokCollection
+
+  module summary:
+ ================
+  lines of function code: 1
+  lines of code text:     47
+  cyclomatic complexity:  1
+
+  02/01/2009  03:21:13 PM        91  resource.h     
+ ==================================================
+   cyclo lines function name
+
+  module summary:
+ ================
+  lines of function code: 0
+  lines of code text:     3
+  cyclomatic complexity:  0
+
+  02/01/2009  03:21:08 PM       450  testBraceBug.cpp
+ ==================================================
+   cyclo lines function name
+     3    13   test
+
+  module summary:
+ ================
+  lines of function code: 13
+  lines of code text:     23
+  cyclomatic complexity:  3
+
+  02/01/2009  03:21:07 PM       238  testTokBug1.cpp
+ ==================================================
+   cyclo lines function name
+  - global data declaration:
+      int x; 
+  - global data declaration:
+      double y; 
+  - global data declaration:
+      char z; 
+  - global data declaration:
+      int v = 2; 
+  - global data declaration:
+      string s = "this is a string"; 
+  - global data declaration:
+      s += 'z'; 
+  - global data declaration:
+      int w; 
+  - global data declaration:
+      s += '\n'; 
+  - global data declaration:
+      int v; 
+
+  module summary:
+ ================
+  lines of function code: 0
+  lines of code text:     12
+  cyclomatic complexity:  0
+
+  02/01/2009  03:21:05 PM      2432  XmlParserPrototype.cpp
+ ==================================================
+   cyclo lines function name
+     4    31   main
+
+  module summary:
+ ================
+  lines of function code: 31
+  lines of code text:     73
+  cyclomatic complexity:  4
+
+ =================================================
+          summary statistics - all files:
+ =================================================
+
+[  371, 1954] - total cyclo, total function lines
+[   11,  102] - max cyclo, max function lines (excludes mains)
+    0.189867  - complexity per line
+        3673  - total lines
+
+  functions exceeding cc or line limits: 
+ ----------------------------------------
+    12    88   main
+    17   120   main
+    12    88   main
+    11    47   Toker::getTok
+     8    62   main
+    12    88   main
+     1   102   InitializeComponent
+     6    51   DisplayAnalysis
+
+  global data declarations: 
+ ---------------------------
+  class Parser; 
+  int x; 
+  double y; 
+  char z; 
+  int v = 2; 
+  string s = "this is a string"; 
+  s += 'z'; 
+  int w; 
+  s += '\n'; 
+  int v; 
+
+  pointers returned from public member functions: 
+ -------------------------------------------------
+  Parser *Build(); 
+  Parser *Build(); 
+  std::queue < std::string > *GetQueue(); 
+
+
