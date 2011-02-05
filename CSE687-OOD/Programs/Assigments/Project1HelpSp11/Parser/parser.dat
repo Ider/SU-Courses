@@ -1,0 +1,135 @@
+
+C:\SU\CSE687\Code\Parser\Parser
+>parser ../parser.h ../parser.cpp 
+
+  Testing Parser class
+ ======================
+
+  Processing file ../parser.h
+  ---------------------------
+
+  Preproc Stmt:   # ifndef PARSER_H
+
+  Preproc Stmt:   # define PARSER_H
+
+  Preproc Stmt:   # include "SemiExpression.h"
+
+  Preproc Stmt:   # include < string >
+
+  Preproc Stmt:   # include < iostream >
+
+  Preproc Stmt:   # include < vector >
+
+  FuncDef Stmt:   public : virtual ~ IBuilder ( ) {
+
+  Pretty Stmt:    virtual ~ IBuilder ( ) 
+
+  FuncDef Stmt:   public : virtual ~ IAction ( ) {
+
+  Pretty Stmt:    virtual ~ IAction ( ) 
+
+  FuncDef Stmt:   public : virtual ~ IRule ( ) {
+
+  Pretty Stmt:    virtual ~ IRule ( ) 
+
+  FuncDef Stmt:   inline bool Parser :: next ( ) {
+
+  Pretty Stmt:    inline bool Parser :: next ( ) 
+
+  Preproc Stmt:   # endif
+
+
+  Processing file for Queued Outputs ../parser.h
+  ----------------------------------------------
+
+
+  Preproc Stmt:   # ifndef PARSER_H
+  Preproc Stmt:   # define PARSER_H
+  Preproc Stmt:   # include "SemiExpression.h"
+  Preproc Stmt:   # include < string >
+  Preproc Stmt:   # include < iostream >
+  Preproc Stmt:   # include < vector >
+  Pretty Stmt:      virtual ~ IBuilder ( ) 
+  Pretty Stmt:      virtual ~ IAction ( ) 
+  Pretty Stmt:      virtual ~ IRule ( ) 
+  Pretty Stmt:      inline bool Parser :: next ( ) 
+  Preproc Stmt:   # endif
+
+
+  Processing file ../parser.cpp
+  -----------------------------
+
+  Preproc Stmt:   # include < iostream >
+
+  Preproc Stmt:   # include < string >
+
+  Preproc Stmt:   # include "Tokenizer.h"
+
+  Preproc Stmt:   # include "SemiExpression.h"
+
+  Preproc Stmt:   # include "Parser.h"
+
+  Preproc Stmt:   # include "ActionsAndRules.h"
+
+  Preproc Stmt:   # include "ConfigureParser.h"
+
+  FuncDef Stmt:   Parser :: Parser ( SemiExp & se ) : semiExp ( se ) {
+
+  Pretty Stmt:    Parser :: Parser ( SemiExp & se ) 
+
+  FuncDef Stmt:   Parser ::~ Parser ( ) {
+
+  Pretty Stmt:    Parser ::~ Parser ( ) 
+
+  FuncDef Stmt:   void Parser :: addRule ( IRule * pRule ) {
+
+  Pretty Stmt:    void Parser :: addRule ( IRule * pRule ) 
+
+  FuncDef Stmt:   bool Parser :: parse ( ) {
+
+  Pretty Stmt:    bool Parser :: parse ( ) 
+
+  FuncDef Stmt:   void IRule :: addAction ( IAction * pAction ) {
+
+  Pretty Stmt:    void IRule :: addAction ( IAction * pAction ) 
+
+  FuncDef Stmt:   void IRule :: doActions ( SemiExp & se ) {
+
+  Pretty Stmt:    void IRule :: doActions ( SemiExp & se ) 
+
+  Preproc Stmt:   # ifdef TEST_PARSER
+
+  Preproc Stmt:   # include < queue >
+
+  Preproc Stmt:   # include < string >
+
+  FuncDef Stmt:   int main ( int argc , char * argv [ ] ) {
+
+  Pretty Stmt:    int main ( int argc , char * argv [ ] ) 
+
+  Preproc Stmt:   # endif
+
+
+  Processing file for Queued Outputs ../parser.cpp
+  ------------------------------------------------
+
+
+  Preproc Stmt:   # include < iostream >
+  Preproc Stmt:   # include < string >
+  Preproc Stmt:   # include "Tokenizer.h"
+  Preproc Stmt:   # include "SemiExpression.h"
+  Preproc Stmt:   # include "Parser.h"
+  Preproc Stmt:   # include "ActionsAndRules.h"
+  Preproc Stmt:   # include "ConfigureParser.h"
+  Pretty Stmt:      Parser :: Parser ( SemiExp & se ) 
+  Pretty Stmt:      Parser ::~ Parser ( ) 
+  Pretty Stmt:      void Parser :: addRule ( IRule * pRule ) 
+  Pretty Stmt:      bool Parser :: parse ( ) 
+  Pretty Stmt:      void IRule :: addAction ( IAction * pAction ) 
+  Pretty Stmt:      void IRule :: doActions ( SemiExp & se ) 
+  Preproc Stmt:   # ifdef TEST_PARSER
+  Preproc Stmt:   # include < queue >
+  Preproc Stmt:   # include < string >
+  Pretty Stmt:      int main ( int argc , char * argv [ ] ) 
+  Preproc Stmt:   # endif
+

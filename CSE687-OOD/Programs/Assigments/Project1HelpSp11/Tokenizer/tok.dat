@@ -1,0 +1,232 @@
+
+C:\SU\CSE687\Code\Project1HelpS06\Tokenizer
+>tokenizer ../t*.h ../t*.cpp 
+
+  Testing Tokenizer class
+ =========================
+
+  Note that comments and quotes are returned as single tokens
+
+  tokens  from  a  string  :  ->  int  x  ;  
+
+  Processing file ../Tokenizer.h
+  ------------------------------
+  ln: 0, br lev: 0,   #
+  ln: 0, br lev: 0,   ifndef
+  ln: 0, br lev: 0,   TOKENIZER_H
+  ln: 1, br lev: 0,   
+  ln: 1, br lev: 0,   #
+  ln: 1, br lev: 0,   define
+  ln: 1, br lev: 0,   TOKENIZER_H
+  ln: 2, br lev: 0,   
+  ln: 2, br lev: 0,   /////////////////////////////////////////////////////////////////////
+  ln: 3, br lev: 0,   
+  ln: 3, br lev: 0,   //  Tokenizer.h - Reads words from a file                          //
+  ln: 4, br lev: 0,   
+  ln: 4, br lev: 0,   //                                                                 //
+  ln: 5, br lev: 0,   
+  ln: 5, br lev: 0,   //  Lanaguage:     Visual C++ 2005                                 //
+  ln: 6, br lev: 0,   
+  ln: 6, br lev: 0,   //  Platform:      Dell Dimension 9150, Windows XP SP2             //
+  ln: 7, br lev: 0,   
+  ln: 7, br lev: 0,   //  Application:   Prototype for CSE687 Pr1, Sp06                  //
+  ln: 8, br lev: 0,   
+  ln: 8, br lev: 0,   //  Author:        Jim Fawcett, CST 2-187, Syracuse University     //
+  ln: 9, br lev: 0,   
+  ln: 9, br lev: 0,   //                 (315) 443-3948, jfawcett@twcny.rr.com           //
+  ln: 10, br lev: 0,   
+  ln: 10, br lev: 0,   /////////////////////////////////////////////////////////////////////
+  ln: 11, br lev: 0,   
+  ln: 46, br lev: 0,   /*
+  Module Operations: 
+  ==================
+  This module defines a tokenizer class.  Its instances read words from 
+  an attached file.  Word boundaries occur when a character sequence
+  read from the file:
+  - changes between any of the character types: alphanumeric, punctuator,
+    or white space.
+  - certain characters are treated as single character tokens, e.g., 
+    "(", ")", "{", "}", "[". "]", ";", ".", and "\n".
+  A tokenizer is an important part of a scanner, used to read and interpret
+  source code.
+
+  Public Interface:
+  =================
+  Toker t;                        // create tokenizer instance
+  returnComments();               // request comments return as tokens
+  if(t.attach(someFileName))      // select file for tokenizing
+    string tok = t.getTok();      // extract first token
+  int numLines = t.lines();       // return number of lines encountered
+  t.lines() = 0;                  // reset line count
+
+  Build Process:
+  ==============
+  Required files
+    - tokenizer.h, tokenizer.cpp
+  Build commands (either one)
+    - devenv Project1HelpS06.sln
+    - cl /EHsc /DTEST_TOKENIZER tokenizer.cpp /link setargv.obj
+
+  Maintenance History:
+  ====================
+  ver 1.0 : 12 Jan 06
+  - first release
+
+*/
+  ln: 47, br lev: 0,   
+  ln: 47, br lev: 0,   //
+  ln: 48, br lev: 0,   
+  ln: 48, br lev: 0,   #
+  ln: 48, br lev: 0,   include
+  ln: 48, br lev: 0,   <
+  ln: 48, br lev: 0,   string
+  ln: 48, br lev: 0,   >
+  ln: 49, br lev: 0,   
+  ln: 49, br lev: 0,   #
+  ln: 49, br lev: 0,   include
+  ln: 49, br lev: 0,   <
+  ln: 49, br lev: 0,   iostream
+  ln: 49, br lev: 0,   >
+  ln: 50, br lev: 0,   
+  ln: 50, br lev: 0,   #
+  ln: 50, br lev: 0,   include
+  ln: 50, br lev: 0,   <
+  ln: 50, br lev: 0,   vector
+  ln: 50, br lev: 0,   >
+  ln: 51, br lev: 0,   
+  ln: 52, br lev: 0,   
+  ln: 52, br lev: 0,   class
+  ln: 52, br lev: 0,   Toker
+  ln: 53, br lev: 0,   
+  ln: 53, br lev: 1,   {
+  ln: 54, br lev: 1,   
+  ln: 54, br lev: 1,   public
+  ln: 54, br lev: 1,   :
+  ln: 55, br lev: 1,   
+  ln: 55, br lev: 1,   Toker
+  ln: 55, br lev: 1,   (
+  ln: 55, br lev: 1,   const
+  ln: 55, br lev: 1,   std
+  ln: 55, br lev: 1,   ::
+  ln: 55, br lev: 1,   string
+  ln: 55, br lev: 1,   &
+  ln: 55, br lev: 1,   src
+  ln: 55, br lev: 1,   =
+  ln: 55, br lev: 1,   ""
+  ln: 55, br lev: 1,   ,
+  ln: 55, br lev: 1,   bool
+  ln: 55, br lev: 1,   isFile
+  ln: 55, br lev: 1,   =
+  ln: 55, br lev: 1,   true
+  ln: 55, br lev: 1,   )
+  ln: 55, br lev: 1,   ;
+
+Omitted many lines here
+
+  Processing file ../Tokenizer.cpp
+  --------------------------------
+  ln: 0, br lev: 0,   /////////////////////////////////////////////////////////////////////
+  ln: 1, br lev: 0,   
+  ln: 1, br lev: 0,   //  Tokenizer.cpp - Reads words from a file                        //
+  ln: 2, br lev: 0,   
+  ln: 2, br lev: 0,   //                                                                 //
+  ln: 3, br lev: 0,   
+  ln: 3, br lev: 0,   //  Lanaguage:     Visual C++ 2005                                 //
+  ln: 4, br lev: 0,   
+  ln: 4, br lev: 0,   //  Platform:      Dell Dimension 9150, Windows XP SP2             //
+  ln: 5, br lev: 0,   
+  ln: 5, br lev: 0,   //  Application:   Prototype for CSE687 Pr1, Sp06                  //
+  ln: 6, br lev: 0,   
+  ln: 6, br lev: 0,   //  Author:        Jim Fawcett, CST 2-187, Syracuse University     //
+  ln: 7, br lev: 0,   
+  ln: 7, br lev: 0,   //                 (315) 443-3948, jfawcett@twcny.rr.com           //
+  ln: 8, br lev: 0,   
+  ln: 8, br lev: 0,   /////////////////////////////////////////////////////////////////////
+  ln: 9, br lev: 0,   
+  ln: 10, br lev: 0,   
+  ln: 10, br lev: 0,   #
+  ln: 10, br lev: 0,   include
+  ln: 10, br lev: 0,   <
+  ln: 10, br lev: 0,   cctype
+  ln: 10, br lev: 0,   >
+  ln: 11, br lev: 0,
+   
+Omitted many lines here
+
+  ln: 149, br lev: 0,   
+  ln: 149, br lev: 0,   //----< is this the beginning of a comment? >------------------
+  ln: 150, br lev: 0,   
+  ln: 151, br lev: 0,   
+  ln: 151, br lev: 0,   bool
+  ln: 151, br lev: 0,   Toker
+  ln: 151, br lev: 0,   ::
+  ln: 151, br lev: 0,   isBeginComment
+  ln: 151, br lev: 0,   (
+  ln: 151, br lev: 0,   )
+  ln: 152, br lev: 0,   
+  ln: 152, br lev: 1,   {
+  ln: 153, br lev: 1,   
+  ln: 153, br lev: 1,   if
+  ln: 153, br lev: 1,   (
+  ln: 153, br lev: 1,   prevChar
+  ln: 153, br lev: 1,   !=
+  ln: 153, br lev: 1,   '\\'
+  ln: 153, br lev: 1,   &&
+  ln: 153, br lev: 1,   currChar
+  ln: 153, br lev: 1,   ==
+  ln: 153, br lev: 1,   '/'
+  ln: 153, br lev: 1,   &&
+  ln: 153, br lev: 1,   nextChar
+  ln: 153, br lev: 1,   ==
+  ln: 153, br lev: 1,   '*'
+  ln: 153, br lev: 1,   )
+  ln: 154, br lev: 1,   
+  ln: 154, br lev: 2,   {
+  ln: 155, br lev: 2,   
+  ln: 155, br lev: 2,   aCppComment
+  ln: 155, br lev: 2,   =
+  ln: 155, br lev: 2,   false
+  ln: 155, br lev: 2,   ;
+  ln: 156, br lev: 2,   
+  ln: 156, br lev: 2,   return
+  ln: 156, br lev: 2,   true
+  ln: 156, br lev: 2,   ;
+  ln: 157, br lev: 2,   
+  ln: 157, br lev: 1,   }
+  ln: 158, br lev: 1,   
+  ln: 158, br lev: 1,   if
+  ln: 158, br lev: 1,   (
+  ln: 158, br lev: 1,   prevChar
+  ln: 158, br lev: 1,   !=
+  ln: 158, br lev: 1,   '\\'
+  ln: 158, br lev: 1,   &&
+  ln: 158, br lev: 1,   currChar
+  ln: 158, br lev: 1,   ==
+  ln: 158, br lev: 1,   '/'
+  ln: 158, br lev: 1,   &&
+  ln: 158, br lev: 1,   nextChar
+  ln: 158, br lev: 1,   ==
+  ln: 158, br lev: 1,   '/'
+  ln: 158, br lev: 1,   )
+  ln: 159, br lev: 1,   
+  ln: 159, br lev: 2,   {
+  ln: 160, br lev: 2,   
+  ln: 160, br lev: 2,   aCppComment
+  ln: 160, br lev: 2,   =
+  ln: 160, br lev: 2,   true
+  ln: 160, br lev: 2,   ;
+  ln: 161, br lev: 2,   
+  ln: 161, br lev: 2,   return
+  ln: 161, br lev: 2,   true
+  ln: 161, br lev: 2,   ;
+  ln: 162, br lev: 2,   
+  ln: 162, br lev: 1,   }
+  ln: 163, br lev: 1,   
+  ln: 163, br lev: 1,   return
+  ln: 163, br lev: 1,   false
+  ln: 163, br lev: 1,   ;
+  ln: 164, br lev: 1,   
+  ln: 164, br lev: 0,   }
+  ln: 165, br lev: 0,   
+
+Omitted many lines here

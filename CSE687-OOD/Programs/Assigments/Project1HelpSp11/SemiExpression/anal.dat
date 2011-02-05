@@ -1,0 +1,49 @@
+
+           ANAL - Code Analysis Program
+  ----------------------------------------------
+       copyright (c) Jim Fawcett, 1992-2004
+           all rights granted to users
+             except right to publish
+
+
+  file path:
+  C:\SU\CSE687\Code\Parser
+
+
+  01/13/2006  07:49:26 AM      3942  SemiExpression.cpp
+ ==================================================
+   cyclo lines function name
+     1     3   SemiExp::SemiExp
+     1     3   SemiExp
+     5    14   SemiExp::isTerminator
+     5    20   SemiExp::getSemiExp
+     2     6   operator[]
+     4    10   SemiExp::showSemiExp
+     3     7   SemiExp::find
+     2    11   SemiExp::remove
+     2     5   SemiExp::trimFront
+     4    33   main
+
+  01/13/2006  07:34:20 AM      3528  SemiExpression.h
+ ==================================================
+   cyclo lines function name
+  - type:   class SemiExp 
+     1     1   SemiExp::length
+     1     1   SemiExp::verbose
+     1     1   SemiExp::clear
+     1     4   SemiExp::push_back
+
+  module summary:
+ ================
+  lines of function code: 119
+  lines of code text:     250
+  cyclomatic complexity:  33
+
+ =================================================
+          summary statistics - all files:
+ =================================================
+
+[   33,  119] - total cyclo, total function lines
+         250  - total lines
+
+

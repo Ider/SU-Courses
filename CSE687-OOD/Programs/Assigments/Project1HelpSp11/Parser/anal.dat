@@ -1,0 +1,59 @@
+
+           ANAL - Code Analysis Program
+  ----------------------------------------------
+       copyright (c) Jim Fawcett, 1992-2004
+           all rights granted to users
+             except right to publish
+
+
+  file path:
+  C:\SU\CSE687\Code\Parser
+
+
+  01/17/2006  07:09:29 PM      4049  Parser.cpp     
+ ==================================================
+   cyclo lines function name
+     1     3   Parser::Parser
+     1     3   Parser
+     1     4   Parser::addRule
+     3    10   Parser::parse
+     1     4   IRule::addAction
+     3     6   IRule::doActions
+    12    88   main
+
+  01/17/2006  07:09:29 PM      3618  Parser.h       
+ ==================================================
+   cyclo lines function name
+  - global data declaration:
+      class Parser; 
+  - type:   class IBuilder 
+     1     2   IBuilder
+  - type:   class IAction 
+     1     2   IAction
+  - type:   class IRule 
+     1     2   IRule
+  - type:   class Parser 
+     1     1   Parser::next
+
+  module summary:
+ ================
+  lines of function code: 125
+  lines of code text:     273
+  cyclomatic complexity:  26
+
+ =================================================
+          summary statistics - all files:
+ =================================================
+
+[   26,  125] - total cyclo, total function lines
+         273  - total lines
+
+  functions exceeding cc or line limits: 
+ ----------------------------------------
+    12    88   main
+
+  global data declarations: 
+ ---------------------------
+  class Parser; 
+
+

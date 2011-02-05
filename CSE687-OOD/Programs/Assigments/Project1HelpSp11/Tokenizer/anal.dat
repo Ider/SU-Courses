@@ -1,0 +1,62 @@
+
+           ANAL - Code Analysis Program
+  ----------------------------------------------
+       copyright (c) Jim Fawcett, 1992-2004
+           all rights granted to users
+             except right to publish
+
+
+  file path:
+  C:\SU\CSE687\Code\Parser
+
+
+  01/13/2006  07:52:38 AM      8181  Tokenizer.cpp  
+ ==================================================
+   cyclo lines function name
+     3    22   Toker::Toker
+     1     3   Toker
+     2     8   Toker::attach
+     2     8   Toker::peek
+     1     7   Toker::putback
+     2    10   Toker::get
+     4    16   Toker::getChar
+     3     7   Toker::isSingleCharTok
+     3     9   Toker::stripWhiteSpace
+     2     6   Toker::isIdentifierChar
+     5    12   Toker::isTokEnd
+     3    14   Toker::isBeginComment
+     3     8   Toker::isEndComment
+     3    17   Toker::eatComment
+     3    14   Toker::isBeginQuote
+     4    11   Toker::isEndQuote
+     2    12   Toker::eatQuote
+    10    46   Toker::getTok
+     8    58   main
+
+  01/13/2006  06:41:19 AM      3324  Tokenizer.h    
+ ==================================================
+   cyclo lines function name
+  - type:   class Toker 
+     1     4   Toker::returnComments
+     1     1   Toker::isFileEnd
+     1     1   Toker::lines
+     1     1   Toker::braceLevel
+
+  module summary:
+ ================
+  lines of function code: 295
+  lines of code text:     460
+  cyclomatic complexity:  68
+
+ =================================================
+          summary statistics - all files:
+ =================================================
+
+[   68,  295] - total cyclo, total function lines
+         460  - total lines
+
+  functions exceeding cc or line limits: 
+ ----------------------------------------
+     8    58   main
+
+
