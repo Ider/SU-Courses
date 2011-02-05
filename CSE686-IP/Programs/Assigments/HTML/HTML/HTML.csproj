@@ -62,6 +62,12 @@
     <Content Include="experimental\kwicks\_notes\dwsync.xml" />
     <Content Include="experimental\matrixeffect\matrixeffect.htm" />
     <Content Include="experimental\matrixeffect\matrixeffect.js" />
+    <Content Include="experimental\sliding-side-bar\images\background.gif" />
+    <Content Include="experimental\sliding-side-bar\images\slide-button-active.gif" />
+    <Content Include="experimental\sliding-side-bar\images\slide-button.gif" />
+    <Content Include="experimental\sliding-side-bar\index.html" />
+    <Content Include="experimental\sliding-side-bar\js\mootools.js" />
+    <Content Include="experimental\sliding-side-bar\js\side-bar.js" />
     <Content Include="home.aspx" />
     <Content Include="images\loading-icon.gif" />
     <Content Include="images\scores.png" />
