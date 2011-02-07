@@ -11,7 +11,7 @@ nav
     margin: 0 auto 20px;
     border: 1px solid #a62315;
     position: relative;
-    background-color: #CE4B1B;
+    background-color: #ce4b1b;
     font: 16px Tahoma, Sans-serif;
 }
 nav ul
@@ -67,7 +67,7 @@ nav ul ul
     width: 100%;
     position: absolute;
     left: 0;
-    background: #CE4B1B;
+    background: #ce4b1b;
 }
 nav ul ul li
 {
@@ -82,7 +82,7 @@ nav ul ul a
 }
 nav ul ul a:hover
 {
-    background-color: #CE4B1B;
+    background-color: #ce4b1b;
 }
 
 /* CSS3  */
@@ -106,7 +106,7 @@ nav ul ul a:hover
 .cssgradients nav li:hover
 {
     background-image: -moz-linear-gradient(0% 100px 90deg, #f47321, #a62315);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#a62315), to(#CE4B1B));
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#a62315), to(#ce4b1b));
 }
 .borderradius nav ul ul
 {

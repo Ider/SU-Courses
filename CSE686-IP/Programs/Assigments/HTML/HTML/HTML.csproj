@@ -115,7 +115,9 @@
     <Content Include="js\jquery.js" />
     <Content Include="js\jquery1.4.2.js" />
     <Content Include="js\modernizr.js" />
-    <Content Include="lab.xml" />
+    <Content Include="lab.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="labinfo.aspx" />
     <Content Include="main.htm" />
     <Content Include="sitemap.htm" />
@@ -137,6 +139,8 @@
     <Content Include="styles\monitor.css" />
     <Content Include="images\search.png" />
     <Content Include="images\site-map.png" />
+    <Content Include="styles\tableformat.css" />
+    <Content Include="test.aspx" />
     <Content Include="test.htm" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -148,6 +152,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\Common.cs" />
+    <Compile Include="test.aspx.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test.aspx.designer.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
     <Content Include="App_Code\Model\Lab.cs" />
     <Compile Include="home.aspx.cs">
       <DependentUpon>home.aspx</DependentUpon>
