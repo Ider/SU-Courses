@@ -5,6 +5,7 @@
 <head runat="server">
     <title>Test Page</title>
     <link href="styles/tableformat.css" rel="stylesheet" type="text/css" />
+    <link href="styles/icon.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         .map td.fileName
         {
@@ -25,7 +26,7 @@
     <div class="caption">
         <asp:Label ID="lblCurPath" runat="server" Text="[Current Path]"></asp:Label>
     </div>
-    <div style="border: 1px solid #a62315; min-width: 600px;">
+    <div style="border: 1px solid #a62315; min-width: 600px; width: 100%;">
         <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map"
             style="border: 0px solid #fff;">
             <thead>
@@ -45,6 +46,7 @@
         <div style="width: 100%; overflow-y: scroll; height: 200px;">
             <asp:Literal ID="litList" runat="server"></asp:Literal></div>
     </div>
+    <asp:Button ID="btnSumbit" runat="server" Text="[Submit]" />
     </form>
 </body>
 </html>

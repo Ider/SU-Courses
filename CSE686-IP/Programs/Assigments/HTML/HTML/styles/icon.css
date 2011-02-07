@@ -1,0 +1,168 @@
+﻿
+/* extensions */
+
+a[ftype$='.doc'], a[ftype$='.rtf'] {
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_doc.gif) no-repeat center left;
+}
+
+a[ftype$='.txt'] {
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_txt.gif) no-repeat center left;
+}
+
+a[ftype$='.xls'] {
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_xls.gif) no-repeat center left;
+}
+
+a[ftype$='.rss'], a[ftype$='.atom'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_feed.gif) no-repeat center left;
+}
+
+a[ftype$='.opml'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_opml.gif) no-repeat center left;
+}
+
+a[ftype$='.phps'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_phps.gif) no-repeat center left;
+}
+
+a[ftype$='.phps'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_phps.gif) no-repeat center left;
+}
+
+a[ftype$='.torrent'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_torrent.gif) no-repeat center left;
+}
+
+a[ftype$='.vcard'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_vcard.gif) no-repeat center left;
+}
+
+a[ftype$='.exe'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_exe.gif) no-repeat center left;
+}
+
+a[ftype$='.dmg'], a[ftype$='.app'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_dmg.gif) no-repeat center left;
+}
+
+a[ftype$='.pps'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_pps.gif) no-repeat center left;
+}
+
+a[ftype$='.pdf'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_pdf.gif) no-repeat center left;
+}
+
+a[ftype$='.xpi'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_plugin.gif) no-repeat center left;
+}
+
+a[ftype$='.fla'], a[ftype$='.swf'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_flash.gif) no-repeat center left;
+}
+
+a[ftype$='.zip'], a[ftype$='.rar'], a[ftype$='.gzip'], a[ftype$='.bzip'], a[ftype$='.ace'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_archive.gif) no-repeat center left;
+}
+
+a[ftype$='.ical'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_ical.gif) no-repeat center left;
+}
+
+a[ftype$='.css'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_css.gif) no-repeat center left;
+}
+
+a[ftype$='.cpp'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_cpp.gif) no-repeat center left;
+}
+
+a[ftype$='.cs'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_csharp.gif) no-repeat center left;
+}
+
+a[ftype$='.xml'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_xml.gif) no-repeat center left;
+}
+
+a[ftype$='.config'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_config.gif) no-repeat center left;
+}
+
+a[ftype$='.html'], a[ftype$='.htm'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_html.gif) no-repeat center left;
+}
+
+a[ftype$='.ttf'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_ttf.gif) no-repeat center left;
+}
+
+a[ftype$='.jpg'], a[ftype$='.gif'], a[ftype$='.png'], a[ftype$='.bmp'], a[ftype$='.jpeg'], a[ftype$='.svg'], a[ftype$='.eps'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_pic.gif) no-repeat center left;
+}
+
+a[ftype$='.mov'], a[ftype$='.wmv'], a[ftype$='.mp4'], a[ftype$='.avi'], a[ftype$='.mpg'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_film.gif) no-repeat center left;
+}
+
+a[ftype$='.mp3'], a[ftype$='.wav'], a[ftype$='.ogg'], a[ftype$='.wma'], a[ftype$='.m4a'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_music.gif) no-repeat center left;
+}
+
+a[ftype$='.aspx'], a[ftype$='.master'], a[ftype$='.ascx'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_form.gif) no-repeat center left;
+}
+
+a[ftype$='.js'], a[ftype$='.jscript'] { 
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/cons/icon_m) no-repeat center left;
+}
+
+/* email */
+a[ftype ^="mailto:"] {
+	padding: 5px 0px 5px 20px;
+    background: transparent url(../images/icons/icon_mailto.gif) no-repeat center left;
+}
+
+a[ftype$='folder']{
+	padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_folder.gif) no-repeat center left;
+}
+
+
+a{
+    padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_unknown.gif) no-repeat center left;
+
+
+
+ft;
+}

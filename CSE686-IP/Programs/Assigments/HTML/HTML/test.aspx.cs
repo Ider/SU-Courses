@@ -11,7 +11,6 @@ namespace HTML
 {
     public partial class test : System.Web.UI.Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -19,14 +18,14 @@ namespace HTML
                 if (Session.IsNewSession)
                     Session["currentPath"] = Server.MapPath(".");
                 lblCurPath.Text = Session["currentPath"] as string;
-                LoadFilesAndFolds(lblCurPath.Text);
+                LoadFilesAndFolders(lblCurPath.Text);
             }
         }
 
         /// <summary>
         /// Load the files and directories name under current directory
         /// </summary>
-        private void LoadFilesAndFolds(string path)
+        private void LoadFilesAndFolders(string path)
         {
             try
             {
@@ -37,8 +36,8 @@ namespace HTML
                 //AppendTableHead(sb);
 
                 sb.Append("<tbody>");
-                AppendParentFoldInfo(path, sb);
-                AppendFoldsInfo(path, sb);
+                AppendParentFolderInfo(path, sb);
+                AppendFoldersInfo(path, sb);
                 AppendFilesInfo(path, sb);
 
                 sb.Append("</tbody></table>");
@@ -60,34 +59,35 @@ namespace HTML
             sb.Append(string.Format("<thead>{0}</thead>", tr));
         }
 
-        private void AppendParentFoldInfo(string path, StringBuilder sb)
+        private void AppendParentFolderInfo(string path, StringBuilder sb)
         {
-            string fold = Path.GetFullPath(path + "/..");
+            string folder = Path.GetFullPath(path + "/..");
             string format = string.Format(GetTableRowFormat()
-                , "<td class='fileName'>{3}[ {0} ]</td>"
+                , "<td class='fileName'>{0}</td>"
                 + "<td class='fileType'>{1}</td>"
                 + "<td class='lastModified'>{2}</td>");
-            string name = Path.GetFileName(fold);
-            string type = "Directory";
-            string lastModified = Directory.GetLastWriteTime(fold).ToString("MM/dd/yyyy hh:mm:ss"); ;
 
-            sb.Append(string.Format(format, name, type, lastModified, "../"));
+            string link = GetFormatedLink(Path.GetFileName(folder));
+            string type = "Directory";
+            string lastModified = Directory.GetLastWriteTime(folder).ToString("MM/dd/yyyy hh:mm:ss"); ;
+
+            sb.Append(string.Format(format, link, type, lastModified));
         }
 
-        private void AppendFoldsInfo(string path, StringBuilder sb)
+        private void AppendFoldersInfo(string path, StringBuilder sb)
         {
-            string[] folds = Directory.GetDirectories(path);
+            string[] folders = Directory.GetDirectories(path);
             string format = string.Format(GetTableRowFormat()
                 , "<td>{0}</td><td>{1}</td><td>{2}</td>");
-            string name = string.Empty;
+            string link = string.Empty;
             string type = "Directory";
             string lastModified = string.Empty;
 
-            foreach (string fold in folds)
+            foreach (string folder in folders)
             {
-                name = Path.GetFileName(fold);
-                lastModified = Directory.GetLastWriteTime(fold).ToString("MM/dd/yyyy hh:mm:ss");
-                sb.Append(string.Format(format, name, type, lastModified));
+                link = GetFormatedLink(Path.GetFileName(folder), true);
+                lastModified = Directory.GetLastWriteTime(folder).ToString("MM/dd/yyyy hh:mm:ss");
+                sb.Append(string.Format(format, link, type, lastModified));
             }
         }
 
@@ -96,16 +96,16 @@ namespace HTML
             string[] files = Directory.GetFiles(path);
             string format = string.Format(GetTableRowFormat()
                 , "<td>{0}</td><td>{1}</td><td>{2}</td>");
-            string name = string.Empty;
+            string link = string.Empty;
             string type = string.Empty;
             string lastModified = string.Empty;
 
             foreach (string file in files)
             {
-                name = Path.GetFileName(file);
+                link = GetFormatedLink(Path.GetFileName(file), false);
                 type = Path.GetExtension(file);
                 lastModified = Directory.GetLastWriteTime(file).ToString("MM/dd/yyyy hh:mm:ss");
-                sb.Append(string.Format(format, name, type, lastModified));
+                sb.Append(string.Format(format, link, type, lastModified));
             }
         }
 
@@ -119,6 +119,25 @@ namespace HTML
             string trFormat = string.Format("<tr {0}>{{0}}</tr>", mouseEvents);
 
             return trFormat;
+        }
+
+        private string GetFormatedLink(string name, bool isFolder)
+        {
+            string format = "<a href='#{0}' ftype='{1}' {2}>{0}</a>"; //{0}name, {1}for iconizer, {2}event
+            string fileType = isFolder ? "folder" : name.ToLower();
+
+            return string.Format(format, name, fileType, "");
+        }
+
+        /// <summary>
+        /// Get formated <a> elemnt for parent folder
+        /// </summary>
+        /// <param name="name">parent folder name</param>
+        /// <returns>formated </returns>
+        private string GetFormatedLink(string name)
+        {
+            string format = "<a href='#{0}' ftype='folder' {1} title='{0}'>..</a>"; //{0}name, {1}event
+            return string.Format(format, name, "");
         }
 
         private void ShowError(Exception ex)
