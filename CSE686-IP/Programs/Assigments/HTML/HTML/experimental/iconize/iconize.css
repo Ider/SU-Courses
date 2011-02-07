@@ -176,3 +176,10 @@ a[href ^="mailto:"] {
 	padding-right: 0px !important;
 	background: none !important;
 }
+
+a
+
+{
+    	padding: 5px 20px 5px 0;
+	background: transparent url(icons/icon_unknown.gif) no-repeat center right;
+    }

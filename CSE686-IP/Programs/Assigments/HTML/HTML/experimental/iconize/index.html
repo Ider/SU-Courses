@@ -1,127 +1,174 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Iconize Textlinks with CSS</title>
-
-<!-- Meta Tags -->
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<meta http-equiv="Content-Language" content="en" />
-	<meta name="description" content="Add Icons to your Textlinks with CSS" />
-	<meta name="keywords" content="icons, textlinks, css, xhtml" />
-	<meta name="robots" content="all" />
-
-<!-- CSS for the icons, this is what ypu are looking for -->
-	<link rel="stylesheet" type="text/css" media="screen" href="iconize.css" />	
-
+    <title>Iconize Textlinks with CSS</title>
+    <!-- Meta Tags -->
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="description" content="Add Icons to your Textlinks with CSS" />
+    <meta name="keywords" content="icons, textlinks, css, xhtml" />
+    <meta name="robots" content="all" />
+    <!-- CSS for the icons, this is what ypu are looking for -->
+    <link rel="stylesheet" type="text/css" media="screen" href="iconize.css" />
 </head>
 <body>
-
-	<h1>Iconize Textlinks with <acronym title="Cascading Style Sheet" xml:lang="en" lang="en">CSS</acronym> (0.5)</h1>
-	<h2>Where will this link take me?</h2>
-
-	<div id="intro">
-	  <p>Links are fun, but sometimes we don't know where they take us. With this little <acronym title="Cascading Style Sheet" xml:lang="en" lang="en">CSS</acronym> technique a user can identify a link by <strong>it's icon</strong>, kind of. 	
-      This whole thing was inspired by the "<a href="http://www.askthecssguy.com/2006/12/showing_hyperlink_cues_with_cs_1.html">Showing Hyperlink Cues with CSS</a>" article of <a href="http://www.askthecssguy.com/">Ask the CSS Guy</a>.</p>
-	  <p>The idea is pretty simple, if a link <a href="#noname.pdf">points</a> to a .pdf file, we show the .pdf icon after the link.<br />
-	  Here are some more examples which i already implemented:</p>
-	</div>
-	
-	<hr />
-
-<div id="extensions">
-
-<!-- Is this what you are looking for? -->
-<h3>Extensions</h3>
-	<ul>
-		<li><a href="#noname.doc">.doc</a> - <a href="#noname.rtf">.rtf</a></li>
-		<li><a href="#noname.txt">.txt</a></li>
-		<li><a href="#noname.pdf">.pdf</a></li>
-		<li><a href="#noname.xls">.xls</a></li>
-		<li><a href="#noname.xpi">.xpi</a> <small>(Firefox Extension)</small></li>
-		<li><a href="#noname.rss">.rss</a> - <a href="#noname.atom">.atom</a></li>
-		<li><a href="#noname.opml">.opml</a></li>
-		<li><a href="#noname.vcard">.vcard</a></li>
-		<li><a href="#noname.exe">.exe</a></li>
-		<li><a href="#noname.dmg">.dmg</a> - <a href="#noname.app">.app</a></li>
-		<li><a href="#noname.pps">.pps</a></li>
-		<li><a href="#noname.ical">.ical</a> <small>(changed)</small></li>
-		<li><a href="#noname.jpg">.jpg</a> - <a href="#noname.gif">.gif</a> - <a href="#noname.png">.png</a> - <a href="#noname.bmp">.bmp</a> - <a href="#noname.svg">.svg</a> - <a href="#noname.eps">.eps</a></li>
-		<li><a href="#noname.swf">.swf</a> - <a href="#noname.fla">.fla</a></li>
-		<li><a href="#noname.css">.css</a></li>
-		<li><a href="#noname.mp3">.mp3</a> - <a href="#noname.wav">.wav</a> - <a href="#noname.ogg">.ogg</a> - <a href="#noname.wma">.wma</a> - <a href="#noname.m4a">.m4a</a></li>
-		<li><a href="#noname.zip">.zip</a> - <a href="#noname.rar">.rar</a> - <a href="#noname.gzip">.gzip</a> - <a href="#noname.bzip">.bzip</a> - <a href="#noname.ace">.ace</a></li>
-		<li><a href="#noname.ttf">.ttf</a></li>
-		<li><a href="#noname.mov">.mov</a> - <a href="#noname.wmv">.wmv</a> - <a href="#noname.mp4">.mp4</a> - <a href="#noname.avi">.avi</a> - <a href="#noname.mpg">.mpg</a></li>
-		<li class="new"><a href="#noname.phps">.phps</a></li>
-		<li class="new"><a href="#noname.torrent">.torrent</a></li>
-	</ul>
-</div>
-
-<div id="schemes">
-	
-	<h3>e-Mail/Messaging <acronym title="Uniform Resource Identifier" xml:lang="en" lang="en">URI</acronym> schemes</h3>
-	<ul>
-		<li><a href="mailto:somebody@somedomain.tld">mailto:</a></li>
-		<li><a href="callto:USERNAMEHERE">callto:</a></li>
-		<li><a href="msnim:USERNAMEHERE">msnim:</a></li>
-		<li><a href="xmpp:USERNAMEHERE">xmpp:</a></li>
-		<li><a href="aim:USERNAMEHERE">aim:</a></li>
-		<li><a href="http://www.icq.com/0123456789">ICQ Link</a></li>
-		<li><a href="http://edit.yahoo.com/config/send_webmesg?.target=USERNAMEHERE&amp;.src=pg">YIM! Link</a></li>
-		<li><a href="skype:USERNAMEHERE">skype:</a></li>
-		<li class="new"><a href="gg:USERNAMEHERE">gg:</a></li>
-	</ul>
-
-</ul>
-
-<hr />
-
-	<h3>Funky stuff...</h3>
-	<ul>
-		<li><a href="http://www.youtube.com/watch?v=3msxMFzWGy4">YouTube Movie</a></li>
-		<li><a href="http://www.metacafe.com/watch/385711/asians_are_funny/">Metacafe Movie</a></li>
-		<li><a href="http://de.sevenload.com/videos/V6EkFzu/Playstation-2">sevenload Movie</a></li>
-	</ul>
-	
-	<ul>
-		<li><a href="http://flickr.com/photos/poolie/363863438/">flickr Picture</a></li>
-		<li><a href="http://www.bubbleshare.com/album/4599.e7db25c5af1/451257/overview">BubbleShare Picture</a></li>
-		<li><a href="http://beta.zooomr.com/photos/5971@Z01/493650">Zooomr Picture</a></li>
-		<li><a href="http://de.sevenload.com/bilder/JUfR8qA/269540868-1c50142ea7-o">sevenload Picture</a></li>
-	</ul>
-</div>
-
-<hr />
-
-<div id="example">
-	<h3>Link images without icons</h3>
-	<p>There's currently no <em>nice</em> way to that. You have to assign the class <code>imageLink</code> to images:</p>
-	<p>Image link:<br /><a href="http://www.flickr.com/photos/poolie/2120679003/" title="Evonik by poolie, on Flickr"><img src="http://farm3.static.flickr.com/2075/2120679003_37b2c36cd5_t.jpg" width="100" height="67" alt="Evonik" /></a></p>
-	<p>Image link with <code>imageLink</code>:<br /><a class="imageLink" href="http://www.flickr.com/photos/poolie/2120679003/" title="Evonik by poolie, on Flickr"><img src="http://farm3.static.flickr.com/2075/2120679003_37b2c36cd5_t.jpg" width="100" height="67" alt="Evonik" /></a></p>
-</div>
-
-<hr />
-
-<div id="example">
-	<h3>Add it to your Website/Blog. </h3>
-	<p>Upload the icons Folder to your Webspace and integrate the following code to your website:</p>
-	<p><code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; media=&quot;screen&quot; href=&quot;iconize.css&quot; /&gt;</code></p>
-	<p>Enjoy.</p>
-</div>
-
-<hr />
-
-<div id="example">
-	<h3>Compatibility</h3>
-	<p>The <acronym title="Cascading Style Sheet" xml:lang="en" lang="en">CSS</acronym> technique has been successfully tested with:<br />
-	  <strong>Firefox</strong> (<em>Mac &amp; PC</em>), <strong>Camino</strong>, <strong>Safari</strong>, <strong>Opera</strong> (<em>Mac &amp; PC</em>) &amp; <strong>Internet Explorer 7</strong> (6 doesn't work)</p>
-	</div>
-
-<div id="footer">
-	<p>A too much time project by <a href="http://www.pooliestudios.com">Alexander Kaiser</a> - Icons by <a href="http://famfamfam.com/">famfamfam</a><br />
-	  This work is licensed under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attribution License</a>.</p>
-	  <p><small>The MSN, AIM, ICQ, YIM!, Skype & Gadu-Gadu logos are trademarks of their respective owners.</small></p>
-</div>
-
+    <h1>
+        Iconize Textlinks with <acronym title="Cascading Style Sheet" xml:lang="en" lang="en">
+            CSS</acronym> (0.5)</h1>
+    <h2>
+        Where will this link take me?</h2>
+    <div id="intro">
+        <p>
+            Links are fun, but sometimes we don't know where they take us. With this little
+            <acronym title="Cascading Style Sheet" xml:lang="en" lang="en">CSS</acronym> technique
+            a user can identify a link by <strong>it's icon</strong>, kind of. This whole thing
+            was inspired by the "<a href="http://www.askthecssguy.com/2006/12/showing_hyperlink_cues_with_cs_1.html">Showing
+                Hyperlink Cues with CSS</a>" article of <a href="http://www.askthecssguy.com/">Ask the
+                    CSS Guy</a>.</p>
+        <p>
+            The idea is pretty simple, if a link <a href="#noname.pdf">points</a>
+            to a .pdf file, we show the .pdf icon after the link.<br />
+            Here are some more examples which i already implemented:</p>
+    </div>
+    <hr />
+    <div id="extensions">
+        <!-- Is this what you are looking for? -->
+        <h3>
+            Extensions</h3>
+        <ul>
+            <li><a href="#noname.doc">.doc</a>
+                - <a href="#noname.rtf">.rtf</a></li>
+            <li><a href="#noname.txt">.txt</a></li>
+            <li><a href="#noname.pdf">.pdf</a></li>
+            <li><a href="#noname.xls">.xls</a></li>
+            <li><a href="#noname.xpi">.xpi</a>
+                <small>(Firefox Extension)</small></li>
+            <li><a href="#noname.rss">.rss</a>
+                - <a href="#noname.atom">.atom</a></li>
+            <li><a href="#noname.opml">.opml</a></li>
+            <li><a href="#noname.vcard">.vcard</a></li>
+            <li><a href="#noname.exe">.exe</a></li>
+            <li><a href="#noname.dmg">.dmg</a>
+                - <a href="#noname.app">.app</a></li>
+            <li><a href="#noname.pps">.pps</a></li>
+            <li><a href="#noname.ical">.ical</a>
+                <small>(changed)</small></li>
+            <li><a href="#noname.jpg">.jpg</a>
+                - <a href="#noname.gif">.gif</a>
+                - <a href="#noname.png">.png</a>
+                - <a href="#noname.bmp">.bmp</a>
+                - <a href="#noname.svg">.svg</a>
+                - <a href="#noname.eps">.eps</a></li>
+            <li><a href="#noname.swf">.swf</a>
+                - <a href="#noname.fla">.fla</a></li>
+            <li><a href="#noname.css">.css</a></li>
+            <li><a href="#noname.mp3">.mp3</a>
+                - <a href="#noname.wav">.wav</a>
+                - <a href="#noname.ogg">.ogg</a>
+                - <a href="#noname.wma">.wma</a>
+                - <a href="#noname.m4a">.m4a</a></li>
+            <li><a href="#noname.zip">.zip</a>
+                - <a href="#noname.rar">.rar</a>
+                - <a href="#noname.gzip">.gzip</a>
+                - <a href="#noname.bzip">.bzip</a>
+                - <a href="#noname.ace">.ace</a></li>
+            <li><a href="#noname.ttf">.ttf</a></li>
+            <li><a href="#noname.mov">.mov</a>
+                - <a href="#noname.wmv">.wmv</a>
+                - <a href="#noname.mp4">.mp4</a>
+                - <a href="#noname.avi">.avi</a>
+                - <a href="#noname.mpg">.mpg</a></li>
+            <li class="new"><a href="#noname.phps">.phps</a></li>
+            <li class="new"><a href="#noname.torrent">.torrent</a></li>
+        </ul>
+        <a href="#noname.Unknown">.Unknown</a>
+    </div>
+    <div id="schemes">
+        <h3>
+            e-Mail/Messaging <acronym title="Uniform Resource Identifier" xml:lang="en" lang="en">
+                URI</acronym> schemes</h3>
+        <ul>
+            <li><a href="mailto:somebody@somedomain.tld">mailto:</a></li>
+            <li><a href="callto:USERNAMEHERE">callto:</a></li>
+            <li><a href="msnim:USERNAMEHERE">msnim:</a></li>
+            <li><a href="xmpp:USERNAMEHERE">xmpp:</a></li>
+            <li><a href="aim:USERNAMEHERE">aim:</a></li>
+            <li><a href="http://www.icq.com/0123456789">ICQ Link</a></li>
+            <li><a href="http://edit.yahoo.com/config/send_webmesg?.target=USERNAMEHERE&amp;.src=pg">
+                YIM! Link</a></li>
+            <li><a href="skype:USERNAMEHERE">skype:</a></li>
+            <li class="new"><a href="gg:USERNAMEHERE">gg:</a></li>
+        </ul>
+        </ul>
+        <hr />
+        <h3>
+            Funky stuff...</h3>
+        <ul>
+            <li><a href="http://www.youtube.com/watch?v=3msxMFzWGy4">YouTube Movie</a></li>
+            <li><a href="http://www.metacafe.com/watch/385711/asians_are_funny/">Metacafe Movie</a></li>
+            <li><a href="http://de.sevenload.com/videos/V6EkFzu/Playstation-2">sevenload Movie</a></li>
+        </ul>
+        <ul>
+            <li><a href="http://flickr.com/photos/poolie/363863438/">flickr Picture</a></li>
+            <li><a href="http://www.bubbleshare.com/album/4599.e7db25c5af1/451257/overview">BubbleShare
+                Picture</a></li>
+            <li><a href="http://beta.zooomr.com/photos/5971@Z01/493650">Zooomr Picture</a></li>
+            <li><a href="http://de.sevenload.com/bilder/JUfR8qA/269540868-1c50142ea7-o">sevenload
+                Picture</a></li>
+        </ul>
+    </div>
+    <hr />
+    <div id="example">
+        <h3>
+            Link images without icons</h3>
+        <p>
+            There's currently no <em>nice</em> way to that. You have to assign the class <code>imageLink</code>
+            to images:</p>
+        <p>
+            Image link:<br />
+            <a href="http://www.flickr.com/photos/poolie/2120679003/" title="Evonik by poolie, on Flickr">
+                <img src="http://farm3.static.flickr.com/2075/2120679003_37b2c36cd5_t.jpg" width="100"
+                    height="67" alt="Evonik" /></a></p>
+        <p>
+            Image link with <code>imageLink</code>:<br />
+            <a class="imageLink" href="http://www.flickr.com/photos/poolie/2120679003/" title="Evonik by poolie, on Flickr">
+                <img src="http://farm3.static.flickr.com/2075/2120679003_37b2c36cd5_t.jpg" width="100"
+                    height="67" alt="Evonik" /></a></p>
+    </div>
+    <hr />
+    <div id="example">
+        <h3>
+            Add it to your Website/Blog.
+        </h3>
+        <p>
+            Upload the icons Folder to your Webspace and integrate the following code to your
+            website:</p>
+        <p>
+            <code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; media=&quot;screen&quot;
+                href=&quot;iconize.css&quot; /&gt;</code></p>
+        <p>
+            Enjoy.</p>
+    </div>
+    <hr />
+    <div id="example">
+        <h3>
+            Compatibility</h3>
+        <p>
+            The <acronym title="Cascading Style Sheet" xml:lang="en" lang="en">CSS</acronym>
+            technique has been successfully tested with:<br />
+            <strong>Firefox</strong> (<em>Mac &amp; PC</em>), <strong>Camino</strong>, <strong>Safari</strong>,
+            <strong>Opera</strong> (<em>Mac &amp; PC</em>) &amp; <strong>Internet Explorer 7</strong>
+            (6 doesn't work)</p>
+    </div>
+    <div id="footer">
+        <p>
+            A too much time project by <a href="http://www.pooliestudios.com">Alexander Kaiser</a>
+            - Icons by <a href="http://famfamfam.com/">famfamfam</a><br />
+            This work is licensed under a <a href="http://creativecommons.org/licenses/by/2.5/">
+                Creative Commons Attribution License</a>.</p>
+        <p>
+            <small>The MSN, AIM, ICQ, YIM!, Skype & Gadu-Gadu logos are trademarks of their respective
+                owners.</small></p>
+    </div>
 </body>
 </html>
