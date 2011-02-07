@@ -51,6 +51,43 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cd_catalog.xml" />
+    <Content Include="experimental\iconize\iconize.css" />
+    <Content Include="experimental\iconize\icons\icon_aim.gif" />
+    <Content Include="experimental\iconize\icons\icon_archive.gif" />
+    <Content Include="experimental\iconize\icons\icon_call.gif" />
+    <Content Include="experimental\iconize\icons\icon_chat.gif" />
+    <Content Include="experimental\iconize\icons\icon_css.gif" />
+    <Content Include="experimental\iconize\icons\icon_dmg.gif" />
+    <Content Include="experimental\iconize\icons\icon_doc.gif" />
+    <Content Include="experimental\iconize\icons\icon_exe.gif" />
+    <Content Include="experimental\iconize\icons\icon_external.gif" />
+    <Content Include="experimental\iconize\icons\icon_feed.gif" />
+    <Content Include="experimental\iconize\icons\icon_film.gif" />
+    <Content Include="experimental\iconize\icons\icon_flash.gif" />
+    <Content Include="experimental\iconize\icons\icon_gadugadu.gif" />
+    <Content Include="experimental\iconize\icons\icon_ical.gif" />
+    <Content Include="experimental\iconize\icons\icon_icq.gif" />
+    <Content Include="experimental\iconize\icons\icon_jabber.gif" />
+    <Content Include="experimental\iconize\icons\icon_mailto.gif" />
+    <Content Include="experimental\iconize\icons\icon_msn.gif" />
+    <Content Include="experimental\iconize\icons\icon_music.gif" />
+    <Content Include="experimental\iconize\icons\icon_opml.gif" />
+    <Content Include="experimental\iconize\icons\icon_pdf.gif" />
+    <Content Include="experimental\iconize\icons\icon_phps.gif" />
+    <Content Include="experimental\iconize\icons\icon_pic.gif" />
+    <Content Include="experimental\iconize\icons\icon_plugin.gif" />
+    <Content Include="experimental\iconize\icons\icon_popup.gif" />
+    <Content Include="experimental\iconize\icons\icon_pps.gif" />
+    <Content Include="experimental\iconize\icons\icon_search.gif" />
+    <Content Include="experimental\iconize\icons\icon_skype.gif" />
+    <Content Include="experimental\iconize\icons\icon_torrent.gif" />
+    <Content Include="experimental\iconize\icons\icon_ttf.gif" />
+    <Content Include="experimental\iconize\icons\icon_txt.gif" />
+    <Content Include="experimental\iconize\icons\icon_unknown.gif" />
+    <Content Include="experimental\iconize\icons\icon_vcard.gif" />
+    <Content Include="experimental\iconize\icons\icon_xls.gif" />
+    <Content Include="experimental\iconize\icons\icon_yim.gif" />
+    <Content Include="experimental\iconize\index.html" />
     <Content Include="experimental\kwicks\custom.js" />
     <Content Include="experimental\kwicks\end.jpg" />
     <Content Include="experimental\kwicks\jquery-1.2.6.min.js" />
@@ -138,7 +175,6 @@
   <ItemGroup>
     <Content Include="master.Master" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>
@@ -147,7 +183,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62273</DevelopmentServerPort>
+          <DevelopmentServerPort>52847</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
