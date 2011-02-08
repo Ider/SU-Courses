@@ -11,7 +11,10 @@ namespace HTML
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                Master.SetRevisedTime("labinfo.aspx");
+            }
         }
     }
 }

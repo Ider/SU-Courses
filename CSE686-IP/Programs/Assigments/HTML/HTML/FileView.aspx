@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="File View" Language="C#" MasterPageFile="~/master.Master" AutoEventWireup="true"
     CodeBehind="fileview.aspx.cs" Inherits="HTML.fileview" %>
 
+<%@ MasterType VirtualPath="master.master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="styles/tableformat.css" rel="stylesheet" type="text/css" />
     <link href="styles/icon.css" rel="stylesheet" type="text/css" />

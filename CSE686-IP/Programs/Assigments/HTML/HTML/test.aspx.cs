@@ -70,7 +70,7 @@ namespace HTML
 
             string link = GetFormatedLink(Path.GetFileName(folder));
             string type = "Directory";
-            string lastModified = Directory.GetLastWriteTime(folder).ToString("MM/dd/yyyy hh:mm:ss"); ;
+            string lastModified = Directory.GetLastWriteTime(folder).ToString(Constant.DATETIME_FORMAT); ;
 
             sb.Append(string.Format(format, link, type, lastModified));
         }
@@ -87,7 +87,7 @@ namespace HTML
             foreach (string folder in folders)
             {
                 link = GetFormatedLink(Path.GetFileName(folder), true);
-                lastModified = Directory.GetLastWriteTime(folder).ToString("MM/dd/yyyy hh:mm:ss");
+                lastModified = Directory.GetLastWriteTime(folder).ToString(Constant.DATETIME_FORMAT);
                 sb.Append(string.Format(format, link, type, lastModified));
             }
         }

@@ -19,6 +19,19 @@ namespace HTML
             }
         }
 
+        public void SetRevisedTime(string fileName)
+        {
+            try
+            {
+                string path = Server.MapPath(".") + "\\" + fileName;
+                DateTime dt = System.IO.Directory.GetLastWriteTime(path);
+                lblRevised.Text = "Revised: " + dt.ToString(Constant.DATETIME_FORMAT);
+            }
+            catch (Exception ex)
+            {
+                lblRevised.Text = string.Empty;
+            }
+        }
 
         private void LoadLabSubMenu()
         {
@@ -28,7 +41,7 @@ namespace HTML
                 string path = "http://www.ecs.syr.edu/faculty/fawcett/handouts/CSE686/assignments/";
 
                 XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(Server.MapPath(Constant.Lab_XML_Path));
+                xmlDoc.Load(Server.MapPath(Constant.LAB_XML_PATH));
                 XmlNodeList requirements = xmlDoc.GetElementsByTagName("requirement");
                 XmlNodeList pages = xmlDoc.GetElementsByTagName("page");
 

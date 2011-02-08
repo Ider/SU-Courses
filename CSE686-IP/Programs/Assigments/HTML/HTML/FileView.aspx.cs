@@ -15,6 +15,7 @@ namespace HTML
         {
             if (!IsPostBack)
             {
+                Master.SetRevisedTime("fileview.aspx");
                 ResetControls();
                 LoadFilesAndFolders(Server.MapPath("."));
             }
@@ -87,7 +88,7 @@ namespace HTML
             foreach (string folder in folders)
             {
                 link = GetFormatedLink(Path.GetFileName(folder), true);
-                lastModified = Directory.GetLastWriteTime(folder).ToString("MM/dd/yyyy hh:mm:ss");
+                lastModified = Directory.GetLastWriteTime(folder).ToString(Constant.DATETIME_FORMAT);
                 sb.Append(string.Format(format, link, type, lastModified));
             }
         }
@@ -105,7 +106,7 @@ namespace HTML
             {
                 link = GetFormatedLink(Path.GetFileName(file), false);
                 type = Path.GetExtension(file);
-                lastModified = Directory.GetLastWriteTime(file).ToString("MM/dd/yyyy hh:mm:ss");
+                lastModified = Directory.GetLastWriteTime(file).ToString(Constant.DATETIME_FORMAT);
                 sb.Append(string.Format(format, link, type, lastModified));
             }
         }

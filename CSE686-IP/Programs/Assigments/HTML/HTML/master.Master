@@ -56,6 +56,9 @@
                 });
             })(jQuery);
         </script>
+        <div style="border: 1px solid #a62315; position: fixed; top: 30px; right: 0px; width: auto;">
+            <asp:Label ID="lblRevised" runat="server" Text=""></asp:Label>
+        </div>
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
