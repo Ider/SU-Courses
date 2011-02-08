@@ -26,7 +26,7 @@
 			<text>Lab Infomation</text>
 			<url>labinfo.aspx</url>
 		</page>
-		<score></score>
+		<score>A</score>
 	</lab>
 
 	<lab>
@@ -36,8 +36,8 @@
 			<url>assignment3.htm</url>
 		</requirement>
 		<page>
-			<text>Under Construction...</text>
-			<url></url>
+			<text>File View</text>
+			<url>fileview.aspx</url>
 		</page>
 		<score></score>
 	</lab>

@@ -1,6 +1,11 @@
 ﻿
 /* extensions */
 
+a[ftype]{
+    padding: 5px 0px 5px 20px;
+	background: transparent url(../images/icons/icon_unknown.gif) no-repeat center left;
+}
+
 a[ftype$='.doc'], a[ftype$='.rtf'] {
 	padding: 5px 0px 5px 20px;
 	background: transparent url(../images/icons/icon_doc.gif) no-repeat center left;
@@ -158,7 +163,3 @@ a[ftype$='folder']{
 }
 
 
-a{
-    padding: 5px 0px 5px 20px;
-	background: transparent url(../images/icons/icon_unknown.gif) no-repeat center left;
-}

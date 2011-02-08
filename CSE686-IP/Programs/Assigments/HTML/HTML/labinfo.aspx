@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/master.Master" AutoEventWireup="true"
+﻿<%@ Page Title="Lab Assiment Information" Language="C#" MasterPageFile="~/master.Master" AutoEventWireup="true"
     CodeBehind="labinfo.aspx.cs" Inherits="HTML.labinfo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

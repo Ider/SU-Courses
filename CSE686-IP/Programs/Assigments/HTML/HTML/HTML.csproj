@@ -50,7 +50,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cd_catalog.xml" />
     <Content Include="experimental\iconize\iconize.css" />
     <Content Include="experimental\iconize\icons\icon_aim.gif" />
     <Content Include="experimental\iconize\icons\icon_archive.gif" />
@@ -105,6 +104,7 @@
     <Content Include="experimental\sliding-side-bar\index.html" />
     <Content Include="experimental\sliding-side-bar\js\mootools.js" />
     <Content Include="experimental\sliding-side-bar\js\side-bar.js" />
+    <Content Include="fileview.aspx" />
     <Content Include="home.aspx" />
     <Content Include="images\icons\icon_config.gif" />
     <Content Include="images\icons\icon_csharp.gif" />
@@ -196,6 +196,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\Common.cs" />
+    <Compile Include="fileview.aspx.cs">
+      <DependentUpon>fileview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="fileview.aspx.designer.cs">
+      <DependentUpon>fileview.aspx</DependentUpon>
+    </Compile>
     <Compile Include="test.aspx.cs">
       <DependentUpon>test.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -238,7 +245,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52847</DevelopmentServerPort>
+          <DevelopmentServerPort>58870</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
