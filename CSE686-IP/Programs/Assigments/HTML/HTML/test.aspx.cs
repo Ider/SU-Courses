@@ -15,18 +15,19 @@ namespace HTML
         {
             if (!IsPostBack)
             {
-                if (Session.IsNewSession)
-                    Session["currentPath"] = Server.MapPath(".");
-                lblCurPath.Text = Session["currentPath"] as string;
-                LoadFilesAndFolders(lblCurPath.Text);
+                ResetControls();
+                LoadFilesAndFolders(Server.MapPath("."));
             }
         }
+
+        #region Load HTML content
 
         /// <summary>
         /// Load the files and directories name under current directory
         /// </summary>
         private void LoadFilesAndFolders(string path)
         {
+            lblCurPath.Text = path;
             try
             {
                 StringBuilder sb = new StringBuilder();
@@ -111,6 +112,33 @@ namespace HTML
 
         #endregion
 
+        private void LoadFile(string path)
+        {
+            StreamReader sr = new StreamReader(path);
+            SetContent(HTMLEncode(sr.ReadToEnd()));
+        }
+
+        private void LoadImage(string path)
+        {
+            string mapPath = Page.MapPath(".");
+            //if image file is in current website, load it as image
+            if (path.Contains(mapPath))
+            {
+                path = path.Substring(mapPath.Length);
+                string img = string.Format("<img src='{0}' alt='image'/>", path.Replace('\\', '/'));
+                SetContent(img);
+            }
+            else//load image as bytes
+            {
+                LoadFile(path);
+            }
+
+        }
+
+        #endregion
+
+        #region Get formated elements string
+
         private string GetTableRowFormat()
         {
             string mouseEvents = "onmouseover=\"currentcolor=this.style.backgroundColor;"
@@ -125,8 +153,10 @@ namespace HTML
         {
             string format = "<a href='#{0}' ftype='{1}' {2}>{0}</a>"; //{0}name, {1}for iconizer, {2}event
             string fileType = isFolder ? "folder" : name.ToLower();
+            string clientEvent = string.Format("onClick=\"submitClick('{0}','{1}');\""
+                , name, isFolder.ToString());
 
-            return string.Format(format, name, fileType, "");
+            return string.Format(format, name, fileType, clientEvent);
         }
 
         /// <summary>
@@ -137,12 +167,84 @@ namespace HTML
         private string GetFormatedLink(string name)
         {
             string format = "<a href='#{0}' ftype='folder' {1} title='{0}'>..</a>"; //{0}name, {1}event
-            return string.Format(format, name, "");
+            string clientEvent = "onClick=\"submitClick('..','True');\"";
+
+            return string.Format(format, name, clientEvent);
         }
+
+        #endregion
+
+        #region Auxiliary functions
 
         private void ShowError(Exception ex)
         {
             lblCurPath.Text = ex.Message;
         }
+
+        private void ResetControls()
+        {
+            hfFileName.Value = string.Empty;
+            hfIsFolder.Value = string.Empty;
+            litContent.Text = string.Empty;
+            lblContent.Text = "Please select a file...";
+        }
+
+        private void SetContent(string content)
+        {
+            litContent.Text = content;
+        }
+
+        private bool IsImageFile(string name)
+        {
+            string[] imgType = { "jpg", "gif", "png", "jpeg", "svg", "eps", "ico" };
+            string extension = Path.GetExtension(name).Trim('.').ToLower();
+            List<string> s = new List<string>();
+
+            foreach (string item in imgType)
+                if (item == extension) return true;
+
+            return false;
+        }
+
+        private string HTMLEncode(string text)
+        {
+            return Server.HtmlEncode(text).Replace("\n", "<br>").Replace(" ", "&nbsp;");
+        }
+
+        #endregion
+
+        #region Button Event
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            string name = hfFileName.Value;
+            bool isFolder = Convert.ToBoolean(hfIsFolder.Value);
+            string path = Path.GetFullPath(lblCurPath.Text + "/" + name);
+
+            ResetControls();
+
+            try
+            {
+                if (isFolder)
+                {
+                    lblCurPath.Text = string.Empty;
+                    LoadFilesAndFolders(path);
+                }
+                else
+                {
+                    lblContent.Text = name;
+                    if (IsImageFile(name))
+                        LoadImage(path);
+                    else
+                        LoadFile(path);
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError(ex);
+            }
+        }
+
+        #endregion
     }
 }

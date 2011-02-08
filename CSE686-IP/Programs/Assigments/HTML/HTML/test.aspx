@@ -44,9 +44,37 @@
             </thead>
         </table>
         <div style="width: 100%; overflow-y: scroll; height: 200px;">
-            <asp:Literal ID="litList" runat="server"></asp:Literal></div>
+            <asp:Literal ID="litList" runat="server"></asp:Literal>
+        </div>
     </div>
-    <asp:Button ID="btnSumbit" runat="server" Text="[Submit]" />
+    <div class="caption">
+        <asp:Label ID="lblContent" runat="server" Text="Please select a file..."></asp:Label>
+        &nbsp;</div>
+    <div id="divContent" style="border: 1px solid #a62315; min-width: 600px; width: 100%;
+        height: 400px; overflow: auto;">
+        <asp:Literal ID="litContent" runat="server">        </asp:Literal>
+    </div>
+    <div id="divHidden" style="display: none;">
+        <asp:Button ID="btnSubmit" runat="server" Text="[Submit]" OnClick="btnSubmit_Click" />
+        <asp:HiddenField ID="hfFileName" runat="server" />
+        <asp:HiddenField ID="hfIsFolder" runat="server" />
+    </div>
     </form>
+    <script type="text/javascript">
+
+        function submitClick(filename, isFile) {
+            var name = document.getElementById("<%=hfFileName.ClientID %>");
+            var flag = document.getElementById("<%=hfIsFolder.ClientID %>");
+            name.value = filename;
+            flag.value = isFile;
+            var btn = document.getElementById("<%=btnSubmit.ClientID %>");
+            if (btn)
+                btn.click();
+            else {
+                alert("Sorry, unable to submit your request!");
+            }
+        }
+
+    </script>
 </body>
 </html>
