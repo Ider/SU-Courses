@@ -51,7 +51,7 @@ void IRule::doActions(ITokCollection* pTokColl)
 
 //
 //----< test stub >--------------------------------------------
-#define  TEST_PARSER
+
 #ifdef TEST_PARSER
 
 #include <queue>
