@@ -45,7 +45,7 @@ bool ConfigParseToConsole::Attach(const std::string& name, bool isFile)
   return pToker->attach(name, isFile);
 }
 //
-//----< Here's where alll the parts get assembled >----------------
+//----< Here's where all the parts get assembled >----------------
 
 Parser* ConfigParseToConsole::Build()
 {
@@ -140,6 +140,64 @@ Parser* ConfigParseToQueue::Build()
     return 0;
   }
 }
+
+
+
+//----< constructor initializes pointers to all parts >--------------
+
+IderConfigParseToConsole::IderConfigParseToConsole() 
+	: pToker(0), pSemi(0), pParser(0), funcRule(0), funAction(0){}
+
+//----< destructor releases all parts >------------------------------
+
+IderConfigParseToConsole::~IderConfigParseToConsole()
+{
+	// when Builder goes out of scope, everything must be deallocated
+
+	delete funcRule;
+	delete funAction;
+	delete pParser;
+	delete pSemi;
+	delete pToker;
+}
+//----< attach toker to a file stream or stringstream >------------
+
+bool IderConfigParseToConsole::Attach(const std::string& name, bool isFile)
+{
+	if(pToker == 0)
+		return false;
+	return pToker->attach(name, isFile);
+}
+//
+//----< Here's where alll the parts get assembled >----------------
+
+Parser* IderConfigParseToConsole::Build()
+{
+	try
+	{
+		// configure to detect and act on preprocessor statements
+
+		pToker = new Toker;
+		pSemi = new SemiExp(pToker);
+		pParser = new Parser(pSemi);
+
+		funcRule = new FunctionAnalysisRule;
+		funAction = new FunctionAnalysisAction;
+		funcRule->addAction(funAction);
+		pParser->addRule(funcRule);
+
+
+		return pParser;
+	}
+	catch(std::exception& ex)
+	{
+		std::cout << "\n\n  " << ex.what() << "\n\n";
+		return 0;
+	}
+}
+
+
+
 //
 #ifdef TEST_CONFIGUREPARSER
 

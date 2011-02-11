@@ -51,7 +51,7 @@
 #include "SemiExpression.h"
 #include "Tokenizer.h"
 #include "ActionsAndRules.h"
-//#include "iderRulesAndActions.h"
+#include "iderRulesAndActions.h"
 
 ///////////////////////////////////////////////////////////////
 // build parser that writes its output to console
@@ -147,11 +147,8 @@ private:
 
 	// and the the Rules and Actions as well
 
-	PreprocStatement* pPreprocStatement;
-	PrintPreproc* pPrintPreproc;
-	FunctionDefinition* pFunctionDefinition;
-	PrintFunction* pPrintFunction;
-	PrettyPrintFunction* pPrettyPrintFunction;
+	FunctionAnalysisRule* funcRule;
+	FunctionAnalysisAction* funAction;
 
 	// prohibit copies and assignments
 

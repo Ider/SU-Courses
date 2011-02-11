@@ -19,6 +19,7 @@
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ScopeStack.h" />
     <ClInclude Include="SemiExpression.h" />
+    <ClInclude Include="test.h" />
     <ClInclude Include="Tokenizer.h" />
   </ItemGroup>
   <ItemGroup>
