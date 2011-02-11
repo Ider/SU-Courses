@@ -62,15 +62,15 @@
 class PreprocStatement : public IRule
 {
 public:
-  bool doTest(ITokCollection* pTc)
-  {
-    if(pTc->find("#") < pTc->length())
-    {
-      doActions(pTc);
-      return true;
-    }
-    return false;
-  }
+	bool doTest(ITokCollection* pTc)
+	{
+		if(pTc->find("#") < pTc->length())
+		{
+			doActions(pTc);
+			return true;
+		}
+		return false;
+	}
 };
 
 ///////////////////////////////////////////////////////////////
@@ -136,16 +136,16 @@ public:
 class PrettyPrintFunction : public IAction
 {
 public:
-  void doAction(ITokCollection* pTc)
-  {
-    pTc->remove("public");
-    pTc->remove(":");
-    pTc->trimFront();
-    int len = pTc->find(")");
-    std::cout << "\n\n  Pretty Stmt:    ";
-    for(int i=0; i<len+1; ++i)
-      std::cout << (*pTc)[i] << " ";
-  }
+	void doAction(ITokCollection* pTc)
+	{
+		pTc->remove("public");
+		pTc->remove(":");
+		pTc->trimFront();
+		int len = pTc->find(")");
+		std::cout << "\n\n  Pretty Stmt:    ";
+		for(int i=0; i<len+1; ++i)
+			std::cout << (*pTc)[i] << " ";
+	}
 };
 
 //

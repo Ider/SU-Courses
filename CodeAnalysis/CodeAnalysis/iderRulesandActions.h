@@ -3,7 +3,7 @@
 
 #include "Parser.h"
 #include "functionInfo.h"
-
+#include <vector>
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ class FunctionAnalysisAction:public IAction
 public:
 	FunctionAnalysisAction(){ curFuncInfo=NULL;}
 	void doAction(ITokCollection* pTc);
-	//void printAnalysisResult();
+	void showAnalysisResult();
 private:
 	bool isSpecialKeyWord(const std::string& tok);
     std::string getFunctionName(ITokCollection* pTc);
