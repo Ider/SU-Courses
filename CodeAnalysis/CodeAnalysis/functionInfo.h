@@ -23,7 +23,7 @@ private:
 	int deepestBrace;
 };
 
-funcInfo::funcInfo(std::string funcName, int bLine,int bBrace)
+inline funcInfo::funcInfo(std::string funcName, int bLine,int bBrace)
 	:name(funcName),beginLine(bLine),beginBrace(beginBrace)
 {
 	endLine = -1;
