@@ -38,7 +38,7 @@ public:
 	void showAnalysisResult();
 private:
 	bool isSpecialKeyWord(const std::string& tok);
-    std::string getFunctionName(ITokCollection* pTc);
+	std::string getFunctionName(ITokCollection* pTc);
 	void braceBeginAction(ITokCollection* pTc);
 	void braceEndAction(ITokCollection* pTc);
 	std::vector<funcInfo*> funcInfos;

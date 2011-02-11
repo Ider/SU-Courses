@@ -14,7 +14,7 @@
     <ClInclude Include="ActionsAndRules.h" />
     <ClInclude Include="ConfigureParser.h" />
     <ClInclude Include="functionInfo.h" />
-    <ClInclude Include="iderRulesandActions.h" />
+    <ClInclude Include="iderRulesAndActions.h" />
     <ClInclude Include="itokcollection.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ScopeStack.h" />

@@ -39,7 +39,7 @@
     <ClInclude Include="functionInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="iderRulesandActions.h">
+    <ClInclude Include="iderRulesAndActions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

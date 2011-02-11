@@ -1,4 +1,4 @@
-#include "iderRulesandActions.h"
+#include "iderRulesAndActions.h"
 #include <iostream>
 ////////////////// FunctionAnalysisAction/////////////////////////////////
 
@@ -87,7 +87,7 @@ void FunctionAnalysisAction::showAnalysisResult()
 		info.append("\n");
 		info.append("\t\t");
 		info.append("size:"+(*it)->getFunctionSize());
-	//	info.append("scope nesting:"+(*it)->getFunctionScopeNesting());
+		info.append("scope nesting:"+(*it)->getFunctionScopeNesting());
 
 		std::cout << info << std::endl;		
 	}

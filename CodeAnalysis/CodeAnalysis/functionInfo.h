@@ -1,9 +1,7 @@
 #ifndef FUNCTION_INFO_H
 #define FUNCTION_INFO_H
 
-
 #include <string>
-
 
 class funcInfo
 {
@@ -43,7 +41,7 @@ inline int funcInfo::getFunctionSize() const
 	return (endLine - beginLine);
 }
 
-int funcInfo::getFunctionScopeNesting() const
+inline int funcInfo::getFunctionScopeNesting() const
 {	return (deepestBrace - beginBrace + 1); }
 
 inline void funcInfo::setEndLine(int lineNo){endLine = lineNo;}
