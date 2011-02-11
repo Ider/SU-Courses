@@ -1,41 +1,7 @@
 #include "iderRulesandActions.h"
-// #include "iderActions.h"
-// 
-// iderIRule::endWith iderIRule::collectionEndWith(ITokCollection* pTc)
-// {
-// 	std::string& last = (*pTc)[pTc->length()-1];
-// 	//std::string& last = pTc->operator[](pTc->length()-1);
-// 	if (last == ";")return semicolon;
-// 	if (last == "{")return leftBrace;
-// 	if (last == "}")return rightBrace;
-// 	if (last == "\n")return newline;
-// }
-// 
-// bool iderIRule::isFunctionBegin(ITokCollection* pTc)
-// {
-// 	if (collectionEndWith(pTc) == leftBrace)
-// 	{
-// 		int len = pTc->find("(");
-// 		if(len < pTc->length() && !isSpecialKeyWord((*pTc)[len-1]))
-// 		{
-// 			doActions(pTc);
-// 			return true;
-// 		}
-// 	}
-// }
-// 
-// bool iderIRule::isSpecialKeyWord(const std::string& tok)
-// {
-// 	const static std::string keys[]
-// 	= { "for", "while", "switch", "if", "catch" };
-// 	for(int i=0; i<5; ++i)
-// 		if(tok == keys[i])
-// 			return true;
-// 	return false;
-// }
-// 
-// 
-// 
+
+////////////////// FunctionAnalysisAction/////////////////////////////////
+
 bool FunctionAnalysisAction::isSpecialKeyWord(const std::string& tok)
 {
 	const static std::string keys[]
@@ -95,9 +61,14 @@ void FunctionAnalysisAction::braceBeginAction(ITokCollection* pTc)
 void FunctionAnalysisAction::braceEndAction(ITokCollection* pTc)
 {
 	if (curFuncInfo == NULL )return;
-	if (pTc->getCurrentBrace()<curFuncInfo->getBeginBrace())
+	//When current brace No. is less than function begin brace No.,
+	//it means token is out of function,
+	//so information conllection for this function is done
+	if (pTc->getCurrentBrace() < curFuncInfo->getBeginBrace())
 	{
 		curFuncInfo->setEndLine(pTc->getCurrentLine());
 		curFuncInfo=NULL;
 	}
 }
+
+//////////////////End FunctionAnalysisAction/////////////////////////////////
