@@ -11,7 +11,7 @@ public:
 	funcInfo(std::string funcName, int bLine,int bBrace);
 	int getFunctionSize() const;
 	int getFunctionScopeNesting() const;
-	int setEndLine(int lineNo);
+	void setEndLine(int lineNo);
 	void operator++();
 	std::string getName() const;
 	int getBeginLine() const;
@@ -46,7 +46,7 @@ inline int funcInfo::getFunctionSize() const
 int funcInfo::getFunctionScopeNesting() const
 {	return (deepestBrace - beginBrace + 1); }
 
-inline int funcInfo::setEndLine(int lineNo){endLine = lineNo;}
+inline void funcInfo::setEndLine(int lineNo){endLine = lineNo;}
 
 inline void funcInfo::operator++(){++deepestBrace;}
 
