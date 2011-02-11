@@ -13,6 +13,8 @@
   <ItemGroup>
     <ClInclude Include="ActionsAndRules.h" />
     <ClInclude Include="ConfigureParser.h" />
+    <ClInclude Include="functionInfo.h" />
+    <ClInclude Include="iderRulesandActions.h" />
     <ClInclude Include="itokcollection.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ScopeStack.h" />
@@ -22,6 +24,7 @@
   <ItemGroup>
     <ClCompile Include="ActionsAndRules.cpp" />
     <ClCompile Include="ConfigureParser.cpp" />
+    <ClCompile Include="iderRulesAndActions.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="ScopeStack.cpp" />
     <ClCompile Include="SemiExpression.cpp" />

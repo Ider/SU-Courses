@@ -41,8 +41,10 @@ struct ITokCollection
 	virtual void trimFront()=0;
 	virtual void clear()=0;
 	virtual std::string show()=0;
+
 	virtual int getCurrentLine()=0;
 	virtual int getCurrentBrace()=0;
+
 	virtual ~ITokCollection() {};
 };
 
