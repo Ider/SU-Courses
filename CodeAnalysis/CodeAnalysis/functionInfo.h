@@ -1,3 +1,7 @@
+#ifndef FUNCTION_INFO_H
+#define FUNCTION_INFO_H
+
+
 #include <string>
 
 
@@ -53,3 +57,5 @@ inline int funcInfo::getBeginLine() const {return beginLine;}
 inline int funcInfo::getBeginBrace() const {return beginBrace;}
 
 inline int funcInfo::getDeepestBrace() const {return deepestBrace;}
+
+#endif
