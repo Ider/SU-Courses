@@ -18,7 +18,7 @@ void display::printFunctions()
 	{
 		funcInfo* func = (*it);
 		std::string info = "Func Name:  ";
-		info.append(func->getName());
+		info.append(func->getFullName());
 		info.append("\n\t");
 		std::cout << info;
 		std::cout << "size:  " <<func->getFunctionSize()<<"\n\t";
