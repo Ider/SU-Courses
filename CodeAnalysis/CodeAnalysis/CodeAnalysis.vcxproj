@@ -36,9 +36,6 @@
     <ClCompile Include="SemiExpression.cpp" />
     <ClCompile Include="Tokenizer.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{10D3115B-F98E-40E9-9837-09A999F970DE}</ProjectGuid>
     <RootNamespace>CodeAnalysis</RootNamespace>
