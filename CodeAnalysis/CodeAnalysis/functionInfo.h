@@ -13,6 +13,7 @@ public:
 	void setEndLine(int lineNo);
 	void operator++();
 	std::string getName() const;
+	std::string getFullName() const;
 	int getBeginLine() const;
 	int getBeginBrace() const;
 	int getDeepestBrace() const;
@@ -58,6 +59,13 @@ inline void funcInfo::setEndLine(int lineNo){endLine = lineNo;}
 inline void funcInfo::operator++(){++deepestBrace;}
 
 inline std::string funcInfo::getName() const {return name;}
+inline std::string funcInfo::getFullName() const 
+{
+	if (className.length()>0)
+		return className + "::" + name;
+	
+	return name;
+}
 
 inline int funcInfo::getBeginLine() const {return beginLine;}
 
