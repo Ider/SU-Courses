@@ -13,9 +13,12 @@
   <ItemGroup>
     <ClInclude Include="ActionsAndRules.h" />
     <ClInclude Include="ConfigureParser.h" />
+    <ClInclude Include="display.h" />
     <ClInclude Include="functionInfo.h" />
     <ClInclude Include="iderRulesAndActions.h" />
+    <ClInclude Include="infoCollection.h" />
     <ClInclude Include="itokcollection.h" />
+    <ClInclude Include="packageInfo.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ScopeStack.h" />
     <ClInclude Include="SemiExpression.h" />
@@ -25,11 +28,16 @@
   <ItemGroup>
     <ClCompile Include="ActionsAndRules.cpp" />
     <ClCompile Include="ConfigureParser.cpp" />
+    <ClCompile Include="display.cpp" />
     <ClCompile Include="iderRulesAndActions.cpp" />
+    <ClCompile Include="packageInfo.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="ScopeStack.cpp" />
     <ClCompile Include="SemiExpression.cpp" />
     <ClCompile Include="Tokenizer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{10D3115B-F98E-40E9-9837-09A999F970DE}</ProjectGuid>
@@ -62,7 +70,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>TEST_PARSER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TEST_PARSER2;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

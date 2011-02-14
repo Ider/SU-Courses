@@ -80,23 +80,180 @@ void FunctionAnalysisAction::braceEndAction(ITokCollection* pTc)
 void FunctionAnalysisAction::showAnalysisResult()
 {
 	std::vector<funcInfo*>::iterator it;
+	std::cout << std::endl;		
 	for (it=funcInfos.begin();it!=funcInfos.end();++it)
 	{
-		std::string info = "Func Name:";
+		std::string info = "Func Name:  ";
 		info.append((*it)->getName());
-		info.append("\n");
-		info.append("\t\t");
-		info.append("size:"+(*it)->getFunctionSize());
-		info.append("scope nesting:"+(*it)->getFunctionScopeNesting());
+		info.append("\n\t");
+		std::cout << info;
+		std::cout << "size:  " <<(*it)->getFunctionSize()<<"\n\t";
+		std::cout <<"scope nesting:  " << (*it)->getFunctionScopeNesting();
 
-		std::cout << info << std::endl;		
+		std::cout << std::endl;		
 	}
 }
 
 //////////////////End FunctionAnalysisAction/////////////////////////////////
 
 
+////////////////////ClassBeginAction///////////////////////////
 
+std::string& ClassBeginAction::getClassName(ITokCollection* pTc)
+{
+	 ITokCollection& tc = *pTc;
+	int len = tc.find("class");
+	if (len >= tc.length())len = tc.find("struct");
+	return tc[len+1];
+}
+
+void ClassBeginAction::doAction(ITokCollection* pTc)
+{
+	std::string& name = getClassName(pTc);
+	helper->setCurrentClass(name);
+	helper->setClassBeginBrace(pTc->getCurrentBrace());
+}
+
+
+////////////////////End ClassBeginAction///////////////////////////
+
+
+
+std::string& FunctionBeginAction::getFuctionName(ITokCollection* pTc)
+{
+	ITokCollection& tc = *pTc;
+	int len = tc.find("(") - 1;
+	return tc[len];
+}
+
+std::string FunctionBeginAction::getClassName(ITokCollection* pTc)
+{
+	std::string& name = helper->getCurrentClass();	
+	if (name.length()>0)return name;
+
+	ITokCollection& tc = *pTc;
+	int len = tc.find("(") - 2;
+	if (tc[len] == "::")
+		return tc[len-1];
+
+	return "";
+}
+
+void FunctionBeginAction::doAction(ITokCollection* pTc)
+{
+	std::string& fName = getFuctionName(pTc);
+	std::string cName = getClassName(pTc);
+	funcInfo* func = pack->getFunction(cName,fName);
+	if (func==NULL)
+	{
+		func = new funcInfo(cName,fName
+			,pTc->getCurrentLine()
+			,pTc->getCurrentBrace());
+		pack->addFunction(func);
+	}
+	helper->setCurrentFunction(func);
+}
 
 //
 //----< test stub >--------------------------------------------
+
+
+
+#ifdef TEST_PARSER2
+
+#include <queue>
+#include <string>
+#include "ConfigureParser.h"
+
+
+int main(int argc, char* argv[])
+{
+	std::cout << "\n  Testing Parser class\n "
+		<< std::string(22,'=') << std::endl;
+
+	// collecting tokens from files, named on the command line
+
+	if(argc < 2)
+	{
+		std::cout 
+			<< "\n  please enter name of file to process on command line\n\n";
+		return 1;
+	}
+
+	for(int i=1; i<argc; ++i)
+	{
+		std::cout << "\n  Processing file " << argv[i];
+		std::cout << "\n  " << std::string(16 + strlen(argv[i]),'-');
+
+		IderConfigParseToConsole configure;
+		Parser* pParser = configure.Build();
+		try
+		{
+			if(pParser)
+			{
+				if(!configure.Attach(argv[i]))
+				{
+					std::cout << "\n  could not open file " << argv[i] << std::endl;
+					continue;
+				}
+			}
+			else
+			{
+				std::cout << "\n\n  Parser not built\n\n";
+				return 1;
+			}
+			// now that parser is built, use it
+
+			while(pParser->next())
+				pParser->parse();
+			pParser->showParseResult();
+			std::cout << "\n\n";
+		}
+		catch(std::exception& ex)
+		{
+			std::cout << "\n\n    " << ex.what() << "\n\n";
+		}
+
+		//
+		std::cout << "\n  Processing file for Queued Outputs " << argv[i];
+		std::cout << "\n  " << std::string(35 + strlen(argv[i]),'-');
+
+		ConfigParseToQueue Qconfigure;
+		pParser = Qconfigure.Build();
+		try
+		{
+			if(pParser)
+			{
+				if(!Qconfigure.Attach(argv[i]))
+				{
+					std::cout << "\n  could not open file " << argv[i] << std::endl;
+					continue;
+				}
+			}
+			else
+			{
+				std::cout << "\n\n  Parser not built\n\n";
+				return 1;
+			}
+			// now that parser is built, use it
+
+			while(pParser->next())
+				pParser->parse();
+			std::cout << "\n\n";
+		}
+		catch(std::exception& ex)
+		{
+			std::cout << "\n\n    " << ex.what() << "\n\n";
+		}
+		std::queue<std::string>* pQueue = Qconfigure.GetQueue();
+		size_t len = pQueue->size();
+		for(size_t i=0; i<len; ++i)
+		{
+			std::cout << "\n  " << pQueue->front();
+			pQueue->pop();
+		}
+		std::cout << "\n\n";
+	}
+}
+
+#endif

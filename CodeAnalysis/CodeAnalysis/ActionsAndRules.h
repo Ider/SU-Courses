@@ -79,15 +79,15 @@ public:
 class FunctionDefinition : public IRule
 {
 public:
-  bool isSpecialKeyWord(const std::string& tok)
-  {
-    const static std::string keys[]
-      = { "for", "while", "switch", "if", "catch" };
-    for(int i=0; i<5; ++i)
-      if(tok == keys[i])
-        return true;
-    return false;
-  }
+	bool isSpecialKeyWord(const std::string& tok)
+	{
+		const static std::string keys[]
+		= { "for", "while", "switch", "if", "catch" };
+		for(int i=0; i<5; ++i)
+			if(tok == keys[i])
+				return true;
+		return false;
+	}
   bool doTest(ITokCollection* pTc)
   {
     ITokCollection& tc = *pTc;
