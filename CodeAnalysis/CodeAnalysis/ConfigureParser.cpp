@@ -146,7 +146,15 @@ Parser* ConfigParseToQueue::Build()
 //----< constructor initializes pointers to all parts >--------------
 
 IderConfigParseToConsole::IderConfigParseToConsole() 
-	: pToker(0), pSemi(0), pParser(0), funcRule(0), funAction(0){}
+	: pToker(0), pSemi(0), pParser(0)//, funcRule(0), funAction(0)
+{
+	helper = new parserHelper();
+}
+
+IderConfigParseToConsole::IderConfigParseToConsole(parserHelper* h) 
+	: pToker(0), pSemi(0), pParser(0), helper(h)//, funcRule(0), funAction(0)
+{
+}
 
 //----< destructor releases all parts >------------------------------
 
@@ -154,11 +162,20 @@ IderConfigParseToConsole::~IderConfigParseToConsole()
 {
 	// when Builder goes out of scope, everything must be deallocated
 
-	delete funcRule;
-	delete funAction;
 	delete pParser;
 	delete pSemi;
 	delete pToker;
+
+	delete cbr;
+	delete cba;
+	delete cer;
+	delete cea;
+
+	delete fbr;
+	delete fba;
+	delete fer;
+	delete fea;
+
 }
 //----< attach toker to a file stream or stringstream >------------
 
@@ -166,7 +183,15 @@ bool IderConfigParseToConsole::Attach(const std::string& name, bool isFile)
 {
 	if(pToker == 0)
 		return false;
+	helper->resetHelper();
 	return pToker->attach(name, isFile);
+}
+
+bool IderConfigParseToConsole::Attach(const std::string& name, packageInfo* pack)
+{
+	fba->setPack(pack);
+
+	return Attach(name);
 }
 //
 //----< Here's where alll the parts get assembled >----------------
@@ -181,11 +206,23 @@ Parser* IderConfigParseToConsole::Build()
 		pSemi = new SemiExp(pToker);
 		pParser = new Parser(pSemi);
 
-		funcRule = new FunctionAnalysisRule;
-		funAction = new FunctionAnalysisAction;
-		funcRule->addAction(funAction);
-		pParser->addRule(funcRule);
+		cbr = new ClassBeginRule();
+		cba = new ClassBeginAction(helper);
+		cbr->addAction(cba);
+		pParser->addRule(cbr);
+		cer = new ClassEndRule(helper);
+		cea = new ClassEndAction(helper);
+		cer->addAction(cea);
+		pParser->addRule(cer);
 
+		fbr = new FunctionBeginRule();
+		fba = new FunctionBeginAction(helper);
+		fbr->addAction(fba);
+		pParser->addRule(fbr);
+		fer = new FuntionEndRule(helper);
+		fea = new FuntionEndAction(helper);
+		fer->addAction(fea);
+		pParser->addRule(fer);
 
 		return pParser;
 	}

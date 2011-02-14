@@ -119,10 +119,12 @@ void ClassBeginAction::doAction(ITokCollection* pTc)
 
 
 
-std::string& FunctionBeginAction::getFuctionName(ITokCollection* pTc)
+std::string FunctionBeginAction::getFuctionName(ITokCollection* pTc)
 {
 	ITokCollection& tc = *pTc;
 	int len = tc.find("(") - 1;
+	if (tc[len-1] == "::~")
+		return "~" + tc[len];
 	return tc[len];
 }
 
@@ -133,7 +135,7 @@ std::string FunctionBeginAction::getClassName(ITokCollection* pTc)
 
 	ITokCollection& tc = *pTc;
 	int len = tc.find("(") - 2;
-	if (tc[len] == "::")
+	if (tc[len] == "::" || tc[len] == "::~")
 		return tc[len-1];
 
 	return "";
@@ -141,7 +143,7 @@ std::string FunctionBeginAction::getClassName(ITokCollection* pTc)
 
 void FunctionBeginAction::doAction(ITokCollection* pTc)
 {
-	std::string& fName = getFuctionName(pTc);
+	std::string fName = getFuctionName(pTc);
 	std::string cName = getClassName(pTc);
 	funcInfo* func = new funcInfo(cName,fName
 			,pTc->getCurrentLine()

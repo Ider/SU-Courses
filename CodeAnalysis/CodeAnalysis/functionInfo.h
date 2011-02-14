@@ -12,6 +12,7 @@ public:
 	int getFunctionScopeNesting() const;
 	void setEndLine(int lineNo);
 	void operator++();
+	void increaseCyclometer();
 	std::string getName() const;
 	std::string getFullName() const;
 	int getBeginLine() const;
@@ -24,6 +25,7 @@ private:
 	int endLine;
 	const int beginBrace;
 	int deepestBrace;
+	int cyclometer;
 };
 
 inline funcInfo::funcInfo(std::string funcName, int bLine,int bBrace)
@@ -31,6 +33,7 @@ inline funcInfo::funcInfo(std::string funcName, int bLine,int bBrace)
 {
 	endLine = -1;
 	deepestBrace = bBrace;
+	cyclometer = 1;
 }
 
 inline funcInfo::funcInfo(std::string cName, std::string fName, int bLine,int bBrace)
@@ -56,7 +59,12 @@ inline int funcInfo::getFunctionScopeNesting() const
 
 inline void funcInfo::setEndLine(int lineNo){endLine = lineNo;}
 
+//////////////////////////////////////////////////////////////////////////
+//increase deepest brace
+//
 inline void funcInfo::operator++(){++deepestBrace;}
+
+inline void funcInfo:: increaseCyclometer(){++cyclometer;}
 
 inline std::string funcInfo::getName() const {return name;}
 inline std::string funcInfo::getFullName() const 

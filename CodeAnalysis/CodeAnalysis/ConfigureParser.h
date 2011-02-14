@@ -134,21 +134,30 @@ class IderConfigParseToConsole : IBuilder
 {
 public:
 	IderConfigParseToConsole();
+	IderConfigParseToConsole(parserHelper* h);
 	~IderConfigParseToConsole();
 	bool Attach(const std::string& name, bool isFile=true);
+	bool Attach(const std::string& name, packageInfo* pack);
 	Parser* Build();
 
 private:
 	// Builder must hold onto all the pieces
+	parserHelper* helper;
 
 	Toker* pToker;
 	SemiExp* pSemi;
 	Parser* pParser;
 
 	// and the the Rules and Actions as well
+	ClassBeginRule* cbr;
+	ClassBeginAction* cba;
+	ClassEndRule* cer;
+	ClassEndAction* cea;
 
-	FunctionAnalysisRule* funcRule;
-	FunctionAnalysisAction* funAction;
+	FunctionBeginRule* fbr;
+	FunctionBeginAction* fba;
+	FuntionEndRule* fer;
+	FuntionEndAction* fea;
 
 	// prohibit copies and assignments
 
