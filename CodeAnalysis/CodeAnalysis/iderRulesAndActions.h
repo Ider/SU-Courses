@@ -194,7 +194,43 @@ private:
 };
 
 
+class FunctionCyclomaticRule: public IRule
+{
+public:
+	FunctionCyclomaticRule(){}
+	bool doTest(ITokCollection* pTc)
+	{
+		if (contanSpecialKey(pTc))
+		{
+			doActions(pTc);
+			return true;
+		}
+		return false;
+	}
+private:
+	bool contanSpecialKey(ITokCollection* pTc)
+	{
+		const static std::string keys[]
+		= { "for", "while", "break", "continue", "if", "catch", "goto" };
+		for(int i=0; i<7; ++i)
+			if(pTc->find(keys[i]) < pTc->length())
+				return true;
 
+		return false;
+	}
+};
 
+class FunctionCyclomaticAction:public IAction
+{
+public:
+	FunctionCyclomaticAction(parserHelper* h):helper(h){}
+	void doAction(ITokCollection* pTc)
+	{
+		funcInfo* func = helper->getCurrentFunction();
+		if (func)func->increaseCyclometer();
+	}
+private:
+	parserHelper* helper;
+};
 
 #endif

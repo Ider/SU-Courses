@@ -159,6 +159,9 @@ private:
 	FuntionEndRule* fer;
 	FuntionEndAction* fea;
 
+	FunctionCyclomaticRule* fcr;
+	FunctionCyclomaticAction* fca;
+
 	// prohibit copies and assignments
 
 	IderConfigParseToConsole(const IderConfigParseToConsole&);

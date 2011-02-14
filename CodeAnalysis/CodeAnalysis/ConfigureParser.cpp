@@ -166,15 +166,11 @@ IderConfigParseToConsole::~IderConfigParseToConsole()
 	delete pSemi;
 	delete pToker;
 
-	delete cbr;
-	delete cba;
-	delete cer;
-	delete cea;
+	delete cbr, cba, cer, cea;
 
-	delete fbr;
-	delete fba;
-	delete fer;
-	delete fea;
+	delete fbr, fba, fer,fea;
+
+	delete fcr, fca;
 
 }
 //----< attach toker to a file stream or stringstream >------------
@@ -223,6 +219,12 @@ Parser* IderConfigParseToConsole::Build()
 		fea = new FuntionEndAction(helper);
 		fer->addAction(fea);
 		pParser->addRule(fer);
+
+		fcr = new FunctionCyclomaticRule();
+		fca = new FunctionCyclomaticAction(helper);
+		fcr->addAction(fca);
+		pParser->addRule(fcr);
+
 
 		return pParser;
 	}

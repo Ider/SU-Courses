@@ -18,6 +18,7 @@ public:
 	int getBeginLine() const;
 	int getBeginBrace() const;
 	int getDeepestBrace() const;
+	int getCyclometer() const;
 private:
 	const std::string className;
 	const std::string name;
@@ -41,6 +42,7 @@ inline funcInfo::funcInfo(std::string cName, std::string fName, int bLine,int bB
 {
 	endLine = -1;
 	deepestBrace = bBrace;
+	cyclometer = 1;
 }
 
 inline int funcInfo::getFunctionSize() const
@@ -80,5 +82,7 @@ inline int funcInfo::getBeginLine() const {return beginLine;}
 inline int funcInfo::getBeginBrace() const {return beginBrace;}
 
 inline int funcInfo::getDeepestBrace() const {return deepestBrace;}
+
+inline int funcInfo::getCyclometer()const {return cyclometer;}
 
 #endif

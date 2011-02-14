@@ -14,6 +14,7 @@ void display::printFunctions()
 {
 	std::vector<funcInfo*>& funcs = pack->functions;
 	std::vector<funcInfo*>::iterator it;
+	std::cout << std::endl;	
 	for (it=funcs.begin();it!=funcs.end();++it)
 	{
 		funcInfo* func = (*it);
@@ -22,7 +23,8 @@ void display::printFunctions()
 		info.append("\n\t");
 		std::cout << info;
 		std::cout << "size:  " <<func->getFunctionSize()<<"\n\t";
-		std::cout <<"scope nesting:  " << func->getFunctionScopeNesting();
+		std::cout <<"scope nesting:  " << func->getFunctionScopeNesting()<<"\n\t";
+		std::cout <<"cyclomatic complexity:  "<<func->getCyclometer()<<"\n\t";
 
 		std::cout << std::endl;		
 	}
