@@ -142,20 +142,59 @@ public:
 class FunctionBeginAction:public IAction
 {
 public:
-	FunctionBeginAction(parserHelper* h,packageInfo* i):helper(h),pack(i){}
+	FunctionBeginAction(parserHelper* h):helper(h){}
 	void doAction(ITokCollection* pTc);
+	void setPack(packageInfo* p){pack = p;}
 private:
-	std::string& getFuctionName(ITokCollection* pTc);
+	std::string getFuctionName(ITokCollection* pTc);
 	std::string getClassName(ITokCollection* pTc);
 	packageInfo* pack;
 	parserHelper* helper;
 };
 
 
-
 class FuntionEndRule:public IRule
 {
+public:
+	FuntionEndRule(parserHelper* h):helper(h){}
+	bool doTest(ITokCollection* pTc)
+	{
+		funcInfo* func = helper->getCurrentFunction();
+		if (func !=NULL)
+		{	
+			if(func->getBeginBrace() > pTc->getCurrentBrace())
+				doActions(pTc);
 
+			//increase deepest brace
+			if((*pTc)[pTc->length()-1] == "{"
+				&& func->getBeginBrace() < pTc->getCurrentBrace())
+				++(*func);
+
+			return true;
+		}
+		return false;
+	}
+
+private:
+	parserHelper* helper;
 };
+
+
+class FuntionEndAction:public IAction
+{
+public:
+	FuntionEndAction(parserHelper* h):helper(h){}
+	void doAction(ITokCollection* pTc)
+	{
+		funcInfo* func = helper->getCurrentFunction();
+		func->setEndLine(pTc->getCurrentLine());
+	}
+private:
+	parserHelper* helper;
+};
+
+
+
+
 
 #endif
