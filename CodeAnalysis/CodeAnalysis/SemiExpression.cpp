@@ -102,11 +102,21 @@ std::string SemiExp::show()
 
 int SemiExp::find(const std::string& tok)
 {
-  for(int i=0; i<length(); ++i)
-    if(tok == toks[i])
-      return i;
-  return length();
+	for(int i=0; i<length(); ++i)
+		if(tok == toks[i])
+			return i;
+	return length();
 }
+
+// search from end to begin
+int SemiExp::rfind(const std::string& tok)
+{
+	for(int i= length()-1; i>=0; --i)
+		if(tok == toks[i])
+			return i;
+	return length();
+}
+
 //----< remove tok if found in semi-expression >---------------
 
 bool SemiExp::remove(const std::string& tok)

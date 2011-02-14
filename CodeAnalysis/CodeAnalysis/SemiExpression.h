@@ -89,8 +89,10 @@ public:
 	void trimFront();
 	void clear();
 	std::string show();
+
 	int getCurrentLine();
 	int getCurrentBrace();
+	int rfind(const std::string& tok);
 
 	void verbose(bool v = true);
 	void makeCommentSemiExp(bool commentIsSE = true);

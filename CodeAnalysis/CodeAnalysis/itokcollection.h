@@ -44,6 +44,7 @@ struct ITokCollection
 
 	virtual int getCurrentLine()=0;
 	virtual int getCurrentBrace()=0;
+	virtual int rfind(const std::string& tok)=0;
 
 	virtual ~ITokCollection() {};
 };
