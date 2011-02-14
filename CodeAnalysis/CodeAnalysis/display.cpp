@@ -12,11 +12,11 @@ void display::printAnalysis(packageInfo* packInfo)
 
 void display::printFunctions()
 {
-	std::map<std::string,funcInfo*>& funcs = pack->functions;
-	std::map<std::string,funcInfo*>::iterator it;
+	std::vector<funcInfo*>& funcs = pack->functions;
+	std::vector<funcInfo*>::iterator it;
 	for (it=funcs.begin();it!=funcs.end();++it)
 	{
-		funcInfo* func = it->second;
+		funcInfo* func = (*it);
 		std::string info = "Func Name:  ";
 		info.append(func->getName());
 		info.append("\n\t");

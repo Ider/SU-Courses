@@ -1,7 +1,7 @@
 #ifndef PACKAGE_INFO_H
 #define PACKAGE_INFO_H
 
-#include <map>
+#include <vector>
 #include <string>
 #include "functionInfo.h"
 
@@ -9,14 +9,13 @@
 class packageInfo
 {
 public:
-	funcInfo* getFunction(const std::string& funcName);
-	funcInfo* getFunction(const std::string& cName,const std::string& fName);
 	//std::map<std::string,funcInfo*>& getFunctions();
-	bool addFunction(funcInfo* func);
+	void addFunction(funcInfo* func)
+	{functions.push_back(func);}
 	friend class display;
 	
 private:
-	std::map<std::string,funcInfo*> functions;
+	std::vector<funcInfo*> functions;
 
 };
 

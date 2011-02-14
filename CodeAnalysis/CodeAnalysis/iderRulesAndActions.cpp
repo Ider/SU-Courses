@@ -143,14 +143,10 @@ void FunctionBeginAction::doAction(ITokCollection* pTc)
 {
 	std::string& fName = getFuctionName(pTc);
 	std::string cName = getClassName(pTc);
-	funcInfo* func = pack->getFunction(cName,fName);
-	if (func==NULL)
-	{
-		func = new funcInfo(cName,fName
+	funcInfo* func = new funcInfo(cName,fName
 			,pTc->getCurrentLine()
 			,pTc->getCurrentBrace());
-		pack->addFunction(func);
-	}
+	pack->addFunction(func);
 	helper->setCurrentFunction(func);
 }
 
