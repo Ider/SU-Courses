@@ -24,7 +24,7 @@ void display::printFunctions()
 		std::cout << info;
 		std::cout << "size:  " <<func->getFunctionSize()<<"\n\t";
 		std::cout <<"scope nesting:  " << func->getFunctionScopeNesting()<<"\n\t";
-		std::cout <<"cyclomatic complexity:  "<<func->getCyclometer()<<"\n\t";
+		std::cout <<"cyclomatic complexity:  "<<func->cyclometer<<"\n\t";
 
 		std::cout << std::endl;		
 	}

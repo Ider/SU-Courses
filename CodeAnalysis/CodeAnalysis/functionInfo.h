@@ -2,6 +2,12 @@
 #define FUNCTION_INFO_H
 
 #include <string>
+#include <vector>
+
+class controlInfo;
+
+
+////////////////function information//////////////////////////////
 
 class funcInfo
 {
@@ -19,6 +25,10 @@ public:
 	int getBeginBrace() const;
 	int getDeepestBrace() const;
 	int getCyclometer() const;
+	void addControl(controlInfo* c);
+
+	friend class display;
+
 private:
 	const std::string className;
 	const std::string name;
@@ -27,6 +37,7 @@ private:
 	const int beginBrace;
 	int deepestBrace;
 	int cyclometer;
+	std::vector<controlInfo*> controls;
 };
 
 inline funcInfo::funcInfo(std::string funcName, int bLine,int bBrace)
@@ -69,6 +80,7 @@ inline void funcInfo::operator++(){++deepestBrace;}
 inline void funcInfo:: increaseCyclometer(){++cyclometer;}
 
 inline std::string funcInfo::getName() const {return name;}
+
 inline std::string funcInfo::getFullName() const 
 {
 	if (className.length()>0)
@@ -84,5 +96,34 @@ inline int funcInfo::getBeginBrace() const {return beginBrace;}
 inline int funcInfo::getDeepestBrace() const {return deepestBrace;}
 
 inline int funcInfo::getCyclometer()const {return cyclometer;}
+
+inline void funcInfo::addControl(controlInfo* c)
+{ controls.push_back(c);}
+ 
+
+
+////////////////control information//////////////////////////////
+
+class controlInfo
+{
+public:
+	controlInfo(std::string n,funcInfo* f, int bLine, int bBrace)
+		:name(n), func(f), beginLine(bLine), beginBrace(bBrace)
+	{	}
+	int getControlSize() {return (endLine - beginLine);}
+	void setEndLine(int lineNo) {endLine = lineNo;}
+	std::string getName() {return name;}
+	int getBeginLine() {return beginLine;}
+	int getBeginBrace(){return beginBrace;}
+
+private:
+	const std::string name;
+	const funcInfo* func;
+	const int beginLine;
+	int endLine;
+	const int beginBrace;
+};
+
+
 
 #endif
