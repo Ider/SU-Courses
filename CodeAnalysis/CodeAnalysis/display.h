@@ -6,6 +6,7 @@
 class display
 {
 public:
+	//display(){}
 	void printAnalysis(packageInfo* package);
 
 private:
