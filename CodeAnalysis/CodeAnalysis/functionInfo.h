@@ -7,6 +7,7 @@ class funcInfo
 {
 public:
 	funcInfo(std::string funcName, int bLine,int bBrace);
+	funcInfo(std::string cName, std::string fName, int bLine,int bBrace);
 	int getFunctionSize() const;
 	int getFunctionScopeNesting() const;
 	void setEndLine(int lineNo);
@@ -16,6 +17,7 @@ public:
 	int getBeginBrace() const;
 	int getDeepestBrace() const;
 private:
+	const std::string className;
 	const std::string name;
 	const int beginLine;
 	int endLine;
@@ -24,7 +26,14 @@ private:
 };
 
 inline funcInfo::funcInfo(std::string funcName, int bLine,int bBrace)
-	:name(funcName),beginLine(bLine),beginBrace(beginBrace)
+	:name(funcName),beginLine(bLine),beginBrace(bBrace)
+{
+	endLine = -1;
+	deepestBrace = bBrace;
+}
+
+inline funcInfo::funcInfo(std::string cName, std::string fName, int bLine,int bBrace)
+	:className(cName),name(fName),beginLine(bLine),beginBrace(bBrace)
 {
 	endLine = -1;
 	deepestBrace = bBrace;
