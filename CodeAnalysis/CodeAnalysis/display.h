@@ -11,6 +11,7 @@ public:
 
 private:
 	void printFunctions();
+	void printControls(funcInfo* func);
 	packageInfo* pack;
 };
 

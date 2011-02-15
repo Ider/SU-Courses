@@ -162,6 +162,11 @@ private:
 	FunctionCyclomaticRule* fcr;
 	FunctionCyclomaticAction* fca;
 
+	CtrlSpanBeginRule* sbr;
+	CtrlSpanBeginAction* sba;
+	CtrlSpanEndRule* ser;
+	CtrlSpanEndAction* sea;
+
 	// prohibit copies and assignments
 
 	IderConfigParseToConsole(const IderConfigParseToConsole&);

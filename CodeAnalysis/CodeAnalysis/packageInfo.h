@@ -2,6 +2,7 @@
 #define PACKAGE_INFO_H
 
 #include <vector>
+#include <stack>
 #include <string>
 #include "functionInfo.h"
 
@@ -26,17 +27,33 @@ private:
 class parserHelper
 {
 public:
-	void setCurrentClass(const std::string& className){curClass = className;}
 	std::string& getCurrentClass(){return curClass;}
-	void setCurrentFunction(funcInfo* func){curFunc = func;}
+	void setCurrentClass(const std::string& className){curClass = className;}
 	funcInfo* getCurrentFunction(){return curFunc;}
+	void setCurrentFunction(funcInfo* func){curFunc = func;}
 	int getClassBeginBrace(){return classBeginBrace;}
 	void setClassBeginBrace(int bBrace){ classBeginBrace = bBrace;}
+	//int getCtrlIndex(){ return ctrlIndex;}
+	//void setCtrlIndex(int index){ctrlIndex = index;}
 	void resetHelper();
+	void pushControl(controlInfo* ctrl){ctrls.push(ctrl); prePopedCtrl = NULL;}
+	controlInfo* topControl(){return ctrls.empty()? NULL : ctrls.top();}
+	controlInfo* popControl()
+	{
+		if (ctrls.empty())return NULL;
+		prePopedCtrl = ctrls.top();
+		ctrls.pop();
+		return prePopedCtrl;
+	}
+	controlInfo* getPrePopedControl(){return prePopedCtrl;}
 private:
 	std::string curClass;
 	int  classBeginBrace;
 	funcInfo* curFunc;
+
+	//int ctrlIndex;
+	controlInfo* prePopedCtrl;
+	std::stack<controlInfo*> ctrls;
 };
 
 inline void parserHelper::resetHelper()
@@ -44,6 +61,8 @@ inline void parserHelper::resetHelper()
 	classBeginBrace = -1;
 	curClass = "";
 	curFunc = NULL;
+	//ctrlIndex = -1;
+	while (!ctrls.empty())ctrls.pop();
 }
 
 #endif 

@@ -153,6 +153,8 @@ private:
 };
 
 
+
+
 class FuntionEndRule:public IRule
 {
 public:
@@ -179,7 +181,6 @@ private:
 	parserHelper* helper;
 };
 
-
 class FuntionEndAction:public IAction
 {
 public:
@@ -192,6 +193,8 @@ public:
 private:
 	parserHelper* helper;
 };
+
+
 
 
 class FunctionCyclomaticRule: public IRule
@@ -228,6 +231,122 @@ public:
 	{
 		funcInfo* func = helper->getCurrentFunction();
 		if (func)func->increaseCyclometer();
+	}
+private:
+	parserHelper* helper;
+};
+
+
+
+
+class CtrlSpanBeginRule:public IRule
+{
+public:
+	CtrlSpanBeginRule(parserHelper* h):helper(h){}
+	bool doTest(ITokCollection* pTc)
+	{
+		ITokCollection& tc = *pTc;
+		int i = -1;
+		while (++i < tc.length() && tc[i]=="\n");
+		if (i >=tc.length()) return false;
+
+		std::string& str = tc[i]; 
+		if (isControl(str))
+		{
+			//ignore the controls that only have one line
+			if (str != "for" && tc[tc.length()-1]==";")
+				return false;
+
+			doActions(pTc);
+			return true;
+		}
+		return false;
+	}
+private:
+	bool isControl(const std::string& str)
+	{
+		const static std::string ctrls[]
+		= { "if", "while", "for", "switch", "do", "else"};
+		for(int i=0; i<6; ++i)
+			if(str == ctrls[i])
+				return true;
+		return false;
+	}
+	parserHelper* helper;
+};
+
+class CtrlSpanBeginAction: public IAction
+{
+public:
+	CtrlSpanBeginAction(parserHelper* h):helper(h){}
+	void doAction(ITokCollection* pTc)
+	{
+		ITokCollection& tc = *pTc;
+		funcInfo* func=helper->getCurrentFunction();
+		int i = -1;
+		while (++i < tc.length() && tc[i]=="\n");
+		std::string& name = tc[i];
+
+		if (name=="else")
+		{
+			doElseCtrlAction();
+			return;
+		}
+		controlInfo* ctrl = new controlInfo(name,func
+			,pTc->getCurrentLine()
+			,pTc->getCurrentBrace());
+		func->addControl(ctrl);
+		helper->pushControl(ctrl);
+	}
+private: 
+	void doElseCtrlAction()
+	{
+		controlInfo* pre = helper->getPrePopedControl();
+		if (pre != NULL && pre->getName() =="if")
+		helper->pushControl(pre);
+	}
+	parserHelper* helper;
+};
+
+
+
+
+class CtrlSpanEndRule:public IRule
+{
+public:
+	CtrlSpanEndRule(parserHelper* h):helper(h){}
+	bool doTest(ITokCollection* pTc)
+	{
+		ITokCollection& tc = *pTc;
+		if (tc[tc.length()-1] != "}")return false;
+
+		controlInfo* ctrl=helper->topControl();
+		if (ctrl == NULL)return false;
+
+		int brace =  ctrl->getBeginBrace();
+		if (brace >pTc->getCurrentBrace())
+		{
+			doActions(pTc);
+			return true;
+		}
+		return false;
+	}
+
+private:
+	parserHelper* helper;
+};
+
+
+
+
+class CtrlSpanEndAction:public IAction
+{
+public:
+	CtrlSpanEndAction(parserHelper* h):helper(h){}
+	void doAction(ITokCollection* pTc)
+	{
+		controlInfo* ctrl = helper->popControl();
+		ctrl->setEndLine(pTc->getCurrentLine());
 	}
 private:
 	parserHelper* helper;

@@ -167,10 +167,9 @@ IderConfigParseToConsole::~IderConfigParseToConsole()
 	delete pToker;
 
 	delete cbr, cba, cer, cea;
-
 	delete fbr, fba, fer,fea;
-
 	delete fcr, fca;
+	delete sbr, sba, ser, sea;
 
 }
 //----< attach toker to a file stream or stringstream >------------
@@ -196,7 +195,7 @@ Parser* IderConfigParseToConsole::Build()
 {
 	try
 	{
-		// configure to detect and act on preprocessor statements
+		// this order could not be rearranged
 
 		pToker = new Toker;
 		pSemi = new SemiExp(pToker);
@@ -224,6 +223,15 @@ Parser* IderConfigParseToConsole::Build()
 		fca = new FunctionCyclomaticAction(helper);
 		fcr->addAction(fca);
 		pParser->addRule(fcr);
+
+		sbr = new CtrlSpanBeginRule(helper);
+		sba = new CtrlSpanBeginAction(helper);
+		sbr->addAction(sba);
+		pParser->addRule(sbr);
+		ser = new CtrlSpanEndRule(helper);
+		sea = new CtrlSpanEndAction(helper);
+		ser->addAction(sea);
+		pParser->addRule(ser);
 
 
 		return pParser;
