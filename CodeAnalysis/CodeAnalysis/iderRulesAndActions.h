@@ -292,9 +292,11 @@ public:
 			doElseCtrlAction();
 			return;
 		}
+		int brace = pTc->getCurrentBrace();
+		if (name=="for")++brace;
 		controlInfo* ctrl = new controlInfo(name,func
 			,pTc->getCurrentLine()
-			,pTc->getCurrentBrace());
+			,brace);
 		func->addControl(ctrl);
 		helper->pushControl(ctrl);
 	}
