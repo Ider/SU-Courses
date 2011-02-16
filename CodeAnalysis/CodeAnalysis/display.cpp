@@ -129,7 +129,7 @@ int main(int argc, char* argv[])
 			int count = 5;
 			char* parameter[] = {" ","..","*.h","*.cpp", "/r"};
 			handler.attach(count,parameter);
-			//handler.parse();
+			handler.parse();
 			handler.printResult();
 		}
 		catch(std::exception& ex)

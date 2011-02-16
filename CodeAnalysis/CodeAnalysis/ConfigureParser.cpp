@@ -180,6 +180,9 @@ bool IderConfigParseToConsole::Attach(const std::string& name, bool isFile)
 	if(pToker == 0)
 		return false;
 	helper->resetHelper();
+	helper->setFileName(name);
+	pToker->reset();
+
 	return pToker->attach(name, isFile);
 }
 

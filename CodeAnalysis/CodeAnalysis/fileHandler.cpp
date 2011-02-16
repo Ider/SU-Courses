@@ -31,9 +31,15 @@ void fileHandler::parse()
 	packMap::iterator it;
 	for (it = results.begin(); it != results.end(); ++it)
 	{
-		config->Attach(it->first, it->second);
-		while (pParser->next())
-			pParser->parse();
+		packageInfo& p = *(it->second);
+		for (int i = 0; i<p.fileCount(); ++i)
+		{
+			config->Attach(p[i], &p);
+			while (pParser->next())
+				pParser->parse();
+		}
+		
+		
 	}
 }
 

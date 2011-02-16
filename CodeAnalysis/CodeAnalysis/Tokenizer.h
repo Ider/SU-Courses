@@ -106,6 +106,8 @@ public:
   void putback(int ch);  // put back char on stream (not token)
   enum state { default_state, comment_state, quote_state };
 
+  void reset();
+
 private:
   std::istream* pIn;
   char prevprevChar, prevChar, currChar, nextChar;
@@ -134,7 +136,7 @@ private:
   bool isEndQuote();
   std::string eatQuote();
 
-  // prohibit copying and assignment
+  //prohibit copying and assignment
   Toker(const Toker &tkr);
   Toker& operator=(const Toker&);
 };
@@ -142,6 +144,12 @@ private:
 inline void Toker::returnComments(bool doReturn)
 {
   doReturnComments = doReturn;
+}
+
+inline void Toker::reset()
+{
+	prevprevChar=prevChar=currChar=nextChar=0;
+	numLines=braceCount=0;
 }
 
 inline bool Toker::isFileEnd() { return (nextChar == -1); }
