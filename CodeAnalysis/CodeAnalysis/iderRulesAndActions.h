@@ -4,6 +4,7 @@
 #include "Parser.h"
 #include "packageInfo.h"
 #include <vector>
+#include <list>
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -46,6 +47,7 @@ private:
 };
 
 
+////////////////Class Rules And Actions///////////////////////////////
 
 class ClassBeginRule:public IRule
 {
@@ -108,6 +110,7 @@ private:
 };
 
 
+////////////////Function Rules And Actions///////////////////////////////
 
 
 class FunctionBeginRule:public IRule
@@ -195,6 +198,7 @@ private:
 };
 
 
+////////////////Function Cyclomatic Rules And Actions///////////////////////////////
 
 
 class FunctionCyclomaticRule: public IRule
@@ -237,7 +241,11 @@ private:
 };
 
 
+////////////////Control Span Rules And Actions///////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////
+//the control span rule and action for "for"
+//is not 100% correct, when it has no braces
 
 class CtrlSpanBeginRule:public IRule
 {
@@ -253,7 +261,7 @@ public:
 		std::string& str = tc[i]; 
 		if (isControl(str))
 		{
-			//ignore the controls that only have one line
+			//ignore the controls that have no braces
 			if (str != "for" && tc[tc.length()-1]==";")
 				return false;
 
@@ -305,7 +313,7 @@ private:
 	{
 		controlInfo* pre = helper->getPrePopedControl();
 		if (pre != NULL && pre->getName() =="if")
-		helper->pushControl(pre);
+			helper->pushControl(pre);
 	}
 	parserHelper* helper;
 };
@@ -339,8 +347,6 @@ private:
 };
 
 
-
-
 class CtrlSpanEndAction:public IAction
 {
 public:
@@ -353,5 +359,218 @@ public:
 private:
 	parserHelper* helper;
 };
+
+//////////////Variable Rules and Actions///////////////////////////////////////////////////
+
+class VariableRuleBase:public IRule
+{
+public:
+	VariableRuleBase(parserHelper* h):helper(h){}
+
+	virtual bool doTest(ITokCollection* pTc)=0;
+protected:
+	std::list<std::string> toks;
+	parserHelper* helper;
+
+	void copyTokens(ITokCollection* pTc)
+	{
+		toks.clear();
+		for (int i = 0; i<pTc->length(); ++i)
+			if ((*pTc)[i]!="\n")
+				toks.push_back((*pTc)[i]);
+	}
+
+	//find first position that match tok
+	int find(std::string tok)
+	{
+		int i=0;
+		std::list<std::string>::iterator sit;
+
+		for(sit = toks.begin(); sit!= toks.end(); ++i, ++sit)
+			if(tok == *sit)
+				return i;
+
+		return toks.size();
+	}
+
+	//find last position that match tok
+	int rfind(std::string tok)
+	{
+		int i=toks.size(); 
+		std::list<std::string>::iterator sit = toks.end();
+		while(i>0)
+		{
+			--i, --sit;
+			if(tok == (*sit))return i;
+		}
+
+		return toks.size();
+	}
+
+	void erase(int position){erase(position,position+1);}
+
+	//erase elements [from, to) in container
+	void erase(int from, int to)
+	{
+		if (from > to) to^=from^=to^=from;
+		std::list<std::string>::iterator fit;
+		std::list<std::string>::iterator tit;
+		fit = tit = toks.begin();
+		advance(fit,from);
+		advance(tit,to);
+		toks.erase(fit,tit);
+	}
+};
+
+
+//////////////////////////////////////////////////////////////////////////
+//this rule only catch function scope variables
+//all globe/class variables will be ignored
+class VariableDeclarationRule:public VariableRuleBase
+{
+public:
+	VariableDeclarationRule(parserHelper* h):VariableRuleBase(h){}
+	bool doTest(ITokCollection* pTc)
+	{
+		if (pTc->getCurrentLine()==28)
+		{
+			pTc=pTc;
+		}
+		if (helper->getCurrentFunction()==NULL)
+			return false;
+		if (hasDeclaration(pTc))
+		{
+			helper->setVariable(toks.back(),toks.front());
+			doActions(pTc);
+			return true;
+		}
+		return false;
+	}
+private:
+	bool hasDeclaration(ITokCollection* pTc)
+	{
+		if ((*pTc)[pTc->length()-1] != ";")
+			return false;
+
+		copyTokens(pTc);
+		eraseUselessInfo();
+		if (toks.size()== 2 && !isSpecialKey())
+			return true;
+
+		return false;
+	}
+	void eraseUselessInfo()
+	{
+		toks.pop_back();//erase ";"
+		if (toks.size() <= 2) return;
+		int index = find("=");
+		if (index != toks.size())
+			erase(index,toks.size());
+
+		toks.remove("*");
+		toks.remove("&");
+
+		if (toks.size() <= 2) return;
+		index = rfind("::");
+		if (index != toks.size())
+		{
+			erase(0,index+1);
+		}
+		else eraseModifier();
+	}
+	void eraseModifier()
+	{
+		const std::string mods[]=
+		{"volatile", "auto", "const", "static"};
+		for (int i = 0; i<4; ++i)
+			toks.remove(mods[i]);
+	}
+	bool isSpecialKey()
+	{
+		std::string& type =	toks.front();
+		if (type == "return" || type == "delete" || type =="new")
+			return true;
+		return false;
+	}
+};
+
+class VariableDeclarationAction:public IAction
+{
+public:
+	VariableDeclarationAction(parserHelper* h):helper(h){}
+	void doAction(ITokCollection* pTc)
+	{
+		variableInfo* v=new variableInfo(helper->getVariableName()
+			,helper->getVariableType()
+			,helper->getFileName()
+			,pTc->getCurrentLine());
+		helper->getCurrentFunction()->getVariableInfos().push_back(v);
+		helper->setVariable("","");
+	}
+private:
+	parserHelper* helper;
+};
+
+
+
+
+class VariableReferenceRule:public VariableRuleBase
+{
+public:
+	VariableReferenceRule(parserHelper* h):VariableRuleBase(h){}
+
+	bool doTest(ITokCollection* pTc)
+	{
+		funcInfo* func = helper->getCurrentFunction();
+		if (func == NULL 
+			|| func->getVariableInfos().size() ==0)
+			return false;
+
+		copyTokens(pTc);
+		return checkVariable(pTc);
+	}
+private:
+	bool checkVariable(ITokCollection* pTc)
+	{
+		bool referenced = false;
+		std::vector<variableInfo*>& vInfos 
+			= helper->getCurrentFunction()->getVariableInfos();
+		std::list<std::string>::iterator it = toks.begin();
+
+		while (it != toks.end())
+		{
+			int i;
+			for (i=0; i< vInfos.size(); ++i)
+			{
+				if ((*it)==vInfos[i]->getName())
+				{
+					helper->setReferecedVariable(vInfos[i]);
+					doActions(pTc);
+					referenced = true;
+					break;
+				}
+			}
+			if (i<vInfos.size())
+				it=toks.erase(it);
+			else ++it;
+		}
+		return referenced;
+	}
+};
+
+class VariableReferenceAction: public IAction
+{
+public:
+	VariableReferenceAction(parserHelper* h):helper(h){}
+	void doAction(ITokCollection* pTc)
+	{
+		variableInfo* vInfo = helper->getReferecedVariable();
+		vInfo->setEndLine(pTc->getCurrentLine(),helper->getFileName());
+		++(*vInfo);
+	}
+private:
+	parserHelper* helper;
+};
+
 
 #endif

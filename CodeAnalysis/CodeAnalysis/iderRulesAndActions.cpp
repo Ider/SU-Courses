@@ -118,7 +118,7 @@ void ClassBeginAction::doAction(ITokCollection* pTc)
 ////////////////////End ClassBeginAction///////////////////////////
 
 
-
+///////////////////////////Function Rules and Actions/////////////////////////////////
 std::string FunctionBeginAction::getFuctionName(ITokCollection* pTc)
 {
 	ITokCollection& tc = *pTc;
@@ -151,6 +151,9 @@ void FunctionBeginAction::doAction(ITokCollection* pTc)
 	pack->addFunction(func);
 	helper->setCurrentFunction(func);
 }
+
+/////////////////////Variable Declaration////////////////////////////////////
+
 
 //
 //----< test stub >--------------------------------------------

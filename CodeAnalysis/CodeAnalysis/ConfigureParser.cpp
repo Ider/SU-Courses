@@ -170,6 +170,7 @@ IderConfigParseToConsole::~IderConfigParseToConsole()
 	delete fbr, fba, fer,fea;
 	delete fcr, fca;
 	delete sbr, sba, ser, sea;
+	delete vdr, vda, vrr, vra;
 
 }
 //----< attach toker to a file stream or stringstream >------------
@@ -233,6 +234,15 @@ Parser* IderConfigParseToConsole::Build()
 		ser->addAction(sea);
 		pParser->addRule(ser);
 
+
+		vdr = new VariableDeclarationRule(helper);
+		vda = new VariableDeclarationAction(helper);
+		vdr->addAction(vda);
+		pParser->addRule(vdr);
+		vrr = new VariableReferenceRule(helper);
+		vra = new VariableReferenceAction(helper);
+		vrr->addAction(vra);
+		pParser->addRule(vrr);
 
 		return pParser;
 	}

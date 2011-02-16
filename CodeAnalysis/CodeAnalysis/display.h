@@ -11,7 +11,8 @@ public:
 
 private:
 	void printFunctions();
-	void printControls(funcInfo* func);
+	void printControls(std::vector<controlInfo*>& ctrls);
+	void printVaraibels(std::vector<variableInfo*>& vInfos);
 	packageInfo* pack;
 };
 

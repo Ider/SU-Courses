@@ -167,6 +167,11 @@ private:
 	CtrlSpanEndRule* ser;
 	CtrlSpanEndAction* sea;
 
+	VariableDeclarationRule* vdr;
+	VariableDeclarationAction* vda;
+	VariableReferenceRule* vrr;
+	VariableReferenceAction* vra;
+
 	// prohibit copies and assignments
 
 	IderConfigParseToConsole(const IderConfigParseToConsole&);

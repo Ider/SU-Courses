@@ -27,6 +27,8 @@ private:
 class parserHelper
 {
 public:
+	std::string& getFileName(){return fileName;}
+	void setFileName(const std::string& fName){fileName = fName;}
 	std::string& getCurrentClass(){return curClass;}
 	void setCurrentClass(const std::string& className){curClass = className;}
 	funcInfo* getCurrentFunction(){return curFunc;}
@@ -46,14 +48,25 @@ public:
 		return prePopedCtrl;
 	}
 	controlInfo* getPrePopedControl(){return prePopedCtrl;}
+	std::string& getVariableName(){return variableName;}
+	std::string& getVariableType(){return variableType;}	
+	void setVariable(const std::string& name,const std::string& type)
+	{variableName = name; variableType =type;}
+
+	variableInfo*  getReferecedVariable(){return referecedVariable;}
+	void  setReferecedVariable(variableInfo* rv){referecedVariable = rv;}
+
 private:
+	std::string fileName;
 	std::string curClass;
 	int  classBeginBrace;
 	funcInfo* curFunc;
-
 	//int ctrlIndex;
 	controlInfo* prePopedCtrl;
 	std::stack<controlInfo*> ctrls;
+	std::string variableName;
+	std::string variableType;
+	variableInfo* referecedVariable;
 };
 
 inline void parserHelper::resetHelper()
