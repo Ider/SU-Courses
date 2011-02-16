@@ -39,7 +39,7 @@
 			<text>File View</text>
 			<url>fileview.aspx</url>
 		</page>
-		<score></score>
+		<score>A-</score>
 	</lab>
 
 	<lab>
@@ -49,8 +49,8 @@
 			<url>assignment4.htm</url>
 		</requirement>
 		<page>
-			<text>Under Construction...</text>
-			<url></url>
+			<text>About Final Project</text>
+			<url>description.aspx</url>
 		</page>
 		<score></score>
 	</lab>

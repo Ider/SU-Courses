@@ -46,6 +46,54 @@
         </div>
     </div>
     <div class="caption">
+        <asp:Label ID="Label1" runat="server" Text="C# Files"></asp:Label>
+    </div>
+    <div style="border: 1px solid #a62315; min-width: 600px; width: 100%;">
+        <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map"
+            style="border: 0px solid #fff;">
+            <thead>
+                <tr>
+                    <td class="fileName">
+                        Name
+                    </td>
+                    <td class="fileType">
+                        Type
+                    </td>
+                    <td class="lastModified">
+                        Last Modified
+                    </td>
+                </tr>
+            </thead>
+        </table>
+        <div style="width: 100%; overflow-y: scroll; height: 200px;">
+            <asp:Literal ID="litCsharp" runat="server"></asp:Literal>
+        </div>
+    </div>
+    <div class="caption">
+        <asp:Label ID="Label2" runat="server" Text="ASPX Files"></asp:Label>
+    </div>
+    <div style="border: 1px solid #a62315; min-width: 600px; width: 100%;">
+        <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map"
+            style="border: 0px solid #fff;">
+            <thead>
+                <tr>
+                    <td class="fileName">
+                        Name
+                    </td>
+                    <td class="fileType">
+                        Type
+                    </td>
+                    <td class="lastModified">
+                        Last Modified
+                    </td>
+                </tr>
+            </thead>
+        </table>
+        <div style="width: 100%; overflow-y: scroll; height: 200px;">
+            <asp:Literal ID="litASPX" runat="server"></asp:Literal>
+        </div>
+    </div>
+    <div class="caption">
         <asp:Label ID="lblContent" runat="server" Text="Please select a file..."></asp:Label>
         &nbsp;</div>
     <div id="divContent" style="border: 1px solid #a62315; min-width: 600px; width: 100%;

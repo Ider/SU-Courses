@@ -11,6 +11,8 @@ namespace HTML
 {
     public partial class fileview : System.Web.UI.Page
     {
+        StringBuilder sbCsharp = new StringBuilder();
+        StringBuilder sbASPX = new StringBuilder();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -32,18 +34,29 @@ namespace HTML
             try
             {
                 StringBuilder sb = new StringBuilder();
-
-                sb.Append("<table width='100%' border='0' align='left'"
-                    + " cellpadding='5' cellspacing='0' class='map' style='border: 0px solid #fff;'>");
-                //AppendTableHead(sb);
+                sbCsharp.Clear();
+                sbASPX.Clear();
+                string table = "<table width='100%' border='0' align='left'"
+                    + " cellpadding='5' cellspacing='0' class='map' style='border: 0px solid #fff;'>";
+                sb.Append(table);
+                sbCsharp.Append(table);
+                sbASPX.Append(table);
+                //AppendTableHead(sb)
 
                 sb.Append("<tbody>");
+                sbCsharp.Append("<tbody>");
+                sbASPX.Append("<tbody>");
                 AppendParentFolderInfo(path, sb);
                 AppendFoldersInfo(path, sb);
                 AppendFilesInfo(path, sb);
 
                 sb.Append("</tbody></table>");
+                sbCsharp.Append("</tbody></table>");
+                sbASPX.Append("</tbody></table>");
+
                 litList.Text = sb.ToString();
+                litCsharp.Text = sbCsharp.ToString();
+                litASPX.Text = sbASPX.ToString();
             }
             catch (Exception ex)
             {
@@ -101,13 +114,18 @@ namespace HTML
             string link = string.Empty;
             string type = string.Empty;
             string lastModified = string.Empty;
-
+            string text = string.Empty;
             foreach (string file in files)
             {
                 link = GetFormatedLink(Path.GetFileName(file), false);
                 type = Path.GetExtension(file);
                 lastModified = Directory.GetLastWriteTime(file).ToString(Constant.DATETIME_FORMAT);
-                sb.Append(string.Format(format, link, type, lastModified));
+                text = string.Format(format, link, type, lastModified);
+                sb.Append(text);
+                if (type.ToLower() == ".cs")
+                    sbCsharp.Append(text);
+                if (type.ToLower() == ".aspx")
+                    sbASPX.Append(text);
             }
         }
 

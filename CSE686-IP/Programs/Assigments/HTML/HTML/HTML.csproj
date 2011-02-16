@@ -105,6 +105,12 @@
     <Content Include="experimental\sliding-side-bar\js\mootools.js" />
     <Content Include="experimental\sliding-side-bar\js\side-bar.js" />
     <Content Include="fileview.aspx" />
+    <Content Include="database_view.aspx" />
+    <Content Include="description.aspx" />
+    <Content Include="fpnavigator.ascx" />
+    <Content Include="images\database.png" />
+    <Content Include="images\site_flow.png" />
+    <Content Include="site_flow.aspx" />
     <Content Include="home.aspx" />
     <Content Include="images\icons\icon_config.gif" />
     <Content Include="images\icons\icon_csharp.gif" />
@@ -184,6 +190,7 @@
     <Content Include="images\search.png" />
     <Content Include="images\site-map.png" />
     <Content Include="styles\tableformat.css" />
+    <Content Include="synopsis.aspx" />
     <Content Include="test.aspx" />
     <Content Include="test.htm" />
     <Content Include="Web.config" />
@@ -202,6 +209,41 @@
     </Compile>
     <Compile Include="fileview.aspx.designer.cs">
       <DependentUpon>fileview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="database_view.aspx.cs">
+      <DependentUpon>database_view.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="database_view.aspx.designer.cs">
+      <DependentUpon>database_view.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="description.aspx.cs">
+      <DependentUpon>description.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="description.aspx.designer.cs">
+      <DependentUpon>description.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="fpnavigator.ascx.cs">
+      <DependentUpon>fpnavigator.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="fpnavigator.ascx.designer.cs">
+      <DependentUpon>fpnavigator.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="site_flow.aspx.cs">
+      <DependentUpon>site_flow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="site_flow.aspx.designer.cs">
+      <DependentUpon>site_flow.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="synopsis.aspx.cs">
+      <DependentUpon>synopsis.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="synopsis.aspx.designer.cs">
+      <DependentUpon>synopsis.aspx</DependentUpon>
     </Compile>
     <Compile Include="test.aspx.cs">
       <DependentUpon>test.aspx</DependentUpon>
@@ -245,7 +287,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62508</DevelopmentServerPort>
+          <DevelopmentServerPort>52419</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
