@@ -5,10 +5,19 @@
 void display::printAnalysis(packageInfo* packInfo)
 {
 	pack = packInfo;
+	printPackageInfo();
 	printFunctions();
 }
 
-
+void display::printPackageInfo()
+{
+	std::cout<<"Package: ";
+	for (int i = 0; i< pack->fileCount(); ++i)
+	{
+		std::cout<<"\n"<< (*pack)[i];
+	}
+	std::cout<<std::endl;
+}
 
 void display::printFunctions()
 {
@@ -66,3 +75,69 @@ void display::printVaraibels(std::vector<variableInfo*>& vInfos)
 		std::cout<<"\t\t"<<var.getReferencedCount()<<std::endl;
 	}
 }
+
+
+#ifdef DISPLAY_TEST
+
+#include "fileHandler.h"
+
+int main(int argc, char* argv[])
+{
+	std::cout << "\n  Testing Dissplay module\n "
+		<< std::string(32,'=') << std::endl;
+
+	// collecting tokens from files, named on the command line
+
+	if(argc < 2)
+	{
+		std::cout 
+			<< "\n  please enter name of file to process on command line\n\n";
+		return 1;
+	}
+
+
+	for(int i=1; i<argc; ++i)
+	{
+		std::cout << "\n  Processing file " << argv[i];
+		std::cout << "\n  " << std::string(16 + strlen(argv[i]),'-');
+
+		//ConfigParseToConsole configure;
+		//Parser* pParser = configure.Build();
+
+		
+		fileHandler handler;
+		try
+		{
+			// 			if(pParser)
+			// 			{
+			// 				if(!configure.Attach(argv[i]))
+			// 				{
+			// 					std::cout << "\n  could not open file " << argv[i] << std::endl;
+			// 					continue;
+			// 				}
+			// 			}
+			// 			else
+			// 			{
+			// 				std::cout << "\n\n  Parser not built\n\n";
+			// 				return 1;
+			// 			}
+			// 			// now that parser is built, use it
+			// 
+			// 			while(pParser->next())
+			// 				pParser->parse();
+			// 			std::cout << "\n\n";
+			int count = 4;
+			char* parameter[] = {" ",".","*.h","*.cpp"};
+			handler.attach(count,parameter);
+			//handler.parse();
+			handler.printResult();
+		}
+		catch(std::exception& ex)
+		{
+			std::cout << "\n\n    " << ex.what() << "\n\n";
+		}
+	}
+}
+
+
+#endif

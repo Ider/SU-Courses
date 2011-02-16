@@ -10,18 +10,18 @@
 class packageInfo
 {
 public:
-	//std::map<std::string,funcInfo*>& getFunctions();
+	void addFileName(const std::string& fName){fileNames.push_back(fName);}
 	void addFunction(funcInfo* func)
 	{functions.push_back(func);}
+	std::string& operator[](int n) {return	fileNames[n];}
+	int fileCount(){return fileNames.size();}
 	friend class display;
 	
 private:
 	std::vector<funcInfo*> functions;
+	std::vector<std::string> fileNames;
 
 };
-
-//inline std::map<std::string,funcInfo*>& packageInfo::getFunctions()
-//{ return functions; }
 
 
 class parserHelper

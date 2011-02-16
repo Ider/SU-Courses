@@ -15,6 +15,7 @@
     <ClInclude Include="ConfigureParser.h" />
     <ClInclude Include="display.h" />
     <ClInclude Include="fileHandler.h" />
+    <ClInclude Include="FileSystem.h" />
     <ClInclude Include="functionInfo.h" />
     <ClInclude Include="iderRulesAndActions.h" />
     <ClInclude Include="infoCollection.h" />
@@ -31,8 +32,8 @@
     <ClCompile Include="ConfigureParser.cpp" />
     <ClCompile Include="display.cpp" />
     <ClCompile Include="fileHandler.cpp" />
+    <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="iderRulesAndActions.cpp" />
-    <ClCompile Include="packageInfo.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="ScopeStack.cpp" />
     <ClCompile Include="SemiExpression.cpp" />
@@ -69,7 +70,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>TEST_FILEHANDLER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DISPLAY_TEST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

@@ -10,6 +10,7 @@ public:
 	void printAnalysis(packageInfo* package);
 
 private:
+	void printPackageInfo();
 	void printFunctions();
 	void printControls(std::vector<controlInfo*>& ctrls);
 	void printVaraibels(std::vector<variableInfo*>& vInfos);
