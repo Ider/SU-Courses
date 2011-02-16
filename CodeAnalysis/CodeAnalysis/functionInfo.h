@@ -22,6 +22,7 @@ public:
 	void increaseCyclometer();
 	std::string getName() const;
 	std::string getFullName() const;
+	std::string getClassName() const;
 	int getBeginLine() const;
 	int getBeginBrace() const;
 	int getDeepestBrace() const;
@@ -72,6 +73,7 @@ inline funcInfo::~funcInfo()
 // 		delete (*vit);
 // 	variables.clear();
 }
+
 inline int funcInfo::getFunctionSize() const
 {
 	if (endLine<0)
@@ -93,14 +95,18 @@ inline void funcInfo::setEndLine(int lineNo){endLine = lineNo;}
 //
 inline void funcInfo::operator++(){++deepestBrace;}
 
+//////////////////////////////////////////////////////////////////////////
+//increase Cyclometer
 inline void funcInfo:: increaseCyclometer(){++cyclometer;}
 
+//////////////////////////////////////////////////////////////////////////
+//get names of function
 inline std::string funcInfo::getName() const {return name;}
-
+inline std::string funcInfo::getClassName() const{return className;}
 inline std::string funcInfo::getFullName() const 
 {
 	if (className.length()>0)
-		return className + "::" + name;
+		return className + " :: " + name;
 	
 	return name;
 }
@@ -154,7 +160,7 @@ public:
 		:name(n),type(t), beginFile(f), beginLine(bLine)
 	{	referencedCount=0;}
 	~variableInfo(){}
-	int getControlSize() {return (endLine - beginLine);}
+	int getLocality() {return (endLine - beginLine);}
 	void setEndLine(int lineNo,std::string file) 
 	{endLine = lineNo;endFile=file;}
 	std::string getName() {return name;}

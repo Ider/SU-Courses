@@ -160,17 +160,14 @@ void FunctionBeginAction::doAction(ITokCollection* pTc)
 
 
 
-#ifdef TEST_PARSER2
+#ifdef TEST_IDER_RULE_AND_ACTION
 
-#include <queue>
-#include <string>
-#include "ConfigureParser.h"
-
+#include "fileHandler.h"
 
 int main(int argc, char* argv[])
 {
-	std::cout << "\n  Testing Parser class\n "
-		<< std::string(22,'=') << std::endl;
+	std::cout << "\n  Testing Actions and Rules module\n "
+		<< std::string(32,'=') << std::endl;
 
 	// collecting tokens from files, named on the command line
 
@@ -181,80 +178,29 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
+
 	for(int i=1; i<argc; ++i)
 	{
 		std::cout << "\n  Processing file " << argv[i];
 		std::cout << "\n  " << std::string(16 + strlen(argv[i]),'-');
 
-		IderConfigParseToConsole configure;
-		Parser* pParser = configure.Build();
+		//ConfigParseToConsole configure;
+		//Parser* pParser = configure.Build();
+
+
+		fileHandler handler;
 		try
 		{
-			if(pParser)
-			{
-				if(!configure.Attach(argv[i]))
-				{
-					std::cout << "\n  could not open file " << argv[i] << std::endl;
-					continue;
-				}
-			}
-			else
-			{
-				std::cout << "\n\n  Parser not built\n\n";
-				return 1;
-			}
-			// now that parser is built, use it
-
-			while(pParser->next())
-				pParser->parse();
-			pParser->showParseResult();
-			std::cout << "\n\n";
+			handler.attach(argv[i]);
+			handler.parse();
+			handler.printResult();
 		}
 		catch(std::exception& ex)
 		{
 			std::cout << "\n\n    " << ex.what() << "\n\n";
 		}
-
-		//
-		std::cout << "\n  Processing file for Queued Outputs " << argv[i];
-		std::cout << "\n  " << std::string(35 + strlen(argv[i]),'-');
-
-		ConfigParseToQueue Qconfigure;
-		pParser = Qconfigure.Build();
-		try
-		{
-			if(pParser)
-			{
-				if(!Qconfigure.Attach(argv[i]))
-				{
-					std::cout << "\n  could not open file " << argv[i] << std::endl;
-					continue;
-				}
-			}
-			else
-			{
-				std::cout << "\n\n  Parser not built\n\n";
-				return 1;
-			}
-			// now that parser is built, use it
-
-			while(pParser->next())
-				pParser->parse();
-			std::cout << "\n\n";
-		}
-		catch(std::exception& ex)
-		{
-			std::cout << "\n\n    " << ex.what() << "\n\n";
-		}
-		std::queue<std::string>* pQueue = Qconfigure.GetQueue();
-		size_t len = pQueue->size();
-		for(size_t i=0; i<len; ++i)
-		{
-			std::cout << "\n  " << pQueue->front();
-			pQueue->pop();
-		}
-		std::cout << "\n\n";
 	}
 }
+
 
 #endif

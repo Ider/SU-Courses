@@ -1,3 +1,14 @@
+//////////////////////////////////////////////////////////////////////
+//  display.cpp - conllec files base on path and analyze them		//
+//  ver 1.0															//
+//																	//
+//  Language:      Visual C++ 2010, SP1								//
+//  Platform:      Mac Book Pro, Windows 7 Professional				//
+//  Application:   Prototype for CSE687 Pr1, Sp09					//
+//  Author:        Ider Zheng, Syracuse University					//
+//                 (315) 560-4977, ider.zheng@gmail.com			    //
+//////////////////////////////////////////////////////////////////////
+
 #include "fileHandler.h"
 
 void fileHandler::attach(std::string path)

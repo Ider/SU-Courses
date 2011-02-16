@@ -6,7 +6,8 @@
 class display
 {
 public:
-	//display(){}
+	display():optimalFuncSize(50),optimalCtrlSpan(20)
+		,optimalCyclom(10),optimalReference(10),optimalLocality(20){}
 	void printAnalysis(packageInfo* package);
 
 private:
@@ -15,6 +16,12 @@ private:
 	void printControls(std::vector<controlInfo*>& ctrls);
 	void printVaraibels(std::vector<variableInfo*>& vInfos);
 	packageInfo* pack;
+
+	const int optimalFuncSize;
+	const int optimalReference;
+	const int optimalCyclom;
+	const int optimalCtrlSpan;
+	const int optimalLocality;
 };
 
 

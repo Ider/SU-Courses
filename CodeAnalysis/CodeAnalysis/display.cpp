@@ -1,3 +1,14 @@
+//////////////////////////////////////////////////////////////////////
+//  display.cpp - print analysis result to console					//
+//  ver 1.0															//
+//																	//
+//  Language:      Visual C++ 2010, SP1								//
+//  Platform:      Mac Book Pro, Windows 7 Professional				//
+//  Application:   Prototype for CSE687 Pr1, Sp09					//
+//  Author:        Ider Zheng, Syracuse University					//
+//                 (315) 560-4977, ider.zheng@gmail.com			    //
+//////////////////////////////////////////////////////////////////////
+
 #include <iostream>
 #include "display.h"
 
@@ -11,50 +22,54 @@ void display::printAnalysis(packageInfo* packInfo)
 
 void display::printPackageInfo()
 {
-	std::cout<<"Package: ";
+	std::cout<<"\n\nPackage: ";
 	for (int i = 0; i< pack->fileCount(); ++i)
 	{
 		std::cout<<"\n"<< (*pack)[i];
 	}
 	std::cout<<std::endl;
+	std::cout<<std::string(70,'=')<<std::endl;
 }
 
 void display::printFunctions()
 {
 	std::vector<funcInfo*>& funcs = pack->functions;
 	std::vector<funcInfo*>::iterator it;
-	std::cout << std::endl;	
 	for (it=funcs.begin();it!=funcs.end();++it)
 	{
 		funcInfo* func = (*it);
-		std::string info = "Func Name:  ";
-		info.append(func->getFullName());
-		info.append("\n\t");
-		std::cout << info;
-		std::cout << "size:  " <<func->getFunctionSize()<<"\n\t";
-		std::cout <<"scope nesting:  " << func->getFunctionScopeNesting()<<"\n\t";
-		std::cout <<"cyclomatic complexity:  "<<func->cyclometer<<"\n\t";
-
+		std::cout<<"\n\tFunction Name:\t";
+		std::cout<<func->getFullName()<<"\t";
+		//std::cout<<"Class:"<<func->getClassName();
+		std::cout<< "\n\tLines:  " <<func->getFunctionSize();
+		if (func->getFunctionSize()>optimalFuncSize)std::cout<<"(*)";
+		std::cout<<"\n\tScope Nesting:  " << func->getFunctionScopeNesting();
+		std::cout<<"\n\tCyclomatic Complexity:  "<<func->cyclometer;
+		if (func->cyclometer>optimalCyclom)std::cout<<"(*)";
 		std::cout << std::endl;	
 		printControls(func->controls);
 		printVaraibels(func->variables);
+		std::cout<<std::string(70,'*');
 	}
+	std::cout<<std::endl;
 }
 
 void display::printControls(std::vector<controlInfo*>& ctrls)
 {
 	if (ctrls.size() <=0)return;
 
-	std::cout<<"\n\tinformations of controls in this function:"<<std::endl;
+	std::cout<<"\n\tInformations of controls in this function:"<<std::endl;
 	std::vector<controlInfo*>::iterator it;
-	std::cout<<"\tname:\t\t\tline@\t\t\tbreath"<<std::endl;;
-	std::cout<<std::string(70,'-')<<std::endl;
+	std::cout<<"\t"<<std::string(50,'-')<<std::endl;
+	std::cout<<"\tLine@\tLines\tName"<<std::endl;;
 	for (it = ctrls.begin(); it != ctrls.end(); ++it)
 	{
 		controlInfo& ctrl = *(*it);
+		std::cout<<"\t "<<ctrl.getBeginLine();
+		std::cout<<"\t "<<ctrl.getControlSize();
+		if (ctrl.getControlSize()>optimalCtrlSpan)std::cout<<"(*)";
 		std::cout<<"\t"<<ctrl.getName();
-		std::cout<<"\t\t\t"<<ctrl.getBeginLine();
-		std::cout<<"\t\t\t"<<ctrl.getControlSize()<<std::endl;
+		std::cout<<std::endl;
 	}
 }
 
@@ -62,17 +77,22 @@ void display::printVaraibels(std::vector<variableInfo*>& vInfos)
 {
 	if (vInfos.size() <=0)return;
 
-	std::cout<<"\n\tinformations of variables in this function:"<<std::endl;
+	std::cout<<"\n\tInformations of variables:"<<std::endl;
 	std::vector<variableInfo*>::iterator it;
-	std::cout<<"\tname\t\ttype\t\tline@\t\tref#"<<std::endl;;
-	std::cout<<std::string(70,'-')<<std::endl;
+	std::cout<<"\t"<<std::string(50,'-')<<std::endl;
+	
+	std::cout<<"\tLine@\tRef#\tDensity\t\tType - Name"<<std::endl;;
 	for (it = vInfos.begin(); it != vInfos.end(); ++it)
 	{
 		variableInfo& var = *(*it);
-		std::cout<<"\t"<<var.getName();
+		std::cout<<"\t "<<var.getBeginLine();
+		std::cout<<"\t "<<var.getReferencedCount();
+		if (var.getReferencedCount()>optimalReference)std::cout<<"(*)";
+		std::cout<<"\t "<<var.getLocality();
+		if (var.getLocality()>optimalLocality)std::cout<<"(*)";
 		std::cout<<"\t\t"<<var.getType();
-		std::cout<<"\t\t"<<var.getBeginLine();
-		std::cout<<"\t\t"<<var.getReferencedCount()<<std::endl;
+		std::cout<<" - "<<var.getName();
+		std::cout<<std::endl;
 	}
 }
 
@@ -96,31 +116,25 @@ int main(int argc, char* argv[])
 	}
 
 
-	for(int i=1; i<argc; ++i)
+	std::cout << "\n  Processing file " << argv[i];
+	std::cout << "\n  " << std::string(16 + strlen(argv[i]),'-');
+
+	//ConfigParseToConsole configure;
+	//Parser* pParser = configure.Build();
+
+
+	fileHandler handler;
+	try
 	{
-		std::cout << "\n  Processing file " << argv[i];
-		std::cout << "\n  " << std::string(16 + strlen(argv[i]),'-');
-
-		//ConfigParseToConsole configure;
-		//Parser* pParser = configure.Build();
-
-		
-		fileHandler handler;
-		try
-		{
-			int count = 5;
-			char* parameter[] = {" ","..","*.h","*.cpp", "/r"};
-			handler.attach(count,parameter);
-			handler.parse();
-			handler.printResult();
-		}
-		catch(std::exception& ex)
-		{
-			std::cout << "\n\n    " << ex.what() << "\n\n";
-		}
+		handler.attach(argc,argv);
+		handler.parse();
+		handler.printResult();
+	}
+	catch(std::exception& ex)
+	{
+		std::cout << "\n\n    " << ex.what() << "\n\n";
 	}
 
-	getchar();
 }
 
 
