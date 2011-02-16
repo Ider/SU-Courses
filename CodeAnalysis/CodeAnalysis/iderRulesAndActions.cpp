@@ -1,5 +1,17 @@
 #include "iderRulesAndActions.h"
 #include <iostream>
+
+//////////////////////////////////////////////////////////////////////
+//  iderRulesAndActions.cpp - rules and actions for analysis		//
+//  ver 1.0															//
+//																	//
+//  Language:      Visual C++ 2010, SP1								//
+//  Platform:      Mac Book Pro, Windows 7 Professional				//
+//  Application:   Prototype for CSE687 Pr1, Sp09					//
+//  Author:        Ider Zheng, Syracuse University					//
+//                 (315) 560-4977, ider.zheng@gmail.com			    //
+//////////////////////////////////////////////////////////////////////
+
 ////////////////// FunctionAnalysisAction/////////////////////////////////
 
 bool FunctionAnalysisAction::isSpecialKeyWord(const std::string& tok)

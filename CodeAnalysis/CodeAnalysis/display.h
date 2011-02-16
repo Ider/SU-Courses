@@ -1,7 +1,7 @@
 #ifndef IDER_DISPLAY_H
 #define IDER_DISPLAY_H
 //////////////////////////////////////////////////////////////////////
-//  display.h - print analysis result to console				//
+//  display.h - print analysis result to console					//
 //  ver 1.0															//
 //																	//
 //  Language:      Visual C++ 2010, SP1								//

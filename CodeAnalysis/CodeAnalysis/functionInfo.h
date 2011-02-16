@@ -1,5 +1,83 @@
 #ifndef FUNCTION_INFO_H
 #define FUNCTION_INFO_H
+//////////////////////////////////////////////////////////////////////
+//  functionInfo.h - class that provide	to contain function data	//
+//  ver 1.0															//
+//																	//
+//  Language:      Visual C++ 2010, SP1								//
+//  Platform:      Mac Book Pro, Windows 7 Professional				//
+//  Application:   Prototype for CSE687 Pr1, Sp09					//
+//  Author:        Ider Zheng, Syracuse University					//
+//                 (315) 560-4977, ider.zheng@gmail.com			    //
+//////////////////////////////////////////////////////////////////////
+
+/*
+  Module Operations: 
+  ==================
+  This module provide class to contain function, control span, variable
+  data, and methods to operate this data
+  
+
+  Public Interface:
+  =================
+  std::vector<funcInfo*> functions;
+  display.printAnalysis(packageInfo* package);
+  std::cout<< getFunctionSize();
+  std::cout<< getFunctionScopeNesting();
+  void setEndLine( lineNo);
+  void operator++();
+  void increaseCyclometer();
+  std::string getName();
+  std::string getFullName();
+  std::string getClassName();
+  std::cout<< getBeginLine();
+  std::cout<< getBeginBrace();
+  std::cout<< getDeepestBrace();
+  std::cout<< getCyclometer();
+  void addControl(controlInfo* c);
+
+  std::vector<controlInfo*> controls;
+  int getControlSize()
+  void setEndLine(int lineNo)
+  std::string getName()
+  int getBeginLine()
+  int getBeginBrace()
+
+  std::vector<variableInfo*> variables;
+  int getLocality() 
+  void setEndLine(int lineNo,std::string file) 
+  std::string getName() 
+  std::string getType() 
+  int getBeginLine()
+  bool isEndInTheSameFile()
+  void operator++()
+  int getReferencedCount()
+
+  Build Process:
+  ==============
+  Required files
+  -ActionsAndRules.h    ActionsAndRules.cpp
+  ConfigureParser.h    ConfigureParser.cpp
+  display.h    display.cpp
+  fileHandler.h    fileHandler.cpp
+  FileSystem.h    FileSystem.cpp
+  functionInfo.h    iderRulesAndActions.cpp
+  iderRulesAndActions.h    Parser.cpp
+  infoCollection.h    ScopeStack.cpp
+  itokcollection.h    SemiExpression.cpp
+  packageInfo.h    Tokenizer.cpp
+  Parser.h
+  ScopeStack.h
+  SemiExpression.h
+  test.h
+
+  Build commands (either one)
+    - devenv CodeAnalysis.sln
+    - cl /EHsc /DTEST_PARSER ConfigureParser.cpp parser.cpp \
+         ActionsAndRules.cpp \
+         semiexpression.cpp tokenizer.cpp /link setargv.obj
+
+*/
 
 #include <string>
 #include <vector>
@@ -44,6 +122,8 @@ private:
 	std::vector<variableInfo*> variables;
 };
 
+//////////////////////////////////////////////////////////////////////////
+//constructor
 inline funcInfo::funcInfo(const std::string& funcName, int bLine,int bBrace)
 	:name(funcName),beginLine(bLine),beginBrace(bBrace)
 {
@@ -52,6 +132,8 @@ inline funcInfo::funcInfo(const std::string& funcName, int bLine,int bBrace)
 	cyclometer = 1;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//constructor
 inline funcInfo::funcInfo(const std::string& cName, const std::string& fName, int bLine,int bBrace)
 	:className(cName),name(fName),beginLine(bLine),beginBrace(bBrace)
 {
@@ -59,7 +141,8 @@ inline funcInfo::funcInfo(const std::string& cName, const std::string& fName, in
 	deepestBrace = bBrace;
 	cyclometer = 1;
 }
-
+//////////////////////////////////////////////////////////////////////////
+//destructor
 inline funcInfo::~funcInfo()
 {
 // 	std::vector<controlInfo*>::iterator cit;
@@ -74,20 +157,26 @@ inline funcInfo::~funcInfo()
 // 	variables.clear();
 }
 
+//////////////////////////////////////////////////////////////////////////
+//return function size (beinLine#-endLine#)
 inline int funcInfo::getFunctionSize() const
 {
-	if (endLine<0)
-		throw std::exception(("Unable to find end of function "+name).c_str());
-
-	if (endLine < beginLine)
-		throw std::exception(("Begin line is bigger than end line in function " + name).c_str());
+// 	if (endLine<0)
+// 		throw std::exception(("Unable to find end of function "+name).c_str());
+// 
+// 	if (endLine < beginLine)
+// 		throw std::exception(("Begin line is bigger than end line in function " + name).c_str());
 
 	return (endLine - beginLine);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//return Function Scope Nesting (beinLine#-endLine#)
 inline int funcInfo::getFunctionScopeNesting() const
 {	return (deepestBrace - beginBrace + 1); }
 
+//////////////////////////////////////////////////////////////////////////
+//set EndLine
 inline void funcInfo::setEndLine(int lineNo){endLine = lineNo;}
 
 //////////////////////////////////////////////////////////////////////////
@@ -100,9 +189,15 @@ inline void funcInfo::operator++(){++deepestBrace;}
 inline void funcInfo:: increaseCyclometer(){++cyclometer;}
 
 //////////////////////////////////////////////////////////////////////////
-//get names of function
+//get name of function
 inline std::string funcInfo::getName() const {return name;}
+
+//////////////////////////////////////////////////////////////////////////
+//get name of class that function belong to
 inline std::string funcInfo::getClassName() const{return className;}
+
+//////////////////////////////////////////////////////////////////////////
+//get name of function that include class name and "::" between them
 inline std::string funcInfo::getFullName() const 
 {
 	if (className.length()>0)
@@ -111,17 +206,29 @@ inline std::string funcInfo::getFullName() const
 	return name;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//get line # that function implement
 inline int funcInfo::getBeginLine() const {return beginLine;}
 
+//////////////////////////////////////////////////////////////////////////
+//get brace # that function implement
 inline int funcInfo::getBeginBrace() const {return beginBrace;}
 
+//////////////////////////////////////////////////////////////////////////
+//get deepest brace # that function contains
 inline int funcInfo::getDeepestBrace() const {return deepestBrace;}
 
+//////////////////////////////////////////////////////////////////////////
+//get cyclomatic complexity of function
 inline int funcInfo::getCyclometer()const {return cyclometer;}
 
+//////////////////////////////////////////////////////////////////////////
+//add control span information to function
 inline void funcInfo::addControl(controlInfo* c)
 { controls.push_back(c);}
  
+//////////////////////////////////////////////////////////////////////////
+//return a reference to vector of variable information
 inline std::vector<variableInfo*>& funcInfo::getVariableInfos()
 { return variables;}
 

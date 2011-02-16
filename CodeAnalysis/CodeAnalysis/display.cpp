@@ -12,7 +12,8 @@
 #include <iostream>
 #include "display.h"
 
-
+//////////////////////////////////////////////////////////////////////////
+//print analysis result
 void display::printAnalysis(packageInfo* packInfo)
 {
 	pack = packInfo;
@@ -20,6 +21,8 @@ void display::printAnalysis(packageInfo* packInfo)
 	printFunctions();
 }
 
+//////////////////////////////////////////////////////////////////////////
+//print names of package files
 void display::printPackageInfo()
 {
 	std::cout<<"\n\nPackage: ";
@@ -31,6 +34,8 @@ void display::printPackageInfo()
 	std::cout<<std::string(70,'=')<<std::endl;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//print names of package files
 void display::printFunctions()
 {
 	std::vector<funcInfo*>& funcs = pack->functions;
@@ -53,7 +58,6 @@ void display::printFunctions()
 	}
 	std::cout<<std::endl;
 }
-
 void display::printControls(std::vector<controlInfo*>& ctrls)
 {
 	if (ctrls.size() <=0)return;
@@ -72,7 +76,6 @@ void display::printControls(std::vector<controlInfo*>& ctrls)
 		std::cout<<std::endl;
 	}
 }
-
 void display::printVaraibels(std::vector<variableInfo*>& vInfos)
 {
 	if (vInfos.size() <=0)return;
@@ -96,6 +99,9 @@ void display::printVaraibels(std::vector<variableInfo*>& vInfos)
 	}
 }
 
+//
+//----< test stub >--------------------------------------------
+
 
 #ifdef DISPLAY_TEST
 
@@ -114,14 +120,6 @@ int main(int argc, char* argv[])
 			<< "\n  please enter name of file to process on command line\n\n";
 		return 1;
 	}
-
-
-	std::cout << "\n  Processing file " << argv[i];
-	std::cout << "\n  " << std::string(16 + strlen(argv[i]),'-');
-
-	//ConfigParseToConsole configure;
-	//Parser* pParser = configure.Build();
-
 
 	fileHandler handler;
 	try

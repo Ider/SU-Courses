@@ -1,6 +1,91 @@
 #ifndef IDER_RULES_AND_ACTIONS_H
 #define IDER_RULES_AND_ACTIONS_H
+//////////////////////////////////////////////////////////////////////
+//  iderRulesAndActions.h - rules and actions						//
+//  ver 1.0															//
+//																	//
+//  Language:      Visual C++ 2010, SP1								//
+//  Platform:      Mac Book Pro, Windows 7 Professional				//
+//  Application:   Prototype for CSE687 Pr1, Sp09					//
+//  Author:        Ider Zheng, Syracuse University					//
+//                 (315) 560-4977, ider.zheng@gmail.com			    //
+//////////////////////////////////////////////////////////////////////
+/*
+  Module Operations: 
+  ==================
+  This module provide rules and actions for code analysis
+  The rules and actions are classified by class, function,
+  control span, variable
 
+  Public Interface:
+  =================
+  cbr = new ClassBeginRule();
+  cba = new ClassBeginAction(helper);
+  cbr->addAction(cba);
+  pParser->addRule(cbr);
+  cer = new ClassEndRule(helper);
+  cea = new ClassEndAction(helper);
+  cer->addAction(cea);
+  pParser->addRule(cer);
+
+  fbr = new FunctionBeginRule();
+  fba = new FunctionBeginAction(helper);
+  fbr->addAction(fba);
+  pParser->addRule(fbr);
+  fer = new FuntionEndRule(helper);
+  fea = new FuntionEndAction(helper);
+  fer->addAction(fea);
+  pParser->addRule(fer);
+
+  fcr = new FunctionCyclomaticRule();
+  fca = new FunctionCyclomaticAction(helper);
+  fcr->addAction(fca);
+  pParser->addRule(fcr);
+
+  sbr = new CtrlSpanBeginRule(helper);
+  sba = new CtrlSpanBeginAction(helper);
+  sbr->addAction(sba);
+  pParser->addRule(sbr);
+  ser = new CtrlSpanEndRule(helper);
+  sea = new CtrlSpanEndAction(helper);
+  ser->addAction(sea);
+  pParser->addRule(ser);
+
+
+  vdr = new VariableDeclarationRule(helper);
+  vda = new VariableDeclarationAction(helper);
+  vdr->addAction(vda);
+  pParser->addRule(vdr);
+  vrr = new VariableReferenceRule(helper);
+  vra = new VariableReferenceAction(helper);
+  vrr->addAction(vra);
+  pParser->addRule(vrr);
+
+  Build Process:
+  ==============
+  Required files
+  -ActionsAndRules.h    ActionsAndRules.cpp
+  ConfigureParser.h    ConfigureParser.cpp
+  display.h    display.cpp
+  fileHandler.h    fileHandler.cpp
+  FileSystem.h    FileSystem.cpp
+  functionInfo.h    iderRulesAndActions.cpp
+  iderRulesAndActions.h    Parser.cpp
+  infoCollection.h    ScopeStack.cpp
+  itokcollection.h    SemiExpression.cpp
+  packageInfo.h    Tokenizer.cpp
+  Parser.h
+  ScopeStack.h
+  SemiExpression.h
+  test.h
+
+  Build commands (either one)
+    - devenv CodeAnalysis.sln
+    - cl /EHsc /DTEST_PARSER ConfigureParser.cpp parser.cpp \
+         ActionsAndRules.cpp \
+         semiexpression.cpp tokenizer.cpp /link setargv.obj
+
+*/
 #include "Parser.h"
 #include "packageInfo.h"
 #include <vector>

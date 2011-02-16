@@ -23,7 +23,6 @@
     <ClInclude Include="Parser.h" />
     <ClInclude Include="ScopeStack.h" />
     <ClInclude Include="SemiExpression.h" />
-    <ClInclude Include="test.h" />
     <ClInclude Include="Tokenizer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -69,7 +68,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>TEST_IDER_RULE_AND_ACTION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DISPLAY_TEST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

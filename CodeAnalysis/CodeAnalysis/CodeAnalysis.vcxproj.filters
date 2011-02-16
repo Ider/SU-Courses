@@ -39,9 +39,6 @@
     <ClInclude Include="functionInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="test.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="packageInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>

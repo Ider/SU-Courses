@@ -2,7 +2,7 @@
 #define CONFIGUREPARSER_H
 /////////////////////////////////////////////////////////////////////
 //  ConfigureParser.h - builds and configures parsers              //
-//  ver 1.1                                                        //
+//  ver 1.2                                                        //
 //                                                                 //
 //  Lanaguage:     Visual C++ 2005                                 //
 //  Platform:      Dell Dimension 9150, Windows XP SP2             //
@@ -39,6 +39,8 @@
 
   Maintenance History:
   ====================
+  ver 1.2 : 16 Feb 2011
+  - add IderConfigParseToConsole
   ver 1.1 : 01 Feb 06
   - cosmetic changes to ConfigureParser.cpp
   ver 1.0 : 12 Jan 06

@@ -200,6 +200,7 @@ Parser* IderConfigParseToConsole::Build()
 	try
 	{
 		// this order could not be rearranged
+		// or we would not get result correctly
 
 		pToker = new Toker;
 		pSemi = new SemiExp(pToker);

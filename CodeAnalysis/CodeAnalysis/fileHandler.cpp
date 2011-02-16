@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////////
-//  display.cpp - conllec files base on path and analyze them		//
+//  fileHandler.cpp - conllect files base on path and analyze them	//
 //  ver 1.0															//
 //																	//
 //  Language:      Visual C++ 2010, SP1								//
@@ -11,6 +11,8 @@
 
 #include "fileHandler.h"
 
+//////////////////////////////////////////////////////////////////////////
+//attach to one file, create one package information
 void fileHandler::attach(std::string path)
 {
 	clearResult();
@@ -36,7 +38,8 @@ void fileHandler::attach(int argc, char* argv[])
 	std::cout<<"\n\nNo file found!!!\n";
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+///
 void fileHandler::parse()
 {
 	packMap::iterator it;
@@ -49,8 +52,6 @@ void fileHandler::parse()
 			while (pParser->next())
 				pParser->parse();
 		}
-		
-		
 	}
 }
 
@@ -89,12 +90,17 @@ bool fileHandler::getCommands(int argc, char* argv[])
 	return true;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//get each patten of files
 void fileHandler::getFiles()
 {
 	for (size_t i = 0; i<pattens.size();++i)
 		getFiles(rPath,pattens[i]);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//get all files in the path
+//if need recursion, enter into sub folders
 void fileHandler::getFiles(std::string path, std::string& pattern)
 {
  	std::vector<std::string> files = fh.getFileSpecs(path,pattern);
@@ -120,6 +126,8 @@ void fileHandler::getFiles(std::string path, std::string& pattern)
 	if (needRecursion)getSubFiles(path,pattern);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//get all folders under the path, and get files uder this path
 void fileHandler::getSubFiles(std::string path, std::string& pattern)
 {
 	std::string temp = path;
@@ -134,7 +142,6 @@ void fileHandler::getSubFiles(std::string path, std::string& pattern)
 	}
 
 }
-
 
 //////////////////////////////////////////////////////////////////////////
 //remove file extension
