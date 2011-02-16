@@ -18,7 +18,6 @@
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="functionInfo.h" />
     <ClInclude Include="iderRulesAndActions.h" />
-    <ClInclude Include="infoCollection.h" />
     <ClInclude Include="itokcollection.h" />
     <ClInclude Include="packageInfo.h" />
     <ClInclude Include="Parser.h" />

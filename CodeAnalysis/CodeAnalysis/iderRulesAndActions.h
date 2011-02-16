@@ -539,7 +539,7 @@ private:
 
 		while (it != toks.end())
 		{
-			int i;
+			size_t i;
 			for (i=0; i< vInfos.size(); ++i)
 			{
 				if ((*it)==vInfos[i]->getName())

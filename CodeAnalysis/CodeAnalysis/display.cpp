@@ -83,7 +83,7 @@ void display::printVaraibels(std::vector<variableInfo*>& vInfos)
 
 int main(int argc, char* argv[])
 {
-	std::cout << "\n  Testing Dissplay module\n "
+	std::cout << "\n  Testing Display module\n "
 		<< std::string(32,'=') << std::endl;
 
 	// collecting tokens from files, named on the command line
@@ -108,24 +108,6 @@ int main(int argc, char* argv[])
 		fileHandler handler;
 		try
 		{
-			// 			if(pParser)
-			// 			{
-			// 				if(!configure.Attach(argv[i]))
-			// 				{
-			// 					std::cout << "\n  could not open file " << argv[i] << std::endl;
-			// 					continue;
-			// 				}
-			// 			}
-			// 			else
-			// 			{
-			// 				std::cout << "\n\n  Parser not built\n\n";
-			// 				return 1;
-			// 			}
-			// 			// now that parser is built, use it
-			// 
-			// 			while(pParser->next())
-			// 				pParser->parse();
-			// 			std::cout << "\n\n";
 			int count = 5;
 			char* parameter[] = {" ","..","*.h","*.cpp", "/r"};
 			handler.attach(count,parameter);
@@ -137,6 +119,8 @@ int main(int argc, char* argv[])
 			std::cout << "\n\n    " << ex.what() << "\n\n";
 		}
 	}
+
+	getchar();
 }
 
 

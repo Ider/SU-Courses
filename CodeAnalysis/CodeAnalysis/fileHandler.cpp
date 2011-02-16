@@ -80,7 +80,7 @@ bool fileHandler::getCommands(int argc, char* argv[])
 
 void fileHandler::getFiles()
 {
-	for (int i = 0; i<pattens.size();++i)
+	for (size_t i = 0; i<pattens.size();++i)
 		getFiles(rPath,pattens[i]);
 }
 
@@ -90,7 +90,7 @@ void fileHandler::getFiles(std::string path, std::string& pattern)
 	std::string key;
 	mapIterator it;
 	packageInfo* pack;
-	for (int i=0; i<files.size();i++)
+	for (size_t i=0; i<files.size();i++)
 	{
 		key = getFileKeyName(files[i]);
 		it = results.find(key);

@@ -61,15 +61,16 @@ inline funcInfo::funcInfo(const std::string& cName, const std::string& fName, in
 
 inline funcInfo::~funcInfo()
 {
-	std::vector<controlInfo*>::iterator cit;
-	for (cit = controls.begin();cit!=controls.end();++cit)
-		delete (*cit);
-	controls.clear();
-
-	std::vector<variableInfo*>::iterator vit;
-	for (vit = variables.begin(); vit != variables.end();++vit)
-		delete (*vit);
-	variables.clear();
+// 	std::vector<controlInfo*>::iterator cit;
+// 
+// 	for (cit = controls.begin();cit!=controls.end();++cit)
+// 		delete *cit;
+// 	controls.clear();
+// 
+// 	std::vector<variableInfo*>::iterator vit;
+// 	for (vit = variables.begin(); vit != variables.end();++vit)
+// 		delete (*vit);
+// 	variables.clear();
 }
 inline int funcInfo::getFunctionSize() const
 {
@@ -127,7 +128,7 @@ public:
 	controlInfo(const std::string& n,funcInfo* f, int bLine, int bBrace)
 		:name(n), func(f), beginLine(bLine), beginBrace(bBrace)
 	{	endLine = bLine;}
-	~controlInfo(){}
+	~controlInfo();
 	int getControlSize() {return (endLine - beginLine);}
 	void setEndLine(int lineNo) {endLine = lineNo;}
 	std::string getName() {return name;}
@@ -142,6 +143,8 @@ private:
 	const int beginBrace;
 };
 
+inline controlInfo::~controlInfo(){}
+ 
 ////////////////variable information//////////////////////////////
 
 class variableInfo
