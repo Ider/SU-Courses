@@ -141,21 +141,6 @@ inline funcInfo::funcInfo(const std::string& cName, const std::string& fName, in
 	deepestBrace = bBrace;
 	cyclometer = 1;
 }
-//////////////////////////////////////////////////////////////////////////
-//destructor
-inline funcInfo::~funcInfo()
-{
-// 	std::vector<controlInfo*>::iterator cit;
-// 
-// 	for (cit = controls.begin();cit!=controls.end();++cit)
-// 		delete *cit;
-// 	controls.clear();
-// 
-// 	std::vector<variableInfo*>::iterator vit;
-// 	for (vit = variables.begin(); vit != variables.end();++vit)
-// 		delete (*vit);
-// 	variables.clear();
-}
 
 //////////////////////////////////////////////////////////////////////////
 //return function size (beinLine#-endLine#)
@@ -285,5 +270,23 @@ private:
 	int endLine;
 	int referencedCount;
 };
+
+
+//////////////////////////////////////////////////////////////////////////
+//destructor
+//if must be put below two other class, so that it
+inline funcInfo::~funcInfo()
+{
+	std::vector<controlInfo*>::iterator cit;
+
+	for (cit = controls.begin();cit!=controls.end();++cit)
+		delete *cit;
+	controls.clear();
+	
+	std::vector<variableInfo*>::iterator vit;
+	for (vit = variables.begin(); vit != variables.end();++vit)
+		delete (*vit);
+	variables.clear();
+}
 
 #endif
