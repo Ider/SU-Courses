@@ -4,6 +4,7 @@ void fileHandler::attach(std::string path)
 {
 	clearResult();
 	packageInfo* pack = new packageInfo();
+	pack->addFileName(path);
 	results[path] = pack;
 }
 
@@ -20,6 +21,8 @@ void fileHandler::attach(int argc, char* argv[])
 
 	clearResult();
 	getFiles();
+	if (results.size() == 0)
+	std::cout<<"\n\nNo file found!!!\n";
 }
 
 
@@ -37,15 +40,9 @@ void fileHandler::parse()
 void fileHandler::printResult()
 {
 	packMap::iterator it;
-	int i = results.size()-1;
 	for (it = results.begin(); it != results.end(); ++it)
 	{
-		i--;
 		dispayer->printAnalysis(it->second);
-		if (i==0)
-		{
-			i=i;
-		}
 	}
 }
 
@@ -57,7 +54,7 @@ bool fileHandler::getCommands(int argc, char* argv[])
 	pattens.clear();
 
 	rPath =fh.getFullPath(argv[1]);
-	needRecursion = (argv[argc-1]=="/r");
+	needRecursion = !strcmp(argv[argc-1],"/r");
 
 	for (int i=2; i<argc; ++i)
 	{
@@ -112,7 +109,7 @@ void fileHandler::getSubFiles(std::string path, std::string& pattern)
 	if (temp[temp.size()-1]!='\\'&&temp[temp.size()-1]!='/')
 		temp+="\\";
 
-	std::vector<std::string> currdirs = fh.getDirectories(temp);
+	std::vector<std::string> currdirs = fh.getDirectories(temp+"*");
 	for(size_t i=0; i<currdirs.size(); ++i)
 	{
 		if (currdirs[i][0] == '.')continue;

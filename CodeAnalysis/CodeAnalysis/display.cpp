@@ -126,8 +126,8 @@ int main(int argc, char* argv[])
 			// 			while(pParser->next())
 			// 				pParser->parse();
 			// 			std::cout << "\n\n";
-			int count = 4;
-			char* parameter[] = {" ",".","*.h","*.cpp"};
+			int count = 5;
+			char* parameter[] = {" ","..","*.h","*.cpp", "/r"};
 			handler.attach(count,parameter);
 			//handler.parse();
 			handler.printResult();
