@@ -19,30 +19,37 @@ void display::printAnalysis(packageInfo* packInfo)
 	pack = packInfo;
 	printPackageInfo();
 	printFunctions();
+	printSummary();
 }
 
 //////////////////////////////////////////////////////////////////////////
 //print names of package files
 void display::printPackageInfo()
 {
+	funcCount = 0;
+	dataCount = 0;
+	deepestScope = 0;
 	std::cout<<"\n\nPackage: ";
 	for (int i = 0; i< pack->fileCount(); ++i)
 	{
 		std::cout<<"\n"<< (*pack)[i];
 	}
+
 	std::cout<<std::endl;
 	std::cout<<std::string(70,'=')<<std::endl;
 }
 
 //////////////////////////////////////////////////////////////////////////
-//print names of package files
+//print all function information of package
 void display::printFunctions()
 {
 	std::vector<funcInfo*>& funcs = pack->functions;
 	std::vector<funcInfo*>::iterator it;
+	funcCount+=funcs.size();
 	for (it=funcs.begin();it!=funcs.end();++it)
 	{
 		funcInfo* func = (*it);
+		if (deepestScope < func->deepestBrace)deepestScope=func->deepestBrace;
 		std::cout<<"\n\tFunction Name:\t";
 		std::cout<<func->getFullName()<<"\t";
 		//std::cout<<"Class:"<<func->getClassName();
@@ -58,9 +65,13 @@ void display::printFunctions()
 	}
 	std::cout<<std::endl;
 }
+
+//////////////////////////////////////////////////////////////////////////
+//print all
 void display::printControls(std::vector<controlInfo*>& ctrls)
 {
 	if (ctrls.size() <=0)return;
+	dataCount += ctrls.size();
 
 	std::cout<<"\n\tInformations of controls in this function:"<<std::endl;
 	std::vector<controlInfo*>::iterator it;
@@ -76,6 +87,9 @@ void display::printControls(std::vector<controlInfo*>& ctrls)
 		std::cout<<std::endl;
 	}
 }
+
+//////////////////////////////////////////////////////////////////////////
+//print names of package files
 void display::printVaraibels(std::vector<variableInfo*>& vInfos)
 {
 	if (vInfos.size() <=0)return;
@@ -83,7 +97,7 @@ void display::printVaraibels(std::vector<variableInfo*>& vInfos)
 	std::cout<<"\n\tInformations of variables:"<<std::endl;
 	std::vector<variableInfo*>::iterator it;
 	std::cout<<"\t"<<std::string(50,'-')<<std::endl;
-	
+
 	std::cout<<"\tLine@\tRef#\tDensity\t\tType - Name"<<std::endl;;
 	for (it = vInfos.begin(); it != vInfos.end(); ++it)
 	{
@@ -98,6 +112,20 @@ void display::printVaraibels(std::vector<variableInfo*>& vInfos)
 		std::cout<<std::endl;
 	}
 }
+
+void display::printSummary()
+{
+	std::cout<<"\tSummary\t"<<std::string(40,'-')<<std::endl;
+	std::cout<<"\t\t\tFunc#\tData#\tDeepest Scope"<<std::endl;
+
+	std::cout<<"\t\t\t "<<funcCount;
+	std::cout<<"\t "<<dataCount;
+	std::cout<<"\t\t"<<deepestScope;
+	std::cout<<std::endl;
+
+	std::cout<<"\t\t"<<std::string(40,'-')<<std::endl;
+}
+
 
 //
 //----< test stub >--------------------------------------------

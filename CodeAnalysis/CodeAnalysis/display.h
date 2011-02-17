@@ -62,6 +62,7 @@ private:
 	void printFunctions();
 	void printControls(std::vector<controlInfo*>& ctrls);
 	void printVaraibels(std::vector<variableInfo*>& vInfos);
+	void printSummary();
 	packageInfo* pack;
 
 	const int optimalFuncSize;
@@ -69,6 +70,10 @@ private:
 	const int optimalCyclom;
 	const int optimalCtrlSpan;
 	const int optimalLocality;
+
+	int funcCount;
+	int dataCount;
+	int deepestScope;
 };
 
 
