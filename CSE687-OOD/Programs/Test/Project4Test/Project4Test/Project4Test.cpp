@@ -1,7 +1,7 @@
 /////Project4Test.cpp : Defines the entry point for the console application.
 
 
- #include "stdafx.h"
+#include "stdafx.h"
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -13,117 +13,35 @@
 using namespace std;
 
 
+bool single_digit (const int& value) { return (value<10); }
 
-class base
+// a predicate implemented as a class:
+class is_odd
 {
 public:
-	base(){l="base data";}
-	 void func1(){ cout<<l.c_str();}
-	void func2(){}
-	virtual void fun4(){ cout<<l.c_str();}
-
-private:
-	void func3(){}
-	string l;
+	is_odd(){cout<<"call is_odd constructor\n";}
+	bool not_odd(const int& value) {return (value%2)==1; }
+	
+	bool operator() (const int& value) {return (value%2)==1; }
 };
 
-
-class child: public base
+int main ()
 {
-public:
-	child(){l ="child data\n";}
-	void func1(){ cout<<l.c_str();}
-	void func3(){}
+	int myints[]= {15,36,7,17,20,39,4,1};
+	list<int> mylist (myints,myints+8);   // 15 36 7 17 20 39 4 1
 
-	void fun4(){ cout<<l.c_str();}
-private:
-	void func2(){}
-	string l;
-};
+	mylist.remove_if (single_digit);      // 15 36 17 20 39
 
-void stlTest();
-void funtest(int a)
-{
-	cout<<a<<'\n';
-}
-class DemoComp
-{
-public:
-	DemoComp(){cout<<"demo comp constructor\n";}
-	~DemoComp(){cout<<"demo  destructor\n";}
-};
-vector<DemoComp *> vec;
+	is_odd o;
+	mylist.remove_if(o);
+	//above two lines is equal to flowing line
+	//mylist.remove_if (is_odd());          // 36 20
 
-void getv()
-{
-	for (int i = 0; i < 2; i++)
-	{
-		DemoComp* pd = new DemoComp();
-		vec.push_back(pd);
-	}
-}
+	cout << "mylist contains:";
+	for (list<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
+		cout << " " << *it;
+	cout << endl;
 
-int _tmain(int argc, _TCHAR* argv[])
-{
-// 	string s ="\n";
-// 	char c1 = '\n';
-// 	str s0;
-// 	str s1 = str("this is a string");
-// 	str s2 = s1;
-// 
-// 	s0 =s2;
-// 
-// 	cout << s1 << "\n";
-// 	char c ;
-// 
-// 
-// 	getchar();
-// 
-// 	const str cstr = "This is const string";
-// 	cout << cstr << "\n";
-// 	 c =cstr[0];
-// 	 cstr[0]='0';
-// 
-// 	 cout << cstr << "\n";
-// 	 getchar();
-
-//stlTest();
-// 	string aa ="\0";
-// 	cout<<aa.length()<<endl;
-// 
-// 	stack<int> st;
-// 	st.push(1);
-// 	cout<<st.top()<<endl;
-// 	if (!st.empty())
-// 	{
-// 		st.pop();
-// 		//st.pop();
-// 	}
-	getv();
-
-	vector<DemoComp*>::iterator it = vec.begin();
-	for (;it != vec.end();++it)
-	{
-		DemoComp* p = *it;
-		delete p;
-
-	}
-
-
-	cout<<"hello world";
-	child* c = new child();
-
-
-	base* b =c;
-
-
-	c->fun4();
-	b->fun4();
-	c->func1();
-	b->func1();
-
-
-
-	getchar();
 	return 0;
 }
+
