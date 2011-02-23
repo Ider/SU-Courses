@@ -74,6 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\tableformat.css" />
     <Content Include="Global.asax" />
     <Content Include="Views\Home\Layout.aspx" />
     <Content Include="Web.config" />
@@ -125,7 +126,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54342</DevelopmentServerPort>
+          <DevelopmentServerPort>56201</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
