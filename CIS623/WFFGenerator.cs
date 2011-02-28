@@ -51,17 +51,18 @@ namespace WFF
             {
                 rndMin = notCount > 0 ? 1 : 2;
                 ParseNode node = new ParseNode((PropType)rnd.Next(rndMin, 4));
+
                 if (node.Type == PropType.Not)
                 {
-                    node[0] = nodes[nodes.Count - 1];
-                    nodes.RemoveAt(nodes.Count - 1);
-                    nodes.Add(node);
+                    int index = rnd.Next(nodes.Count / 2);
+                    node[0] = nodes[index];
+                    nodes[index] = node;
                     --notCount;
                 }
                 else
                 {
-                    node[0] = nodes[nodes.Count - 1];
-                    node[1] = nodes[nodes.Count - 2];
+                    node[0] = nodes[nodes.Count - 2];
+                    node[1] = nodes[nodes.Count - 1];
                     nodes.RemoveAt(nodes.Count - 1);
                     nodes.RemoveAt(nodes.Count - 1);
                     nodes.Add(node);
@@ -129,8 +130,8 @@ namespace WFF
 
         public int Count { get { return nodeCount; } }
 
-        private int formulaCount;
-        private int nodeCount;
+        private readonly int formulaCount;
+        private readonly int nodeCount;
         private IList<Atom> terms;
         private IDictionary<string, Formula> formulas;
         Random rnd = new Random();
