@@ -5,19 +5,50 @@
 
 	<bug>
 		<number>#2107</number>
-		<ReportedBy>Ider Zheng</ReportedBy>
+		<ReportedBy>Yu Chen</ReportedBy>
 		<OwnedBy>Ider Zheng</OwnedBy>
-		<Component>Work Requirement</Component>
-		<Keyworkds>css, style</Keyworkds>
+		<Component>Work Package</Component>
 		<Keyworkds>css, style</Keyworkds>
 		<Description>Here is description for this bug.</Description>
 		<Comments>
 			<Comment>
 				<CommentedBy>Jian</CommentedBy>
-				<Dtaetime> </Dtaetime>
+				<Dtaetime>03/01/2011 20:06:03</Dtaetime>
+				<content>Here is content for this comment.</content>
 			</Comment>
-			
+
 		</Comments>
 	</bug>
+	<bug>
+		<number>#1988</number>
+		<ReportedBy>Wengjing Wang</ReportedBy>
+		<OwnedBy>Ider Zheng</OwnedBy>
+		<Component>Software Requirement</Component>
+		<Keyworkds>item count</Keyworkds>
+		<Description>Here is description for this bug.</Description>
+		<Comments>
+			<Comment>
+				<CommentedBy>Jian</CommentedBy>
+				<Dtaetime>03/01/2011 20:06:03</Dtaetime>
+				<content>Here is content for this comment.</content>
+			</Comment>
 
+		</Comments>
+	</bug>
+	<bug>
+		<number>#1987</number>
+		<ReportedBy>Shaoyuan Chen</ReportedBy>
+		<OwnedBy>Ider Zheng</OwnedBy>
+		<Component>Bug Report</Component>
+		<Keyworkds>Nothing Serious</Keyworkds>
+		<Description>Here is description for this bug.</Description>
+		<Comments>
+			<Comment>
+				<CommentedBy>Jian</CommentedBy>
+				<Dtaetime>03/01/2011 20:06:03</Dtaetime>
+				<content>Here is content for this comment.</content>
+			</Comment>
+
+		</Comments>
+	</bug>
 </bugs>
