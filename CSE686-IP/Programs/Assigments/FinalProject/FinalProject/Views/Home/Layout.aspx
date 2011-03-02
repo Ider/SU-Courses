@@ -127,6 +127,25 @@
                 <td>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Authority Module
+                </td>
+                <td>
+                     Manager Register
+                    <br />
+                    Login Page
+                    <br />
+                    Every Pages That Associate with Authority
+                </td>
+                <td>
+                    Roles<br />
+                    Users<br />
+                    
+                </td>
+                <td>
+                </td>
+            </tr>
         </tbody>
     </table>
     <div>

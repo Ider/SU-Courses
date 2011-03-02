@@ -253,6 +253,7 @@ table th
 #menucontainer
 {
     margin-top:40px;
+    clear:both;
 }
 
 div#title

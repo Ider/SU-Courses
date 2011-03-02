@@ -24,8 +24,14 @@
             
                 <ul id="menu">              
                     <li><%: Html.ActionLink("Home", "Index", "Home")%></li>
+                    <li><%: Html.ActionLink("Software Requirement", "Index", "Requirement")%></li>
+
+                    <li><%: Html.ActionLink("Work Package","Index", "Package")%></li>
+                    <li><%: Html.ActionLink("Bug Report","Index", "Bug")%></li>
+                    <li><%: Html.ActionLink("Status Report","Index", "Status")%></li>
                     <li><%: Html.ActionLink("About", "About", "Home")%></li>
-                    <li><%: Html.ActionLink("Layout", "Layout", "Home")%></li>
+
+                    <%--<li><%: Html.ActionLink("Layout", "Layout", "Home")%></li>--%>
                 </ul>
             
             </div>
