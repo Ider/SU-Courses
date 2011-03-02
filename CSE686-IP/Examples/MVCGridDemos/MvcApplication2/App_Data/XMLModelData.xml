@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<characters>
+  <character>
+    <name>Jack the Ripper</name>
+    <occupation>Ripper</occupation>
+    <location>London, England</location>
+  </character>
+  <character>
+    <name>Lucretia Borgia</name>
+    <occupation>Hostess</occupation>
+    <location>Venice, Italy</location>
+  </character>
+  <character>
+    <name>The Terminator</name>
+    <occupation>Terminator</occupation>
+    <location>Govenor's Mansion, Sacramento, California</location>
+  </character>
+  <character>
+    <name>Rocky Balboa</name>
+    <occupation>Janitor</occupation>
+    <location>Fading Glory Lane, Philadelphia</location>
+  </character>
+  <character>
+    <name>Vinay Vasyani</name>
+    <occupation>TA</occupation>
+    <location>CST 3-201</location>
+  </character>
+  <character>
+    <name>Jim Fawcett</name>
+    <occupation>Instructor</occupation>
+    <location>CST 4-187</location>
+  </character>
+  <character>
+    <name>Gengis Khan</name>
+    <occupation>Warrior</occupation>
+    <location>Tibet</location>
+  </character>
+  <character>
+    <name>Alfred E. Neumann</name>
+    <occupation>Mad Magazine character</occupation>
+    <location>New York, NY</location>
+  </character>
+  <character>
+    <name>Donald Duck</name>
+    <occupation>Eccentric</occupation>
+    <location>Disney World, Orlando, Fla.</location>
+  </character>
+</characters>
