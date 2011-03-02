@@ -6,6 +6,6 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Work Package is under construction...</h2>
+    <h2>Software Requirement is under construction...</h2>
 
 </asp:Content>

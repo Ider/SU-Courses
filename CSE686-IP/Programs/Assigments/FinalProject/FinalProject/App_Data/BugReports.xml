@@ -1,54 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 
-<bugs>
+<BugReports>
 
-	<bug>
-		<number>#2107</number>
+	<BugReport>
+		<Number>2107</Number>
 		<ReportedBy>Yu Chen</ReportedBy>
 		<OwnedBy>Ider Zheng</OwnedBy>
 		<Component>Work Package</Component>
-		<Keyworkds>css, style</Keyworkds>
+		<Keywords>css, style</Keywords>
 		<Description>Here is description for this bug.</Description>
 		<Comments>
 			<Comment>
 				<CommentedBy>Jian</CommentedBy>
 				<Dtaetime>03/01/2011 20:06:03</Dtaetime>
-				<content>Here is content for this comment.</content>
+				<Content>Here is Content for this comment.</Content>
 			</Comment>
 
 		</Comments>
-	</bug>
-	<bug>
-		<number>#1988</number>
+	</BugReport>
+	<BugReport>
+		<Number>1988</Number>
 		<ReportedBy>Wengjing Wang</ReportedBy>
 		<OwnedBy>Ider Zheng</OwnedBy>
 		<Component>Software Requirement</Component>
-		<Keyworkds>item count</Keyworkds>
+		<Keywords>item count</Keywords>
 		<Description>Here is description for this bug.</Description>
 		<Comments>
 			<Comment>
 				<CommentedBy>Jian</CommentedBy>
 				<Dtaetime>03/01/2011 20:06:03</Dtaetime>
-				<content>Here is content for this comment.</content>
+				<Content>Here is Content for this comment.</Content>
 			</Comment>
 
 		</Comments>
-	</bug>
-	<bug>
-		<number>#1987</number>
+	</BugReport>
+	<BugReport>
+		<Number>1987</Number>
 		<ReportedBy>Shaoyuan Chen</ReportedBy>
 		<OwnedBy>Ider Zheng</OwnedBy>
 		<Component>Bug Report</Component>
-		<Keyworkds>Nothing Serious</Keyworkds>
+		<Keywords>Nothing Serious</Keywords>
 		<Description>Here is description for this bug.</Description>
 		<Comments>
 			<Comment>
 				<CommentedBy>Jian</CommentedBy>
 				<Dtaetime>03/01/2011 20:06:03</Dtaetime>
-				<content>Here is content for this comment.</content>
+				<Content>Here is Content for this comment.</Content>
 			</Comment>
 
 		</Comments>
-	</bug>
-</bugs>
+	</BugReport>
+</BugReports>

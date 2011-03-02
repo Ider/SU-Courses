@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FinalProject.Models;
 
 namespace FinalProject.Controllers
 {
-    public class BugController : Controller
+    public class BugReportController : Controller
     {
         //
         // GET: /Bug/
 
-        public ActionResult Index()
+        public ActionResult Index(BugListModel buglist)
         {
-            return View();
+            ViewData["Path"] = Server.MapPath(Constant.BUG_XML_PATH);
+            bool succed = buglist.GetBugList(Server.MapPath(Constant.BUG_XML_PATH));
+            ViewData["Message"] = "Bug Report List";
+            return View(buglist);
         }
 
         //
@@ -30,7 +34,7 @@ namespace FinalProject.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Bug/Create
@@ -49,10 +53,10 @@ namespace FinalProject.Controllers
                 return View();
             }
         }
-        
+
         //
         // GET: /Bug/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             return View();
@@ -67,7 +71,7 @@ namespace FinalProject.Controllers
             try
             {
                 // TODO: Add update logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch
@@ -78,7 +82,7 @@ namespace FinalProject.Controllers
 
         //
         // GET: /Bug/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             return View();
@@ -93,7 +97,7 @@ namespace FinalProject.Controllers
             try
             {
                 // TODO: Add delete logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch

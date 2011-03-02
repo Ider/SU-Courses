@@ -67,7 +67,7 @@
   <ItemGroup>
     <Compile Include="App_Code\Common.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BugController.cs" />
+    <Compile Include="Controllers\BugReportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PackageController.cs" />
     <Compile Include="Controllers\RequirementController.cs" />
@@ -76,15 +76,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\BugModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\ASPNETDB.MDF" />
-    <Content Include="App_Data\bugs.xml" />
+    <Content Include="App_Data\BugReports.xml" />
     <Content Include="Content\tableformat.css" />
     <Content Include="Global.asax" />
-    <Content Include="Views\Bug\Details.aspx" />
-    <Content Include="Views\Bug\Index.aspx" />
+    <Content Include="Views\BugReport\Details.aspx" />
+    <Content Include="Views\BugReport\Index.aspx" />
     <Content Include="Views\Home\Layout.aspx" />
     <Content Include="Views\Package\Index.aspx" />
     <Content Include="Views\Requirement\Index.aspx" />
