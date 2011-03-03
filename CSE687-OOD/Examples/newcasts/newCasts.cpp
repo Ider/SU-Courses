@@ -100,7 +100,14 @@ void DemoStaticCast()
   title("Demonstrating static_cast<someType>(...) and cast operator");
   fromType fromObject;
   toType toObject = static_cast<toType>(fromObject);
-  toType another_toObject = fromObject;
+  
+  //as the promotion constructor is explicit, 
+  //it use casting of fromObject to cast the object;
+  //if pro-constr is not explicit, it will choose pro-constr first.
+  toType another_toObject = fromObject; 
+
+
+ // toType again_toObject =  toType(fromObject);
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -204,6 +211,50 @@ void DemoDynamicCast()
   }
 }
 
+// static_cast_Operator.cpp
+// compile with: /LD
+class B {
+
+public:
+	B(){cout << "this is B::B()\n"; bInt =20;}
+
+ virtual void func(){cout << " this is B::func()"<<bInt<<"\n";}
+private:
+	int bInt;
+};
+
+class D : public B {
+public:
+	D(){cout << "this is D::D()\n"; dInt = 10;}
+	void func(){cout << "this is D::func()"<<dInt<<"\n";}
+	void funcD(){cout << "this is D::funcD()"<<dInt<<"\n";}
+private:
+	int dInt;
+
+
+};
+
+
+void f(B* pb, D* pd) {
+	D* pd2 = static_cast<D*>(pb);   // not safe, pb may // point to just B
+	pd2->func();
+	pd2->funcD(); //if I set funcD to virtual, this call will be break.
+	
+	D* pd21 = dynamic_cast<D*>(pb);   //safe
+	if (pd21)
+	{
+		pd21->func();
+		pd21->funcD();
+	}
+	else
+	{
+		cout<<"dynamic_cast return null pointer value\n";
+	}
+	
+	B* pb2 = static_cast<B*>(pd);   // safe conversion
+	pb2->func();
+}
+
 void main() {
 
   title("New C++ casts: static, const, reinterpret, and dynamic",'=');
@@ -216,4 +267,9 @@ void main() {
   newline();
   DemoDynamicCast();
   newline(2);
+
+  f(new B(),new D());
+
+  D* b = (D*)(new B());
 }
+
