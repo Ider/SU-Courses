@@ -12,6 +12,10 @@
 template <int i>
 class square { public: enum { value = i*i }; };
 
+template <int i>
+class square2 { public: static const int value = i*i; };
+
+
 /////////////////////////////////////////////////////////////////////
 // power
 
@@ -28,7 +32,8 @@ template <int n> struct POWER<n,0> { enum { value = 1 }; };
 
 void main()
 {
-  std::cout << "\n  " << square<9>::value << "\n";
+	std::cout << "\n  " << square<9>::value << "\n";
+  std::cout << "\n  " << square2<10>::value << "\n";
 
   std::cout << "\n  " << POWER<2,16>::value << "\n";
 
