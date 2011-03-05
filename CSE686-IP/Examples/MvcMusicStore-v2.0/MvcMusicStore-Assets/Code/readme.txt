@@ -1,0 +1,1 @@
+The code in this folder is for the membership portion of the tutorial. These files are taken from the default Account controller found in a new project created using the ASP.NET MVC 3 Web Application project template.
