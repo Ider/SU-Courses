@@ -1,0 +1,5 @@
+C:\Users\Ider\Project\SU\CSE686-IP\Examples\MvcMusicStore-v1.0\MvcMusicStore-Completed\MvcMusicStore\bin\MvcMusicStore.dll
+C:\Users\Ider\Project\SU\CSE686-IP\Examples\MvcMusicStore-v1.0\MvcMusicStore-Completed\MvcMusicStore\bin\MvcMusicStore.pdb
+C:\Users\Ider\Project\SU\CSE686-IP\Examples\MvcMusicStore-v1.0\MvcMusicStore-Completed\MvcMusicStore\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Ider\Project\SU\CSE686-IP\Examples\MvcMusicStore-v1.0\MvcMusicStore-Completed\MvcMusicStore\obj\Debug\MvcMusicStore.dll
+C:\Users\Ider\Project\SU\CSE686-IP\Examples\MvcMusicStore-v1.0\MvcMusicStore-Completed\MvcMusicStore\obj\Debug\MvcMusicStore.pdb

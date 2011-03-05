@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MvcMusicStoreModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="MusicStoreEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Albums" EntityType="MvcMusicStoreModel.Album" />
+    <EntitySet Name="Artists" EntityType="MvcMusicStoreModel.Artist" />
+    <EntitySet Name="Carts" EntityType="MvcMusicStoreModel.Cart" />
+    <EntitySet Name="Genres" EntityType="MvcMusicStoreModel.Genre" />
+    <EntitySet Name="Orders" EntityType="MvcMusicStoreModel.Order" />
+    <EntitySet Name="OrderDetails" EntityType="MvcMusicStoreModel.OrderDetail" />
+    <AssociationSet Name="FK__Album__ArtistId__276EDEB3" Association="MvcMusicStoreModel.FK__Album__ArtistId__276EDEB3">
+      <End Role="Artist" EntitySet="Artists" />
+      <End Role="Album" EntitySet="Albums" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Album_Genre" Association="MvcMusicStoreModel.FK_Album_Genre">
+      <End Role="Genre" EntitySet="Genres" />
+      <End Role="Album" EntitySet="Albums" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cart_Album" Association="MvcMusicStoreModel.FK_Cart_Album">
+      <End Role="Album" EntitySet="Albums" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceLine_Album" Association="MvcMusicStoreModel.FK_InvoiceLine_Album">
+      <End Role="Album" EntitySet="Albums" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__InvoiceLi__Invoi__2F10007B" Association="MvcMusicStoreModel.FK__InvoiceLi__Invoi__2F10007B">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Album">
+    <Key>
+      <PropertyRef Name="AlbumId" />
+    </Key>
+    <Property Name="AlbumId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GenreId" Type="Int32" Nullable="false" />
+    <Property Name="ArtistId" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="160" Unicode="true" FixedLength="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="AlbumArtUrl" Type="String" MaxLength="1024" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Artist" Relationship="MvcMusicStoreModel.FK__Album__ArtistId__276EDEB3" FromRole="Album" ToRole="Artist" />
+    <NavigationProperty Name="Genre" Relationship="MvcMusicStoreModel.FK_Album_Genre" FromRole="Album" ToRole="Genre" />
+    <NavigationProperty Name="Carts" Relationship="MvcMusicStoreModel.FK_Cart_Album" FromRole="Album" ToRole="Cart" />
+    <NavigationProperty Name="OrderDetails" Relationship="MvcMusicStoreModel.FK_InvoiceLine_Album" FromRole="Album" ToRole="OrderDetail" />
+  </EntityType>
+  <EntityType Name="Artist">
+    <Key>
+      <PropertyRef Name="ArtistId" />
+    </Key>
+    <Property Name="ArtistId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="120" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Albums" Relationship="MvcMusicStoreModel.FK__Album__ArtistId__276EDEB3" FromRole="Artist" ToRole="Album" />
+  </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CartId" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="AlbumId" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Album" Relationship="MvcMusicStoreModel.FK_Cart_Album" FromRole="Cart" ToRole="Album" />
+  </EntityType>
+  <EntityType Name="Genre">
+    <Key>
+      <PropertyRef Name="GenreId" />
+    </Key>
+    <Property Name="GenreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="120" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="4000" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Albums" Relationship="MvcMusicStoreModel.FK_Album_Genre" FromRole="Genre" ToRole="Album" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="256" Unicode="true" FixedLength="false" />
+    <Property Name="FirstName" Type="String" MaxLength="160" Unicode="true" FixedLength="false" />
+    <Property Name="LastName" Type="String" MaxLength="160" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="70" Unicode="true" FixedLength="false" />
+    <Property Name="City" Type="String" MaxLength="40" Unicode="true" FixedLength="false" />
+    <Property Name="State" Type="String" MaxLength="40" Unicode="true" FixedLength="false" />
+    <Property Name="PostalCode" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="Country" Type="String" MaxLength="40" Unicode="true" FixedLength="false" />
+    <Property Name="Phone" Type="String" MaxLength="24" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="160" Unicode="true" FixedLength="false" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <NavigationProperty Name="OrderDetails" Relationship="MvcMusicStoreModel.FK__InvoiceLi__Invoi__2F10007B" FromRole="Order" ToRole="OrderDetail" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="OrderDetailId" />
+    </Key>
+    <Property Name="OrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="AlbumId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <NavigationProperty Name="Album" Relationship="MvcMusicStoreModel.FK_InvoiceLine_Album" FromRole="OrderDetail" ToRole="Album" />
+    <NavigationProperty Name="Order" Relationship="MvcMusicStoreModel.FK__InvoiceLi__Invoi__2F10007B" FromRole="OrderDetail" ToRole="Order" />
+  </EntityType>
+  <Association Name="FK__Album__ArtistId__276EDEB3">
+    <End Role="Artist" Type="MvcMusicStoreModel.Artist" Multiplicity="1" />
+    <End Role="Album" Type="MvcMusicStoreModel.Album" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artist">
+        <PropertyRef Name="ArtistId" />
+      </Principal>
+      <Dependent Role="Album">
+        <PropertyRef Name="ArtistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Album_Genre">
+    <End Role="Genre" Type="MvcMusicStoreModel.Genre" Multiplicity="1" />
+    <End Role="Album" Type="MvcMusicStoreModel.Album" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="GenreId" />
+      </Principal>
+      <Dependent Role="Album">
+        <PropertyRef Name="GenreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_Album">
+    <End Role="Album" Type="MvcMusicStoreModel.Album" Multiplicity="1" />
+    <End Role="Cart" Type="MvcMusicStoreModel.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Album">
+        <PropertyRef Name="AlbumId" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="AlbumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceLine_Album">
+    <End Role="Album" Type="MvcMusicStoreModel.Album" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="OrderDetail" Type="MvcMusicStoreModel.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Album">
+        <PropertyRef Name="AlbumId" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="AlbumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__InvoiceLi__Invoi__2F10007B">
+    <End Role="Order" Type="MvcMusicStoreModel.Order" Multiplicity="1" />
+    <End Role="OrderDetail" Type="MvcMusicStoreModel.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
