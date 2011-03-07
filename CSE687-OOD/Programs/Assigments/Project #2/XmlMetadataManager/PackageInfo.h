@@ -16,8 +16,8 @@ class PackageInfo
 {
 public:
 	void addFileName(const std::string& fName){fileNames.push_back(fName);}
-	std::string& operator[](int n) {return	fileNames[n];}
-	int fileCount(){return fileNames.size();}
+	std::string operator[](int n) {return	fileNames[n];}
+	size_t fileCount(){return fileNames.size();}
 	std::string& Name(){return name;}
 private:
 	std::string name; //the name for this package

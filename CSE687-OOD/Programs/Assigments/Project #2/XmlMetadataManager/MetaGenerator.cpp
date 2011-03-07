@@ -10,21 +10,66 @@
 
 #include "MetaGenerator.h"
 
-std::string MetaGenerator::GetMetadata(const std::string& filePath)
+std::string MetaGenerator::GetMetadata(std::string& filePath)
 {
-	if(!inc->Attach(filePath))return "";
-
-	while(inc->Next())
-	{
-		if(inc->IsSystem())continue;
-
-	}
-
+	//this method is left for one file generation
 	return "";
 
 }
 
-std::string MetaGenerator::GetMetadata(const PackageInfo& pack)
+std::string MetaGenerator::GetMetadata(PackageInfo& pack)
 {
+
+	Clear();
 	return "";
+}
+
+void MetaGenerator::Clear()
+{
+	meta.flush();
+	references.flush();
+	packInfo.flush();
+}
+
+void  MetaGenerator::GeneratePackInfo(std::string& filePath)
+{
+	std::string tag;
+	if(filePath[filePath.size()-1]=='h')
+		tag="head";
+	else
+		tag="implement";
+	
+	packInfo.addSibling(xmlElem(tag,filePath));
+}
+
+void MetaGenerator::GeneratePackInfos(PackageInfo& pack)
+{
+	std::string path;
+	xmlElem file;
+	for (size_t i =0; i<pack.fileCount(); ++i)
+	{
+		file.flush();
+		path = pack[i];
+		if(path[path.size()-1]=='h')
+			file.reviseTagName("head");
+		else
+			file.reviseTagName("implement");
+		file.reviseBody(path);
+		packInfo.addSibling(file);
+	}
+}
+
+
+void MetaGenerator::GenerateReferences(std::string& filePath)
+{
+	if(!inc->Attach(filePath))return;
+
+	while(inc->Next())
+	{
+		if(inc->IsSystem())continue;
+		std::string refTag =	"reference name=\""+inc->GetPackageName()+"\"";
+		xmlElem refElem(refTag,inc->GetFullName());
+		references.addSibling(refElem);
+	}
+
 }

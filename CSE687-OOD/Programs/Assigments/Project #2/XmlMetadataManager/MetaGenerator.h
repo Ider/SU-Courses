@@ -19,8 +19,8 @@
 class IMetaGenerator
 {
 public:
-	virtual std::string GetMetadata(const std::string& filePath) = 0;
-	virtual std::string GetMetadata(const PackageInfo& pack) = 0;
+	virtual std::string GetMetadata(std::string& filePath) = 0;
+	virtual std::string GetMetadata(PackageInfo& pack) = 0;
 };
 
 
@@ -28,13 +28,15 @@ class MetaGenerator:public IMetaGenerator
 {
 public:
 	MetaGenerator(IInclude* include):inc(include){};
-	~MetaGenerator(){delete inc;}
-	virtual std::string GetMetadata(const std::string& filePath);
-	virtual std::string GetMetadata(const PackageInfo& pack);
+	~MetaGenerator(){Clear();	delete inc;}
+	virtual std::string GetMetadata(std::string& filePath);
+	virtual std::string GetMetadata(PackageInfo& pack);
 	std::string GetKeyName(const std::string& filePath);
 	void Clear();
 private:
-	void GenerateReferences(const std::string& filePath);
+	void  MetaGenerator::GeneratePackInfo(std::string& filePath);
+	void GeneratePackInfos(PackageInfo& pack);
+	void GenerateReferences(std::string& filePath);
 	xmlElem meta;
 	xmlRep packInfo;
 	xmlRep references;
