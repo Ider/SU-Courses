@@ -141,9 +141,10 @@ public:
 		ins.push_back("vector");
 		ins.push_back("list");
 		ins.push_back("iostream");
-		ins.push_back("vector");
+		ins.push_back("queue");
+		ins.push_back("stack");
 	}
-	virtual bool Attach(std::string path){index =-1; return true;}
+	virtual bool Attach(std::string name){index =-1; return true;}
 	virtual bool Next(){return ++index<ins.size();}
 	virtual std::string GetFullName(){return GetPackageName()+".h";}
 	virtual std::string GetPackageName(){return index <ins.size()?ins[index]:"";}
