@@ -36,7 +36,7 @@ public:
 	std::string GeneratePackInfo(std::string& filePath);
 	std::string  GenerateReferences(std::string& filePath);
 	std::string  EmbraceReferences();
-	void CombineMetaElements(std::string packName);
+	std::string CombineMetaElements(std::string packName);
 private:
 	void RemoveReferenceEmbrace();
 	xmlRep meta;

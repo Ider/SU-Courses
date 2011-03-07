@@ -19,10 +19,8 @@ std::string MetaGenerator::GetMetadata(std::string& filePath)
 
 	GeneratePackInfo(filePath);
 	GenerateReferences(filePath);
-	CombineMetaElements(GetKeyName(filePath));
 
-	return meta.xmlStr();
-
+	return CombineMetaElements(GetKeyName(filePath));
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -38,9 +36,7 @@ std::string MetaGenerator::GetMetadata(PackageInfo& pack)
 		GenerateReferences(pack[i]);
 	}
 
-	CombineMetaElements(pack.Name());
-
-	return meta.xmlStr();
+	return CombineMetaElements(pack.Name());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -73,7 +69,7 @@ std::string MetaGenerator::GeneratePackInfo(std::string& filePath)
 
 	packInfo.addSibling(xmlElem(tag,filePath));
 
-	return packInfo.xmlStr();
+	return packInfo.format();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -90,7 +86,7 @@ std::string MetaGenerator::GenerateReferences(std::string& filePath)
 		references.addSibling(refElem);
 	}
 
-	return references.xmlStr();
+	return references.format();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -99,13 +95,13 @@ std::string MetaGenerator::EmbraceReferences()
 {
 	RemoveReferenceEmbrace();
 	references.makeParent(refEnbrace);
-	return references.xmlStr();
+	return references.format();
 }
 
 //////////////////////////////////////////////////////////////////////////
 //Combine packinfo and references tags, and embrace them with Package tag
 //add xml document title
-void MetaGenerator::CombineMetaElements(std::string packName)
+std::string MetaGenerator::CombineMetaElements(std::string packName)
 {
 	EmbraceReferences();
 
@@ -115,6 +111,8 @@ void MetaGenerator::CombineMetaElements(std::string packName)
 
 	meta.xmlStr() = combine.elemStr();
 	meta.makeDoc();
+
+	return meta.format();
 }
 
 void MetaGenerator::RemoveReferenceEmbrace()
@@ -147,53 +145,48 @@ public:
 	}
 	virtual bool Attach(std::string path){index =-1; return true;}
 	virtual bool Next(){return ++index<ins.size();}
-	virtual std::string GetFullName(){return index <ins.size()?ins[index]:"";}
-	virtual std::string GetPackageName(){return GetFullName();}
+	virtual std::string GetFullName(){return GetPackageName()+".h";}
+	virtual std::string GetPackageName(){return index <ins.size()?ins[index]:"";}
 	virtual bool IsSystem(){return false;};
 private:
 	std::vector<std::string> ins;
 	size_t index;
 };
+//----< create a string with both over and under lines >-----------------
+
+void title(const std::string &msg, char underChar='-') {
+
+	std::string over = "\n";
+	over += std::string(msg.size()+2,underChar);
+	std::string under = std::string(msg.size()+2,underChar);
+	std::string body = "\n ";
+	body += msg;
+	body += "\n";
+	body += under;
+	body += '\n';
+	std::cout<< over + body;
+}
 
 
 void main()
 {
 	MetaGenerator gnrtor(new VectorInclude());
+	std::string fileName = "StandardLibrary.h";
 
-	xmlElem elem("reference","This is first reference");
+	title("Test Package Name:");
+	std::cout<<fileName<<std::endl;
 
-	xmlRep rel(elem.elemStr());
-	rel. makeParent("references");
+	title("Test Generate Package information:");
+	std::cout<< gnrtor.GeneratePackInfo(fileName)<<std::endl;
 
-	std::string tag ="reference";
-	xmlElem result;
-	rel.find(tag,result);
-
-	std::cout<<result.format()<<std::endl; 
-
-	/* --Output--
-	<references>
-		<reference>
-		This is first reference
-		</reference>
-	*/
-
-	std::cout<<std::endl<<std::endl;
-	//////////////Even worse//////////
-
-	xmlElem elem2("content","This is first reference.");
-	elem2.reviseBody(elem2.body()+elem.elemStr());
+	title("Test Generate References:");
+	std::cout<< gnrtor.GenerateReferences(fileName)<<std::endl;
 	
-	rel.xmlStr() = elem2.elemStr();
-	rel.find(tag,result);
-	std::cout<<result.format()<<std::endl; 
-	/* --Output--
-	reference.<reference>
-		This is first reference
-		</reference>
-	*/
+	title("Test Embrace References:");
+	std::cout<< gnrtor.EmbraceReferences()<<std::endl;
 
-	//tester
+	title("Test Create Whole Metadata xml:");
+	std::cout<< gnrtor.CombineMetaElements(gnrtor.GetKeyName(fileName))<<std::endl;
 }
 
 
