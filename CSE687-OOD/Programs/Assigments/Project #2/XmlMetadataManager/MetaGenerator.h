@@ -35,7 +35,6 @@ public:
 	void Clear();
 private:
 	void  MetaGenerator::GeneratePackInfo(std::string& filePath);
-	void GeneratePackInfos(PackageInfo& pack);
 	void GenerateReferences(std::string& filePath);
 	void EmbraceReferences();
 	void CombineMetaElements(std::string packName);
