@@ -41,6 +41,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>TEST_META_MANAGER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -60,6 +61,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\IIncludes.h" />
+    <ClInclude Include="..\Includes.h" />
+    <ClInclude Include="..\MetaGenerator.h" />
+    <ClInclude Include="..\MetaManager.h" />
+    <ClInclude Include="..\MetaReader.h" />
+    <ClInclude Include="..\PackageInfo.h" />
+    <ClInclude Include="..\xmlTran.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Includes.cpp" />
+    <ClCompile Include="..\MetaGenerator.cpp" />
+    <ClCompile Include="..\MetaManager.cpp" />
+    <ClCompile Include="..\MetaReader.cpp" />
+    <ClCompile Include="..\xmlTran.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
