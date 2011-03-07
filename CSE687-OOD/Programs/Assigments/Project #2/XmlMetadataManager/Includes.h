@@ -12,11 +12,13 @@
 
 
 #include "IIncludes.h"
+#include <iostream>
 
 class Includes :public IInclude
 {
 public:
-	Includes(std::iostream* pIn):inStream(pIn){}
+	Includes(std::istream* pIn):inStream(pIn){}
+	virtual ~Includes();
 	virtual bool Attach(std::string name);
 	virtual bool Next();
 	virtual std::string GetFullName();
@@ -27,7 +29,7 @@ private:
 	bool ExtractInclude(char* buffer);
 	std::string curInc;//save current include line
 	std::string curName; //save current include name
-	std::iostream* inStream;
+	std::istream* inStream;
 	static const int bufSize = 255;
 };
 

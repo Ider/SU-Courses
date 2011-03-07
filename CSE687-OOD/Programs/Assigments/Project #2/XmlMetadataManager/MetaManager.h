@@ -14,12 +14,12 @@ public:
 private:
 	IInclude* inc;
 	IMetaGenerator* gen;
-	std::iostream* io;
+	std::istream* inStream;
 };
 
 
 inline MetaManager::MetaManager(IInclude* iInc, IMetaGenerator* metaGen, std::iostream* stream)
-:inc(iInc),gen(metaGen),io(stream)
+:inc(iInc),gen(metaGen),inStream(stream)
 {
 
 }
