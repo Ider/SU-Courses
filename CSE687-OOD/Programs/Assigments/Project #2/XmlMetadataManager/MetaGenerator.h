@@ -31,13 +31,15 @@ public:
 	~MetaGenerator(){Clear();	delete inc;}
 	virtual std::string GetMetadata(std::string& filePath);
 	virtual std::string GetMetadata(PackageInfo& pack);
-	std::string GetKeyName(const std::string& filePath);
+	std::string GetKeyName(std::string filePath);
 	void Clear();
 private:
 	void  MetaGenerator::GeneratePackInfo(std::string& filePath);
 	void GeneratePackInfos(PackageInfo& pack);
 	void GenerateReferences(std::string& filePath);
-	xmlElem meta;
+	void EmbraceReferences();
+	void CombineMetaElements(std::string packName);
+	xmlRep meta;
 	xmlRep packInfo;
 	xmlRep references;
 	IInclude* inc;
