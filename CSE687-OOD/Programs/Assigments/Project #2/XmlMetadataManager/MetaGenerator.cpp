@@ -63,7 +63,7 @@ void MetaGenerator::Clear()
 
 //////////////////////////////////////////////////////////////////////////
 //Generate the basic package information tag
-void  MetaGenerator::GeneratePackInfo(std::string& filePath)
+std::string MetaGenerator::GeneratePackInfo(std::string& filePath)
 {
 	std::string tag;
 	if(filePath[filePath.size()-1] == 'h')
@@ -72,13 +72,15 @@ void  MetaGenerator::GeneratePackInfo(std::string& filePath)
 		tag="implement";
 
 	packInfo.addSibling(xmlElem(tag,filePath));
+
+	return packInfo.xmlStr();
 }
 
 //////////////////////////////////////////////////////////////////////////
 //Retrieve all local references from the file
-void MetaGenerator::GenerateReferences(std::string& filePath)
+std::string MetaGenerator::GenerateReferences(std::string& filePath)
 {
-	if(!inc->Attach(filePath))return;
+	if(!inc->Attach(filePath))return "";
 
 	while(inc->Next())
 	{
@@ -88,13 +90,16 @@ void MetaGenerator::GenerateReferences(std::string& filePath)
 		references.addSibling(refElem);
 	}
 
+	return references.xmlStr();
 }
 
 //////////////////////////////////////////////////////////////////////////
 //Embrace whole <reference> tags with <references> tag
-void MetaGenerator::EmbraceReferences()
+std::string MetaGenerator::EmbraceReferences()
 {
-	references.makeParent("references");
+	RemoveReferenceEmbrace();
+	references.makeParent(refEnbrace);
+	return references.xmlStr();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -111,3 +116,86 @@ void MetaGenerator::CombineMetaElements(std::string packName)
 	meta.xmlStr() = combine.elemStr();
 	meta.makeDoc();
 }
+
+void MetaGenerator::RemoveReferenceEmbrace()
+{
+	xmlElem refer;
+	if (references.find(refEnbrace,refer))
+		references.xmlStr() = refer.body();
+}
+
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////< test stub >///////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+#ifdef TEST_META_GENERATOR
+
+#include <vector>
+
+class VectorInclude:public IInclude
+{
+public:
+	VectorInclude()
+	{
+		index =-1; 
+		ins.push_back("string");
+		ins.push_back("vector");
+		ins.push_back("list");
+		ins.push_back("iostream");
+		ins.push_back("vector");
+	}
+	virtual bool Attach(std::string path){index =-1; return true;}
+	virtual bool Next(){return ++index<ins.size();}
+	virtual std::string GetFullName(){return index <ins.size()?ins[index]:"";}
+	virtual std::string GetPackageName(){return GetFullName();}
+	virtual bool IsSystem(){return false;};
+private:
+	std::vector<std::string> ins;
+	size_t index;
+};
+
+
+void main()
+{
+	MetaGenerator gnrtor(new VectorInclude());
+
+	xmlElem elem("reference","This is first reference");
+
+	xmlRep rel(elem.elemStr());
+	rel. makeParent("references");
+
+	std::string tag ="reference";
+	xmlElem result;
+	rel.find(tag,result);
+
+	std::cout<<result.format()<<std::endl; 
+
+	/* --Output--
+	<references>
+		<reference>
+		This is first reference
+		</reference>
+	*/
+
+	std::cout<<std::endl<<std::endl;
+	//////////////Even worse//////////
+
+	xmlElem elem2("content","This is first reference.");
+	elem2.reviseBody(elem2.body()+elem.elemStr());
+	
+	rel.xmlStr() = elem2.elemStr();
+	rel.find(tag,result);
+	std::cout<<result.format()<<std::endl; 
+	/* --Output--
+	reference.<reference>
+		This is first reference
+		</reference>
+	*/
+
+	//tester
+}
+
+
+
+#endif

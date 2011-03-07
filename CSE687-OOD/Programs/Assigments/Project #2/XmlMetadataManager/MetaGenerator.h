@@ -27,21 +27,23 @@ public:
 class MetaGenerator:public IMetaGenerator
 {
 public:
-	MetaGenerator(IInclude* include):inc(include){};
+	MetaGenerator(IInclude* include):inc(include),refEnbrace("references"){};
 	~MetaGenerator(){Clear();	delete inc;}
 	virtual std::string GetMetadata(std::string& filePath);
 	virtual std::string GetMetadata(PackageInfo& pack);
 	std::string GetKeyName(std::string filePath);
 	void Clear();
-private:
-	void  MetaGenerator::GeneratePackInfo(std::string& filePath);
-	void GenerateReferences(std::string& filePath);
-	void EmbraceReferences();
+	std::string GeneratePackInfo(std::string& filePath);
+	std::string  GenerateReferences(std::string& filePath);
+	std::string  EmbraceReferences();
 	void CombineMetaElements(std::string packName);
+private:
+	void RemoveReferenceEmbrace();
 	xmlRep meta;
 	xmlRep packInfo;
 	xmlRep references;
 	IInclude* inc;
+	std::string refEnbrace;
 };
 
 #endif

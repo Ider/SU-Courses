@@ -319,19 +319,31 @@ strPos xmlRep::findFirstTag(strRef tag) {
 //----< find an element, specified by its tag >--------------------------
 
 bool xmlRep::find(strRef tag, xmlElem &elem) {
+  strVal temp  = "<"+tag;
+  strVal foundTag; 
+  strPos start = -temp.size();
+  do
+  {  
+	  start = _xmlStr.find(temp,start+temp.size());
+	  if(start >= _xmlStr.size())
+		  return false;
+	  strPos end1  = _xmlStr.find('>',start);
+	  strPos end2  = _xmlStr.find('>',start);
+	  strPos end   = std::min(end1,end2);
+	  if(start > _xmlStr.size() || end > _xmlStr.size())
+		  return false;
+	  foundTag = _xmlStr.substr(start,end-start);
+  }while(temp != foundTag);
 
-  strPos start = _xmlStr.find(tag);
-  if(start >= _xmlStr.size())
-    return false;
   strPos end = findCloseTag(tag);
   if(end > _xmlStr.size())
     return false;
   if(end <= start)
     return false;
-  strIter iStart = _xmlStr.begin() + start - 1;
+  strIter iStart = _xmlStr.begin() + start;
   strIter iEnd   = _xmlStr.begin() + end;
-  strVal temp(iStart,iEnd);
-  elem.elemStr() = temp;
+  
+  elem.elemStr() = strVal(iStart,iEnd);
   return true;
 }
 
@@ -341,8 +353,9 @@ bool xmlRep::find(strRef tag, xmlElem &elem) {
 
 strPos xmlRep::findCloseTag(conStrRef tag) {
 
-  string temp = "/";
-  temp += tag;
+  string temp = "</"+ tag + ">";
+  //temp += tag;
+
   strPos pos = _xmlStr.find(temp,current);
   return _xmlStr.find('>',pos) + 1;
 }
