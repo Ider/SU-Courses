@@ -21,6 +21,7 @@ class IMetaGenerator
 public:
 	virtual std::string GetMetadata(std::string& filePath) = 0;
 	virtual std::string GetMetadata(PackageInfo& pack) = 0;
+	virtual ~IMetaGenerator(){}
 };
 
 
