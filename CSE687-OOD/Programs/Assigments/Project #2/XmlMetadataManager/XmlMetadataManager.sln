@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XmlMetadataManager", "XmlMetadataManager\XmlMetadataManager.vcxproj", "{D90642AD-B7CC-4445-A044-1EAEE357D50C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetaGenerator", "MetaGenerator\MetaGenerator.vcxproj", "{62FB3135-3E45-4EDA-86D9-CC0B3CE770DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D90642AD-B7CC-4445-A044-1EAEE357D50C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D90642AD-B7CC-4445-A044-1EAEE357D50C}.Debug|Win32.Build.0 = Debug|Win32
+		{D90642AD-B7CC-4445-A044-1EAEE357D50C}.Release|Win32.ActiveCfg = Release|Win32
+		{D90642AD-B7CC-4445-A044-1EAEE357D50C}.Release|Win32.Build.0 = Release|Win32
+		{62FB3135-3E45-4EDA-86D9-CC0B3CE770DC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{62FB3135-3E45-4EDA-86D9-CC0B3CE770DC}.Debug|Win32.Build.0 = Debug|Win32
+		{62FB3135-3E45-4EDA-86D9-CC0B3CE770DC}.Release|Win32.ActiveCfg = Release|Win32
+		{62FB3135-3E45-4EDA-86D9-CC0B3CE770DC}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
