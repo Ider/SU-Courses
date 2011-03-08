@@ -29,7 +29,7 @@ class MetaGenerator:public IMetaGenerator
 {
 public:
 	MetaGenerator(IInclude* include):inc(include),refEnbrace("references"){};
-	~MetaGenerator(){Clear();	delete inc;}
+	~MetaGenerator(){Clear();}
 	virtual std::string GetMetadata(std::string& filePath);
 	virtual std::string GetMetadata(PackageInfo& pack);
 	std::string GetKeyName(std::string filePath);
