@@ -23,8 +23,6 @@ Includes::~Includes()
 		{
 			pFs->close();
 		}
-
-		delete inStream;
 	}
 }
 
@@ -72,12 +70,15 @@ std::string Includes::GetFullName()
 std::string Includes::GetPackageName()
 {
 	size_t slash = curName.find('\\');
+	size_t dot = curName.find_last_of('.');
+
 	if (slash == std::string::npos)
 		slash = curName.find('/');
 	if (slash == std::string::npos)
-		return curName;
+		return curName.substr(0,dot-1);;
+	
 
-	return curName.substr(slash+1);
+	return curName.substr(slash+1,dot-1);
 }
 
 
