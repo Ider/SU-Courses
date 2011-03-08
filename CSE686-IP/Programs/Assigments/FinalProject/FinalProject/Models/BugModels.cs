@@ -16,7 +16,7 @@ namespace FinalProject.Models
         public BugReport GetBugReportByID(int id)
         {
             BugReport br = new BugReport();
-            if (id < 0) return br;
+            if (id <= 0) return br;
 
             try
             {
@@ -36,18 +36,12 @@ namespace FinalProject.Models
 
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                return null;
+                throw ex;
             }
 
             return br;
-        }
-
-        public bool UpdateBugReport(BugReport br)
-        {
-
-            return false;
         }
 
         public bool InsertBugReport(BugReport br)
@@ -67,7 +61,60 @@ namespace FinalProject.Models
             XDocument doc = XDocument.Load(Constant.BUG_XML_PATH);
             doc.Element("BugReports").Add(elem);
             doc.Save(Constant.BUG_XML_PATH);
-            return false;
+            return true;
+        }
+
+        public bool UpdateBugReport(BugReport br)
+        {
+            XDocument doc = XDocument.Load(Constant.BUG_XML_PATH);
+            var elem = doc.Elements("BugReports")
+                             .Elements("BugReport")
+                             .First(M => Convert.ToInt32(M.Element("Number").Value) == br.Number);
+            if (elem != null)
+            {
+                elem.Element("ReportedBy").Value = br.ReportedBy;
+                elem.Element("OwnedBy").Value = br.OwnedBy;
+                elem.Element("Keywords").Value = br.Keywords;
+                elem.Element("Component").Value = br.Component;
+                elem.Element("Description").Value = br.Description;
+            }
+            doc.Save(Constant.BUG_XML_PATH);
+
+            return true;
+        }
+
+        public BugReport DeleteBugReport(int id)
+        {
+            BugReport br = new BugReport();
+            if (id <= 0) return br;
+
+            try
+            {
+                XDocument doc = XDocument.Load(Constant.BUG_XML_PATH);
+                var elem = doc.Elements("BugReports")
+                                 .Elements("BugReport")
+                                 .First(M => Convert.ToInt32(M.Element("Number").Value) == id);
+                if (elem != null)
+                {
+                    br.Number = Convert.ToInt32(elem.Element("Number").Value);
+                    br.ReportedBy = elem.Element("ReportedBy").Value;
+                    br.OwnedBy = elem.Element("OwnedBy").Value;
+                    br.Keywords = elem.Element("Keywords").Value;
+                    br.Component = elem.Element("Component").Value;
+                    br.ReportedTime = Convert.ToDateTime(elem.Element("ReportedTime").Value);
+                    br.Description = elem.Element("Description").Value;
+
+                    elem.Remove();
+                }
+
+                doc.Save(Constant.BUG_XML_PATH);
+            }
+            catch
+            {
+                return null;
+            }
+
+            return br;
         }
     }
 

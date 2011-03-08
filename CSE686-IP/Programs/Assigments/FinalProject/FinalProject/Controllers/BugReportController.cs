@@ -90,9 +90,20 @@ namespace FinalProject.Controllers
         //
         // GET: /Bug/Delete/5
 
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public ActionResult DeleteBugReport(int id)
         {
-            return View();
+            string message = string.Format("Bug Report #{0} has been deleted.", id);
+            try
+            {
+                brService.DeleteBugReport(id);
+            }
+            catch (Exception ex)
+            {
+                id = 0;
+                message = ex.Message;
+            }
+            return Json(new { ID = id, Message = message });
         }
 
         //
