@@ -5,7 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
+<%= ViewData["Path"] %>
     <h2>Status Report is under construction...</h2>
 
       <br/>

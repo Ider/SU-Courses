@@ -1,8 +1,10 @@
-﻿namespace FinalProject
+﻿using System.Web;
+
+namespace FinalProject.Helper
 {
     public abstract class Constant
     {
-        public const string BUG_XML_PATH = "App_Data\\BugReports.xml";
+        public static readonly string BUG_XML_PATH = HttpContext.Current.Server.MapPath("~\\App_Data\\BugReports.xml");
         public const string DATETIME_FORMAT = "MM/dd/yyyy HH:mm:ss";
     }
 }

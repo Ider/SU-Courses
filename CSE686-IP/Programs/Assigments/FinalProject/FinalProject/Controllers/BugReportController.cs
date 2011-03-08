@@ -4,18 +4,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.Models;
+using FinalProject.Helper;
 
 namespace FinalProject.Controllers
 {
     public class BugReportController : Controller
     {
+
+        static BugReportService brService = new BugReportService();
         //
         // GET: /Bug/
 
         public ActionResult Index(BugListModel buglist)
         {
-            ViewData["Path"] = Server.MapPath(Constant.BUG_XML_PATH);
-            bool succed = buglist.GetBugList(Server.MapPath(Constant.BUG_XML_PATH));
+            ViewData["Path"] = Constant.BUG_XML_PATH;
+            bool succed = buglist.GetBugList(Constant.BUG_XML_PATH);
             ViewData["Message"] = "Bug Report List";
             return View(buglist);
         }
@@ -23,7 +26,7 @@ namespace FinalProject.Controllers
         //
         // GET: /Bug/Details/5
 
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
             return View();
         }
@@ -57,26 +60,30 @@ namespace FinalProject.Controllers
         //
         // GET: /Bug/Edit/5
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            BugReport br = brService.GetBugReportByID(id ?? -1);
+            return View(br);
         }
 
         //
         // POST: /Bug/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int? id, BugReport model)
         {
+            model.Number = id ?? 0;
             try
             {
-                // TODO: Add update logic here
-
+                if (id == null)
+                    brService.InsertBugReport(model);
+                else
+                    brService.UpdateBugReport(model);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 

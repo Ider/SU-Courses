@@ -81,14 +81,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\ASPNETDB.MDF" />
-    <Content Include="App_Data\BugReports.xml" />
+    <Content Include="App_Data\BugReports.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\jquery.ui.datepicker.css" />
     <Content Include="Content\tableformat.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery.ui.datepicker.js" />
+    <Content Include="Scripts\jquery.ui.widget.js" />
+    <Content Include="Scripts\jquery.ui.core.js" />
     <Content Include="Views\BugReport\Details.aspx" />
+    <Content Include="Views\BugReport\Edit.aspx" />
     <Content Include="Views\BugReport\Index.aspx" />
     <Content Include="Views\Home\Layout.aspx" />
     <Content Include="Views\Package\Index.aspx" />
     <Content Include="Views\Requirement\Index.aspx" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.ascx" />
     <Content Include="Views\Status\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
