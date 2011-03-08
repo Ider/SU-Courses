@@ -18,7 +18,7 @@ strVal xmlElem::makeTag(conStrRef tagName, conStrRef attrib) {
 
   strVal tag = "<";
   tag += tagName;
-  tag += attrib;
+  tag +=" "+attrib;
   tag += '>';
   return tag;
 }
@@ -223,7 +223,7 @@ xmlElem xmlRep::makeParent(conStrRef tag) {
 
 void xmlRep::makeDoc() {
 
-  string xmlTag = "<? xml version=\"1.0\" ?>";
+  string xmlTag = "<?xml version=\"1.0\" ?>";
   _xmlStr = xmlTag + _xmlStr;
 }
 
