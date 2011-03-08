@@ -62,6 +62,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\FileSystem.h" />
     <ClInclude Include="..\IIncludes.h" />
     <ClInclude Include="..\Includes.h" />
     <ClInclude Include="..\MetaGenerator.h" />
@@ -71,10 +72,12 @@
     <ClInclude Include="..\xmlTran.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\FileSystem.cpp" />
     <ClCompile Include="..\Includes.cpp" />
     <ClCompile Include="..\MetaGenerator.cpp" />
     <ClCompile Include="..\MetaManager.cpp" />
     <ClCompile Include="..\MetaReader.cpp" />
+    <ClCompile Include="..\PackageInfo.cpp" />
     <ClCompile Include="..\xmlTran.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

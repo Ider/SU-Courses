@@ -11,6 +11,9 @@
 /////////////////////////////////////////////////////////////////////////
 #include <string>
 #include <vector>
+#include <map>
+
+#include "FileSystem.h"
 
 class PackageInfo
 {
@@ -25,5 +28,28 @@ private:
 	std::vector<std::string> fileNames; 
 };
 
+typedef std::map<std::string, PackageInfo*> packMap;
+typedef std::map<std::string, PackageInfo*>::iterator  packIterator;
+
+
+class PackagesGenerator
+{
+public:
+	void SetResultContainer(packMap& packs){pPacks = &packs;}
+	void ClearResults();
+private:
+	std::string getFileKeyName(std::string fileName);
+
+	bool getCommands(int argc, char* argv[]);
+	void getFiles();
+	void getFiles(std::string path, std::string& pattern);
+	void getSubFiles(std::string path, std::string& pattern);
+
+	packMap * pPacks;
+	bool needRecursion;
+	std::vector<std::string> pattens;
+	std::string rPath;
+	WinTools_Extracts::FileHandler fh;
+};
 
 #endif
