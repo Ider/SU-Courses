@@ -18,9 +18,9 @@
 class PackageInfo
 {
 public:
-	void addFileName(const std::string& fName){fileNames.push_back(fName);}
-	std::string operator[](int n) {return	fileNames[n];}
-	size_t fileCount(){return fileNames.size();}
+	void AddFileName(const std::string& fName){fileNames.push_back(fName);}
+	std::string operator[](size_t n) {return	fileNames[n];}
+	size_t FileCount(){return fileNames.size();}
 	std::string& Name(){return name;}
 private:
 	std::string name; //the name for this package
@@ -28,27 +28,29 @@ private:
 	std::vector<std::string> fileNames; 
 };
 
-typedef std::map<std::string, PackageInfo*> packMap;
-typedef std::map<std::string, PackageInfo*>::iterator  packIterator;
+typedef std::map<std::string, PackageInfo*> PackMap;
+typedef std::map<std::string, PackageInfo*>::iterator  PackIterator;
 
 
 class PackagesGenerator
 {
 public:
-	void SetResultContainer(packMap& packs){pPacks = &packs;}
+	size_t BuildPakcages(int argc, char* argv[]);
+	size_t AppendPakcages(int argc, char* argv[]);
+	void SetResultContainer(PackMap& packs){pPacks = &packs;}
 	void ClearResults();
 private:
-	std::string getFileKeyName(std::string fileName);
+	std::string GetKeyName(std::string fileName);
+	std::string GetFileKeyName(std::string filePath);
+	bool GetCommands(int argc, char* argv[]);
+	void GetFiles();
+	void GetFiles(std::string path, std::string& pattern);
+	void GetSubFiles(std::string path, std::string& pattern);
 
-	bool getCommands(int argc, char* argv[]);
-	void getFiles();
-	void getFiles(std::string path, std::string& pattern);
-	void getSubFiles(std::string path, std::string& pattern);
-
-	packMap * pPacks;
+	PackMap * pPacks; //packages container
 	bool needRecursion;
-	std::vector<std::string> pattens;
-	std::string rPath;
+	std::vector<std::string> pattens; //package patterns that needed to find
+	std::string rPath; //root path
 	WinTools_Extracts::FileHandler fh;
 };
 

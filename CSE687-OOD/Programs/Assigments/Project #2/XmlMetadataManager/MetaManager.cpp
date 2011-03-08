@@ -2,6 +2,13 @@
 
 
 #include "MetaManager.h"
+#include "Includes.h"
+
+
+
+
+
+
 
 
 #ifdef TEST_META_MANAGER

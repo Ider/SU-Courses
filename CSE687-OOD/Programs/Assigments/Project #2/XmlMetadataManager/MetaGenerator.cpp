@@ -30,7 +30,7 @@ std::string MetaGenerator::GetMetadata(PackageInfo& pack)
 {
 	Clear();
 
-	for (size_t i =0; i<pack.fileCount(); ++i)
+	for (size_t i =0; i<pack.FileCount(); ++i)
 	{
 		GeneratePackInfo(pack[i]);
 		GenerateReferences(pack[i]);
@@ -115,6 +115,8 @@ std::string MetaGenerator::CombineMetaElements(std::string packName)
 	return meta.format();
 }
 
+//////////////////////////////////////////////////////////////////////////
+//If the reference tags is embraced with referEmbrace, remove it
 void MetaGenerator::RemoveReferenceEmbrace()
 {
 	xmlElem refer;
