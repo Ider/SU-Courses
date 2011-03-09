@@ -327,7 +327,7 @@ bool xmlRep::find(strRef tag, xmlElem &elem) {
 	  start = _xmlStr.find(temp,start+temp.size());
 	  if(start >= _xmlStr.size())
 		  return false;
-	  strPos end1  = _xmlStr.find('>',start);
+	  strPos end1  = _xmlStr.find(' ',start);
 	  strPos end2  = _xmlStr.find('>',start);
 	  strPos end   = std::min(end1,end2);
 	  if(start > _xmlStr.size() || end > _xmlStr.size())
