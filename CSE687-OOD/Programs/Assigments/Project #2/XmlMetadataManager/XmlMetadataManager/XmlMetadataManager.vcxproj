@@ -67,6 +67,7 @@
     <ClInclude Include="..\Includes.h" />
     <ClInclude Include="..\MetaGenerator.h" />
     <ClInclude Include="..\MetaManager.h" />
+    <ClInclude Include="..\MetaNavigator.h" />
     <ClInclude Include="..\MetaReader.h" />
     <ClInclude Include="..\PackageInfo.h" />
     <ClInclude Include="..\xmlTran.h" />
@@ -76,6 +77,7 @@
     <ClCompile Include="..\Includes.cpp" />
     <ClCompile Include="..\MetaGenerator.cpp" />
     <ClCompile Include="..\MetaManager.cpp" />
+    <ClCompile Include="..\MetaNavigator.cpp" />
     <ClCompile Include="..\MetaReader.cpp" />
     <ClCompile Include="..\PackageInfo.cpp" />
     <ClCompile Include="..\xmlTran.cpp" />

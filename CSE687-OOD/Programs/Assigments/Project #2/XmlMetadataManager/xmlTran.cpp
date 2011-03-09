@@ -18,7 +18,7 @@ strVal xmlElem::makeTag(conStrRef tagName, conStrRef attrib) {
 
   strVal tag = "<";
   tag += tagName;
-  tag +=" "+attrib;
+  tag += attrib.size()>0?(" "+attrib):"";
   tag += '>';
   return tag;
 }
