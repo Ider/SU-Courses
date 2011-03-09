@@ -33,9 +33,6 @@
     <ClInclude Include="..\MetaManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\MetaReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\FileSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>

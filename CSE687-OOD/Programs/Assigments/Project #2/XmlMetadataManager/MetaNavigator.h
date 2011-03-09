@@ -12,7 +12,7 @@
 class IMetaNavigator
 {
 public:
-	virtual void BeginNavigation(const std::string& folderPath,const std::string& fileName)=0;
+	virtual void BeginNavigation(const std::string& folderPath,const std::string fileName)=0;
 	~IMetaNavigator(){}
 };
 
@@ -20,13 +20,15 @@ class MetaNavigator: public IMetaNavigator
 {
 public:
 	virtual void BeginNavigation
-		(const std::string& folderPath, const std::string& fileName);
+		(const std::string& fileName, const std::string folderPath = "");
 private:
 	void BeginNavigation();
 	void ExtractFileContent
 		(std::string& containerconst, const std::string& name);
 	void RetrivePackageInfo(xmlRep& xml);
 	void Dependencies(xmlRep& xml);
+	std::string GetKeyName(std::string filePath);
+	void Trim(std::string& value);
 	std::string xmlFolder;
 	std::ifstream inf;
 	std::set<std::string> navigatedFiles; //the files that has already been navigated

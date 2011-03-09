@@ -41,7 +41,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>TEST_META_MANAGER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>TEST_META_NAVIGATOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -68,7 +68,6 @@
     <ClInclude Include="..\MetaGenerator.h" />
     <ClInclude Include="..\MetaManager.h" />
     <ClInclude Include="..\MetaNavigator.h" />
-    <ClInclude Include="..\MetaReader.h" />
     <ClInclude Include="..\PackageInfo.h" />
     <ClInclude Include="..\xmlTran.h" />
   </ItemGroup>
