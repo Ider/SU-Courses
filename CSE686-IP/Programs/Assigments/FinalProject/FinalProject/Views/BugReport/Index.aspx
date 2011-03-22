@@ -38,9 +38,12 @@
                     Keywords
                 </td>
                 <td>
+                    ReportedTime
+                </td>
+                <td style="width: 20px;">
                     Edit
                 </td>
-                <td>
+                <td style="width: 20px;">
                     Delete
                 </td>
             </tr>
@@ -63,14 +66,17 @@
                     <%= r.Keywords%>
                 </td>
                 <td>
+                    <%= r.ReportedTime.ToString("MM/dd/yyyy HH:mm:ss")%>
+                </td>
+                <td>
                     <%: Html.ActionLink("Edit", "Edit",
                     new { id = r.Number }, null)%>
                 </td>
                 <td>
-                <%: Ajax.ActionLink("Delete", "DeleteBugReport",
+                    <%: Ajax.ActionLink("Delete", "DeleteBugReport",
                                         new { id = r.Number }, 
                     new AjaxOptions { OnSuccess = "handleUpdate" })%>
-            </td>
+                </td>
             </tr>
             <% } %>
         </tbody>

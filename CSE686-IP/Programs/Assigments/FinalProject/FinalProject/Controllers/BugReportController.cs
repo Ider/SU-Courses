@@ -72,6 +72,7 @@ namespace FinalProject.Controllers
         [HttpPost]
         public ActionResult Edit(int? id, BugReport model)
         {
+            int temp = Request.Form.Count;
             model.Number = id ?? 0;
             try
             {
@@ -81,7 +82,7 @@ namespace FinalProject.Controllers
                     brService.UpdateBugReport(model);
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
                 return View(model);
             }

@@ -17,7 +17,7 @@ namespace FinalProject.Models
         {
             BugReport br = new BugReport();
             if (id <= 0) return br;
-
+            
             try
             {
                 XDocument doc = XDocument.Load(Constant.BUG_XML_PATH);
@@ -72,11 +72,11 @@ namespace FinalProject.Models
                              .First(M => Convert.ToInt32(M.Element("Number").Value) == br.Number);
             if (elem != null)
             {
-                elem.Element("ReportedBy").Value = br.ReportedBy;
-                elem.Element("OwnedBy").Value = br.OwnedBy;
-                elem.Element("Keywords").Value = br.Keywords;
-                elem.Element("Component").Value = br.Component;
-                elem.Element("Description").Value = br.Description;
+                elem.Element("ReportedBy").Value = br.ReportedBy ?? string.Empty;
+                elem.Element("OwnedBy").Value = br.OwnedBy ?? string.Empty;
+                elem.Element("Keywords").Value = br.Keywords ?? string.Empty;
+                elem.Element("Component").Value = br.Component ?? string.Empty;
+                elem.Element("Description").Value = br.Description ?? string.Empty;
             }
             doc.Save(Constant.BUG_XML_PATH);
 
@@ -159,6 +159,7 @@ namespace FinalProject.Models
                 r.OwnedBy = elem.Element("OwnedBy").Value;
                 r.Keywords = elem.Element("Keywords").Value;
                 r.Component = elem.Element("Component").Value;
+                r.ReportedTime = Convert.ToDateTime(elem.Element("ReportedTime").Value);
                 r.Description = elem.Element("Description").Value;
                 Reports.Add(r);
             }
