@@ -77,7 +77,6 @@
     <ClCompile Include="..\MetaGenerator.cpp" />
     <ClCompile Include="..\MetaManager.cpp" />
     <ClCompile Include="..\MetaNavigator.cpp" />
-    <ClCompile Include="..\MetaReader.cpp" />
     <ClCompile Include="..\PackageInfo.cpp" />
     <ClCompile Include="..\xmlTran.cpp" />
   </ItemGroup>

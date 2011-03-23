@@ -1,3 +1,12 @@
+/////////////////////////////////////////////////////////////////////////
+//  MetaNavigator.cpp  -  Navigate metadata xml files and print file info//
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 6.0                                //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #2	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
 
 
 #include <iostream>
@@ -69,7 +78,7 @@ void MetaNavigator::ExtractFileContent
 }
 
 //////////////////////////////////////////////////////////////////////////
-//Retrive package information and print it
+//Retrieve package information and print it
 void MetaNavigator::RetrivePackageInfo(xmlRep& xml)
 {
 	std::cout<<std::endl<<std::string(50,'-')<<std::endl;

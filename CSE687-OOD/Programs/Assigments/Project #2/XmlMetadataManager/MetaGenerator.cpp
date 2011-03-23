@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////
-//  MetaGenerator.h    -  facility to generator metadata xml files     //
+//  MetaGenerator.cpp    -  facility to generator metadata xml files     //
 //  ver 1.0                                                            //
 //  Language:       Visual C++, ver 6.0                                //
 //  Platform:       MacBook Pro, Windows7 Pro				           //

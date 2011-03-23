@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////
-//  Includes.h    -  facility to extract include from file   		   //
+//  Includes.cpp    -  facility to extract include from file   		   //
 //  ver 1.0                                                            //
 //  Language:       Visual C++, ver 6.0                                //
 //  Platform:       MacBook Pro, Windows7 Pro				           //

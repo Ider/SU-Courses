@@ -1,5 +1,5 @@
 /////////////////////////////////////////////////////////////////////////
-//  PackageInfo.h    -  facility to provider basic package information //
+//  PackageInfo.cpp    -  facility to provider basic package information //
 //  ver 1.0                                                            //
 //  Language:       Visual C++, ver 6.0                                //
 //  Platform:       MacBook Pro, Windows7 Pro				           //
