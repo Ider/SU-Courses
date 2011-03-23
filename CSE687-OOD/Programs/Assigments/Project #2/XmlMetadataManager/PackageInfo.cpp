@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////////////////////////
+//  PackageInfo.h    -  facility to provider basic package information //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 6.0                                //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #2	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
+
 
 #include <iostream>
 #include "PackageInfo.h"
