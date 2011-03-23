@@ -10,6 +10,33 @@
 //                  (315) 560-4977, ider.cs@gmail.com				   //
 /////////////////////////////////////////////////////////////////////////
 
+/*
+ * Module Operations:
+ * ==================
+ * This module provides class, Include, that implement interface IInclude.
+ * Include will extract include info from instream.
+ * If in-stream is file stream, it will open the file by path that given.
+ *
+ * Public Interface:
+ * =================
+ * Includes inc(new std::ifstream());
+ * inc.Attach(file)
+ * while(inc.Next())
+ * inc.IsSystem()?"System":"Local"
+ * inc.GetFullName();
+ * inc.GetPackageName();
+ * 
+ * Required Files:
+ * ===============
+ * Includes.h, Includes.cpp, IIncludes.h
+ *
+ * Build Command:
+ * ==============
+ * [paths](S+ )+
+ * paths: paths of files that need to extract include info
+ *
+ * Example: ../Include.h ../Include.cpp
+ */
 
 #include "IIncludes.h"
 #include <iostream>

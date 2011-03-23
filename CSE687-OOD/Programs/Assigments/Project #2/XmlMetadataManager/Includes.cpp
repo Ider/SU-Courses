@@ -13,6 +13,8 @@
 #include <fstream>
 #include <sstream>
 
+//////////////////////////////////////////////////////////////////////////
+//Destructor, close in-stream if it is file stream
 Includes::~Includes()
 {
 	if(inStream)
@@ -26,7 +28,8 @@ Includes::~Includes()
 	}
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+//Open file given by name, if in-stream is file stream
 bool Includes::Attach(std::string name)
 {
 	if(inStream)
@@ -43,7 +46,8 @@ bool Includes::Attach(std::string name)
 	return pFs->good();
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+//Find next include, if found return true.
 bool Includes::Next()
 {
 	char buffer[bufSize];
@@ -61,12 +65,15 @@ bool Includes::Next()
 	curName="";
 	return false;
 }
-
+//////////////////////////////////////////////////////////////////////////
+//Return full name of package that included
 std::string Includes::GetFullName()
 {
 	return curName;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Remove the path and file extension, return the pure file name
 std::string Includes::GetPackageName()
 {
 	size_t slash = curName.find('\\');
@@ -81,12 +88,15 @@ std::string Includes::GetPackageName()
 	return curName.substr(slash+1,dot-1);
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+//Specify whether the include is system or local
 bool Includes::IsSystem()
 {
 	return curInc.find('<')<curInc.length();
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Extract package name from angle bracket
 void Includes::ExtractName()
 {
 	size_t bracket = curInc.find('<');
@@ -110,6 +120,8 @@ void Includes::ExtractName()
 	curName = curInc.substr(start+1, end-start-1);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Check whether the line get from file is include or not
 bool Includes::ExtractInclude(char* buffer)
 {
 	while(*buffer =='\t'||*buffer ==' ')++buffer;
