@@ -56,7 +56,7 @@ bool PackagesGenerator::GetCommands(int argc, char* argv[])
 	{
 		std::cout<<"The command line is not formated."<<std::endl;
 		std::cout<<"Please enter command line as:"<<std::endl;
-		std::cout<<"[path](\S+) [pattern](*.*){0,2} [recursion](/r)?"<<std::endl;
+		std::cout<<"[path](\\S+) [pattern](*.*){0,2} [recursion](/r)?"<<std::endl;
 		return false;
 	}
 

@@ -14,7 +14,7 @@ void MetaNavigator::BeginNavigation(const std::string& fileName, const std::stri
 	else
 		xmlFolder = folderPath + '\\';
 
-	navigatingList.push(fileName);
+	navigatingList.push(GetKeyName(fileName));
 
 	BeginNavigation();
 }
@@ -121,7 +121,9 @@ void MetaNavigator::Dependencies(xmlRep& xml)
 //Remove the path and file extension, return the pure file name
 std::string MetaNavigator::GetKeyName(std::string filePath)
 {
-	filePath.erase(filePath.find_last_of('.'),filePath.size());
+	size_t pos = filePath.find_last_of('.');
+	if (pos < filePath.size())
+		filePath.erase(pos,filePath.size());
 	filePath.erase(0,filePath.find_last_of('\\')+1);
 	return filePath;
 }

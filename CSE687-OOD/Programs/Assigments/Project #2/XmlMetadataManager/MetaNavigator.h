@@ -41,7 +41,7 @@
 class IMetaNavigator
 {
 public:
-	virtual void BeginNavigation(const std::string& folderPath,const std::string fileName)=0;
+	virtual void BeginNavigation(const std::string& fileName,const std::string folderPath)=0;
 	~IMetaNavigator(){}
 };
 
