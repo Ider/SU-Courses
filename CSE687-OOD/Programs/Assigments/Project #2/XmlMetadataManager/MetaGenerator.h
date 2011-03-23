@@ -9,7 +9,31 @@
 //  Author:         Ider Zheng, Syracuse University					   //
 //                  (315) 560-4977, ider.cs@gmail.com				   //
 /////////////////////////////////////////////////////////////////////////
-
+/*
+ * Module Operations:
+ * ==================
+ * This module provides a interface IMetaGenerator, and a class MetaGenerator,
+ * which implement the interface.
+ *
+ * IMetaGenerator provides basic method to get meta data, xml format string.
+ * There are two ways: from packageInfo, get meta data for this package, or 
+ * filePath, get meta data only for this file.
+ *
+ * MetaGenerator provides a example for implementation of IMetaGenerator. It is
+ * also used in OOD project #2.
+ *
+ * Public Interface:
+ * =================
+ * std::cout<< gnrtor.GeneratePackInfo(fileName)<<std::endl;
+ * std::cout<< gnrtor.GenerateReferences(fileName)<<std::endl;
+ * std::cout<< gnrtor.EmbraceReferences()<<std::endl;
+ * std::cout<< gnrtor.CombineMetaElements(gnrtor.GetKeyName(fileName))<<std::endl;
+ *
+ * Required Files:
+ * ===============
+ * xmlTran.h, xmlTran.cpp, PackageInfo.h, PackageInfo.cpp
+ * IIncludes.h, MetaGenerator.h, MetaGenerator.cpp
+ */
 
 #include "xmlTran.h"
 #include "PackageInfo.h"

@@ -37,6 +37,7 @@
  * packMaker.BuildPakcages(argc,argv);	clear data and add new data
  * packMaker.AppendPakcages(argc,argv)	append data to container
  * ClearResults();						clear data in container
+ * 
  * Build Command:
  * ==============
  * [path](\S+) [pattern](*.*){0,2} [recursion](/r)?
