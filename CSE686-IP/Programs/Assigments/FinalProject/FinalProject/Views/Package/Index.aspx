@@ -1,25 +1,53 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<FinalProject.Models.Work_Package>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Index
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
-        Work Package is under construction...</h2>
-    <br />
-    <br />
-    <div>
-        In this page, Work Packages informations will be displayed in a list.<br />
-        When user pass a specific number, the Work package use this number as ID will be
-        displayed. If no such Work Package, an error message will be showed on page to tell
-        user can not find the package.<br />
-        The page will also direct user to create/edit work paeckage, and user can also delete
-        a work package.
-    </div>
-    <br />
-    <h3>
-        Data and Controls</h3>
-    <div>
-        RoleModel, RoleControllers, PackageModel, PackageListModel, PackageControllers,
-    </div>
+        Work Pakcages</h2>
+    <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map">
+        <thead>
+            <tr>
+                <td>
+                    Name
+                </td>
+                <td>
+                    Task_id
+                </td>
+                <td>
+                    Status
+                </td>
+                <td>
+                    Work Order
+                </td>
+                <td>
+                    Package Count
+                </td>
+            </tr>
+        </thead>
+        <% foreach (var item in Model)
+           { %>
+        <tr>
+            <td>
+                <%: Html.ActionLink(item.name, "Details", new { id=item.id })%>
+            </td>
+            <td>
+                <%: item.task_id %>
+            </td>
+            <td>
+                <%: item.Status.ToString() %>
+            </td>
+            <td>
+                <%: item.workorder %>
+            </td>
+            <td>
+                <%: item.Package_Software.Count%>
+            </td>
+        </tr>
+        <% } %>
+    </table>
+    <p>
+        <%: Html.ActionLink("Create New", "Create") %>
+    </p>
 </asp:Content>

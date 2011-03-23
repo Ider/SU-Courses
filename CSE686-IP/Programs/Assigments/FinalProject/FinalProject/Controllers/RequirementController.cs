@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FinalProject.Models;
 
 namespace FinalProject.Controllers
 {
     public class RequirementController : Controller
     {
+        FinalDBEntities finalDB = new FinalDBEntities();
         //
         // GET: /Requirement/
 
         public ActionResult Index()
         {
-            return View();
+            var data = finalDB.Software_Requirement.ToList();
+            return View(data);
         }
 
         //
@@ -21,7 +24,8 @@ namespace FinalProject.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            var data = finalDB.Software_Requirement.Single(sr => sr.id == id);
+            return View(data);
         }
 
         //
@@ -30,7 +34,7 @@ namespace FinalProject.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Requirement/Create
@@ -49,10 +53,10 @@ namespace FinalProject.Controllers
                 return View();
             }
         }
-        
+
         //
         // GET: /Requirement/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             return View();
@@ -67,7 +71,7 @@ namespace FinalProject.Controllers
             try
             {
                 // TODO: Add update logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch
@@ -78,7 +82,7 @@ namespace FinalProject.Controllers
 
         //
         // GET: /Requirement/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             return View();
@@ -93,7 +97,7 @@ namespace FinalProject.Controllers
             try
             {
                 // TODO: Add delete logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch

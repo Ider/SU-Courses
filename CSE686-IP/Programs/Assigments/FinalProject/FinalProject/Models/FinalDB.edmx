@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FinalDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="FinalDBModelStoreContainer">
+          <EntitySet Name="Package_Software" EntityType="FinalDBModel.Store.Package_Software" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Software_Requirement" EntityType="FinalDBModel.Store.Software_Requirement" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Work_Package" EntityType="FinalDBModel.Store.Work_Package" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Package_Software_Package_Software" Association="FinalDBModel.Store.FK_Package_Software_Package_Software">
+            <End Role="Work_Package" EntitySet="Work_Package" />
+            <End Role="Package_Software" EntitySet="Package_Software" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Package_Software_Software_Requirement" Association="FinalDBModel.Store.FK_Package_Software_Software_Requirement">
+            <End Role="Software_Requirement" EntitySet="Software_Requirement" />
+            <End Role="Package_Software" EntitySet="Package_Software" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Package_Software">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="wp_id" Type="int" Nullable="false" />
+          <Property Name="sr_id" Type="int" Nullable="false" />
+          <Property Name="createddate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Software_Requirement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="createddate" Type="datetime" Nullable="false" />
+          <Property Name="platform" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Work_Package">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="task_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="smallint" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" />
+          <Property Name="notes" Type="nvarchar" MaxLength="255" />
+          <Property Name="workorder" Type="int" Nullable="false" />
+          <Property Name="createddate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Package_Software_Package_Software">
+          <End Role="Work_Package" Type="FinalDBModel.Store.Work_Package" Multiplicity="1" />
+          <End Role="Package_Software" Type="FinalDBModel.Store.Package_Software" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work_Package">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Package_Software">
+              <PropertyRef Name="wp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Package_Software_Software_Requirement">
+          <End Role="Software_Requirement" Type="FinalDBModel.Store.Software_Requirement" Multiplicity="1" />
+          <End Role="Package_Software" Type="FinalDBModel.Store.Package_Software" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Software_Requirement">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Package_Software">
+              <PropertyRef Name="sr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FinalDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="FinalDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Package_Software" EntityType="FinalDBModel.Package_Software" />
+          <EntitySet Name="Software_Requirement" EntityType="FinalDBModel.Software_Requirement" />
+          <EntitySet Name="Work_Package" EntityType="FinalDBModel.Work_Package" />
+          <AssociationSet Name="FK_Package_Software_Package_Software" Association="FinalDBModel.FK_Package_Software_Package_Software">
+            <End Role="Work_Package" EntitySet="Work_Package" />
+            <End Role="Package_Software" EntitySet="Package_Software" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Package_Software_Software_Requirement" Association="FinalDBModel.FK_Package_Software_Software_Requirement">
+            <End Role="Software_Requirement" EntitySet="Software_Requirement" />
+            <End Role="Package_Software" EntitySet="Package_Software" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Package_Software">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="wp_id" Type="Int32" Nullable="false" />
+          <Property Name="sr_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Work_Package" Relationship="FinalDBModel.FK_Package_Software_Package_Software" FromRole="Package_Software" ToRole="Work_Package" />
+          <NavigationProperty Name="Software_Requirement" Relationship="FinalDBModel.FK_Package_Software_Software_Requirement" FromRole="Package_Software" ToRole="Software_Requirement" />
+          <Property Type="DateTime" Name="createddate" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Software_Requirement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="description" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Package_Software" Relationship="FinalDBModel.FK_Package_Software_Software_Requirement" FromRole="Software_Requirement" ToRole="Package_Software" />
+          <Property Type="DateTime" Name="createddate" Nullable="false" />
+          <Property Type="String" Name="platform" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Work_Package">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="description" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Package_Software" Relationship="FinalDBModel.FK_Package_Software_Package_Software" FromRole="Work_Package" ToRole="Package_Software" />
+          <Property Type="Int32" Name="task_id" Nullable="false" />
+          <Property Type="Int16" Name="status" Nullable="false" />
+          <Property Type="String" Name="notes" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="workorder" Nullable="false" />
+          <Property Type="DateTime" Name="createddate" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Package_Software_Package_Software">
+          <End Role="Work_Package" Type="FinalDBModel.Work_Package" Multiplicity="1" />
+          <End Role="Package_Software" Type="FinalDBModel.Package_Software" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Work_Package">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Package_Software">
+              <PropertyRef Name="wp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Package_Software_Software_Requirement">
+          <End Role="Software_Requirement" Type="FinalDBModel.Software_Requirement" Multiplicity="1" />
+          <End Role="Package_Software" Type="FinalDBModel.Package_Software" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Software_Requirement">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Package_Software">
+              <PropertyRef Name="sr_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FinalDBModelStoreContainer" CdmEntityContainer="FinalDBEntities">
+          <EntitySetMapping Name="Package_Software"><EntityTypeMapping TypeName="FinalDBModel.Package_Software"><MappingFragment StoreEntitySet="Package_Software">
+            <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+            <ScalarProperty Name="wp_id" ColumnName="wp_id" />
+            <ScalarProperty Name="sr_id" ColumnName="sr_id" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Software_Requirement"><EntityTypeMapping TypeName="FinalDBModel.Software_Requirement"><MappingFragment StoreEntitySet="Software_Requirement">
+            <ScalarProperty Name="platform" ColumnName="platform" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="id" ColumnName="id" />
+            <ScalarProperty Name="title" ColumnName="title" />
+            <ScalarProperty Name="description" ColumnName="description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Work_Package"><EntityTypeMapping TypeName="FinalDBModel.Work_Package"><MappingFragment StoreEntitySet="Work_Package">
+            <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="workorder" ColumnName="workorder" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="task_id" ColumnName="task_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="description" ColumnName="description" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="FinalDB">
+        <EntityTypeShape EntityType="FinalDBModel.Package_Software" Width="1.5" PointX="3" PointY="0.875" Height="2.172587890625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalDBModel.Software_Requirement" Width="1.5" PointX="0.75" PointY="0.875" Height="2.172587890625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalDBModel.Work_Package" Width="1.5" PointX="0.75" PointY="3.875" Height="2.7494921874999996" IsExpanded="true" />
+        <AssociationConnector Association="FinalDBModel.FK_Package_Software_Package_Software" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.24974609375" />
+          <ConnectorPoint PointX="3.75" PointY="5.24974609375" />
+          <ConnectorPoint PointX="3.75" PointY="3.047587890625" />
+        </AssociationConnector>
+        <AssociationConnector Association="FinalDBModel.FK_Package_Software_Software_Requirement" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.9612939453124998" />
+          <ConnectorPoint PointX="3" PointY="1.9612939453124998" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,5 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IList<FinalProject.Models.Software_Requirement>>" %>
 
+<%@ Import Namespace="FinalProject.Models" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Index
 </asp:Content>
@@ -9,14 +10,40 @@
     <br />
     <br />
     <div>
-        In this page, Software Requirements informations will be displayed in a list.<br />
-        When user pass a specific number, the Software Requirements use this number as ID
-        will be displayed. If no such Software Requirements, an error message will be showed
-        on page to tell user can not find the package.<br />
-        The page will also direct user to create/edit work paeckage, and user can also delete
-        a Software Requirements.
+        <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map">
+            <thead>
+                <tr>
+                    <td>
+                        Title
+                    </td>
+                    <td>
+                        Platform
+                    </td>
+                    <td>
+                        Createdate
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    foreach (Software_Requirement r in Model)
+                    { %>
+                <tr id="row-<%:r.id %>">
+                    <td>
+                        <%= Html.ActionLink(r.title,"Details",new{id=r.id},null)%>
+                    </td>
+                    <td>
+                        <%: r.platform%>
+                    </td>
+                    <td>
+                        <%= r.createddate%>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
     </div>
-      <br />
+    <br />
     <br />
     <h3>
         Data and Controls</h3>

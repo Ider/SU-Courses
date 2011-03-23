@@ -321,12 +321,16 @@ div#title
 
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
-.display-label,
+.display-label
+{
+    font-weight:bold;
+}
 .editor-label,
 .display-field,
 .editor-field
 {
-    margin: 0.5em 0;
+    margin: 0.5em 0 0 1em;
+    font-size: 1.2em;
 }
 
 .text-box
