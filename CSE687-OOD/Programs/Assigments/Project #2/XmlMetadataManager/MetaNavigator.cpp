@@ -3,6 +3,8 @@
 #include <iostream>
 #include "MetaNavigator.h"
 
+//////////////////////////////////////////////////////////////////////////
+//Navigate the xml file named fileName under folderPath
 void MetaNavigator::BeginNavigation(const std::string& fileName, const std::string folderPath)
 {
 	char last = folderPath.length()>0?
@@ -17,6 +19,8 @@ void MetaNavigator::BeginNavigation(const std::string& fileName, const std::stri
 	BeginNavigation();
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Navigate every files in queue until queue is empty
 void MetaNavigator::BeginNavigation()
 {
 	while(navigatingList.size()>0)
@@ -27,18 +31,20 @@ void MetaNavigator::BeginNavigation()
 		if (navigatedFiles.find(name)!=navigatedFiles.end())
 			continue;
 
+		//Get package xml data
 		xmlRep xml;
 		ExtractFileContent(xml.xmlStr(),name);
 		if (xml.xmlStr().size()<=0)continue;
 
+		//Print package information
 		RetrivePackageInfo(xml);
-
+		//add file name to navigated list to prevent navigate twice
 		navigatedFiles.insert(name);
-
-		int size = navigatingList.size();
 	}
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Extract xml file content to container
 void MetaNavigator::ExtractFileContent
 	(std::string& container, const std::string& name)
 {
@@ -62,10 +68,11 @@ void MetaNavigator::ExtractFileContent
 	inf.close();
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+//Retrive package information and print it
 void MetaNavigator::RetrivePackageInfo(xmlRep& xml)
 {
-	std::cout<<std::endl<<std::string(30,'-')<<std::endl;
+	std::cout<<std::endl<<std::string(50,'-')<<std::endl;
 	xmlElem pack;
 	std::string tagName = "package";
 	xml.find(tagName,pack);
@@ -80,6 +87,8 @@ void MetaNavigator::RetrivePackageInfo(xmlRep& xml)
 	Dependencies(xml);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Retrieve the dependencies from xml file and print it
 void MetaNavigator::Dependencies(xmlRep& xml)
 {
 	std::cout<<"Package dependencies:"<<std::endl;
@@ -100,12 +109,16 @@ void MetaNavigator::Dependencies(xmlRep& xml)
 		std::string refer = elem.body();
 		Trim(refer);
 		std::cout<<"\t"<<refer<<std::endl;
+
+		//add refer to queue for recursive navigate
 		refer = GetKeyName(refer);
 		if (navigatedFiles.find(refer)==navigatedFiles.end())
 			navigatingList.push(refer);
 	}
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Remove the path and file extension, return the pure file name
 std::string MetaNavigator::GetKeyName(std::string filePath)
 {
 	filePath.erase(filePath.find_last_of('.'),filePath.size());
@@ -113,6 +126,9 @@ std::string MetaNavigator::GetKeyName(std::string filePath)
 	return filePath;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Removes all occurrences of white space characters from the beginning and 
+//end of string. 
 void MetaNavigator::Trim(std::string& value)
 {
 	const char * ch = value.c_str();
@@ -143,14 +159,15 @@ void MetaNavigator::Trim(std::string& value)
 void main()
 {
 
-	MetaNavigator nav;
+	IMetaNavigator*  nav = new MetaNavigator();
 
 	std::string file = "MetaManager";	
 	std::string fold = "MetaXML";
 	std::cout<<"includes of file: " + file<<std::endl;
-	std::cout<<std::string(30,'=');
-	nav.BeginNavigation(file,"MetaXML");
+	std::cout<<std::string(50,'=');
+	nav->BeginNavigation(file,"MetaXML");
 	//std::cout<<"Can't open file: " + file;
+	delete nav;
 }
 
 #endif
