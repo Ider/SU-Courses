@@ -88,10 +88,10 @@ void MetaNavigator::RetrivePackageInfo(xmlRep& xml)
 	std::cout<<"Package "<<pack.attribExpression()<<std::endl;
 	tagName = "head";
 	xml.find(tagName,pack);
-	std::cout<<"Head file:      "<<pack.body()<<std::endl;
+	std::cout<<"Head file: \n"<<pack.body()<<std::endl;
 	tagName = "implement";
 	xml.find(tagName,pack);
-	std::cout<<"Implement file: "<<pack.body()<<std::endl;
+	std::cout<<"Implement file: \n"<<pack.body()<<std::endl;
 
 	Dependencies(xml);
 }
