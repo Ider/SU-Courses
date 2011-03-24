@@ -130,10 +130,14 @@ void MetaNavigator::Dependencies(xmlRep& xml)
 //Remove the path and file extension, return the pure file name
 std::string MetaNavigator::GetKeyName(std::string filePath)
 {
+	//remove path
+	//If filePath.find_last_of('\\') failed, it return std::string::npos
+	//npos + 1 equals to 0, so nothing erased
+	filePath.erase(0,filePath.find_last_of('\\')+1);
+	//remove extension
 	size_t pos = filePath.find_last_of('.');
 	if (pos < filePath.size())
 		filePath.erase(pos,filePath.size());
-	filePath.erase(0,filePath.find_last_of('\\')+1);
 	return filePath;
 }
 
