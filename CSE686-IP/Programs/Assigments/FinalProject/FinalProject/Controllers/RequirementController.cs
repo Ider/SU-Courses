@@ -4,19 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.Models;
+using FinalProject.Services;
 
 namespace FinalProject.Controllers
 {
     public class RequirementController : Controller
     {
+        static RequirementService rs = new RequirementService();
         //
         // GET: /Requirement/
 
         public ActionResult Index()
         {
-            IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
-            var data = (from sr in finalDB.Software_Requirements
-                        select sr).ToList(); ;
+            var data = rs.GetRequirements();
             return View(data);
         }
 
@@ -25,10 +25,7 @@ namespace FinalProject.Controllers
 
         public ActionResult Details(int id)
         {
-            IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
-            var data = (from sr in finalDB.Software_Requirements
-                       where sr.id == id
-                       select sr).Single();
+            var data = rs.GetRequirementByID(id);
             return View(data);
         }
 
@@ -61,26 +58,36 @@ namespace FinalProject.Controllers
         //
         // GET: /Requirement/Edit/5
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            var data = rs.GetRequirementByID(id ?? -1);
+            return View(data);
         }
 
         //
         // POST: /Requirement/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int? id, Software_Requirement model)
         {
+            model.id = id ?? -1;
             try
             {
-                // TODO: Add update logic here
+                if (id == null)
+                {
+                    rs.InsertRequirement(model);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    rs.UpdateRequirement(model);
+                    return RedirectToAction("Details",new {id = model.id});
+                }
 
-                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 
@@ -89,7 +96,8 @@ namespace FinalProject.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View();
+            rs.DeleteRequirement(id);
+            return RedirectToAction("Index");
         }
 
         //

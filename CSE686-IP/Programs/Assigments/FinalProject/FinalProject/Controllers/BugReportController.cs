@@ -72,7 +72,7 @@ namespace FinalProject.Controllers
         [HttpPost]
         public ActionResult Edit(int? id, BugReport model)
         {
-            int temp = Request.Form.Count;
+            //int temp = Request.Form.Count;
             model.Number = id ?? 0;
             try
             {

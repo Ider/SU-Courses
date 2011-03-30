@@ -16,7 +16,6 @@
             Date:</div>
         <div class="display-field">
             <%: String.Format("{0:g}", Model.createddate) %></div>
-        
         <fieldset>
             <legend>description</legend>
             <div class="display-field">
@@ -25,6 +24,8 @@
     </fieldset>
     <p>
         <%: Html.ActionLink("Edit", "Edit", new { id=Model.id }) %>
+        |
+        <%: Html.ActionLink("Delete", "Delete", new { id=Model.id }) %>
         |
         <%: Html.ActionLink("Back to List", "Index") %>
     </p>

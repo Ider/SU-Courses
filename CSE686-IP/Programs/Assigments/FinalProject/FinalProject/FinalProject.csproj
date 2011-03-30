@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="Models\ModelExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\RequirementService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\ASPNETDB.MDF" />
@@ -114,6 +115,7 @@
     <Content Include="Views\Package\Details.aspx" />
     <Content Include="Views\Package\Index.aspx" />
     <Content Include="Views\Requirement\Details.aspx" />
+    <Content Include="Views\Requirement\Edit.aspx" />
     <Content Include="Views\Requirement\Index.aspx" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.ascx" />
     <Content Include="Views\Status\Edit.aspx" />
@@ -182,7 +184,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>64944</DevelopmentServerPort>
+          <DevelopmentServerPort>55002</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -36,10 +36,12 @@ namespace FinalProject.Controllers
         public ActionResult Details(int id)
         {
             IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
+
             DataLoadOptions ds = new DataLoadOptions();
             ds.LoadWith<Work_Package>(wp => wp.Package_Softwares);
             ds.LoadWith<Package_Software>(ps => ps.Software_Requirement);
             finalDB.LoadOptions = ds;
+
             var pack = (from p in finalDB.Work_Packages
                         where p.id == id
                         select p).Single();
@@ -61,6 +63,18 @@ namespace FinalProject.Controllers
             
 
             return View(pack);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null) return View(new Package_Software());
+
+            IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
+
+            var pack = (from p in finalDB.Work_Packages
+                        where p.id == id
+                        select p).Single();
+            return View();
         }
 
     }
