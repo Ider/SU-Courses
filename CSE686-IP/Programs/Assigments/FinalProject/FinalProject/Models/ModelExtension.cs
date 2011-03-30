@@ -22,5 +22,25 @@ namespace FinalProject.Models
         {
             get { return (WorkStatus)_status; }
         }
+
+        public int RequirementCount
+        {
+            get
+            {
+                if (_Package_Softwares.Count > 0)
+                {
+                    return _Package_Softwares.Count;
+                }
+                else return _RequirementsCount;
+            }
+            set
+            {
+                _RequirementsCount = value;
+            }
+        }
+
+        private int _RequirementsCount = 0;
     }
+
+
 }

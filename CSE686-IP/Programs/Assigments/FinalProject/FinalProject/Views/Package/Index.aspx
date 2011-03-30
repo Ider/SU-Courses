@@ -42,7 +42,7 @@
                 <%: item.workorder %>
             </td>
             <td>
-                <%: item.Package_Software.Count%>
+                <%: item.RequirementCount%>
             </td>
         </tr>
         <% } %>

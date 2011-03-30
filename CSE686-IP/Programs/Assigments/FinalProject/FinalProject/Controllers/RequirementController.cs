@@ -9,13 +9,14 @@ namespace FinalProject.Controllers
 {
     public class RequirementController : Controller
     {
-        FinalDBEntities finalDB = new FinalDBEntities();
         //
         // GET: /Requirement/
 
         public ActionResult Index()
         {
-            var data = finalDB.Software_Requirement.ToList();
+            IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
+            var data = (from sr in finalDB.Software_Requirements
+                        select sr).ToList(); ;
             return View(data);
         }
 
@@ -24,7 +25,10 @@ namespace FinalProject.Controllers
 
         public ActionResult Details(int id)
         {
-            var data = finalDB.Software_Requirement.Single(sr => sr.id == id);
+            IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
+            var data = (from sr in finalDB.Software_Requirements
+                       where sr.id == id
+                       select sr).Single();
             return View(data);
         }
 

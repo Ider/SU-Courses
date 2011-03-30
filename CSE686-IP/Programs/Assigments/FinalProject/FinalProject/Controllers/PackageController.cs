@@ -4,42 +4,63 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.Models;
+using System.Data.Linq;
 
 namespace FinalProject.Controllers
 {
     public class PackageController : Controller
     {
-        FinalDBEntities finalDB = new FinalDBEntities();
 
         //
         // GET: /Package/
 
         public ActionResult Index()
         {
-            var data = from package in finalDB.Work_Package.Include("Package_Software")
-                       orderby package.task_id, package.workorder
-                       select package;
-            //select new Work_Package()
-            //{
-            //    id = package.id,
-            //    name = package.name,
-            //    task_id = package.task_id,
-            //    status = package.status,
-            //    workorder = package.workorder,
-            //    Package_Software = package.Package_Software
-            //};
-            return View(data);
+            IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
+            var data = from p in finalDB.Package_Softwares
+                       group p by p.wp_id into psg
+                       select psg;
+
+            var packs = (from p in finalDB.Work_Packages
+                         select p).ToList();
+
+            foreach (var pack in packs)
+            {
+                pack.RequirementCount = data.Count(p => p.Key == pack.id);
+            }
+
+
+            return View(packs);
         }
 
         public ActionResult Details(int id)
         {
-            var data = (from package in finalDB.Work_Package.Include("Package_Software.Software_Requirement")
-                       where package.id == id
-                       select package).First();
-                         
-                       
-                                                                    
-            return View(data);
+            IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
+            DataLoadOptions ds = new DataLoadOptions();
+            ds.LoadWith<Work_Package>(wp => wp.Package_Softwares);
+            ds.LoadWith<Package_Software>(ps => ps.Software_Requirement);
+            finalDB.LoadOptions = ds;
+            var pack = (from p in finalDB.Work_Packages
+                        where p.id == id
+                        select p).Single();
+
+            //var data = from sr in finalDB.Software_Requirements
+            //           join ps in finalDB.Package_Softwares
+            //           on sr.id equals ps.sr_id
+            //           where ps.wp_id == id
+            //           select sr;
+
+            //foreach (var ps in data)
+            //{
+            //    pack.Package_Softwares.Add(new Package_Software()
+            //    {
+            //        Software_Requirement = ps,
+            //        Work_Package = pack
+            //    });
+            //}
+            
+
+            return View(pack);
         }
 
     }

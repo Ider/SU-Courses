@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FinalDB" Class="IPFinalDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\FinalDB.mdf;Integrated Security=True;User Instance=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="FinalDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Package_Software" Member="Package_Softwares">
+    <Type Name="Package_Software">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="wp_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sr_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="createddate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Software_Requirement_Package_Software" Member="Software_Requirement" ThisKey="sr_id" OtherKey="id" Type="Software_Requirement" IsForeignKey="true" />
+      <Association Name="Work_Package_Package_Software" Member="Work_Package" ThisKey="wp_id" OtherKey="id" Type="Work_Package" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Software_Requirement" Member="Software_Requirements">
+    <Type Name="Software_Requirement">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="createddate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="platform" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="Software_Requirement_Package_Software" Member="Package_Softwares" ThisKey="id" OtherKey="sr_id" Type="Package_Software" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Work_Package" Member="Work_Packages">
+    <Type Name="Work_Package">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="task_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="workorder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="createddate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Work_Package_Package_Software" Member="Package_Softwares" ThisKey="id" OtherKey="wp_id" Type="Package_Software" />
+    </Type>
+  </Table>
+</Database>

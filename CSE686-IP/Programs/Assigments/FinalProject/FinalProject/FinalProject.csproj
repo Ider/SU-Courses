@@ -37,6 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -80,10 +81,10 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BugModels.cs" />
-    <Compile Include="Models\FinalDB.Designer.cs">
+    <Compile Include="Models\IPFinalDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FinalDB.edmx</DependentUpon>
+      <DependentUpon>IPFinalDB.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\ModelExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,7 +118,9 @@
     <Content Include="Views\Shared\EditorTemplates\DateTime.ascx" />
     <Content Include="Views\Status\Edit.aspx" />
     <Content Include="Views\Status\Index.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -149,13 +152,20 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\FinalDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FinalDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Models\IPFinalDB.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>IPFinalDB.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\IPFinalDB.dbml.layout">
+      <DependentUpon>IPFinalDB.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -172,7 +182,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54180</DevelopmentServerPort>
+          <DevelopmentServerPort>64944</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

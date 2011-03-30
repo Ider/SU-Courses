@@ -60,9 +60,9 @@
                 </thead>
                 <tbody>
                     <%
-                        foreach (Package_Software ps in Model.Package_Software)
+                        foreach (var p in Model.Package_Softwares)
                         {
-                            var r = ps.Software_Requirement;
+                            var r = p.Software_Requirement;
                     %>
                     <tr id="row-<%:r.id %>">
                         <td>
