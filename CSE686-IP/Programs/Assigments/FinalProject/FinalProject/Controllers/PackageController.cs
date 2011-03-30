@@ -4,15 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.Models;
+using FinalProject.Services;
 using System.Data.Linq;
 
 namespace FinalProject.Controllers
 {
     public class PackageController : Controller
     {
-
-        //
-        // GET: /Package/
+        static PackageService ps = new PackageService();
 
         public ActionResult Index()
         {
@@ -67,15 +66,46 @@ namespace FinalProject.Controllers
 
         public ActionResult Edit(int? id)
         {
-            if (id == null) return View(new Package_Software());
-
-            IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
-
-            var pack = (from p in finalDB.Work_Packages
-                        where p.id == id
-                        select p).Single();
-            return View();
+            var data = ps.GetPackageByID(id ?? -1);
+            return View(data);
         }
 
+        [HttpPost]
+        public ActionResult Edit(int? id, FormCollection form)
+        {
+            Work_Package model = new Work_Package()
+            {
+                id = id ?? -1,
+                name = form["name"],
+                description = form["description"],
+                notes = form["notes"],
+                task_id = int.Parse(form["task_id"]),
+                status = short.Parse(form["status"])
+            };
+            try
+            {
+                if (id == null)
+                {
+                    ps.InsertPackage(model);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ps.UpdatePackage(model);
+                    return RedirectToAction("Details", new { id = model.id });
+                }
+            }
+            catch(Exception ex)
+            {
+                return View(model);
+            }
+
+        }
+
+        public ActionResult Delete(int id)
+        {
+            ps.DeletePackage(id);
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="Models\ModelExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PackageService.cs" />
     <Compile Include="Services\RequirementService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +114,7 @@
     <Content Include="Views\BugReport\Index.aspx" />
     <Content Include="Views\Home\Layout.aspx" />
     <Content Include="Views\Package\Details.aspx" />
+    <Content Include="Views\Package\Edit.aspx" />
     <Content Include="Views\Package\Index.aspx" />
     <Content Include="Views\Requirement\Details.aspx" />
     <Content Include="Views\Requirement\Edit.aspx" />
@@ -184,7 +186,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>55002</DevelopmentServerPort>
+          <DevelopmentServerPort>52099</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -83,6 +83,8 @@
     <p>
         <%: Html.ActionLink("Edit", "Edit", new { id=Model.id }) %>
         |
+        <%: Html.ActionLink("Delete", "Delete", new { id=Model.id }) %>
+        |
         <%: Html.ActionLink("Back to List", "Index") %>
     </p>
 </asp:Content>
