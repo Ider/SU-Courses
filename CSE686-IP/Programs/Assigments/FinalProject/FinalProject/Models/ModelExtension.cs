@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.Collections.Generic;
+using System;
 
 namespace FinalProject.Models
 {
@@ -40,6 +42,18 @@ namespace FinalProject.Models
         }
 
         private int _RequirementsCount = 0;
+
+
+//         public IDictionary<int, string> GetStatus()
+//         {
+//             IDictionary<int,string> enums = new Dictionary<int,string>();
+//             foreach (int key in Enum.GetValues(typeof(WorkStatus)))
+//             {
+//                 enums.Add(new KeyValuePair<int,string>(key,(((WorkStatus)key).ToString()));
+//             }
+// 
+//             return enums;
+//         }
     }
 
 

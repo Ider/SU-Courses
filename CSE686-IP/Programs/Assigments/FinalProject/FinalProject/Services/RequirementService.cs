@@ -48,7 +48,7 @@ namespace FinalProject.Services
             IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
             var requirement = (from d in finalDB.Software_Requirements
                                where d.id == sr.id
-                               select sr).Single();
+                               select d).Single();
 
             requirement.description = sr.description;
             requirement.platform = sr.platform;

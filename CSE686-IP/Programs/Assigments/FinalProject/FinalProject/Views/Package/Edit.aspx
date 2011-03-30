@@ -26,7 +26,7 @@
             <%: Html.TextBoxFor(model => model.name) %>
             <%: Html.ValidationMessageFor(model => model.name) %>
         </div>
-       <div class="editor-label">
+        <div class="editor-label">
             <%: Html.LabelFor(model => model.task_id) %>
         </div>
         <div class="editor-field">
@@ -37,8 +37,14 @@
             <%: Html.LabelFor(model => model.status) %>
         </div>
         <div class="editor-field">
-            <%: Html.TextBoxFor(model => model.status) %>
-            <%: Html.ValidationMessageFor(model => model.status) %>
+            <select id="status" name="status">
+                <option value="0">Planning </option>
+                <option value="1">Doing </option>
+                <option value="2">Finish </option>
+                <option value="3">Pending </option>
+                <option value="4">Closed </option>
+                <option value="5">NotSet </option>
+            </select>
         </div>
         <div class="editor-label">
             <%: Html.LabelFor(model => model.description) %>

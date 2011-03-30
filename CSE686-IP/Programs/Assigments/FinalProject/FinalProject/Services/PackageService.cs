@@ -55,7 +55,7 @@ namespace FinalProject.Services
             IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
             var package = (from d in finalDB.Work_Packages
                            where d.id == wp.id
-                           select wp).Single();
+                           select d).Single();
 
             package.description = wp.description;
             package.name = wp.name;
