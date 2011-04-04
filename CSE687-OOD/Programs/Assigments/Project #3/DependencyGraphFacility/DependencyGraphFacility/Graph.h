@@ -22,10 +22,14 @@ public:
 
 	void AddNode(const VertexType& v);
 	bool Contains(const VertexType& v);
-	bool AddEdge(const VertexType& from, const VertexType& to);
-	int AddEdge(const VertexType& from, std::vector<VertexType>& tos);
+	bool AddEdge(const VertexType& from, const VertexType& toV, const EdgeType& toE);
+	int AddEdge(const VertexType& from, std::vector<std::pair<VertexType, EdgeType>>& tos);
+
 	template<typename Func> void DFS(Func func, bool preorder = true);
 private:
+	template<typename Func> void DFS(Func func, Vertex<VertexType, EdgeType>& top, bool preorder = true);
+	void ClearMask();
+
 	void CopyAdjacentList(const v_map& old);
 	void ClearAdjacentList();
 	/*I assume that iterator operations of map are very fast, so that traversal 
@@ -92,27 +96,27 @@ void Graph<VertexType, EdgeType>::AddNode(const VertexType& v)
 //All nodes that not exist in graph will be returned by "tos".
 //return the number of connections between "from" and "tos".
 template <typename VertexType, typename EdgeType>
-int Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, std::vector<VertexType>& tos)
+int Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, std::vector<std::pair<VertexType, EdgeType>>& tos)
 {
 	Graph<VertexType, EdgeType>::v_map::iterator node = adjList.find(from);
 	if (node==adjList.end())
 		throw std::string("The node with such value does not exist.");
 
 	Vertex<VertexType, EdgeType>& v=*(node->second);
-	std::vector<VertexType> notExist;
+	std::vector<std::pair<VertexType, EdgeType>> notExist;
 	size_t succeed = 0;
 
 	for (size_t i = 0;i < tos.size(); ++i)
 	{
-		VertexType& to = tos[i];
-		node = adjList.find(to);
+		std::pair<VertexType, EdgeType>& to = tos[i];
+		node = adjList.find(to.first);
 		if (node==adjList.end())
 			notExist.push_back(to);
 
 		else
 		{
 			++succeed;
-			if (!v.Find(to)) v.AddEdge(to, node->second);
+			if (!v.Find(to.second)) v.AddEdge(to.second, node->second);
 		}
 	}
 
@@ -123,13 +127,53 @@ int Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, std::vector<Ver
 //////////////////////////////////////////////////////////////////////////
 //Build connection "from" and "to"
 template <typename VertexType, typename EdgeType>
-bool Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, const VertexType& to)
+bool Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, const VertexType& toV, const EdgeType& toE)
 {
-	std::vector<VertexType> tos(1,to);
+	std::pair<VertexType, EdgeType> to(toV,toE);
+	std::vector<std::pair<VertexType, EdgeType>> tos(1,to);
 	return AddEdge(from,tos)>0?true:false;
 }
 
+template <typename VertexType, typename EdgeType>
+template<typename Func> 
+void Graph<VertexType, EdgeType>::DFS(Func func, bool preorder)
+{
+	ClearMask();
+	Graph<VertexType, EdgeType>::v_map::iterator node;
+	for (node = adjList.begin(); node != adjList.end(); ++node)
+	{
+		Vertex<VertexType, EdgeType>& v = *(node->second);
+		if (v.Mask()==0)
+			DFS(func,v,preorder);
+	}
+	
+}
 
+template <typename VertexType, typename EdgeType>
+template<typename Func> 
+void Graph<VertexType, EdgeType>::DFS(Func func, Vertex<VertexType, EdgeType>& top, bool preorder)
+{
+	 top.Mask()=-1;//set to max value of unsigned int
+	 if (preorder)func(top);//pre-order traversal
+	
+	 for (size_t i = 0; i<top.size(); ++i)
+	 {
+		 Vertex<VertexType, EdgeType>& v =*(top[i].second);
+		 DFS(func,v,preorder);
+	 }
+
+	 if (!preorder)func(top);//post-order traversal
+}
+
+template <typename VertexType, typename EdgeType>
+void Graph<VertexType, EdgeType>::ClearMask()
+{
+	Graph<VertexType, EdgeType>::v_map::iterator node;
+	for (node = adjList.begin(); node != adjList.end(); ++ node)
+	{
+		node->second->Mask() = 0;
+	}
+}
 
 template <typename VertexType, typename EdgeType>
 void Graph<VertexType, EdgeType>::CopyAdjacentList(const v_map& old)

@@ -1,9 +1,15 @@
 #include <iostream>
 #include <utility>
 #include <string>
-//using namespace std;
+using namespace std;
+#include <list>
 
 #include "Graph.h"
+
+void printInt(Vertex<int,int> v)
+{
+	cout<<v.Key()<<endl;
+}
 
 void  main () {
 // 	std::pair <std::string,double> product1 ("tomatoes",3.25);
@@ -31,12 +37,19 @@ void  main () {
 	a = 2;
 	text.AddNode(a);
 	a = 3;
+	text.AddNode(a);
 	text.AddNode(4);
-	text.AddEdge(1,2);
+
+	text.AddEdge(1,3,3);
+	text.AddEdge(3,2,2);
+	text.AddEdge(3,4,4);
+
+	text.DFS(printInt,false);
 
 	Graph<int,int> test = text;
 	test = text;
-
+// 	list<int> b;
+// 	b.remove_if()
 	}
 	catch(std::string x)
 	{

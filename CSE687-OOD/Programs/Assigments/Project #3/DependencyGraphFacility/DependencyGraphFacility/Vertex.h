@@ -17,6 +17,7 @@ public:
 	~Vertex();
 	size_t size(){return children.size();}
 	v_value& Key(){return key;}
+	size_t& Mask() {return mask;}
 	//vertics& Children(){return children;}
 	pair& operator[](int index){return children[index];}
 	void AddEdge(pair edge){children.push_back(edge);}
@@ -26,6 +27,7 @@ public:
 
 private:
 	v_value key;
+	size_t mask;
 	vertics children;
 
 };
