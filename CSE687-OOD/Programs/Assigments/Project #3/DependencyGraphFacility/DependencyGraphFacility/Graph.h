@@ -159,7 +159,8 @@ void Graph<VertexType, EdgeType>::DFS(Func func, Vertex<VertexType, EdgeType>& t
 	 for (size_t i = 0; i<top.size(); ++i)
 	 {
 		 Vertex<VertexType, EdgeType>& v =*(top[i].second);
-		 DFS(func,v,preorder);
+		 if (v.Mask()==0)
+			DFS(func,v,preorder);
 	 }
 
 	 if (!preorder)func(top);//post-order traversal
