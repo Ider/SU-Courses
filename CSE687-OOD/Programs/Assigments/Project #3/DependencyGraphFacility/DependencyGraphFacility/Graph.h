@@ -26,6 +26,8 @@ public:
 	int AddEdge(const VertexType& from, std::vector<std::pair<VertexType, EdgeType>>& tos);
 
 	template<typename Func> void DFS(Func func, bool preorder = true);
+
+
 private:
 	template<typename Func> void DFS(Func func, Vertex<VertexType, EdgeType>& top, bool preorder = true);
 	void ClearMask();
@@ -42,18 +44,19 @@ private:
 
 };
 
-
-
+//////////////////////////////////////////////////////////////////////////
+//Copy Constructor
 template <typename VertexType, typename EdgeType>
 Graph<VertexType, EdgeType>::Graph(const Graph<VertexType,EdgeType>& g)
 {
 	CopyAdjacentList(g.adjList);
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+//Assignment Operator
 template <typename VertexType, typename EdgeType>
 Graph<VertexType,EdgeType>& 
-Graph<VertexType, EdgeType>::operator=(const Graph<VertexType,EdgeType>& g)
+	Graph<VertexType, EdgeType>::operator=(const Graph<VertexType,EdgeType>& g)
 {
 	if (this == &g)return *this;
 
@@ -62,6 +65,8 @@ Graph<VertexType, EdgeType>::operator=(const Graph<VertexType,EdgeType>& g)
 	return *this;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Destructor
 template <typename VertexType, typename EdgeType>
 Graph<VertexType, EdgeType>::~Graph()
 {
@@ -146,24 +151,24 @@ void Graph<VertexType, EdgeType>::DFS(Func func, bool preorder)
 		if (v.Mask()==0)
 			DFS(func,v,preorder);
 	}
-	
+
 }
 
 template <typename VertexType, typename EdgeType>
 template<typename Func> 
 void Graph<VertexType, EdgeType>::DFS(Func func, Vertex<VertexType, EdgeType>& top, bool preorder)
 {
-	 top.Mask()=-1;//set to max value of unsigned int
-	 if (preorder)func(top);//pre-order traversal
-	
-	 for (size_t i = 0; i<top.size(); ++i)
-	 {
-		 Vertex<VertexType, EdgeType>& v =*(top[i].second);
-		 if (v.Mask()==0)
-			DFS(func,v,preorder);
-	 }
+	top.Mask()=-1;//set to max value of unsigned int
+	if (preorder)func(top);//pre-order traversal
 
-	 if (!preorder)func(top);//post-order traversal
+	for (size_t i = 0; i<top.size(); ++i)
+	{
+		Vertex<VertexType, EdgeType>& v =*(top[i].second);
+		if (v.Mask()==0)
+			DFS(func,v,preorder);
+	}
+
+	if (!preorder)func(top);//post-order traversal
 }
 
 template <typename VertexType, typename EdgeType>
