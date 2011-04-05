@@ -7,6 +7,9 @@
 #include <utility>
 #include <string>
 #include "Vertex.h"
+#include "StrongComponents.h"
+
+template <typename VertexType, typename EdgeType> class StrongComponents;
 
 template <typename VertexType, typename EdgeType>
 class Graph
@@ -28,6 +31,8 @@ public:
 	int AddEdge(const VertexType& from, std::vector<std::pair<VertexType, EdgeType>>& tos);
 
 	template<typename Func> void DFS(Func func, bool preorder = true);
+
+	friend StrongComponents<VertexType,EdgeType>;
 
 private:
 	template<typename Func> void DFS(Func func, Vertex<VertexType, EdgeType>& top, bool preorder = true);

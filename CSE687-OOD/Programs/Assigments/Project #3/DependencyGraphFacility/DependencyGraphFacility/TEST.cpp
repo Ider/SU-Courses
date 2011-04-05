@@ -6,9 +6,25 @@ using namespace std;
 
 #include "Graph.h"
 
-void printInt(Vertex<int,int> v)
+void printInt(Vertex<string,int> v)
 {
-	cout<<v.Key()<<endl;
+	cout<<v.Key()<<"\t edges:";
+		for (size_t i=0 ; i<v.Size();++i)
+		{
+			cout<<v[i].first<<',';
+		}
+
+	cout <<endl;
+}
+
+void printInt2(Vertex<int,int> v)
+{
+	cout<<v.Key()<<"\t edges:";
+	for (size_t i=0 ; i<v.Size();++i)
+	{
+		cout<<v[i].first<<',';
+	}
+	cout <<endl;
 }
 
 void  main () {
@@ -29,25 +45,51 @@ void  main () {
 // 	std::cout << "The price of " << product3.first << " is $" << product3.second << "\n";
 // 	return 0;
 
-	Graph<int,int> text ;
+	Graph<string,int> text ;
 	try
 	{
-		int a =1;
-	text.AddNode(a);
-	a = 2;
-	text.AddNode(a);
-	a = 3;
-	text.AddNode(a);
-	text.AddNode(4);
 
-	text.AddEdge(1,3,3);
-	text.AddEdge(3,2,2);
-	text.AddEdge(3,4,4);
+	
+		string a ="111";
+	text.AddNode( a);
+	a = "222";
+	text.AddNode(a);
+	a = "333";
+	text.AddNode(a);
+	text.AddNode(string("444"));
 
-	text.DFS(printInt,false);
-
-	Graph<int,int> test = text;
+// 	text.AddEdge("111","333",3);
+// 	text.AddEdge("333","222",2);
+// 	text.AddEdge("333","444",4);
+	Graph<string,int> test = text;
 	test = text;
+
+	vector<pair<string,int>> es;
+	pair<string,int> e;
+
+	e.first = "444";
+	e.second = 4;
+	es.push_back(e);
+	e.first = "111" ;
+	e.second = 1;
+	es.push_back(e);
+	e.first = "222";
+	e.second = 2;
+	es.push_back(e);
+	text.AddEdge("111",es);
+
+	text.DFS(printInt);
+	StrongComponents<string,int> sc(test);
+
+	sc.Condensed.DFS(printInt2);
+
+	test.DFS(printInt);
+
+	//Graph<string,int>::StrongComponents s = text.GetStrongComponents();
+
+	//s.Condensed.DFS(printInt2);
+	//s.
+
 // 	list<int> b;
 // 	b.remove_if()
 	}

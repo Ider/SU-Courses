@@ -15,9 +15,10 @@ public:
 
 	Vertex(VertexType k):key(k){}
 	~Vertex();
-	size_t size(){return children.size();}
+	size_t Size(){return children.size();}
 	v_value& Key(){return key;}
 	size_t& Mask() {return mask;}
+	size_t& Lowlink(){return lowlink;}
 	//vertics& Children(){return children;}
 	pair& operator[](int index){return children[index];}
 	void AddEdge(pair edge){children.push_back(edge);}
@@ -28,6 +29,7 @@ public:
 private:
 	v_value key;
 	size_t mask;
+	size_t lowlink;
 	vertics children;
 
 };
