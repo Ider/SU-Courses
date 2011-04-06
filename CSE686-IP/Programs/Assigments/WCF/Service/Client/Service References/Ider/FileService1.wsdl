@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="/Imports">
+      <xsd:import schemaLocation="http://localhost:60534/FileService.svc?xsd=xsd0" />
+      <xsd:import schemaLocation="http://localhost:60534/FileService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="FileService_Add_InputMessage">
+    <wsdl:part name="parameters" element="Add" />
+  </wsdl:message>
+  <wsdl:message name="FileService_Add_OutputMessage">
+    <wsdl:part name="parameters" element="AddResponse" />
+  </wsdl:message>
+  <wsdl:message name="FileService_Subtract_InputMessage">
+    <wsdl:part name="parameters" element="Subtract" />
+  </wsdl:message>
+  <wsdl:message name="FileService_Subtract_OutputMessage">
+    <wsdl:part name="parameters" element="SubtractResponse" />
+  </wsdl:message>
+  <wsdl:message name="FileService_Multiply_InputMessage">
+    <wsdl:part name="parameters" element="Multiply" />
+  </wsdl:message>
+  <wsdl:message name="FileService_Multiply_OutputMessage">
+    <wsdl:part name="parameters" element="MultiplyResponse" />
+  </wsdl:message>
+  <wsdl:message name="FileService_Divide_InputMessage">
+    <wsdl:part name="parameters" element="Divide" />
+  </wsdl:message>
+  <wsdl:message name="FileService_Divide_OutputMessage">
+    <wsdl:part name="parameters" element="DivideResponse" />
+  </wsdl:message>
+  <wsdl:message name="FileService_PutFile_InputMessage">
+    <wsdl:part name="parameters" element="PutFile" />
+  </wsdl:message>
+  <wsdl:message name="FileService_PutFile_OutputMessage">
+    <wsdl:part name="parameters" element="PutFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="FileService_GetFile_InputMessage">
+    <wsdl:part name="parameters" element="GetFile" />
+  </wsdl:message>
+  <wsdl:message name="FileService_GetFile_OutputMessage">
+    <wsdl:part name="parameters" element="GetFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="FileService_OpenFileForWrite_InputMessage">
+    <wsdl:part name="parameters" element="OpenFileForWrite" />
+  </wsdl:message>
+  <wsdl:message name="FileService_OpenFileForWrite_OutputMessage">
+    <wsdl:part name="parameters" element="OpenFileForWriteResponse" />
+  </wsdl:message>
+  <wsdl:message name="FileService_WriteBlock_InputMessage">
+    <wsdl:part name="parameters" element="WriteBlock" />
+  </wsdl:message>
+  <wsdl:message name="FileService_WriteBlock_OutputMessage">
+    <wsdl:part name="parameters" element="WriteBlockResponse" />
+  </wsdl:message>
+  <wsdl:message name="FileService_CloseFile_InputMessage">
+    <wsdl:part name="parameters" element="CloseFile" />
+  </wsdl:message>
+  <wsdl:message name="FileService_CloseFile_OutputMessage">
+    <wsdl:part name="parameters" element="CloseFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="FileService_OpenFileForRead_InputMessage">
+    <wsdl:part name="parameters" element="OpenFileForRead" />
+  </wsdl:message>
+  <wsdl:message name="FileService_OpenFileForRead_OutputMessage">
+    <wsdl:part name="parameters" element="OpenFileForReadResponse" />
+  </wsdl:message>
+  <wsdl:message name="FileService_ReadBlock_InputMessage">
+    <wsdl:part name="parameters" element="ReadBlock" />
+  </wsdl:message>
+  <wsdl:message name="FileService_ReadBlock_OutputMessage">
+    <wsdl:part name="parameters" element="ReadBlockResponse" />
+  </wsdl:message>
+  <wsdl:portType name="FileService">
+    <wsdl:operation name="Add">
+      <wsdl:input wsaw:Action="urn:FileService/Add" message="FileService_Add_InputMessage" />
+      <wsdl:output wsaw:Action="urn:FileService/AddResponse" message="FileService_Add_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Subtract">
+      <wsdl:input wsaw:Action="urn:FileService/Subtract" message="FileService_Subtract_InputMessage" />
+      <wsdl:output wsaw:Action="urn:FileService/SubtractResponse" message="FileService_Subtract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Multiply">
+      <wsdl:input wsaw:Action="urn:FileService/Multiply" message="FileService_Multiply_InputMessage" />
+      <wsdl:output wsaw:Action="urn:FileService/MultiplyResponse" message="FileService_Multiply_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Divide">
+      <wsdl:input wsaw:Action="urn:FileService/Divide" message="FileService_Divide_InputMessage" />
+      <wsdl:output wsaw:Action="urn:FileService/DivideResponse" message="FileService_Divide_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PutFile">
+      <wsdl:input wsaw:Action="urn:FileService/PutFile" message="FileService_PutFile_InputMessage" />
+      <wsdl:output wsaw:Action="urn:FileService/PutFileResponse" message="FileService_PutFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFile">
+      <wsdl:input wsaw:Action="urn:FileService/GetFile" message="FileService_GetFile_InputMessage" />
+      <wsdl:output wsaw:Action="urn:FileService/GetFileResponse" message="FileService_GetFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OpenFileForWrite">
+      <wsdl:input wsaw:Action="urn:FileService/OpenFileForWrite" message="FileService_OpenFileForWrite_InputMessage" />
+      <wsdl:output wsaw:Action="urn:FileService/OpenFileForWriteResponse" message="FileService_OpenFileForWrite_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WriteBlock">
+      <wsdl:input wsaw:Action="urn:FileService/WriteBlock" message="FileService_WriteBlock_InputMessage" />
+      <wsdl:output wsaw:Action="urn:FileService/WriteBlockResponse" message="FileService_WriteBlock_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CloseFile">
+      <wsdl:input wsaw:Action="urn:FileService/CloseFile" message="FileService_CloseFile_InputMessage" />
+      <wsdl:output wsaw:Action="urn:FileService/CloseFileResponse" message="FileService_CloseFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OpenFileForRead">
+      <wsdl:input wsaw:Action="urn:FileService/OpenFileForRead" message="FileService_OpenFileForRead_InputMessage" />
+      <wsdl:output wsaw:Action="urn:FileService/OpenFileForReadResponse" message="FileService_OpenFileForRead_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadBlock">
+      <wsdl:input wsaw:Action="urn:FileService/ReadBlock" message="FileService_ReadBlock_InputMessage" />
+      <wsdl:output wsaw:Action="urn:FileService/ReadBlockResponse" message="FileService_ReadBlock_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

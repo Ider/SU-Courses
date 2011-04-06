@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
@@ -27,7 +26,6 @@ namespace Service
         }
 
         [OperationContract]
-
         public double Add(double n1, double n2)
         {
             double result = n1 + n2;
@@ -37,7 +35,6 @@ namespace Service
             return result;
         }
         [OperationContract]
-
         public double Subtract(double n1, double n2)
         {
             double result = n1 - n2;
@@ -46,7 +43,6 @@ namespace Service
             return result;
         }
         [OperationContract]
-
         public double Multiply(double n1, double n2)
         {
             double result = n1 * n2;
@@ -55,7 +51,6 @@ namespace Service
             return result;
         }
         [OperationContract]
-
         public double Divide(double n1, double n2)
         {
             double result = n1 / n2;
@@ -67,17 +62,20 @@ namespace Service
 
         FileStream fs
         {
-            get{ return (FileStream)HttpContext.Current.Session["fileStream"] as FileStream;}
-            set{HttpContext.Current.Session["fileStream"]=value;}
+            get { return (FileStream)HttpContext.Current.Session["fileStream"] as FileStream; }
+            set
+            {
+                if (fs != null) fs.Close();
+                HttpContext.Current.Session["fileStream"] = value;
+            }
         }
 
         [OperationContract]
-        
         public bool PutFile(string name, string contents)
         {
             try
             {
-                string path = virtPath + "\\" + name;
+                string path = virtPath + "\\App_Data\\" + name;
                 fs = File.Open(path, FileMode.Create);
                 System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
                 byte[] bytes = encoding.GetBytes(contents);
@@ -85,7 +83,7 @@ namespace Service
                 fs.Close();
                 return true;
             }
-            catch(Exception ex)
+            catch
             {
                 if (fs != null)
                     fs.Close();
@@ -94,7 +92,12 @@ namespace Service
         }
 
         [OperationContract]
-        
+        public string GetFile()
+        {
+            return "WCF Service for lab #10.";
+        }
+
+        [OperationContract]
         public bool OpenFileForWrite(string name)
         {
             try
@@ -114,7 +117,6 @@ namespace Service
         }
 
         [OperationContract]
-        
         public bool WriteBlock(byte[] block)
         {
             try
@@ -135,12 +137,10 @@ namespace Service
         }
 
         [OperationContract]
-        
         public bool CloseFile()
         {
             try
             {
-                HttpContext context = HttpContext.Current;
                 fs.Close();
                 return true;
             }
@@ -150,6 +150,51 @@ namespace Service
                     fs.Close();
             }
             return false;
+        }
+
+        [OperationContract]
+        public bool OpenFileForRead(string name)
+        {
+            try
+            {
+                string path = virtPath + "\\App_Data\\" + name;
+
+                fs = new FileStream(path, FileMode.Open);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.Write("\n  {0}", ex.Message);
+                if (fs != null)
+                    fs.Close();
+                return false;
+            }
+        }
+
+        [OperationContract]
+        public byte[] ReadBlock()
+        {
+            try
+            {
+                long BlockSize = 512;
+                long remainder = (int)(fs.Length - fs.Position);
+                if (remainder == 0)
+                    return new byte[0];
+                long size = Math.Min(BlockSize, remainder);
+                byte[] block = new byte[size];
+                fs.Read(block, 0, block.Length);
+
+                return block;
+
+            }
+            catch (Exception ex)
+            {
+                if (fs != null)
+                {
+                    fs.Close();
+                }
+                return new byte[0];
+            }
         }
     }
 }
