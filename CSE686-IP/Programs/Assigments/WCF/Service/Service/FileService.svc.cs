@@ -48,7 +48,7 @@ namespace Service
 
         FileStream fs;
 
-        [OperationContract]
+        
         public bool PutFile(string name, string contents)
         {
             try
@@ -71,7 +71,7 @@ namespace Service
             }
         }
 
-        [OperationContract]
+        
         public bool OpenFileForWrite(string name)
         {
             try
@@ -93,7 +93,7 @@ namespace Service
             }
         }
 
-        [OperationContract]
+        
         public bool WriteBlock(byte[] block)
         {
             try
@@ -114,7 +114,7 @@ namespace Service
             }
         }
 
-        [OperationContract]
+        
         public bool CloseFile()
         {
             try
