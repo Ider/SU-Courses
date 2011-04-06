@@ -25,7 +25,7 @@ public:
 	~Graph();
 	Graph<VertexType,EdgeType>& operator=(const Graph<VertexType,EdgeType>& g);
 
-	void AddNode(const VertexType& v);
+	void AddNode(const VertexType& v, bool addFront=false);
 	bool Contains(const VertexType& v);
 	bool AddEdge(const VertexType& from, const VertexType& toV, const EdgeType& toE);
 	int AddEdge(const VertexType& from, std::vector<std::pair<VertexType, EdgeType>>& tos);
@@ -85,12 +85,17 @@ bool Graph<VertexType, EdgeType>::Contains(const VertexType& v)
 //Add node to adjacent list.
 //If node already exists, an exception will be thrown.
 template <typename VertexType, typename EdgeType>
-void Graph<VertexType, EdgeType>::AddNode(const VertexType& v)
+void Graph<VertexType, EdgeType>::AddNode(const VertexType& v,bool addFront)
 {
 	if (Contains(v))
 		throw std::string("The node with such value already exists.");
 	else
-		adjList.push_back(new Vertex<VertexType, EdgeType>(v));
+	{
+		if (addFront)
+			adjList.push_front(new Vertex<VertexType, EdgeType>(v));
+		else
+			adjList.push_back(new Vertex<VertexType, EdgeType>(v));
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -120,8 +125,14 @@ int Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, std::vector<std
 
 		else
 		{
-			++succeed;
-			if (!v.Find(to.second)) v.AddEdge(to.second, node);
+			//any of edges in a vertex should not have the same EdgeType value
+			//but I do not mind that vertex has more than one edges point to
+			//the same other vertex with different EdgeType value.
+			if (!v.Find(to.second))
+			{
+				v.AddEdge(to.second, node);
+				++succeed;
+			}
 		}
 	}
 
