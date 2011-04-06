@@ -35,8 +35,13 @@ public:
 	pair operator[](int index)const {return children[index];}
 
 private:
-	//not allow Vertex assignment
+	//Not allow Vertex copy and assignment,
+	//because how to copy the edges is not decided, 
+	//as the address of Vertex that point to is not clear for the new Vertex
+	Vertex(const Vertex<VertexType, EdgeType>& v);
 	Vertex<VertexType, EdgeType> operator=(const Vertex<VertexType, EdgeType>& v);
+
+	//data members
 	v_value key;
 	size_t mask;
 	size_t lowlink;
@@ -44,20 +49,26 @@ private:
 
 };
 
+//////////////////////////////////////////////////////////////////////////
+//Find the EdgeType value in the edges of the vertex,
+//If found, return the address of the pair, otherwise return NULL.
+//For Find method works successfully, the VertexType must have implemented operator==
 template <typename VertexType, typename EdgeType> //template mark
 typename Vertex<VertexType, EdgeType>::pair* //return type
 	Vertex<VertexType, EdgeType>::Find(const EdgeType& e) //method signature
 {
 	Vertex<VertexType, EdgeType>::vertics::iterator it;
 	for (it = children.begin(); it != children.end(); ++it)
-		if ((*it).first==e)break;
+		if ((*it).first == e)break;
 
 	if (it != children.end())
 		return &(*it);
-	
-	return NULL;
+
+	return 0;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Destructor
 template <typename VertexType, typename EdgeType>
 Vertex<VertexType,EdgeType>::~Vertex()
 {
