@@ -15,18 +15,28 @@ public:
 
 	Vertex(VertexType k):key(k){}
 	~Vertex();
-	size_t Size(){return children.size();}
+
+	//Member accessors
 	v_value& Key(){return key;}
 	size_t& Mask() {return mask;}
 	size_t& Lowlink(){return lowlink;}
+
 	//vertics& Children(){return children;}
 	pair& operator[](int index){return children[index];}
 	void AddEdge(pair edge){children.push_back(edge);}
 	void AddEdge(EdgeType e,Vertex<VertexType, EdgeType>* child){ children.push_back(pair(e,child));}
+	pair* Find(const EdgeType& e);
 
-	pair* Find(EdgeType e);
+	//const methods
+	size_t Size()const{return children.size();}
+	v_value Key()const{return key;}
+	size_t Mask()const {return mask;}
+	size_t Lowlink()const {return lowlink;}
+	pair operator[](int index)const {return children[index];}
 
 private:
+	//not allow Vertex assignment
+	Vertex<VertexType, EdgeType> operator=(const Vertex<VertexType, EdgeType>& v);
 	v_value key;
 	size_t mask;
 	size_t lowlink;
@@ -36,14 +46,16 @@ private:
 
 template <typename VertexType, typename EdgeType> //template mark
 typename Vertex<VertexType, EdgeType>::pair* //return type
-	Vertex<VertexType, EdgeType>::Find(EdgeType e) //method signature
+	Vertex<VertexType, EdgeType>::Find(const EdgeType& e) //method signature
 {
 	Vertex<VertexType, EdgeType>::vertics::iterator it;
 	for (it = children.begin(); it != children.end(); ++it)
 		if ((*it).first==e)break;
 
-	if (it == children.end())return NULL;
-	return &(*it);
+	if (it != children.end())
+		return &(*it);
+	
+	return NULL;
 }
 
 template <typename VertexType, typename EdgeType>
