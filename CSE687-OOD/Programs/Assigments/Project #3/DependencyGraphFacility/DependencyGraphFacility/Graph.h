@@ -119,10 +119,13 @@ int Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, std::vector<std
 	for (size_t i = 0;i < tos.size(); ++i)
 	{
 		std::pair<VertexType, EdgeType>& to = tos[i];
+		//edge to Vertex itself is allowed
+		//otherwise, uncomment following codes
+		//if(from == to.first)continue;
+
 		node = Find(to.first);
 		if (node==0)
 			notExist.push_back(to);
-
 		else
 		{
 			//any of edges in a vertex should not have the same EdgeType value
