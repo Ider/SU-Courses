@@ -17,6 +17,9 @@ private:
 	void StrongAnalyzer();
 	void StrongAnalyzer(Vertex<VertexType, EdgeType>& top);
 
+	void EdgesAnalyzer();
+	void EdgesAnalyzer(Vertex<VertexType, EdgeType>& top);
+
 	std::list<Vertex<VertexType, EdgeType>*> stack;
 	bool Contain(const VertexType& v);
 	Graph<VertexType,EdgeType> original;
@@ -27,7 +30,10 @@ private:
 template <typename VertexType, typename EdgeType> 
 StrongComponents<VertexType,EdgeType>::StrongComponents(Graph<VertexType,EdgeType>& orl)
 	:original(orl),order(0)
-{StrongAnalyzer();}
+{
+	StrongAnalyzer();
+	EdgesAnalyzer();
+}
 
 template <typename VertexType, typename EdgeType> 
 bool StrongComponents<VertexType,EdgeType>::Contain(const VertexType& v)
@@ -43,6 +49,7 @@ template <typename VertexType, typename EdgeType>
 void StrongComponents<VertexType, EdgeType>::StrongAnalyzer()
 {
 	original.ClearMask(true);
+	order = 0;
 
 	typename Graph<VertexType, EdgeType>::container::iterator node;
 	for (node = original.adjList.begin(); node != original.adjList.end(); ++node)
@@ -61,28 +68,30 @@ void StrongComponents<VertexType, EdgeType>::StrongAnalyzer(Vertex<VertexType, E
 	top.Lowlink() = order;
 	stack.push_back(&top);
 
-	for (size_t i=0; i<top.Size();)
+	//Strong analyze all children nodes
+	for (size_t i=0; i<top.Size(); ++i)
 	{
 		Vertex<VertexType, EdgeType>& v =*(top[i].second);
 		if (v.Mask()==0)
 		{
 			StrongAnalyzer(v);
-			top.Lowlink()= min(top.Lowlink(),v.Lowlink());
+			top.Lowlink()= std::min(top.Lowlink(),v.Lowlink());
 		}
 		else if (top.Mask() > v.Mask())
 			if (Contain(v.Key()))
-				top.Lowlink() = min(top.Lowlink(),v.Mask());
+				top.Lowlink() = std::min(top.Lowlink(),v.Mask());
 	}
 
+	//pop up the node in the same strong components
 	if (top.Mask() == top.Lowlink())
 	{
 		size_t num = top.Mask();
-		Condensed.AddNode(num);
+		Condensed.AddNode(num,true);
 
 		Graph<VertexType,EdgeType>::vertex* ver = stack.back();
 		while (top.Mask() <= ver->Mask())
 		{
-			Components[num].push_back(ver->Key());
+			Components[num].push_front(ver->Key());
 			stack.pop_back();
 			if(stack.size()>0)
 				ver = stack.back();
@@ -90,6 +99,47 @@ void StrongComponents<VertexType, EdgeType>::StrongAnalyzer(Vertex<VertexType, E
 				break;
 		} 
 	}
+}
+
+template <typename VertexType, typename EdgeType>
+void StrongComponents<VertexType, EdgeType>::EdgesAnalyzer()
+{
+	original.ClearMask();
+
+	typename Graph<VertexType, EdgeType>::container::iterator node;
+	for (node = original.adjList.begin(); node != original.adjList.end(); ++node)
+	{
+		Vertex<VertexType, EdgeType>& v = *(*node);
+		if (v.Mask()==0)
+			EdgesAnalyzer(v);
+	}
+}
+
+template <typename VertexType, typename EdgeType>
+void StrongComponents<VertexType, EdgeType>::EdgesAnalyzer(Vertex<VertexType, EdgeType>& top)
+{
+	top.Mask() = -1;
+	if (top.Size()<=0)return;
+
+	std::vector<std::pair<int,EdgeType>> edges;
+	for (size_t i=0; i<top.Size(); ++i)
+	{
+		Vertex<VertexType, EdgeType>& v =*(top[i].second);
+		//if top and its child has different Lowlink num,
+		//it mean they are in the different strong components
+		//so connect the vertics in the condensed graph
+		if (top.Lowlink() != v.Lowlink())
+			edges.push_back(std::pair<int,EdgeType>(v.Lowlink(),top[i].first));
+
+		//Travel child node
+		if (v.Mask()==0)
+			EdgesAnalyzer(v);
+	}
+
+	//if edges is not empty, add this edges to condensed graph
+	if (edges.size()>0)
+		Condensed.AddEdge(top.Lowlink(),edges);
+
 }
 
 
