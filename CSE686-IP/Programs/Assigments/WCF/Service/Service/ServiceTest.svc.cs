@@ -7,25 +7,15 @@ using System.Text;
 using System.Web;
 using System.IO;
 using System.ServiceModel.Activation;
+
 using System.Web.Hosting;
 
 namespace Service
 {
     [ServiceContract(Namespace = "")]
-
-    [AspNetCompatibilityRequirements(RequirementsMode
-  = AspNetCompatibilityRequirementsMode.Allowed)]
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "FileService" in code, svc and config file together.
-    public class FileService// : IFileService
+    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
+    public class Service1
     {
-        string virtPath
-        {
-            get
-            {
-                return HttpContext.Current.Server.MapPath(".");
-            }
-        }
-
         [OperationContract]
 
         public double Add(double n1, double n2)
@@ -40,6 +30,7 @@ namespace Service
 
         public double Subtract(double n1, double n2)
         {
+            //HostingEnvironment.()
             double result = n1 - n2;
             Console.WriteLine("Received Subtract({0},{1})", n1, n2);
             Console.WriteLine("Return: {0}", result);
@@ -65,18 +56,16 @@ namespace Service
         }
 
 
-        FileStream fs
-        {
-            get{ return (FileStream)HttpContext.Current.Session["fileStream"] as FileStream;}
-            set{HttpContext.Current.Session["fileStream"]=value;}
-        }
+        FileStream fs;
 
         [OperationContract]
-        
+
         public bool PutFile(string name, string contents)
         {
             try
             {
+              //  HttpContext context = HttpContext.Current;
+                string virtPath = HostingEnvironment.MapPath(".");
                 string path = virtPath + "\\" + name;
                 fs = File.Open(path, FileMode.Create);
                 System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
@@ -85,7 +74,7 @@ namespace Service
                 fs.Close();
                 return true;
             }
-            catch(Exception ex)
+            catch
             {
                 if (fs != null)
                     fs.Close();
@@ -94,14 +83,17 @@ namespace Service
         }
 
         [OperationContract]
-        
+
         public bool OpenFileForWrite(string name)
         {
             try
             {
+                HttpContext context = HttpContext.Current;
+                string virtPath = context.Server.MapPath(".");
                 string path = virtPath + "\\App_Data\\" + name;
 
                 fs = new FileStream(path, FileMode.Create, FileAccess.Write);
+                context.Session["fileStream"] = fs;
                 return true;
             }
             catch (Exception ex)
@@ -112,14 +104,15 @@ namespace Service
                 return false;
             }
         }
-
         [OperationContract]
-        
+
+
         public bool WriteBlock(byte[] block)
         {
             try
             {
                 HttpContext context = HttpContext.Current;
+                fs = (FileStream)context.Session["fileStream"];
                 fs.Write(block, 0, block.Length);
                 fs.Flush();
                 return true;
@@ -135,12 +128,14 @@ namespace Service
         }
 
         [OperationContract]
-        
+
         public bool CloseFile()
         {
             try
             {
+                
                 HttpContext context = HttpContext.Current;
+                fs = (FileStream)context.Session["fileStream"];
                 fs.Close();
                 return true;
             }
