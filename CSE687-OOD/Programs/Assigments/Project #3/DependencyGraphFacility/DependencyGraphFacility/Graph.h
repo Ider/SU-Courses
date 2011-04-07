@@ -47,6 +47,7 @@ public:
 	friend StrongComponents<VertexType,EdgeType>;
 
 private:
+	bool Traversed(Vertex<VertexType, EdgeType>& v){return v.Mask()&1;}
 	template<typename Func> void DFS(Func& func, Vertex<VertexType, EdgeType>& top, bool preorder = true);
 	void ClearMask(bool clearLowlink = false);
 	Vertex<VertexType, EdgeType>* Find(const VertexType& v);
@@ -178,7 +179,7 @@ void Graph<VertexType, EdgeType>::DFS(Func& func, bool preorder)
 	for (node = adjList.begin(); node != adjList.end(); ++node)
 	{
 		Vertex<VertexType, EdgeType>& v = *(*node);
-		if (v.Mask()==0)
+		if (!Traversed(v))
 			DFS(func,v,preorder);
 	}
 
@@ -197,7 +198,7 @@ void Graph<VertexType, EdgeType>::DFS(Func& func, Vertex<VertexType, EdgeType>& 
 	for (size_t i = 0; i<top.Size(); ++i)
 	{
 		Vertex<VertexType, EdgeType>& v =*(top[i].second);
-		if (v.Mask()==0)
+		if (!Traversed(v))
 			DFS(func,v,preorder);
 	}
 
