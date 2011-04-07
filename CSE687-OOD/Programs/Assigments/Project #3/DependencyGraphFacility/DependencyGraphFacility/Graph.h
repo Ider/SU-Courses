@@ -11,6 +11,10 @@
 
 template <typename VertexType, typename EdgeType> class StrongComponents;
 
+/************************************************************************/
+/* class Graph definition                                               */
+/************************************************************************/
+
 template <typename VertexType, typename EdgeType>
 class Graph
 {
@@ -30,12 +34,12 @@ public:
 	bool AddEdge(const VertexType& from, const VertexType& toV, const EdgeType& toE);
 	int AddEdge(const VertexType& from, std::vector<std::pair<VertexType, EdgeType>>& tos);
 
-	template<typename Func> void DFS(Func func, bool preorder = true);
+	template<typename Func> void DFS(Func& func, bool preorder = true);
 
 	friend StrongComponents<VertexType,EdgeType>;
 
 private:
-	template<typename Func> void DFS(Func func, Vertex<VertexType, EdgeType>& top, bool preorder = true);
+	template<typename Func> void DFS(Func& func, Vertex<VertexType, EdgeType>& top, bool preorder = true);
 	void ClearMask(bool clearLowlink = false);
 	Vertex<VertexType, EdgeType>* Find(const VertexType& v);
 	void CopyAdjacentList(const container& old);
@@ -144,7 +148,7 @@ int Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, std::vector<std
 }
 
 //////////////////////////////////////////////////////////////////////////
-//Build connection "from" and "to"
+//Build connection between "from" and "to"
 template <typename VertexType, typename EdgeType>
 bool Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, const VertexType& toV, const EdgeType& toE)
 {
@@ -155,7 +159,7 @@ bool Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, const VertexTy
 
 template <typename VertexType, typename EdgeType>
 template<typename Func> 
-void Graph<VertexType, EdgeType>::DFS(Func func, bool preorder)
+void Graph<VertexType, EdgeType>::DFS(Func& func, bool preorder)
 {
 	ClearMask();
 	typename Graph<VertexType, EdgeType>::container::iterator node;
@@ -168,9 +172,13 @@ void Graph<VertexType, EdgeType>::DFS(Func func, bool preorder)
 
 }
 
+//////////////////////////////////////////////////////////////////////////
+//{Func} could be function pointer or functor, the only requirement for Func 
+//is that its argument should be "const Vertex<VertexType, EdgeType>&"
+//
 template <typename VertexType, typename EdgeType>
-template<typename Func> 
-void Graph<VertexType, EdgeType>::DFS(Func func, Vertex<VertexType, EdgeType>& top, bool preorder)
+template<typename Func>
+void Graph<VertexType, EdgeType>::DFS(Func& func, Vertex<VertexType, EdgeType>& top, bool preorder)
 {
 	top.Mask()=-1;//set to max value of unsigned int
 	if (preorder)func(top);//pre-order traversal
@@ -216,7 +224,6 @@ void Graph<VertexType, EdgeType>::CopyAdjacentList(const container& old)
 
 	Graph<VertexType, EdgeType>::container::const_iterator node;
 	//copy adjacent list
-
 	for (node = old.begin(); node !=old.end(); ++node)
 	{
 		VertexType v = (*node)->Key();
@@ -247,6 +254,12 @@ void Graph<VertexType, EdgeType>::ClearAdjacentList()
 	}
 	adjList.clear();
 }
+
+
+/************************************************************************/
+/* Globe Algorithm                                                      */
+/************************************************************************/
+
 
 
 
