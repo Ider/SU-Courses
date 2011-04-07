@@ -33,7 +33,15 @@ public:
 	bool Contains(const VertexType& v);
 	bool AddEdge(const VertexType& from, const VertexType& toV, const EdgeType& toE);
 	int AddEdge(const VertexType& from, std::vector<std::pair<VertexType, EdgeType>>& tos);
-
+	
+	
+	/*
+	* {Func} could be function pointer or functor, the only requirement for Func is that 
+	*   its argument should be "Vertex<VertexType, EdgeType>&",or "const Vertex<VertexType, EdgeType>&" 
+	* Use reference for {Func} istead of object has two advatages when pass functor to func
+	* 1. reduce the object copy during DFS recursion;
+	* 2. functor could acquire data from graph and keep them in the same object.
+	*/
 	template<typename Func> void DFS(Func& func, bool preorder = true);
 
 	friend StrongComponents<VertexType,EdgeType>;
@@ -42,7 +50,7 @@ private:
 	template<typename Func> void DFS(Func& func, Vertex<VertexType, EdgeType>& top, bool preorder = true);
 	void ClearMask(bool clearLowlink = false);
 	Vertex<VertexType, EdgeType>* Find(const VertexType& v);
-	void CopyAdjacentList(const container& old);
+	void CopyAdjacentList(const container& source);
 	void ClearAdjacentList();
 
 	container adjList;
@@ -103,7 +111,7 @@ void Graph<VertexType, EdgeType>::AddNode(const VertexType& v,bool addFront)
 }
 
 //////////////////////////////////////////////////////////////////////////
-//This method connect "from" node to all nodes in "tos".
+//Connect "from" node to all nodes in "tos" by adding edges.
 //If "from" node does not exist, an exception will be thrown.
 //If the connection built between "from" and "to", or it already exists
 //(it would not be built again), the node in "tos" will be removed.
@@ -157,6 +165,10 @@ bool Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, const VertexTy
 	return AddEdge(from,tos)>0?true:false;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Entry of Depth-First Search for graph.
+//{preorder} indicate whether use pre-order search(call func before search children nodes)
+//or use post-order search(call func after all children nodes are searched)
 template <typename VertexType, typename EdgeType>
 template<typename Func> 
 void Graph<VertexType, EdgeType>::DFS(Func& func, bool preorder)
@@ -173,9 +185,8 @@ void Graph<VertexType, EdgeType>::DFS(Func& func, bool preorder)
 }
 
 //////////////////////////////////////////////////////////////////////////
-//{Func} could be function pointer or functor, the only requirement for Func 
-//is that its argument should be "const Vertex<VertexType, EdgeType>&"
-//
+//Depth-First Search each Vertex node, find all children nodes of the Vertex
+//and recursion call DFS to do search on children nodes.
 template <typename VertexType, typename EdgeType>
 template<typename Func>
 void Graph<VertexType, EdgeType>::DFS(Func& func, Vertex<VertexType, EdgeType>& top, bool preorder)
@@ -193,7 +204,9 @@ void Graph<VertexType, EdgeType>::DFS(Func& func, Vertex<VertexType, EdgeType>& 
 	if (!preorder)func(top);//post-order traversal
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+//Clear Mask value for all Vertex in adjacent list
+//{clearLowlink} indicate whehter clear Lowlin value or not
 template <typename VertexType, typename EdgeType>
 void Graph<VertexType, EdgeType>::ClearMask(bool clearLowlink)
 {
@@ -205,6 +218,8 @@ void Graph<VertexType, EdgeType>::ClearMask(bool clearLowlink)
 	}
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Find vertex that equal to v
 template <typename VertexType, typename EdgeType>
 Vertex<VertexType, EdgeType>* Graph<VertexType, EdgeType>::Find(const VertexType& v)
 {
@@ -215,16 +230,19 @@ Vertex<VertexType, EdgeType>* Graph<VertexType, EdgeType>::Find(const VertexType
 	return 0;
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+//Copy adjacent list from other source.
+//It create new vertex for each vertex in old, and build correct edges information
+//according to source adjacent list.
 template <typename VertexType, typename EdgeType>
-void Graph<VertexType, EdgeType>::CopyAdjacentList(const container& old)
+void Graph<VertexType, EdgeType>::CopyAdjacentList(const typename Graph<VertexType, EdgeType>::container& source)
 {
 	typedef Vertex<VertexType,EdgeType>* vPoint;
 	std::map<vPoint,vPoint> mapper; //map old address to new address
 
 	Graph<VertexType, EdgeType>::container::const_iterator node;
 	//copy adjacent list
-	for (node = old.begin(); node !=old.end(); ++node)
+	for (node = source.begin(); node !=source.end(); ++node)
 	{
 		VertexType v = (*node)->Key();
 		vPoint newAddress= new Vertex<VertexType,EdgeType>(v);
@@ -233,7 +251,7 @@ void Graph<VertexType, EdgeType>::CopyAdjacentList(const container& old)
 	}
 
 	//copy edges
-	for (node = old.begin(); node !=old.end(); ++node)
+	for (node = source.begin(); node !=source.end(); ++node)
 	{
 		Vertex<VertexType, EdgeType>& vOld = *(*node);
 		Vertex<VertexType, EdgeType>& vNew = *(mapper[*node]);
@@ -244,6 +262,8 @@ void Graph<VertexType, EdgeType>::CopyAdjacentList(const container& old)
 	}
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Delete all vertics in adjacent list, then clear the list.
 template <typename VertexType, typename EdgeType>
 void Graph<VertexType, EdgeType>::ClearAdjacentList()
 {
