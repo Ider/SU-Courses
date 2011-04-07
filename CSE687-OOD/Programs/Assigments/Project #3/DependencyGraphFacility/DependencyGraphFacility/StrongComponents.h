@@ -10,9 +10,12 @@ class StrongComponents
 {
 public:
 	StrongComponents(Graph<VertexType,EdgeType>& orl);
+	StrongComponents(const StrongComponents<VertexType,EdgeType>& value);
+	
 	Graph<int,EdgeType> Condensed;
 	std::map<int,std::list<VertexType>> Components;
 
+	void Rebuild();
 private:
 	void StrongAnalyzer();
 	void StrongAnalyzer(Vertex<VertexType, EdgeType>& top);
@@ -20,17 +23,47 @@ private:
 	void EdgesAnalyzer();
 	void EdgesAnalyzer(Vertex<VertexType, EdgeType>& top);
 
-	std::list<Vertex<VertexType, EdgeType>*> stack;
 	bool Contain(const VertexType& v);
-	Graph<VertexType,EdgeType> original;
+
+	std::list<Vertex<VertexType, EdgeType>*> stack;
+	Graph<VertexType,EdgeType>& original;
 	int order;
+
+	//Hide assignment, as original graph is not allowed to modify inside
+	StrongComponents<VertexType,EdgeType>& 
+		operator=(const StrongComponents<VertexType,EdgeType>& value);
 };
 
-
+//////////////////////////////////////////////////////////////////////////
+//Constructor, set the original graph for analyze the strong components
 template <typename VertexType, typename EdgeType> 
 StrongComponents<VertexType,EdgeType>::StrongComponents(Graph<VertexType,EdgeType>& orl)
 	:original(orl),order(0)
 {
+	StrongAnalyzer();
+	EdgesAnalyzer();
+}
+
+//////////////////////////////////////////////////////////////////////////
+//Copy constructor
+template <typename VertexType, typename EdgeType> 
+StrongComponents<VertexType,EdgeType>::StrongComponents(const StrongComponents<VertexType,EdgeType>& value)
+	:original(value.original),order(value.order)
+	,Condensed(value.Condensed),Components(value.Components)
+{}
+
+//////////////////////////////////////////////////////////////////////////
+//Reanalyze the graph that assigned to the StrongComponents object in construct time,
+//build new strong components information.
+template <typename VertexType, typename EdgeType> 
+void StrongComponents<VertexType,EdgeType>::Rebuild()
+{
+	//clear all data
+	Condensed = Graph<int,EdgeType>();
+	Components.clear();
+	stack.clear();
+	order=0;
+
 	StrongAnalyzer();
 	EdgesAnalyzer();
 }
