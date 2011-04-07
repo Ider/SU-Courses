@@ -41,6 +41,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>TEST_CPP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -62,12 +63,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GraphAlgorithm.h" />
+    <ClInclude Include="MetaNavigator.h" />
+    <ClInclude Include="Printers.h" />
     <ClInclude Include="StrongComponents.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="xmlTran.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graph.h" />
+    <ClCompile Include="MetaNavigator.cpp" />
+    <ClCompile Include="Printers.cpp" />
     <ClCompile Include="TEST.cpp" />
+    <ClCompile Include="xmlTran.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

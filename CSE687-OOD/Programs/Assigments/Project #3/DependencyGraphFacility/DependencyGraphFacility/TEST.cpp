@@ -1,19 +1,22 @@
 #include <iostream>
 #include <utility>
 #include <string>
-using namespace std;
 #include <list>
+
+using namespace std;
 
 #include "Graph.h"
 #include "GraphAlgorithm.h"
+#include "Printers.h"
 
+#ifdef TEST_CPP
 void printInt(const Vertex<string,int>& v)
 {
 	cout<<v.Key()<<"\t edges:";
-		for (size_t i=0 ; i<v.Size();++i)
-		{
-			cout<<v[i].first<<',';
-		}
+	for (size_t i=0 ; i<v.Size();++i)
+	{
+		cout<<v[i].first<<',';
+	}
 	cout <<endl;
 }
 
@@ -26,7 +29,7 @@ bool VertexPredicate(const Vertex<string,int>& v)
 			return true;
 		}
 	}
-	
+
 	return false;
 }
 
@@ -65,23 +68,6 @@ void printInt2(const Vertex<int,int>& v){
 }
 
 void  main () {
-	// 	std::pair <std::string,double> product1 ("tomatoes",3.25);
-	// 	std::pair <std::string,double*> product2;
-	// 	std::pair <std::string,double> product3;
-	// 
-	// 	double d = 0.99;
-	// 	product2.first = "lightbulbs";     // type of first is std::string
-	// 	product2.second = &d;            // type of second is double
-	// 
-	// 	//double* s = (double*)();
-	// 
-	// 	product3 = std::make_pair ("shoes",20.0);
-	// 
-	// 	std::cout << "The price of " << product1.first << " is $" << product1.second << "\n";
-	// 	std::cout << "The price of " << product2.first << " is $" << product2.second << "\n";
-	// 	std::cout << "The price of " << product3.first << " is $" << product3.second << "\n";
-	// 	return 0;
-
 
 	Graph<string,int> text ;
 	try
@@ -101,7 +87,7 @@ void  main () {
 		// 	text.AddEdge("333","444",4);
 		Graph<string,int> test = text;
 		test = text;
-
+		//test.DFS()
 		// 	vector<pair<string,int>> es;
 		// 	pair<string,int> e;
 		// 
@@ -123,29 +109,30 @@ void  main () {
 		test.AddEdge("444","222",42);
 		test.AddEdge("444","555",45);
 
-
 		test.DFS(Printer());
 		StrongComponents<string,int> sc(test);
 		cout<<"_____________________________________\n";
 		sc.Condensed.DFS(printInt2);
 		cout<<"_____________________________________\n";
 
+		test.AddNode(string("666"));
 
 		test.AddEdge("333","555",35);
 		sc.Rebuild();
 		sc.Condensed.DFS(printInt2);
-std::list<Vertex<string,int>*>
-		x =FindVertics<string,int>(test,VertexPredicate);
+		std::list<Vertex<string,int>*>
+			x =FindVertics<string,int>(test,VertexPredicate);
 
-cout<<endl<<endl<<x.size()<<endl<<endl;
+		cout<<endl<<endl<<x.size()<<endl<<endl;
 
 
-typedef bool (*PRE)(const int);
-	EdgeFinder<string,int,PRE>::result_type r =	FindEdges<string,int>(test,EdgePredicate);
-	
-	cout<<endl<<endl<<r.size()<<endl<<endl;
-	
-	//list<int> ll;
+		typedef bool (*PRE)(const int);
+		EdgeFinder<string,int,PRE>::result_type 
+			r =	FindEdges<string,int,PRE>(test,EdgePredicate);
+
+		cout<<endl<<endl<<r.size()<<endl<<endl;
+
+		//list<int> ll;
 
 		//ll.push_back(1);
 		//bool h = test==test;
@@ -165,3 +152,5 @@ typedef bool (*PRE)(const int);
 		std::cout<<x;
 	}
 }
+
+#endif
