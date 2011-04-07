@@ -32,7 +32,7 @@ public:
 	v_value Key()const{return key;}
 	size_t Mask()const {return mask;}
 	size_t Lowlink()const {return lowlink;}
-	pair operator[](int index)const {return children[index];}
+	const pair& operator[](int index)const {return children[index];}
 
 private:
 	//Not allow Vertex copy and assignment,
