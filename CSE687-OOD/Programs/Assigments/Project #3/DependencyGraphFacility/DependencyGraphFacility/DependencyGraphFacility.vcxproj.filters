@@ -21,6 +21,9 @@
     <ClInclude Include="StrongComponents.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GraphAlgorithm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TEST.cpp">
