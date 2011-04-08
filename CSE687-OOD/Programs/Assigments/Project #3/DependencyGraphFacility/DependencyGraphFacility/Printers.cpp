@@ -4,6 +4,7 @@
 
 #include "Printers.h"
 using namespace std;
+using namespace IderPrinter;
 
 void MetaPrinter::operator()(const Vertex<std::string,std::string>& v)
 {

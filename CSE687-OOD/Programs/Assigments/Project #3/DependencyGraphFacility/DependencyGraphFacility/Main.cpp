@@ -2,6 +2,9 @@
 #include "MetaNavigator.h"
 #include "FileSystem.h"
 #include "Printers.h"
+
+#include "Display.h"
+using namespace IderPrinter2;
 using namespace std;
 
 void BuildMetadataGraph(Graph<string,string>& graph,string filePath)
@@ -31,6 +34,8 @@ void main()
 
 	graph.DFS(MetaPrinter());
 	graph.DFS(NestedPrinter());
+
+	graph.DFS(ReachableVertexPrinter());
 
 	
 }
