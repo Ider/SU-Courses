@@ -31,37 +31,28 @@
  * MetaXML/MetaManager.xml
  */
 
+#include <vector>
 #include <string>
 #include <fstream>
-#include <queue>
-#include <set>
-
+#include "Graph.h"
 #include "xmlTran.h"
-
-class IMetaNavigator
+class MetaNavigator
 {
 public:
-	virtual void BeginNavigation(const std::string& fileName,const std::string folderPath)=0;
-	~IMetaNavigator(){}
-};
-
-class MetaNavigator: public IMetaNavigator
-{
-public:
-	virtual void BeginNavigation
-		(const std::string& fileName, const std::string folderPath = "");
-private:
-	void BeginNavigation();
-	void ExtractFileContent
-		(std::string& containerconst, const std::string& name);
-	void RetrivePackageInfo(xmlRep& xml);
-	void Dependencies(xmlRep& xml);
+	MetaNavigator(Graph<std::string,std::string>& g):graph(g){}
+	void BeginNavigation(const std::string& filePath);
 	std::string GetKeyName(std::string filePath);
+
+private:
+	void ExtractFileContent
+		(std::string& containe, const std::string& filePath);
+	void Dependencies(xmlRep& xml,std::list<std::string>& deps);
+	void GenerateEdges(std::string filePath,std::list<std::string>& deps);
 	void Trim(std::string& value);
-	std::string xmlFolder;
+
+	Graph<std::string,std::string>& graph;
 	std::ifstream inf;
-	std::set<std::string> navigatedFiles; //the files that has already been navigated
-	std::queue<std::string> navigatingList;//the files that to be navigated.
 };
+
 
 #endif

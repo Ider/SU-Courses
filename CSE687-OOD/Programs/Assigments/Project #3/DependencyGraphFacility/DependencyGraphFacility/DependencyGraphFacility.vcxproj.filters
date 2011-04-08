@@ -33,6 +33,9 @@
     <ClInclude Include="xmlTran.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FileSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TEST.cpp">
@@ -48,6 +51,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="xmlTran.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -41,7 +41,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>TEST_CPP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>MAIN_STUB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -62,6 +62,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FileSystem.h" />
     <ClInclude Include="GraphAlgorithm.h" />
     <ClInclude Include="MetaNavigator.h" />
     <ClInclude Include="Printers.h" />
@@ -70,7 +71,9 @@
     <ClInclude Include="xmlTran.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="Graph.h" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="MetaNavigator.cpp" />
     <ClCompile Include="Printers.cpp" />
     <ClCompile Include="TEST.cpp" />

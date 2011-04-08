@@ -9,60 +9,37 @@
 /////////////////////////////////////////////////////////////////////////
 
 
-#include <iostream>
 #include "MetaNavigator.h"
+#include "Vertex.h"
+#include <list>
+
 
 //////////////////////////////////////////////////////////////////////////
 //Navigate the xml file named fileName under folderPath
-void MetaNavigator::BeginNavigation(const std::string& fileName, const std::string folderPath)
+void MetaNavigator::BeginNavigation(const std::string& filePath)
 {
-	char last = folderPath.length()>0?
-		folderPath[folderPath.length()-1]:'\\';
-	if(  last == '\\' || last == '/')
-		xmlFolder = folderPath;
-	else
-		xmlFolder = folderPath + '\\';
+	//Get package xml data
+	xmlRep xml;
+	ExtractFileContent(xml.xmlStr(),filePath);
+	if (xml.xmlStr().size()<=0)return;
 
-	navigatingList.push(GetKeyName(fileName));
+	std::list<std::string> deps;
+	Dependencies(xml,deps);
 
-	BeginNavigation();
-}
-
-//////////////////////////////////////////////////////////////////////////
-//Navigate every files in queue until queue is empty
-void MetaNavigator::BeginNavigation()
-{
-	while(navigatingList.size()>0)
-	{
-		std::string name = navigatingList.front();
-		navigatingList.pop();
-		//if the file have been navigated, search next file
-		if (navigatedFiles.find(name)!=navigatedFiles.end())
-			continue;
-
-		//Get package xml data
-		xmlRep xml;
-		ExtractFileContent(xml.xmlStr(),name);
-		if (xml.xmlStr().size()<=0)continue;
-
-		//Print package information
-		RetrivePackageInfo(xml);
-		//add file name to navigated list to prevent navigate twice
-		navigatedFiles.insert(name);
-	}
+	GenerateEdges(filePath,deps);
 }
 
 //////////////////////////////////////////////////////////////////////////
 //Extract xml file content to container
 void MetaNavigator::ExtractFileContent
-	(std::string& container, const std::string& name)
+	(std::string& container, const std::string& filePath)
 {
-	container = std::string("");
+	container.clear();
 
-	inf.open(xmlFolder+name+".xml");
+	inf.open(filePath);
 	if (!inf.good())
 	{
-		std::cout<<"Can't open File "<<name<<".xml"<<std::endl;
+		std::cout<<"Can't open File "<<filePath<<".xml"<<std::endl;
 		inf.close();
 		return;
 	}
@@ -78,32 +55,9 @@ void MetaNavigator::ExtractFileContent
 }
 
 //////////////////////////////////////////////////////////////////////////
-//Retrieve package information and print it
-void MetaNavigator::RetrivePackageInfo(xmlRep& xml)
-{
-	std::cout<<std::endl<<std::string(50,'-')<<std::endl;
-	xmlElem pack;
-	std::string tagName = "package";
-	xml.find(tagName,pack);
-	std::cout<<"Package "<<pack.attribExpression()<<std::endl;
-	tagName = "head";
-	xml.find(tagName,pack);
-	std::cout<<"Head file: \n"<<pack.body()<<std::endl;
-	tagName = "implement";
-	xml.find(tagName,pack);
-	std::cout<<"Implement file: \n"<<pack.body()<<std::endl;
-
-	Dependencies(xml);
-}
-
-//////////////////////////////////////////////////////////////////////////
 //Retrieve the dependencies from xml file and print it
-void MetaNavigator::Dependencies(xmlRep& xml)
+void MetaNavigator::Dependencies(xmlRep& xml,std::list<std::string>& deps)
 {
-	std::cout<<"Package dependencies:"<<std::endl;
-	std::string tag= "<reference>";
-	std::string closeTag= "</reference>";
-
 	xmlElem elem;
 	std::string tagName = "references";
 	xml.find(tagName,elem);
@@ -111,19 +65,37 @@ void MetaNavigator::Dependencies(xmlRep& xml)
 
 	xmlRep refs(elem.elemStr());
 
+	//skip <references> tag
 	refs.firstElem(elem);
 
 	while(refs.nextElem(elem))
 	{
 		std::string refer = elem.body();
 		Trim(refer);
-		std::cout<<"\t"<<refer<<std::endl;
-
-		//add refer to queue for recursive navigate
 		refer = GetKeyName(refer);
-		if (navigatedFiles.find(refer)==navigatedFiles.end())
-			navigatingList.push(refer);
+		deps.push_back(refer);
 	}
+}
+
+
+void MetaNavigator::GenerateEdges(std::string filePath,std::list<std::string>& deps)
+{
+	if (deps.size()<=0)return;
+
+	typedef std::vector<std::pair<std::string, std::string>> Vector;
+	typedef std::pair<std::string, std::string> Pair;
+
+	std::string name = GetKeyName(filePath);
+	size_t pos = filePath.find_last_of('\\');
+	if (pos < filePath.size()-1)
+		filePath.erase(pos+1,filePath.size());
+
+	Vector edges;
+	std::list<std::string>::iterator it; 
+	for( it= deps.begin();it!=deps.end(); ++it)
+		edges.push_back(Pair((*it),filePath+(*it)));
+
+	graph.AddEdge(name,edges);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -140,6 +112,7 @@ std::string MetaNavigator::GetKeyName(std::string filePath)
 		filePath.erase(pos,filePath.size());
 	return filePath;
 }
+
 
 //////////////////////////////////////////////////////////////////////////
 //Removes all occurrences of white space characters from the beginning and 
