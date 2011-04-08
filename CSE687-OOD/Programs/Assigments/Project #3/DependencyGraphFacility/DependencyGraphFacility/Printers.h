@@ -6,7 +6,7 @@
 //class StrongComponentPrinter
 
 
-namespace IderPrinter
+namespace IderPrinter1
 {
 
 	void printInt(const Vertex<std::string,std::string>& v);

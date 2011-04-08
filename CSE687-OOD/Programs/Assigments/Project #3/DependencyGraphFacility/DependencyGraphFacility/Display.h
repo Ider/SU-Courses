@@ -4,7 +4,7 @@
 #include <string>
 #include "Graph.h"
 //class StrongComponentPrinter
-namespace IderPrinter2
+namespace IderPrinter
 {
 	typedef	Vertex<std::string,std::string>& v_ref;
 
@@ -25,22 +25,6 @@ namespace IderPrinter2
 		size_t GetLevel(v_ref v);
 		void SetChildrenLevel(v_ref v);
 
-	};
-
-	class ReachableVertexPrinter
-	{
-	public:
-		void operator()(v_ref v);
-	private:
- 		void Print(v_ref v);
- 		bool Traversed(v_ref v);
-		void SetTraversed(v_ref v);
-		//void SetChildrenLevel();
-		size_t GetLevel(v_ref v);
- 		int curLevel;
-
-		Graph<std::string,std::string> graph;
-		NestedPrinter nested;
 	};
 }
 #endif

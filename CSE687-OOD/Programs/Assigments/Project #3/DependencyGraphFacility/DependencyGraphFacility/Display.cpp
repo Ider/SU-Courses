@@ -5,7 +5,7 @@
 #include <iomanip>
 #include <iostream>
 using namespace std;
-using namespace IderPrinter2;
+using namespace IderPrinter;
 
 void MetaPrinter::operator()(const v_ref v)
 {
@@ -73,51 +73,4 @@ void NestedPrinter::SetChildrenLevel(v_ref v)
 	for (size_t i=0 ; i<v.Size();++i)
 		v[i].second->Mask() |= level;
 }
-
-void ReachableVertexPrinter::operator()(v_ref v)
-{
-	v.Mask() &= 0x11;
-	Print(v);
-}
-
-void ReachableVertexPrinter::Print(v_ref v)
-{
-	size_t mask = v.Mask();
-	SetTraversed(v);
-
-	int level = GetLevel(v);
-	string tab(level,'\t');
-	cout<<tab<<"{Vertex} "<<v.Key()<<endl;
-
-	level = (level + 1)<<8;
-	for (size_t i=0; i<v.Size(); ++i)
-	{
-		if (Traversed(*(v[i].second)))continue;
-		v[i].second->Mask() |= level;
-		Print(v)
-	}
-
-	v.Mask() = mask;
-}
-
-
-bool ReachableVertexPrinter::Traversed(v_ref v)
-{
-	return	(v.Mask() & (1<<4)) > 0;
-}
-void ReachableVertexPrinter::SetTraversed(v_ref v)
-{
-	v.Mask() |= (1<<4);
-}
-
-// void ReachableVertexPrinter::SetChildrenLevel()
-// {
-// 	int level = (GetLevel(v) + 1)<<8;
-// 	for (size_t i=0 ; i<v.Size();++i)
-// 		v[i].second->Mask() |= level;
-// }
-
-size_t ReachableVertexPrinter::GetLevel(v_ref v)
-{	return v.Mask()>>8;		}
-
 

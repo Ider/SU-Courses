@@ -33,8 +33,8 @@ public:
 	bool Contains(const VertexType& v);
 	bool AddEdge(const VertexType& from, const VertexType& toV, const EdgeType& toE);
 	int AddEdge(const VertexType& from, std::vector<std::pair<VertexType, EdgeType>>& tos);
-	
-	
+
+
 	/*
 	* {Func} could be function pointer or functor, the only requirement for Func is that 
 	*   its argument should be "Vertex<VertexType, EdgeType>&",or "const Vertex<VertexType, EdgeType>&" 
@@ -42,7 +42,7 @@ public:
 	* 1. reduce the object copy during DFS recursion;
 	* 2. functor could acquire data from graph and keep them in the same object.
 	*/
-	template<typename Func> void DFS(Func& func, bool preorder = true);
+	template<typename Func> void DFS(Func& func, bool preorder = true, bool traverseEach = false);
 
 	friend StrongComponents<VertexType,EdgeType>;
 
@@ -170,9 +170,11 @@ bool Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, const VertexTy
 //Entry of Depth-First Search for graph.
 //{preorder} indicate whether use pre-order search(call func before search children nodes)
 //or use post-order search(call func after all children nodes are searched)
+//{traverseEach} if it is set to true, DFS will clear all vertics mask before DFS next vertex
+//so that all vertics will call DFS more than once
 template <typename VertexType, typename EdgeType>
 template<typename Func> 
-void Graph<VertexType, EdgeType>::DFS(Func& func, bool preorder)
+void Graph<VertexType, EdgeType>::DFS(Func& func, bool preorder, bool traverseEach)
 {
 	ClearMask();
 	typename Graph<VertexType, EdgeType>::container::iterator node;
@@ -181,6 +183,7 @@ void Graph<VertexType, EdgeType>::DFS(Func& func, bool preorder)
 		Vertex<VertexType, EdgeType>& v = *(*node);
 		if (!Traversed(v))
 			DFS(func,v,preorder);
+		if (traverseEach) ClearMask();
 	}
 
 }
