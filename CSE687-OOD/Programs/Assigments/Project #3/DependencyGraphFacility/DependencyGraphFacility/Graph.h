@@ -9,6 +9,7 @@
 #include "Vertex.h"
 #include "StrongComponents.h"
 
+
 template <typename VertexType, typename EdgeType> class StrongComponents;
 
 /************************************************************************/
@@ -19,6 +20,12 @@ template <typename VertexType, typename EdgeType>
 class Graph
 {
 public:
+	enum DFSOrder
+	{
+		PreOrder,
+		PostOrder,
+		Both
+	};
 	typedef VertexType v_value;
 	typedef EdgeType e_value;
 	typedef Vertex<v_value, e_value> vertex;
@@ -42,13 +49,13 @@ public:
 	* 1. reduce the object copy during DFS recursion;
 	* 2. functor could acquire data from graph and keep them in the same object.
 	*/
-	template<typename Func> void DFS(Func& func, bool preorder = true, bool traverseEach = false);
+	template<typename Func> void DFS(Func& func, DFSOrder order = PreOrder, bool traverseEach = false);
 
 	friend StrongComponents<VertexType,EdgeType>;
 
 private:
 	bool Traversed(Vertex<VertexType, EdgeType>& v){return v.Mask()&1;}
-	template<typename Func> void DFS(Func& func, Vertex<VertexType, EdgeType>& top, bool preorder = true);
+	template<typename Func> void DFS(Func& func, Vertex<VertexType, EdgeType>& top, DFSOrder order = PreOrder);
 	void ClearMask(bool clearLowlink = false);
 	Vertex<VertexType, EdgeType>* Find(const VertexType& v);
 	void CopyAdjacentList(const container& source);
@@ -174,7 +181,7 @@ bool Graph<VertexType, EdgeType>::AddEdge(const VertexType& from, const VertexTy
 //so that all vertics will call DFS more than once
 template <typename VertexType, typename EdgeType>
 template<typename Func> 
-void Graph<VertexType, EdgeType>::DFS(Func& func, bool preorder, bool traverseEach)
+void Graph<VertexType, EdgeType>::DFS(Func& func, DFSOrder order, bool traverseEach)
 {
 	ClearMask();
 	typename Graph<VertexType, EdgeType>::container::iterator node;
@@ -182,7 +189,7 @@ void Graph<VertexType, EdgeType>::DFS(Func& func, bool preorder, bool traverseEa
 	{
 		Vertex<VertexType, EdgeType>& v = *(*node);
 		if (!Traversed(v))
-			DFS(func,v,preorder);
+			DFS(func,v,order);
 		if (traverseEach) ClearMask();
 	}
 
@@ -193,19 +200,19 @@ void Graph<VertexType, EdgeType>::DFS(Func& func, bool preorder, bool traverseEa
 //and recursion call DFS to do search on children nodes.
 template <typename VertexType, typename EdgeType>
 template<typename Func>
-void Graph<VertexType, EdgeType>::DFS(Func& func, Vertex<VertexType, EdgeType>& top, bool preorder)
+void Graph<VertexType, EdgeType>::DFS(Func& func, Vertex<VertexType, EdgeType>& top, DFSOrder order)
 {
 	top.Mask() |= 1;//mark Vertex as traversed
-	if (preorder)func(top);//pre-order traversal
+	if (order == PreOrder || order == Both)func(top);//pre-order traversal
 
 	for (size_t i = 0; i<top.Size(); ++i)
 	{
 		Vertex<VertexType, EdgeType>& v =*(top[i].second);
 		if (!Traversed(v))
-			DFS(func,v,preorder);
+			DFS(func,v,order);
 	}
 
-	if (!preorder)func(top);//post-order traversal
+	if (order == PostOrder || order == Both)func(top);//post-order traversal
 }
 
 //////////////////////////////////////////////////////////////////////////
