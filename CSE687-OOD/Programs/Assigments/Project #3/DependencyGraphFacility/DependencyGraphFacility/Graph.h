@@ -192,7 +192,7 @@ template <typename VertexType, typename EdgeType>
 template<typename Func>
 void Graph<VertexType, EdgeType>::DFS(Func& func, Vertex<VertexType, EdgeType>& top, bool preorder)
 {
-	top.Mask()=-1;//set to max value of unsigned int
+	top.Mask() |= 1;//mark Vertex as traversed
 	if (preorder)func(top);//pre-order traversal
 
 	for (size_t i = 0; i<top.Size(); ++i)
