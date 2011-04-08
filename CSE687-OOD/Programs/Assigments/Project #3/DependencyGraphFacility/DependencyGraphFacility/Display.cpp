@@ -53,7 +53,7 @@ void MetaPrinter::PrintTableTitle()
 }
 
 
-void NestedPrinter::operator()(v_ref v)
+void MetaNestedPrinter::operator()(v_ref v)
 {
 	int level = GetLevel(v);
 	//if (level == 0) cout<<endl;
@@ -64,10 +64,10 @@ void NestedPrinter::operator()(v_ref v)
 	SetChildrenLevel(v);
 }
 
-size_t NestedPrinter::GetLevel(v_ref v)
+size_t MetaNestedPrinter::GetLevel(v_ref v)
 {	return v.Mask()>>8;		}
 
-void NestedPrinter::SetChildrenLevel(v_ref v)
+void MetaNestedPrinter::SetChildrenLevel(v_ref v)
 {
 	int level = (GetLevel(v) + 1)<<8;
 	for (size_t i=0 ; i<v.Size();++i)

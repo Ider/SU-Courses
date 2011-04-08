@@ -17,7 +17,8 @@ namespace IderPrinter
 		void PrintTableTitle();
 	};
 
-	class NestedPrinter
+
+	class MetaNestedPrinter
 	{
 	public:
 		void operator()(v_ref v);
@@ -26,5 +27,34 @@ namespace IderPrinter
 		void SetChildrenLevel(v_ref v);
 
 	};
+
+	template<typename VertexType,typename EdgeType>
+	class NestedPrinter
+	{
+	public:
+		void operator()(Vertex<VertexType,EdgeType>& v)
+		{
+			int level = GetLevel(v);
+			//if (level == 0) cout<<endl;
+
+			string tab(level,'\t');
+			cout<<tab<<"{Vertex} "<<v.Key()<<endl;
+
+			SetChildrenLevel(v);
+		}
+	private:
+		size_t GetLevel(Vertex<VertexType,EdgeType>& v)
+		{
+			return v.Mask()>>8;	
+		}
+		void SetChildrenLevel(Vertex<VertexType,EdgeType>& v)
+		{
+			int level = (GetLevel(v) + 1)<<8;
+			for (size_t i=0 ; i<v.Size();++i)
+				v[i].second->Mask() |= level;
+		}
+	};
 }
+
+
 #endif
