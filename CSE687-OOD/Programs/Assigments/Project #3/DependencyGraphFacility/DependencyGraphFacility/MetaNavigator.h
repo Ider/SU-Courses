@@ -12,23 +12,21 @@
 /*
  * Module Operations:
  * ==================
- * This module provides a interface, IMetaNavigator, and a class, MetaNavigator,
- * that implement this interface.
- * IMetaNavigator supports only one method BeginNavigation to start navigation
- * on xml file cluster.
+ * This module provides a class, MetaNavigator used to extract content
+ * from metadata xml files, and analyze dependencies to generate edges
+ * and add them to graph.
  *
- * MetaNavigator is a example the implement navigation functionality. It also
- * been use for OOD project #2
+ * Use path to the dependency as the EdgeType value.
  *
  * Public Interface:
  * =================
- * IMetaNavigator*  nav = new MetaNavigator();
- * nav->BeginNavigation("MetaManager","MetaXML");
+ * MetaNavigator nav = MetaNavigator(graph);
+ * for (size_t i=0; i<files.size(); ++i) nav.BeginNavigation(files[i]);
  *
  * Required Files:
  * ===============
  * MetaNavigator.h, MetaNavigator.cpp, xmlTran.h, xmlTran.cpp
- * MetaXML/MetaManager.xml
+ * Graph.h
  */
 
 #include <vector>
