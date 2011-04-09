@@ -48,7 +48,7 @@ void MetaPrinter::FormatLongString(const std::string& str)
 		cout<<tab
 			<<string(str.begin()+pos,str.begin()+pEnd)
 			<<endl;
-		pos = pEnd+1;
+		pos = pEnd;
 		pEnd = pos+len<str.size()?(pos+len):str.size();
 	}
 	cout<<left;
