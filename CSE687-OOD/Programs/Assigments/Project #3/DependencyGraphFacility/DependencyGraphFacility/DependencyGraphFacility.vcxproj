@@ -63,16 +63,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Executive.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="GraphAlgorithm.h" />
     <ClInclude Include="MetaNavigator.h" />
     <ClInclude Include="Printers.h" />
     <ClInclude Include="StrongComponents.h" />
+    <ClInclude Include="TEST.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="xmlTran.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Display.cpp" />
+    <ClCompile Include="Executive.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="Graph.h" />
     <ClCompile Include="Main.cpp" />
