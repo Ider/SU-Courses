@@ -52,9 +52,11 @@ private:
 	//Retrieve the dependencies from xml file and print it
 	void Dependencies(xmlRep& xml,std::list<std::string>& deps);
 	//Generate Edges base on the dependencies and and them to Graph
-	void GenerateEdges(std::string filePath,std::list<std::string>& deps);
+	void GenerateEdges(xmlRep& xml,std::string filePath,std::list<std::string>& deps);
 	//Removes all occurrences of white space characters from the beginning and end of string. 
 	void Trim(std::string& value);
+	//Get Path of Meta file
+	std::string GetPath(xmlRep& xml);
 
 	Graph<std::string,std::string>& graph;
 	std::ifstream inf;
