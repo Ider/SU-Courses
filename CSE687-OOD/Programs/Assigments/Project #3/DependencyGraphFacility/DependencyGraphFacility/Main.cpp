@@ -51,7 +51,7 @@ void main(int argc, char* argv[])
 		// test strong component
 		exe.StrongComponentsTest(g);
 		// test globe algorithm
-		exe.AlgorithmTest(g,5);
+		exe.AlgorithmTest(g,7);
 
 		if(argc < 2)
 		{
