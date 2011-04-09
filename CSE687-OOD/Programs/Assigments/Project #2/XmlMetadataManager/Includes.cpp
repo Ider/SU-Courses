@@ -82,10 +82,10 @@ std::string Includes::GetPackageName()
 	if (slash == std::string::npos)
 		slash = curName.find('/');
 	if (slash == std::string::npos)
-		return curName.substr(0,dot-1);;
+		return curName.substr(0,dot);;
 	
 
-	return curName.substr(slash+1,dot-1);
+	return curName.substr(slash+1,dot);
 }
 
 //////////////////////////////////////////////////////////////////////////
