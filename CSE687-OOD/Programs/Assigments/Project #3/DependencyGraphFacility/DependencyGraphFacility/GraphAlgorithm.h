@@ -24,7 +24,7 @@ public:
 	void Clear(){result.clear();}
 	result_type& Result(){return result;}
 private:
-	const Predicate& pred;
+	Predicate& pred;
 	result_type result;
 };
 
@@ -65,7 +65,7 @@ void EdgeFinder<VertexType,EdgeType,Predicate>::operator()(Vertex<VertexType,Edg
 	for (size_t i=0; i<v.Size(); ++i)
 	{
 		Vertex<VertexType,EdgeType>::pair& edge = v[i];
-		if (pred(edge.first))result.push_back(&edge);
+		if (pred(edge))result.push_back(&edge);
 	}
 }
 
