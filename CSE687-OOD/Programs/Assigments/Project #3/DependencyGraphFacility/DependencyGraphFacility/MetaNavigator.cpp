@@ -26,7 +26,7 @@ void MetaNavigator::BeginNavigation(const std::string& filePath)
 	std::list<std::string> deps;
 	Dependencies(xml,deps);
 
-	GenerateEdges(filePath,deps);
+	GenerateEdges(xml,filePath,deps);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -79,7 +79,7 @@ void MetaNavigator::Dependencies(xmlRep& xml,std::list<std::string>& deps)
 
 //////////////////////////////////////////////////////////////////////////
 //Generate Edges base on the dependencies and and them to Graph
-void MetaNavigator::GenerateEdges(std::string filePath,std::list<std::string>& deps)
+void MetaNavigator::GenerateEdges(xmlRep& xml, std::string filePath,std::list<std::string>& deps)
 {
 	if (deps.size()<=0)return;
 
@@ -87,10 +87,8 @@ void MetaNavigator::GenerateEdges(std::string filePath,std::list<std::string>& d
 	typedef std::pair<std::string, std::string> Pair;
 
 	std::string name = GetKeyName(filePath);
-	size_t pos = filePath.find_last_of('\\');
-	if (pos < filePath.size()-1)
-		filePath.erase(pos+1,filePath.size());
-
+	
+	filePath = GetPath(xml);
 	Vector edges;
 	std::list<std::string>::iterator it; 
 	for( it= deps.begin();it!=deps.end(); ++it)
@@ -135,6 +133,25 @@ void MetaNavigator::Trim(std::string& value)
 	value.erase(0,top);
 
 }
+
+std::string MetaNavigator::GetPath(xmlRep& xml)
+{
+	xmlElem pack;
+	std::string tagName = "head";
+	if(!xml.find(tagName,pack))
+	{
+		tagName = "implement";
+		xml.find(tagName,pack);
+	}
+	std::string path =	pack.body();
+	size_t pos = path.find_last_of('\\');
+	if (pos < path.size()-1)
+		path.erase(pos+1,path.size());
+	Trim(path);
+	
+	return path;
+}
+
 
 
 //////////////////////////////////////////////////////////////////////////
