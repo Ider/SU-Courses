@@ -1,3 +1,12 @@
+/////////////////////////////////////////////////////////////////////////
+//  Executeive.h  -  Execute each functionality in graph to test it    //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 6.0                                //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #3	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
 
 #include <string>
 using namespace std;
@@ -19,7 +28,7 @@ void Executive::Run()
 	TestDFS(g);
 	StrongComponentsTest(g);
 
-	AlgorithmTest(g,5);
+	AlgorithmTest(g,7);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -138,8 +147,10 @@ void Executive::AlgorithmTest(Graph<TestVertex,string>& g,	int num)
 }
 
 
-
-#ifdef MAIN_STUB
+/************************************************************************/
+/* Test Stub                                                                     */
+/************************************************************************/
+#ifdef EXECUTIVE_TEST
 
 void main()
 {

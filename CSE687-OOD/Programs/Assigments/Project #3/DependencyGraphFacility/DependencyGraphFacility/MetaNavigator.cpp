@@ -77,7 +77,8 @@ void MetaNavigator::Dependencies(xmlRep& xml,std::list<std::string>& deps)
 	}
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+//Generate Edges base on the dependencies and and them to Graph
 void MetaNavigator::GenerateEdges(std::string filePath,std::list<std::string>& deps)
 {
 	if (deps.size()<=0)return;
@@ -112,7 +113,6 @@ std::string MetaNavigator::GetKeyName(std::string filePath)
 		filePath.erase(pos,filePath.size());
 	return filePath;
 }
-
 
 //////////////////////////////////////////////////////////////////////////
 //Removes all occurrences of white space characters from the beginning and 

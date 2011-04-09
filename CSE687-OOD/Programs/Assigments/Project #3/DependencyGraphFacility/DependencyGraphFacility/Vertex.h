@@ -1,6 +1,34 @@
 #ifndef TEMPLATE_VERTEX_H
 #define  TEMPLATE_VERTEX_H
-
+/////////////////////////////////////////////////////////////////////////
+//  Vertex.h  -  Provide Vertex template type for graph			       //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 6.0                                //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #3	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
+/*
+ * Module Operations:
+ * ==================
+ * This module is a template class, it provide graph nodes information
+ * Each vertex is accompanied by an instance of a Vertex type. 
+ * Each vertex shall hold a std::vector of std::pairs.  
+ * Each pair holds a reference to a child vertex and an instance of an Edge type.
+ *
+ * Public Interface:
+ * =================
+ * cout<<v.Key();
+ * if(v.Mask() !=0) DFS(v);
+ * v.AddEdge(to.second, node);
+ * v.Lowlink = order
+ * for (size_t i = 0; i<top.Size(); ++i)top[i].second;
+ *
+ * Required Files:
+ * ===============
+ * Vertex.h
+*/
 #include <vector>
 #include <utility>
 
@@ -17,7 +45,7 @@ public:
 	~Vertex();
 
 	//Member accessors
-	v_value& Key(){return key;}
+	//v_value& Key(){return key;}
 	size_t& Mask() {return mask;}
 	size_t& Lowlink(){return lowlink;}
 
@@ -42,10 +70,10 @@ private:
 	Vertex<VertexType, EdgeType> operator=(const Vertex<VertexType, EdgeType>& v);
 
 	//data members
-	v_value key;
-	size_t mask;
-	size_t lowlink;
-	vertics children;
+	v_value key;	//VertexType value that the vertex hold
+	size_t mask;	//used for Deep first search, mask the vertex as traversed
+	size_t lowlink;	//used for generating strong component
+	vertics children;//all children vertics
 
 };
 

@@ -1,5 +1,36 @@
 #ifndef TEMPLATE_STRONGCOMPONENTS_H
 #define  TEMPLATE_STRONGCOMPONENTS_H
+/////////////////////////////////////////////////////////////////////////
+//  StrongComponents.h  -  Provide StrongComponents template type      //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 6.0                                //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #3	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
+/*
+ * Module Operations:
+ * ==================
+ * This module is a template class, it provide strong component generator
+ * When create a object of StrongComponents, it need a graph object.
+ * Once the StrongComponents is create, it will analyze the graph, and generate
+ * condensed graph and collect vertics into each component.
+ *
+ * If graph structure is changed, it could call Rebuild() method to get
+ * new strong component information
+ * http://www.cs.cmu.edu/afs/cs/academic/class/15451-s06/www/lectures/DFS-strong-components.pdf
+ *
+ *
+ * Public Interface:
+ * =================
+ * StrongComponents<string,int> sc(test);
+ * sc.Rebuild();
+ *
+ * Required Files:
+ * ===============
+ * Graph.h, StrongComponents.h
+*/
 
 #include "Graph.h"
 
@@ -9,25 +40,30 @@ template <typename VertexType, typename EdgeType>
 class StrongComponents
 {
 public:
+	//Constructor, set original graph that StrongComponents associated to
 	StrongComponents(Graph<VertexType,EdgeType>& orl);
 	StrongComponents(const StrongComponents<VertexType,EdgeType>& value);
 	
-	Graph<int,EdgeType> Condensed;
-	std::map<int,std::list<VertexType>> Components;
+	Graph<int,EdgeType> Condensed; //condensed graph
+	std::map<int,std::list<VertexType>> Components; //vertics in each component
 
+	//Reanalyze the graph that assigned to the StrongComponents object in construct time,
 	void Rebuild();
 private:
+	//Analyzing graph to generate strong components
 	void StrongAnalyzer();
 	void StrongAnalyzer(Vertex<VertexType, EdgeType>& top);
 
+	//Analyzing each edge and add them to condensed graph
 	void EdgesAnalyzer();
 	void EdgesAnalyzer(Vertex<VertexType, EdgeType>& top);
-
+	
+	//Search whether the stack contains specific VertexType
 	bool Contain(const VertexType& v);
 
 	std::list<Vertex<VertexType, EdgeType>*> stack;
-	Graph<VertexType,EdgeType>& original;
-	int order;
+	Graph<VertexType,EdgeType>& original; //graph that strong component associated to
+	size_t order;
 
 	//Hide assignment, as original graph is not allowed to modify inside
 	StrongComponents<VertexType,EdgeType>& 
@@ -68,6 +104,8 @@ void StrongComponents<VertexType,EdgeType>::Rebuild()
 	EdgesAnalyzer();
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Search whether the stack contains specific VertexType
 template <typename VertexType, typename EdgeType> 
 bool StrongComponents<VertexType,EdgeType>::Contain(const VertexType& v)
 {
@@ -78,6 +116,8 @@ bool StrongComponents<VertexType,EdgeType>::Contain(const VertexType& v)
 	return false;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Analyzing graph to generate strong components
 template <typename VertexType, typename EdgeType>
 void StrongComponents<VertexType, EdgeType>::StrongAnalyzer()
 {
@@ -93,6 +133,8 @@ void StrongComponents<VertexType, EdgeType>::StrongAnalyzer()
 	}
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Depth first recurse call StrongAnalyzer
 template <typename VertexType, typename EdgeType>
 void StrongComponents<VertexType, EdgeType>::StrongAnalyzer(Vertex<VertexType, EdgeType>& top)
 {
@@ -134,6 +176,8 @@ void StrongComponents<VertexType, EdgeType>::StrongAnalyzer(Vertex<VertexType, E
 	}
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Analyzing each edge and add them to condensed graph
 template <typename VertexType, typename EdgeType>
 void StrongComponents<VertexType, EdgeType>::EdgesAnalyzer()
 {
@@ -148,6 +192,8 @@ void StrongComponents<VertexType, EdgeType>::EdgesAnalyzer()
 	}
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Depth first recurse call EdgesAnalyzer
 template <typename VertexType, typename EdgeType>
 void StrongComponents<VertexType, EdgeType>::EdgesAnalyzer(Vertex<VertexType, EdgeType>& top)
 {

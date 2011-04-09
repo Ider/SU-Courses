@@ -24,9 +24,6 @@
     <ClInclude Include="GraphAlgorithm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Printers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MetaNavigator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -52,9 +49,6 @@
     </ClCompile>
     <ClCompile Include="Graph.h">
       <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Printers.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MetaNavigator.cpp">
       <Filter>Source Files</Filter>

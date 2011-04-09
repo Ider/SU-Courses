@@ -1,19 +1,28 @@
+/////////////////////////////////////////////////////////////////////////
+//  TEST.h  -  Provide class and method for Graph functionality test   //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 6.0                                //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #3	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <utility>
 #include <string>
 #include <list>
 #include <iomanip>
-
 using namespace std;
+
 #include "TEST.h"
-#include "Graph.h"
 #include "GraphAlgorithm.h"
 #include "Display.h"
-#include "StrongComponents.h"
+
 using namespace IderPrinter;
 
 
-
+//////////////////////////////////////////////////////////////////////////
+//Functor method
 void StrongPrinter::operator()(Vertex<int,string>& v)
 {
 	cout<<"Vertics of Strong Component "<<	v.Key()<<endl;
@@ -23,6 +32,8 @@ void StrongPrinter::operator()(Vertex<int,string>& v)
 		cout<<(*it)<<endl;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Functor method, find all parent of vertex num
 bool FinderFunctor::operator()(const Vertex<TestVertex,string>& v)
 {
 	for (size_t i=0; i<v.Size();++i)
@@ -30,23 +41,29 @@ bool FinderFunctor::operator()(const Vertex<TestVertex,string>& v)
 
 	return false;
 }
-
+//////////////////////////////////////////////////////////////////////////
+//Functor method, fill all edges that point to vertex num
 bool FinderFunctor::operator()(Vertex<TestVertex,string>::pair& edge)
 {
 	return edge.second->Key().Key() == num;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//equal compare operator
 bool operator==(const TestVertex& a, const TestVertex& b)
 {
 	return	a.Key() == b.Key();
 }
 
+//////////////////////////////////////////////////////////////////////////
+//insertion operator
 ostream& operator<<(ostream& out, const TestVertex &value)
 {
 	out << value.Value();
 	return out;
 }
-
+//////////////////////////////////////////////////////////////////////////
+//insertion operator
 istream& operator>>(istream& in, TestVertex &value)
 {
 	std::string& v= value.Value();
@@ -58,6 +75,7 @@ istream& operator>>(istream& in, TestVertex &value)
 
 #ifdef TEST_TEST
 
+//user for DFS method
 void printInt(const Vertex<string,int>& v)
 {
 	cout<<v.Key()<<"\t edges:";
@@ -68,6 +86,7 @@ void printInt(const Vertex<string,int>& v)
 	cout <<endl;
 }
 
+//for Vertex search function
 bool VertexPredicate(const Vertex<string,int>& v)
 {
 	for (size_t i=0 ; i<v.Size();++i)
@@ -81,19 +100,21 @@ bool VertexPredicate(const Vertex<string,int>& v)
 	return false;
 }
 
+//for Edges search function
 bool EdgePredicate(const Vertex<string,int>::pair& e)
 {
 	return e.first<30;
 }
 
 
-
+//user functor to do DFS
 class Printer
 {
 public:
 	void operator()(const Vertex<string,int>& v);
 };
 
+//functor method
 void Printer::operator()(const Vertex<string,int>& v)
 {
 	cout<<v.Key()<<"\t edges:";
@@ -105,6 +126,7 @@ void Printer::operator()(const Vertex<string,int>& v)
 	cout <<endl;
 }
 
+//use normal function to do DFS
 void printInt2(const Vertex<int,int>& v){
 	cout<<v.Key()<<"\t edges:";
 	for (size_t i=0 ; i<v.Size();++i)
@@ -114,13 +136,10 @@ void printInt2(const Vertex<int,int>& v){
 	cout <<endl;
 }
 
+//Graph test function
 void  GraphTest () {
 
 	Graph<string,int> text ;
-
-	Graph<TestVertex,int> test1;
-	try
-	{
 
 		string a ="111";
 		text.AddNode( a);
@@ -131,27 +150,9 @@ void  GraphTest () {
 		text.AddNode(string("444"));
 		text.AddNode(string("555"));
 
-		// 	text.AddEdge("111","333",3);
-		// 	text.AddEdge("333","222",2);
-		// 	text.AddEdge("333","444",4);
 		Graph<string,int> test = text;
 		test = text;
-		//test.DFS()
-		// 	vector<pair<string,int>> es;
-		// 	pair<string,int> e;
-		// 
-		// 	e.first = "444";
-		// 	e.second = 4;
-		// 	es.push_back(e);
-		// 	e.first = "111" ;
-		// 	e.second = 1;
-		// 	es.push_back(e);
-		// 	e.first = "222";
-		// 	e.second = 2;
-		// 	es.push_back(e);
-		// 	text.AddEdge("111",es);
-		// 
-		// 	text.DFS(printInt);
+		
 		test.AddEdge("111","222",12);
 		test.AddEdge("222","333",23);
 		test.AddEdge("333","444",34);
@@ -178,42 +179,23 @@ void  GraphTest () {
 		typedef bool (*PRE)(const Vertex<string,int>::pair& e);
 		EdgeFinder<string,int,PRE>::result_type 
 			r =	FindEdges<string,int,PRE>(test,EdgePredicate);
-
-		cout<<endl<<endl<<r.size()<<endl<<endl;
-
-		//list<int> ll;
-
-		//ll.push_back(1);
-		//bool h = test==test;
-
-		//test.DFS(printInt);
-
-		//Graph<string,int>::StrongComponents s = text.GetStrongComponents();
-
-		//s.Condensed.DFS(printInt2);
-		//s.
-
-		// 	list<int> b;
-		// 	b.remove_if()
-	}
-	catch(std::string x)
-	{
-		std::cout<<x;
-	}
 }
 
+//print test title
 void Title(string title, char c='=')
 {
 	cout<<endl<<title<<endl;
 	cout<<string(title.size()*2,c)<<endl;
 }
 
+//call graph DFS method
 void DoDFS(string title,Graph<TestVertex,string>& g)
 {
 	Title(title);
 	g.DFS(BasicPrinter<TestVertex,string>());
 }
 
+//add node to graph
 void NodesInfo(int from, int to,string edge,Graph<TestVertex,string>& g)
 {
 	cout<<"Edge:"<<'\t'<<"V"<<from;
@@ -222,6 +204,7 @@ void NodesInfo(int from, int to,string edge,Graph<TestVertex,string>& g)
 	g.AddEdge(TestVertex(from,""),TestVertex(to,""),edge);
 }
 
+//test graph assiment 
 void  GraphAssignmentTest (Graph<TestVertex,string>& basic)
 {
 	Title("Add nodes");
@@ -260,6 +243,7 @@ void  GraphAssignmentTest (Graph<TestVertex,string>& basic)
 	DoDFS("DFS on Copied graph",copy);
 }
 
+//test DFS
 void TestDFS(Graph<TestVertex,string>& g)
 {
 	cout<<endl<<endl<<endl;
@@ -267,6 +251,7 @@ void TestDFS(Graph<TestVertex,string>& g)
 	g.DFS(NestedPrinter<TestVertex,string>());
 }
 
+//test strong component
 void StrongComponentsTest(Graph<TestVertex,string>& g)
 {
 	Title("Test on strong component");
@@ -278,6 +263,7 @@ void StrongComponentsTest(Graph<TestVertex,string>& g)
 	sc.Condensed.DFS(NestedPrinter<int,string>());
 }
 
+//test globe algrithm
 void AlgorithmTest(Graph<TestVertex,string>& g,	int num = 1)
 {
 	Title("Test on globe search algorithm");
@@ -304,7 +290,7 @@ void AlgorithmTest(Graph<TestVertex,string>& g,	int num = 1)
 }
 
 
-
+//main test stub
 void main()
 {
 	GraphTest();

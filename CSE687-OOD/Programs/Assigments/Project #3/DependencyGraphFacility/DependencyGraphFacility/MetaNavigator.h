@@ -40,14 +40,20 @@ class MetaNavigator
 {
 public:
 	MetaNavigator(Graph<std::string,std::string>& g):graph(g){}
+	//Navigate the xml file named fileName under folderPath
 	void BeginNavigation(const std::string& filePath);
+	//Remove the path and file extension, return the pure file name
 	std::string GetKeyName(std::string filePath);
 
 private:
+	//Extract xml file content to container
 	void ExtractFileContent
 		(std::string& containe, const std::string& filePath);
+	//Retrieve the dependencies from xml file and print it
 	void Dependencies(xmlRep& xml,std::list<std::string>& deps);
+	//Generate Edges base on the dependencies and and them to Graph
 	void GenerateEdges(std::string filePath,std::list<std::string>& deps);
+	//Removes all occurrences of white space characters from the beginning and end of string. 
 	void Trim(std::string& value);
 
 	Graph<std::string,std::string>& graph;

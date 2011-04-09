@@ -1,6 +1,44 @@
 #ifndef TEMPLATE_GRAPH_H
 #define  TEMPLATE_GRAPH_H
-
+/////////////////////////////////////////////////////////////////////////
+//  Graph.h  -  Provide Graph template type					       //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 6.0                                //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #3	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
+/*
+ * Module Operations:
+ * ==================
+ * This module is a template class, it provide graph constructor
+ * To be VertexType of graph, it must implement operator==, so that graph could
+ * check nodes that add to vertex. The Graph not allow two Vertex with the same value,
+ * that mean any two VertexType values in Graph use "==" to compare them should return false
+ * 
+ * The graph use adjacent list to hold vetics and edges.
+ * The graph provide Depth First Search (DFS) for graph traversal.  This search could
+ * accept a function pointer or functor operation to do operation on vertics.
+ * DFS use top.Mask() |= 1 to flag vertex as traversed, and use v.Mask()&1 to see if fisrt bit of Mask
+ * is 1, treat the node as traversed.
+ *
+ * So Function operator could also do bit manipulate on Mask of Vertex, so that it can 
+ * do more operation on vertics.
+ *
+ * DFS also accept a DFSOrder, to determine whether use pre-order or post-order search, or both of them.
+ *
+ * Public Interface:
+ * =================
+ * Graph<TestVertex,int> test;
+ * test.AddNode(string("444"));
+ * test.AddEdge("111","222",12);
+ * test.DFS(Printer());
+ *
+ * Required Files:
+ * ===============
+ * StrongComponents.h, Graph.h
+**/
 #include <list>
 #include <vector>
 #include <map>
@@ -9,17 +47,13 @@
 #include "Vertex.h"
 #include "StrongComponents.h"
 
-
 template <typename VertexType, typename EdgeType> class StrongComponents;
-
-/************************************************************************/
-/* class Graph definition                                               */
-/************************************************************************/
 
 template <typename VertexType, typename EdgeType>
 class Graph
 {
 public:
+	//Depth First Search order
 	enum DFSOrder
 	{
 		PreOrder,
@@ -36,9 +70,13 @@ public:
 	~Graph();
 	Graph<VertexType,EdgeType>& operator=(const Graph<VertexType,EdgeType>& g);
 
+	//add nodes to graph
 	void AddNode(const VertexType& v, bool addFront=false);
+	//test whether the graph contain a Vertex have v value
 	bool Contains(const VertexType& v);
+	//add one edge to graph
 	bool AddEdge(const VertexType& from, const VertexType& toV, const EdgeType& toE);
+	//add more edges to graph
 	int AddEdge(const VertexType& from, std::vector<std::pair<VertexType, EdgeType>>& tos);
 
 
@@ -51,14 +89,18 @@ public:
 	*/
 	template<typename Func> void DFS(Func& func, DFSOrder order = PreOrder, bool traverseEach = false);
 
+	//set friend to StrongComponents, so that StrongComponents could use private member of Graph
 	friend StrongComponents<VertexType,EdgeType>;
 
 private:
+	//Test whether vertex is traversed or not, used in DFS method
 	bool Traversed(Vertex<VertexType, EdgeType>& v){return v.Mask()&1;}
 	template<typename Func> void DFS(Func& func, Vertex<VertexType, EdgeType>& top, DFSOrder order = PreOrder);
 	void ClearMask(bool clearLowlink = false);
 	Vertex<VertexType, EdgeType>* Find(const VertexType& v);
+	//Copy adjacent list from other source.
 	void CopyAdjacentList(const container& source);
+	//Delete all vertics in adjacent list, then clear the list.
 	void ClearAdjacentList();
 
 	container adjList;
@@ -285,14 +327,6 @@ void Graph<VertexType, EdgeType>::ClearAdjacentList()
 	}
 	adjList.clear();
 }
-
-
-/************************************************************************/
-/* Globe Algorithm                                                      */
-/************************************************************************/
-
-
-
 
 
 #endif

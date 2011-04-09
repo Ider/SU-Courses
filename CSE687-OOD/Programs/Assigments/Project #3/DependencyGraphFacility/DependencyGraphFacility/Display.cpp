@@ -1,4 +1,13 @@
 
+/////////////////////////////////////////////////////////////////////////
+//  Dispaly.cpp  -  Provide functors for Graph DFS method		           //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 6.0                                //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #3	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
 
 #include "Display.h"
 #include <string>
@@ -7,6 +16,7 @@
 using namespace std;
 using namespace IderPrinter;
 
+//functor operation
 void MetaPrinter::operator()(const v_ref v)
 {
 
@@ -26,6 +36,7 @@ void MetaPrinter::operator()(const v_ref v)
 
 }
 
+//format long file path information
 void MetaPrinter::FormatLongString(const std::string& str)
 {
 	const size_t len = 30;
@@ -45,6 +56,7 @@ void MetaPrinter::FormatLongString(const std::string& str)
 	cout<<right;
 }
 
+//print out table title
 void MetaPrinter::PrintTableTitle()
 {
 	cout<<setw(25)<<"{Edge}";
@@ -52,7 +64,7 @@ void MetaPrinter::PrintTableTitle()
 	cout<<endl;
 }
 
-
+//functor operation
 void MetaNestedPrinter::operator()(v_ref v)
 {
 	int level = GetLevel(v);
@@ -64,9 +76,11 @@ void MetaNestedPrinter::operator()(v_ref v)
 	SetChildrenLevel(v);
 }
 
+//get current vertex level info
 size_t MetaNestedPrinter::GetLevel(v_ref v)
 {	return v.Mask()>>8;		}
 
+//add level by 1, and set to children vertics
 void MetaNestedPrinter::SetChildrenLevel(v_ref v)
 {
 	int level = (GetLevel(v) + 1)<<8;
@@ -74,3 +88,34 @@ void MetaNestedPrinter::SetChildrenLevel(v_ref v)
 		v[i].second->Mask() |= level;
 }
 
+
+
+/************************************************************************/
+/* <Test Stub>                                                                     */
+/************************************************************************/
+
+
+#ifdef DISPLAY_TEST
+
+void main()
+{
+	Graph<string,int> test ;
+	string a="111";
+	test.AddNode( a);
+	a = "222";
+	test.AddNode(a);
+	a = "333";
+	test.AddNode(a);
+	test.AddNode(string("444"));
+	test.AddNode(string("555"));
+
+	test.AddEdge("111","222",12);
+	test.AddEdge("222","333",23);
+	test.AddEdge("333","444",34);
+	test.AddEdge("444","222",42);
+	test.AddEdge("444","555",45);
+	test.DFS(BasicPrinter<string,int>());
+
+}
+
+#endif
