@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+   <package name="Includes">
+      <head>
+         C:\Users\Ider\Project\SU\CSE687-OOD\Programs\Assigments\Project #2\XmlMetadataManager\Includes.h
+      </head>
+      <implement>
+         C:\Users\Ider\Project\SU\CSE687-OOD\Programs\Assigments\Project #2\XmlMetadataManager\Includes.cpp
+      </implement>
+      <references>
+         <reference name="IIncludes">
+            IIncludes.h
+         </reference>
+         <reference name="Includes">
+            Includes.h
+         </reference>
+      </references>
+   </package>
+

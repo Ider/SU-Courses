@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+   <package name="MetaGenerator">
+      <head>
+         C:\Users\Ider\Project\SU\CSE687-OOD\Programs\Assigments\Project #2\XmlMetadataManager\MetaGenerator.h
+      </head>
+      <implement>
+         C:\Users\Ider\Project\SU\CSE687-OOD\Programs\Assigments\Project #2\XmlMetadataManager\MetaGenerator.cpp
+      </implement>
+      <references>
+         <reference name="xmlTran">
+            xmlTran.h
+         </reference>
+         <reference name="PackageInfo">
+            PackageInfo.h
+         </reference>
+         <reference name="IIncludes">
+            IIncludes.h
+         </reference>
+         <reference name="MetaGenerator">
+            MetaGenerator.h
+         </reference>
+      </references>
+   </package>
+

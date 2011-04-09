@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+   <package name="PackageInfo">
+      <head>
+         C:\Users\Ider\Project\SU\CSE687-OOD\Programs\Assigments\Project #2\XmlMetadataManager\PackageInfo.h
+      </head>
+      <implement>
+         C:\Users\Ider\Project\SU\CSE687-OOD\Programs\Assigments\Project #2\XmlMetadataManager\PackageInfo.cpp
+      </implement>
+      <references>
+         <reference name="FileSystem">
+            FileSystem.h
+         </reference>
+         <reference name="PackageInfo">
+            PackageInfo.h
+         </reference>
+      </references>
+   </package>
+
