@@ -24,11 +24,18 @@ namespace FinalProject.Services
         {
             if (id <= 0) return new Work_Package() { createddate = DateTime.Now, id = -1 };
 
-            IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
-            var requirement = (from wp in finalDB.Work_Packages
-                               where wp.id == id
-                               select wp).Single();
-            return requirement;
+            try
+            {
+                IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
+                var requirement = (from wp in finalDB.Work_Packages
+                                   where wp.id == id
+                                   select wp).SingleOrDefault();
+                return requirement;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public Work_Package InsertPackage(Work_Package wp)
@@ -72,11 +79,42 @@ namespace FinalProject.Services
             IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
             var requirement = (from wp in finalDB.Work_Packages
                                where wp.id == id
-                               select wp).Single();
+                               select wp).FirstOrDefault();
             finalDB.Work_Packages.DeleteOnSubmit(requirement);
 
             finalDB.SubmitChanges();
             return null;
+        }
+
+
+        public PackageRequirementsModel GetPackageRequirementsInfo(int id)
+        {
+            PackageRequirementsModel prm = new PackageRequirementsModel();
+            IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
+            var req1 = from sr in finalDB.Software_Requirements
+                      join ps in finalDB.Package_Softwares
+                      on sr.id equals ps.sr_id
+                      where ps.wp_id == id
+                      select new Software_Requirement
+                      {
+                          id = sr.id,
+                          title = sr.title
+                      };
+            if (req1 != null) prm.Selected = req1.ToList();
+
+            var req2 = from sr in finalDB.Software_Requirements
+                      join ps in finalDB.Package_Softwares
+                      on sr.id equals ps.sr_id
+                      where ps.wp_id == id
+                      select new Software_Requirement
+                      {
+                          id = sr.id,
+                          title = sr.title
+                      };
+
+            //Not Completed...
+            return null;
+
         }
     }
 }

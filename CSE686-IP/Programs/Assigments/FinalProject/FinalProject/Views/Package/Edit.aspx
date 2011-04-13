@@ -38,12 +38,12 @@
         </div>
         <div class="editor-field">
             <select id="status" name="status">
-                <option value="0">Planning </option>
-                <option value="1">Doing </option>
-                <option value="2">Finish </option>
-                <option value="3">Pending </option>
-                <option value="4">Closed </option>
-                <option value="5">NotSet </option>
+                <%foreach (KeyValuePair<int, string> item in ViewData["Enum"] as IDictionary<int,string>)
+                  {%>
+                <option value="<%:item.Key %>">
+                    <%: item.Value %>
+                </option>
+                <%  } %>
             </select>
         </div>
         <div class="editor-label">

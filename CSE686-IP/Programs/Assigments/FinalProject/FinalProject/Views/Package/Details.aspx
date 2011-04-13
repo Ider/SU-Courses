@@ -78,6 +78,9 @@
                     <% } %>
                 </tbody>
             </table>
+            <p>
+                <%: Html.ActionLink("Edit Software Requirements", "Requirements", new { id = Model.id })%>
+            </p>
         </fieldset>
     </fieldset>
     <p>

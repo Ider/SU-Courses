@@ -6,11 +6,24 @@ using System.Web.Mvc;
 using FinalProject.Models;
 using FinalProject.Services;
 using System.Data.Linq;
+using FinalProject.Helper;
 
 namespace FinalProject.Controllers
 {
     public class PackageController : Controller
     {
+        private string Error
+        {
+            get
+            {
+                return ViewData["Error"].ToString();
+            }
+            set
+            {
+                ViewData["Error"] = value;
+            }
+        }
+
         static PackageService ps = new PackageService();
 
         public ActionResult Index()
@@ -59,13 +72,14 @@ namespace FinalProject.Controllers
             //        Work_Package = pack
             //    });
             //}
-            
+
 
             return View(pack);
         }
 
         public ActionResult Edit(int? id)
         {
+            ViewData["Enum"] = EnumHelper.GetStatus();
             var data = ps.GetPackageByID(id ?? -1);
             return View(data);
         }
@@ -95,7 +109,7 @@ namespace FinalProject.Controllers
                     return RedirectToAction("Details", new { id = model.id });
                 }
             }
-            catch(Exception ex)
+            catch //(Exception ex)
             {
                 return View(model);
             }
@@ -106,6 +120,12 @@ namespace FinalProject.Controllers
         {
             ps.DeletePackage(id);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Requirements(int id)
+        {
+           
+            return View("Under Construction...");
         }
     }
 }

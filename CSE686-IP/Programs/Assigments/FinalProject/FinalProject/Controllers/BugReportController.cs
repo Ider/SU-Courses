@@ -3,31 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using FinalProject.Models;
+
+//using FinalProject.Models;
 using FinalProject.Helper;
+using FinalProject.FinalService;
 
 namespace FinalProject.Controllers
 {
     public class BugReportController : Controller
     {
-
-        static BugReportService brService = new BugReportService();
+        FinalService.IFinalWCFService brService = new FinalService.FinalWCFServiceClient();
         //
         // GET: /Bug/
 
-        public ActionResult Index(BugListModel buglist)
-        {
-            ViewData["Path"] = Constant.BUG_XML_PATH;
-            bool succed = buglist.GetBugList(Constant.BUG_XML_PATH);
-            ViewData["Message"] = "Bug Report List";
-            return View(buglist);
-        }
+       // public ActionResult Index(BugListModel buglist)
+//         {
+//             ViewData["Path"] = Constant.BUG_XML_PATH;
+//             bool succed = buglist.GetBugList(Constant.BUG_XML_PATH);
+//             ViewData["Message"] = "Bug Report List";
+//             return View(buglist);
+//         }
 
         //
         // GET: /Bug/Details/5
 
         public ActionResult Details(int id)
         {
+            
             return View();
         }
 
@@ -36,6 +38,7 @@ namespace FinalProject.Controllers
 
         public ActionResult Create()
         {
+            ViewData["Caption"] = brService.DoWork();
             return View();
         }
 
@@ -63,6 +66,7 @@ namespace FinalProject.Controllers
         public ActionResult Edit(int? id)
         {
             BugReport br = brService.GetBugReportByID(id ?? -1);
+
             return View(br);
         }
 
@@ -82,7 +86,7 @@ namespace FinalProject.Controllers
                     brService.UpdateBugReport(model);
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch//(Exception ex)
             {
                 return View(model);
             }

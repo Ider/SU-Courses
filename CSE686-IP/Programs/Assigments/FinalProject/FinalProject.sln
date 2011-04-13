@@ -2,8 +2,13 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalProject", "FinalProject\FinalProject.csproj", "{6200793D-5610-4AFE-B48F-BA866EFEF53F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2F4532B9-DE9C-4CB2-A1ED-C5CF6042AFBB} = {2F4532B9-DE9C-4CB2-A1ED-C5CF6042AFBB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wiki", "Wiki\Wiki.csproj", "{F3EACCFF-9C81-46B4-B41D-6DDD321D28C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFService", "WCFService\WCFService.csproj", "{2F4532B9-DE9C-4CB2-A1ED-C5CF6042AFBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +24,10 @@ Global
 		{F3EACCFF-9C81-46B4-B41D-6DDD321D28C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3EACCFF-9C81-46B4-B41D-6DDD321D28C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3EACCFF-9C81-46B4-B41D-6DDD321D28C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F4532B9-DE9C-4CB2-A1ED-C5CF6042AFBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F4532B9-DE9C-4CB2-A1ED-C5CF6042AFBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F4532B9-DE9C-4CB2-A1ED-C5CF6042AFBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F4532B9-DE9C-4CB2-A1ED-C5CF6042AFBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
