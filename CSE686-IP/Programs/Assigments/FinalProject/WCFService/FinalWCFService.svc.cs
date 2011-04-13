@@ -6,19 +6,34 @@ using System.ServiceModel;
 using System.Text;
 
 
+using System.ServiceModel.Activation;
+
+
 using WCFService.Models;
 using WCFService.Services;
 
 namespace WCFService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "FinalService" in code, svc and config file together.
+    
+    
+    [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class FinalWCFService : IFinalWCFService
     {
         private static BugReportService brService = new BugReportService();
 
+
+
         public string DoWork()
         {
+            string temp = System.Web.HttpContext.Current.Server.MapPath(".");
+
             return "WCF service works.";
+        }
+
+        public IList<BugReport> GetBugReports()
+        {
+            return null;
         }
 
         public BugReport GetBugReportByID(int id)

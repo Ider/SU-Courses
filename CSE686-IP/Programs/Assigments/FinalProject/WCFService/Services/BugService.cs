@@ -14,6 +14,29 @@ namespace WCFService.Services
     {
         //revise this class to be singleton
 
+        public IList<BugReport> GetBugReports()
+        {
+            IList<BugReport> reports = new List<BugReport>();
+
+            XDocument doc = XDocument.Load(Constant.BUG_XML_PATH);
+            var result = from bug in doc.Elements("BugReports").Elements("BugReport") select bug;
+
+            foreach (var elem in result)
+            {
+                BugReport r = new BugReport();
+                r.Number = Convert.ToInt32(elem.Element("Number").Value);
+                r.ReportedBy = elem.Element("ReportedBy").Value;
+                r.OwnedBy = elem.Element("OwnedBy").Value;
+                r.Keywords = elem.Element("Keywords").Value;
+                r.Component = elem.Element("Component").Value;
+                r.ReportedTime = Convert.ToDateTime(elem.Element("ReportedTime").Value);
+                r.Description = elem.Element("Description").Value;
+                reports.Add(r);
+            }
+
+
+            return reports;
+        }
         public BugReport GetBugReportByID(int id)
         {
             BugReport br = new BugReport();
@@ -34,7 +57,6 @@ namespace WCFService.Services
                     br.Component = elem.Element("Component").Value;
                     br.ReportedTime = Convert.ToDateTime(elem.Element("ReportedTime").Value);
                     br.Description = elem.Element("Description").Value;
-
                 }
             }
             catch (Exception ex)
