@@ -254,6 +254,9 @@ namespace FinalProject.FinalService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFinalWCFService/DoWork", ReplyAction="http://tempuri.org/IFinalWCFService/DoWorkResponse")]
         string DoWork();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFinalWCFService/GetBugReports", ReplyAction="http://tempuri.org/IFinalWCFService/GetBugReportsResponse")]
+        FinalProject.FinalService.BugReport[] GetBugReports();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFinalWCFService/GetBugReportByID", ReplyAction="http://tempuri.org/IFinalWCFService/GetBugReportByIDResponse")]
         FinalProject.FinalService.BugReport GetBugReportByID(int id);
         
@@ -296,6 +299,10 @@ namespace FinalProject.FinalService {
         
         public string DoWork() {
             return base.Channel.DoWork();
+        }
+        
+        public FinalProject.FinalService.BugReport[] GetBugReports() {
+            return base.Channel.GetBugReports();
         }
         
         public FinalProject.FinalService.BugReport GetBugReportByID(int id) {

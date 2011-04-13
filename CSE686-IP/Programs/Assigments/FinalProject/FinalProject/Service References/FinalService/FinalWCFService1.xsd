@@ -13,6 +13,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetBugReports">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBugReportsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WCFService.Models" minOccurs="0" name="GetBugReportsResult" nillable="true" type="q1:ArrayOfBugReport" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetBugReportByID">
     <xs:complexType>
       <xs:sequence>
@@ -23,14 +35,14 @@
   <xs:element name="GetBugReportByIDResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WCFService.Models" minOccurs="0" name="GetBugReportByIDResult" nillable="true" type="q1:BugReport" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WCFService.Models" minOccurs="0" name="GetBugReportByIDResult" nillable="true" type="q2:BugReport" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertBugReport">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WCFService.Models" minOccurs="0" name="br" nillable="true" type="q2:BugReport" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WCFService.Models" minOccurs="0" name="br" nillable="true" type="q3:BugReport" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -44,7 +56,7 @@
   <xs:element name="UpdateBugReport">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WCFService.Models" minOccurs="0" name="br" nillable="true" type="q3:BugReport" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/WCFService.Models" minOccurs="0" name="br" nillable="true" type="q4:BugReport" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

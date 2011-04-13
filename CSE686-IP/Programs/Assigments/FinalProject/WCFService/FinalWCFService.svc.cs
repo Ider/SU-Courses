@@ -33,7 +33,7 @@ namespace WCFService
 
         public IList<BugReport> GetBugReports()
         {
-            return null;
+            return brService.GetBugReports();
         }
 
         public BugReport GetBugReportByID(int id)

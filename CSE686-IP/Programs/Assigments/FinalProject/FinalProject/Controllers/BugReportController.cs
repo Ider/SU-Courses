@@ -16,13 +16,11 @@ namespace FinalProject.Controllers
         //
         // GET: /Bug/
 
-       // public ActionResult Index(BugListModel buglist)
-//         {
-//             ViewData["Path"] = Constant.BUG_XML_PATH;
-//             bool succed = buglist.GetBugList(Constant.BUG_XML_PATH);
-//             ViewData["Message"] = "Bug Report List";
-//             return View(buglist);
-//         }
+        public ActionResult Index()
+        {
+            BugReport[] reports = brService.GetBugReports();
+            return View(reports.ToList());
+        }
 
         //
         // GET: /Bug/Details/5

@@ -18,6 +18,9 @@ namespace WCFService
         string DoWork();
 
         [OperationContract]
+        IList<BugReport> GetBugReports();
+
+        [OperationContract]
         BugReport GetBugReportByID(int id);
 
         [OperationContract]

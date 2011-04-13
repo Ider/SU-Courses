@@ -13,6 +13,12 @@
   <wsdl:message name="IFinalWCFService_DoWork_OutputMessage">
     <wsdl:part name="parameters" element="tns:DoWorkResponse" />
   </wsdl:message>
+  <wsdl:message name="IFinalWCFService_GetBugReports_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBugReports" />
+  </wsdl:message>
+  <wsdl:message name="IFinalWCFService_GetBugReports_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBugReportsResponse" />
+  </wsdl:message>
   <wsdl:message name="IFinalWCFService_GetBugReportByID_InputMessage">
     <wsdl:part name="parameters" element="tns:GetBugReportByID" />
   </wsdl:message>
@@ -42,6 +48,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IFinalWCFService/DoWork" message="tns:IFinalWCFService_DoWork_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IFinalWCFService/DoWorkResponse" message="tns:IFinalWCFService_DoWork_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetBugReports">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFinalWCFService/GetBugReports" message="tns:IFinalWCFService_GetBugReports_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFinalWCFService/GetBugReportsResponse" message="tns:IFinalWCFService_GetBugReports_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetBugReportByID">
       <wsdl:input wsaw:Action="http://tempuri.org/IFinalWCFService/GetBugReportByID" message="tns:IFinalWCFService_GetBugReportByID_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IFinalWCFService/GetBugReportByIDResponse" message="tns:IFinalWCFService_GetBugReportByID_OutputMessage" />
@@ -63,6 +73,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="DoWork">
       <soap:operation soapAction="http://tempuri.org/IFinalWCFService/DoWork" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBugReports">
+      <soap:operation soapAction="http://tempuri.org/IFinalWCFService/GetBugReports" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
