@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SocketCommunicator", "Socke
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleReceiver", "ConsoleReceiver\ConsoleReceiver.vcxproj", "{C6D75F3D-A715-4E8F-A0DD-D9A28DF05F6A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoForm", "DemoForm - work in progress\DemoForm.vcxproj", "{0E07A4C1-ED20-4F15-BCAF-474E2BCB1DDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -55,6 +57,10 @@ Global
 		{C6D75F3D-A715-4E8F-A0DD-D9A28DF05F6A}.Debug|Win32.Build.0 = Debug|Win32
 		{C6D75F3D-A715-4E8F-A0DD-D9A28DF05F6A}.Release|Win32.ActiveCfg = Release|Win32
 		{C6D75F3D-A715-4E8F-A0DD-D9A28DF05F6A}.Release|Win32.Build.0 = Release|Win32
+		{0E07A4C1-ED20-4F15-BCAF-474E2BCB1DDB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0E07A4C1-ED20-4F15-BCAF-474E2BCB1DDB}.Debug|Win32.Build.0 = Debug|Win32
+		{0E07A4C1-ED20-4F15-BCAF-474E2BCB1DDB}.Release|Win32.ActiveCfg = Release|Win32
+		{0E07A4C1-ED20-4F15-BCAF-474E2BCB1DDB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
