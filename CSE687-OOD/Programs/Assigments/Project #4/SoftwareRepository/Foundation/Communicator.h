@@ -116,7 +116,7 @@
  */
 #include "Sockets.h"
 #include "BlockHandler.h"
-#include "threads.h"
+#include "Threads.h"
 #include "BlockingQueue.h"
 #include "Command.h"
 #include "ICommunicator.h"

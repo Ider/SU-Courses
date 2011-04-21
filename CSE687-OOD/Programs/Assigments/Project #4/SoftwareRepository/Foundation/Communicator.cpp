@@ -464,7 +464,7 @@ int main()
     sndr.postFile("Project #4 Analysis.docx");
     sndr.postFile("FormWithCppThread.zip");
     //sndr.postFile("notepad.exe");
-    sndr.postMessage("quit");
+    //sndr.postMessage("quit");
 
 	while(true)
 	{
