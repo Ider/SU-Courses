@@ -15,19 +15,23 @@ public:
 		Checkin,
 		Dependency,
 		File,
+		Warning,
 
 		Unknown
 	};
 
 	Message(){ type = Unknown;}
-	Message();
+	Message(conStrRef xml);
 
-	MsgType Type(){return type;}
-	
-	void SetMessage(conStrRef xml);
+	MsgType Type()const{return type;}
+	strVal Conntent(){return doc.InnerText();}
+	XmlDoc Doc()const{return doc;}
+	virtual void SetMessage(conStrRef xml);
+	strVal ToString()const{return doc.ToString();}
+protected:
+	virtual	void  SetType(strVal tagName);
 
 private:
-	void SetType(strVal tagName);
 	XmlDoc doc;
 	MsgType type;
 

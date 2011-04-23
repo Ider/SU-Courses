@@ -17,7 +17,7 @@ public:
     strVal Name(){return tagName();}
 	strVal InnerText(){return body();}
 	void LoadXml(std::string xml){_elemStr = xml;}
-	strVal ToString(){return _elemStr;}
+	strVal ToString()const{return _elemStr;}
 private:
 
 };
