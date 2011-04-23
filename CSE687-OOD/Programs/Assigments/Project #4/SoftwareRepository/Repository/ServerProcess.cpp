@@ -26,7 +26,7 @@ public:
 			EndPoint remoteEp = _pMsgHandler->getEndPoint();
 			if(pComm->connect(remoteEp.getIP(), remoteEp.getPort()))
 			{
-				pComm->postMessage(std::string("got message")+msg+"\n");
+				pComm->postMessage(std::string("got message ")+remoteEp.toString()+msg+"\n");
 				pComm->disconnect();
 			}
 			else
@@ -109,7 +109,6 @@ void main()
 		rFileHandler.setCommunicator(&rcvr);
 		rcvr.attachFileHandler(&rFileHandler);
 		rcvr.listen();
-
 
 		_getche();
 
