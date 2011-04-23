@@ -132,23 +132,30 @@ void BlockProc::run()
   } while(state != Block::end_dialog && state != Block::end_connection);
   sock.disconnect();
 }
+
 void listenProc::run()
 {
-  Socket handler;
-  while(true)
-  {
-    handler = _pListener->waitForConnect();
+	Socket handler;
+	while(true)
+	{
+		try
+		{
+			handler = _pListener->waitForConnect();
+			// create block processing function for thread and start thread
 
-    // create block processing function for thread and start thread
-
-    BlockProc bp(handler);
-    if(_pMsgHandler)
-      bp.attachMsgHandler(_pMsgHandler->clone());
-    if(_pFileHandler)
-      bp.attachFileHandler(_pFileHandler->clone());
-    tthread* pTthread = new tthread(bp);
-    pTthread->start();
-  }
+			BlockProc bp(handler);
+			if(_pMsgHandler)
+				bp.attachMsgHandler(_pMsgHandler->clone());
+			if(_pFileHandler)
+				bp.attachFileHandler(_pFileHandler->clone());
+			tthread* pTthread = new tthread(bp);
+			pTthread->start();
+		}
+		catch(std::exception ex)
+		{
+			break;
+		}
+	}
 }
 //----< start listener on child thread >-----------------------------
 
