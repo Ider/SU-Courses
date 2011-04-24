@@ -17,6 +17,8 @@ public:
     strVal Name(){return tagName();}
 	strVal InnerText(){return body();}
 	void LoadXml(conStrRef xml){_elemStr = xml;}
+	bool LoadXmlFile(conStrRef fileName);
+	bool SaveToFile(conStrRef fileName);
 	strVal ToString()const{return _elemStr;}
 private:
 

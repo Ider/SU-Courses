@@ -1,8 +1,10 @@
 
 #include <iostream>
-#include "XmlDoc.h"
+#include <fstream>
 
 using namespace std;
+
+#include "XmlDoc.h"
 
 
 vector<XmlDoc> XmlDoc::Children(conStrRef tagName)
@@ -57,6 +59,36 @@ XmlDoc XmlDoc::Children(size_t index)
 	//index is out of range, no exception, just return empty doc
 	return XmlDoc();
 }
+
+bool XmlDoc::LoadXmlFile(conStrRef fileName)
+{
+	ifstream inf;
+	strVal container;
+	char buffer[255];
+
+	inf.open(fileName);
+	while(inf.good())
+	{
+		inf.getline(buffer,255);
+		container += strVal(buffer);
+	}
+	inf.close();
+
+	if (container.size()>0)
+	{
+		_elemStr = container;
+		return true;
+	}
+
+	return false;
+}
+
+bool SaveToFile(conStrRef fileName)
+{
+	throw string("To be implemeted.");
+	return false;
+}
+
 
 #ifdef XMLDOC_TEST
 
