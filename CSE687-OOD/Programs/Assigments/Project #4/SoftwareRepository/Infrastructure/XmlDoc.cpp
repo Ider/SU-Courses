@@ -56,6 +56,8 @@ XmlDoc XmlDoc::Children(size_t index)
 	return XmlDoc();
 }
 
+#ifdef XMLDOC_TEST
+
 
 void title(string msg, char underChar='-') {
 
@@ -109,3 +111,5 @@ void main()
 	title("Test children function with string ");
 	cout<<endl<<doc.Children("head")[0].ToString();
 }
+
+#endif
