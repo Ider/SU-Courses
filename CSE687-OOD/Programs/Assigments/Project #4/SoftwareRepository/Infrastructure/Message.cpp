@@ -2,6 +2,39 @@
 
 #include "Message.h"
 
+using namespace std;
+
+MsgType::Value MsgType::StringToEnum(conStrRef type)
+{
+	if(type == "Login")return Login;
+	else if(type == "Checkin")return Checkin;
+	else if(type == "Dependency")return Dependency;
+	else if(type == "File")return File;
+	else if(type == "Warning")return Warning;
+
+	else return Unknown;
+}
+
+strVal MsgType::EnumToString(Value type)
+{
+	switch(type)
+	{
+	case Login: 
+		return "Login";
+	case Dependency: 
+		return "Dependency";
+	case File: 
+		return "File";
+	case Checkin: 
+		return "Checkin";
+	case Warning: 
+		return "Warning";
+	default:
+		break;
+	}
+
+	return "Unknown";
+}
 
 Message::Message(conStrRef xml)
 	:doc(xml)
@@ -18,13 +51,6 @@ void Message::SetMessage(conStrRef xml)
 
 void Message::SetType(strVal tagName)
 {
-
-	if(tagName == "Login")type = Login;
-	else if(tagName == "Checkin")type = Checkin;
-	else if(tagName == "Dependency")type = Dependency;
-	else if(tagName == "File")type = File;
-	else if(tagName == "Warning")type = Warning;
-
-	else type = Unknown;
+	type = MsgType::StringToEnum(tagName);
 }
 

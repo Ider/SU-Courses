@@ -5,11 +5,9 @@
 
 #include "XmlDoc.h"
 
-class Message
+struct MsgType
 {
-
-public:
-	enum MsgType
+	enum Value
 	{
 		Login,
 		Checkin,
@@ -19,11 +17,17 @@ public:
 
 		Unknown
 	};
+	static strVal EnumToString(MsgType::Value type);
+	static Value StringToEnum(conStrRef type);
+};
 
-	Message(){ type = Unknown;}
+class Message
+{
+public:
+	Message(){ type = MsgType::Unknown;}
 	Message(conStrRef xml);
 
-	MsgType Type()const{return type;}
+	MsgType::Value Type()const{return type;}
 	strVal Conntent(){return doc.InnerText();}
 	XmlDoc Doc()const{return doc;}
 	virtual void SetMessage(conStrRef xml);
@@ -33,9 +37,8 @@ protected:
 
 private:
 	XmlDoc doc;
-	MsgType type;
+	MsgType::Value type;
 
 };
-
 
 #endif

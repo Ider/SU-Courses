@@ -35,5 +35,8 @@
     <ClInclude Include="xmlTran.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IMessageHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
