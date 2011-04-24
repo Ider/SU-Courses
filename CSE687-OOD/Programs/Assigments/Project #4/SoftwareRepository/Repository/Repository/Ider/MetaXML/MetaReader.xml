@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+   <package name="MetaReader">
+      <head>
+         C:\Users\Ider\Project\SU\CSE687-OOD\Programs\Assigments\Project #2\XmlMetadataManager\MetaReader.h
+      </head>
+      <implement>
+         C:\Users\Ider\Project\SU\CSE687-OOD\Programs\Assigments\Project #2\XmlMetadataManager\MetaReader.cpp
+      </implement>
+      <references>
+         
+      </references>
+   </package>
+
