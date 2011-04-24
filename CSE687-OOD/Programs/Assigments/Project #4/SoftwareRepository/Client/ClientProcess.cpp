@@ -1,6 +1,9 @@
 
 #include "..\Foundation\Communicator.h"
+#include "ClientMessageHandler.h"
 
+
+#ifdef MAIN_TEST
 /////////////////////////////////////////////////////////////////////
 // Thread Proc classes for sender
 
@@ -111,13 +114,6 @@ void main()
 		//sndr.postFile("notepad.exe");
 		//sndr.postMessage("quit");
 
-		while(true)
-		{
-			char buf[MAX_PATH];
-			std::cin.getline(buf,MAX_PATH);
-			sndr.postMessage(buf);
-			if (std::string(buf) == "quit")break;
-		}
 
 		sout << locker << "\n  Socket connection count = " 
 			<< sndr.getSocketConnectionCount() << unlocker;
@@ -134,3 +130,5 @@ void main()
 		sout << locker << "\n  " << ex.what() << "\n\n" << unlocker;
 	}
 }
+
+#endif

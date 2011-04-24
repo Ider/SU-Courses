@@ -18,9 +18,15 @@
     <ClInclude Include="..\Foundation\Communicator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ClientMessageHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientProcess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientMessageHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

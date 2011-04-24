@@ -49,11 +49,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;MAIN_TEST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\Debug\Foundation.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\Debug\Foundation.lib;..\Debug\Infrastructure.lib;wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -70,9 +70,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Foundation\Communicator.h" />
+    <ClInclude Include="ClientMessageHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientProcess.cpp" />
+    <ClCompile Include="ClientMessageHandler.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

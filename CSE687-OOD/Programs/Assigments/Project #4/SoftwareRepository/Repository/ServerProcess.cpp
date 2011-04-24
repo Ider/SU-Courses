@@ -2,7 +2,7 @@
 #include "..\Foundation\Communicator.h"
 #include <conio.h>
 
-
+#ifdef MAIN_TEST
 class MsgReceiver_Proc : public Thread_Processing<MsgReceiver_Proc>
 {
 public:
@@ -118,3 +118,6 @@ void main()
 		sout << locker << "\n  " << ex.what() << "\n\n" << unlocker;
 	}
 }
+
+#endif
+
