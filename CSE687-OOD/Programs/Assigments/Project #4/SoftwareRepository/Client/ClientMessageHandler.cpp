@@ -62,7 +62,7 @@ void MessageHandler::WarningProcess(Message msg)
 
 Message MessageHandler::FileForSending()
 {
-	string typeTag = "File";
+	string typeTag = MsgType::EnumToString(MsgType::File);
 	string nameTag = "Name";
 	//indicate whether extract only this file
 	//or full dependencies
@@ -87,7 +87,7 @@ Message MessageHandler::FileForSending()
 
 Message MessageHandler::CheckinForSending()
 {
-	string typeTag = "Checkin";
+	string typeTag = MsgType::EnumToString(MsgType::Checkin);
 	string nameTag = "Action";
 
 	string userName = "Ider";
@@ -105,7 +105,7 @@ Message MessageHandler::CheckinForSending()
 
 Message MessageHandler::LoginForSending()
 {
-	string typeTag = "Login";
+	string typeTag = MsgType::EnumToString(MsgType::Login);
 	string nameTag = "Name";
 
 	string userName = "Ider";
@@ -122,7 +122,7 @@ Message MessageHandler::LoginForSending()
 
 Message MessageHandler::DependencyForSending()
 {
-	string typeTag = "Dependency";
+	string typeTag = MsgType::EnumToString(MsgType::Dependency);
 	string nameTag = "Name";
 
 	string depName = "*.*";
