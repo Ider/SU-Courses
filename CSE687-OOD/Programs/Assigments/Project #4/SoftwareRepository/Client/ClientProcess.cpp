@@ -1,9 +1,12 @@
 
 #include "..\Foundation\Communicator.h"
 #include "ClientMessageHandler.h"
+#include <conio.h>
 
 
 #ifdef MAIN_TEST
+
+#endif
 /////////////////////////////////////////////////////////////////////
 // Thread Proc classes for sender
 
@@ -104,15 +107,22 @@ void main()
 
 		sout<<"  start posting\n";
 
-		sndr.postMessage("first message");
-		sndr.postMessage("second message");
-		sndr.postMessage("third and longer message");
-		sndr.postMessage("fourth and still longer and most verbose message");
-		sndr.postFile("test.txt");
-		sndr.postFile("Project #4 Analysis.docx");
-		sndr.postFile("FormWithCppThread.zip");
+// 		sndr.postMessage("first message");
+// 		sndr.postMessage("second message");
+// 		sndr.postMessage("third and longer message");
+// 		sndr.postMessage("fourth and still longer and most verbose message");
+// 		sndr.postFile("test.txt");
+// 		sndr.postFile("Project #4 Analysis.docx");
+// 		sndr.postFile("FormWithCppThread.zip");
 		//sndr.postFile("notepad.exe");
 		//sndr.postMessage("quit");
+
+		MessageHandler mh;
+		Message msg = mh.MessageForSending(MsgType::Dependency);
+
+		sndr.postMessage(msg.ToString());
+
+		_getche();
 
 
 		sout << locker << "\n  Socket connection count = " 
@@ -131,4 +141,3 @@ void main()
 	}
 }
 
-#endif

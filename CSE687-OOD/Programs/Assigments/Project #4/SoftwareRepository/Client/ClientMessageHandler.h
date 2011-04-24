@@ -18,11 +18,11 @@ public:
 
 
 protected:
-	virtual Message FileForSending();
-	virtual Message CheckinForSending();
-	virtual Message LoginForSending();
-	virtual Message DependencyForSending();
-	//virtual Message WarningForSending(std::string warning);
+	virtual Message FileMessage();
+	virtual Message CheckinMessage();
+	virtual Message LoginMessage();
+	virtual Message DependencyMessage();
+	//virtual Message WarningMessage(std::string warning);
 
 
 private:

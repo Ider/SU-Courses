@@ -16,13 +16,13 @@ using namespace std;
 	 switch (type)
 	 {
 	 case MsgType::Login: 
-		 return LoginForSending();
+		 return LoginMessage();
 	 case MsgType::Dependency: 
-		 return DependencyForSending();
+		 return DependencyMessage();
 	 case MsgType::File: 
-		 return FileForSending();
+		 return FileMessage();
 	 case MsgType::Checkin: 
-		 return CheckinForSending();
+		 return CheckinMessage();
 	 default:
 		 break;
 	 }
@@ -60,7 +60,7 @@ void MessageHandler::WarningProcess(Message msg)
 	cout<<msg.Doc().InnerText()<<endl;
 }
 
-Message MessageHandler::FileForSending()
+Message MessageHandler::FileMessage()
 {
 	string typeTag = MsgType::EnumToString(MsgType::File);
 	string nameTag = "Name";
@@ -85,7 +85,7 @@ Message MessageHandler::FileForSending()
 	return Message(elem);
 }
 
-Message MessageHandler::CheckinForSending()
+Message MessageHandler::CheckinMessage()
 {
 	string typeTag = MsgType::EnumToString(MsgType::Checkin);
 	string nameTag = "Action";
@@ -103,7 +103,7 @@ Message MessageHandler::CheckinForSending()
 	return Message(elem);
 }
 
-Message MessageHandler::LoginForSending()
+Message MessageHandler::LoginMessage()
 {
 	string typeTag = MsgType::EnumToString(MsgType::Login);
 	string nameTag = "Name";
@@ -120,12 +120,12 @@ Message MessageHandler::LoginForSending()
 	return Message(elem);
 }
 
-Message MessageHandler::DependencyForSending()
+Message MessageHandler::DependencyMessage()
 {
 	string typeTag = MsgType::EnumToString(MsgType::Dependency);
 	string nameTag = "Name";
 
-	string depName = "*.*";
+	string depName = "Display";// "*.*";
 
 	xmlElem elem(nameTag,depName);
 	xmlRep rep(elem.elemStr());
@@ -138,7 +138,6 @@ Message MessageHandler::DependencyForSending()
 }
 
 
-
 #ifdef CLIENT_MESSAGE_HANDLER_TEST
 
 void main()
@@ -148,13 +147,16 @@ void main()
 
 
 	msg = mh.MessageForSending(MsgType::Login);
-	cout<<msg.ToString()<<endl<<endl;
+	cout<<msg.ToString()<<endl;
+	cout<<"Message type: "<<msg.Type()<<endl<<endl;
 
 	msg = mh.MessageForSending(MsgType::Dependency);
-	cout<<msg.ToString()<<endl<<endl;
+	cout<<msg.ToString()<<endl;
+	cout<<"Message type: "<<msg.Type()<<endl<<endl;
 
 	msg = mh.MessageForSending(MsgType::File);
-	cout<<msg.ToString()<<endl<<endl;
+	cout<<msg.ToString()<<endl;
+	cout<<"Message type: "<<msg.Type()<<endl<<endl;
 
 	//cout<<msg.ToString()<<endl<<endl;
 }
