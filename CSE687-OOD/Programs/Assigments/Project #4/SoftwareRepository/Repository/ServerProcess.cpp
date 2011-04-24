@@ -4,7 +4,6 @@
 #include <conio.h>
 
 #ifdef MAIN_TEST
-#endif
 
 class MsgReceiver_Proc : public Thread_Processing<MsgReceiver_Proc>
 {
@@ -128,3 +127,4 @@ void main()
 }
 
 
+#endif

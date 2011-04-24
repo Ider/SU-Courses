@@ -11,8 +11,10 @@ public:
 	MessageHandler():_metaFolder("MetaXML\\")
 		,_pacakgeFolder("Package\\"),_checkinFoler("Temp\\"){}
 
+	virtual Message RespondToMessage(conStrRef message);
 	virtual void ReceiveMessage(conStrRef message );
 	virtual Message MessageForSending(MsgType::Value type);
+
 
 	////
 	//virtual void FileProcess(Message msg)
@@ -39,7 +41,7 @@ public:
 	//}
 	strVal MessageHandler::GetKeyName(strVal filePath);
 	void MessageHandler::Trim(strRef value);
-	void LoadMetaContent(strRef container, conStrRef name);
+	//void LoadMetaContent(strRef container, conStrRef name);
 	virtual Message WarningMessage(strVal warning);
 
 protected:
