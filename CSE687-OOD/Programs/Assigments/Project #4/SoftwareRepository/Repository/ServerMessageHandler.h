@@ -8,6 +8,9 @@
 class MessageHandler:IMessageHandler
 {
 public:
+	MessageHandler():_metaFolder("MetaXML\\")
+		,_pacakgeFolder("Package\\"),_checkinFoler("Temp\\"){}
+
 	virtual void ReceiveMessage(conStrRef message );
 	virtual Message MessageForSending(MsgType::Value type);
 
@@ -34,23 +37,27 @@ public:
 	//	if(msg.Type()!=Message::MsgType.Dependency)return;
 
 	//}
-	std::string GetName();
-	void LoadMetaContent(std::string& container, const std::string& name);
+	strVal MessageHandler::GetKeyName(strVal filePath);
+	void MessageHandler::Trim(strRef value);
+	void LoadMetaContent(strRef container, conStrRef name);
+	virtual Message WarningMessage(strVal warning);
 
 protected:
 	//Generate message for sending
-	virtual Message FileForSending();
-	virtual Message CheckinForSending();
-	virtual Message LoginForSending();
-	virtual Message DependencyForSending();
-	virtual Message WarningForSending(std::string warning);
+	virtual Message FileMessage();
+	virtual Message CheckinMessage();
+	virtual Message LoginMessage();
+	virtual Message DependencyMessage();
+	virtual Message AllPackageMesage();
 
-	std::string GetDirectory();
-
-
+	strVal GetName();
+	strVal GetDirectory();
 
 private:
 	Message _msg;
+	strVal _metaFolder;
+	strVal _pacakgeFolder;
+	strVal _checkinFoler;
 
 };
 

@@ -1,8 +1,11 @@
 
 #include "..\Foundation\Communicator.h"
+#include "ServerMessageHandler.h"
 #include <conio.h>
 
 #ifdef MAIN_TEST
+#endif
+
 class MsgReceiver_Proc : public Thread_Processing<MsgReceiver_Proc>
 {
 public:
@@ -26,7 +29,11 @@ public:
 			EndPoint remoteEp = _pMsgHandler->getEndPoint();
 			if(pComm->connect(remoteEp.getIP(), remoteEp.getPort()))
 			{
-				pComm->postMessage(std::string("got message ")+remoteEp.toString()+msg+"\n");
+				Message message(msg);
+				mh.ReceiveMessage(msg);
+				message = mh.MessageForSending(MsgType::Unknown);
+
+				pComm->postMessage(message.ToString());
 				pComm->disconnect();
 			}
 			else
@@ -41,6 +48,7 @@ public:
 	}
 private:
 	IMsgHandler* _pMsgHandler;
+	MessageHandler mh;
 };
 
 class FileReceiver_Proc : public Thread_Processing<FileReceiver_Proc>
@@ -119,5 +127,4 @@ void main()
 	}
 }
 
-#endif
 

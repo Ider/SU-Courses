@@ -70,9 +70,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Foundation\Communicator.h" />
+    <ClInclude Include="FileSystem.h" />
     <ClInclude Include="ServerMessageHandler.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="ServerMessageHandler.cpp" />
     <ClCompile Include="ServerProcess.cpp" />
   </ItemGroup>
