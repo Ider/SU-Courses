@@ -18,13 +18,15 @@ vector<XmlDoc> XmlDoc::Children(conStrRef tagName)
 
 	while(rep.firstElem(elem))
 	{
-		rep.front();
-		strPos end = rep.findCloseTag(elem.tagName());
-		strRef xml = rep.xmlStr();
-		rep.xmlStr() = xml.substr(end+1,string::npos);
-
 		if(tagName.size()==0 || tagName==elem.tagName())
 			children.push_back(elem);
+
+		rep.front();
+		strPos end = rep.findCloseTag(elem.tagName());
+		if (end+1 >= rep.xmlStr().size())break;
+
+		strVal xml = rep.xmlStr();
+		rep.xmlStr() = xml.substr(end+1);
 	}
 
 	return children;

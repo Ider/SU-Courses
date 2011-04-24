@@ -10,9 +10,9 @@ struct MsgType
 	enum Value
 	{
 		Login,
-		Checkin,
 		Dependency,
 		File,
+		Checkin,
 		Warning,
 
 		Unknown
@@ -28,7 +28,6 @@ public:
 	Message(conStrRef xml);
 
 	MsgType::Value Type()const{return type;}
-	strVal Conntent(){return doc.InnerText();}
 	XmlDoc Doc()const{return doc;}
 	virtual void SetMessage(conStrRef xml);
 	strVal ToString()const{return doc.ToString();}
