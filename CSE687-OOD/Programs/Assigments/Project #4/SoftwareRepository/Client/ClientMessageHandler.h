@@ -3,30 +3,30 @@
 
 #include "..\Infrastructure\IMessageHandler.h"
 
-class MessageHandler:IMessageHandler
+class MessageHandler:public Ider::IMessageHandler
 {
 public:
 	virtual void ReceiveMessage(conStrRef message );
-	virtual Message MessageForSending(MsgType::Value type);
+	virtual Ider::Message MessageForSending(Ider::MsgType::Value type);
 
 	//
-	virtual void FileProcess(Message msg);
-	virtual void LoginProcess(Message msg);
-	virtual void CheckinProcess(Message msg);
-	virtual void DependencyProcess(Message msg);
-	virtual void WarningProcess(Message msg);
+	virtual void FileProcess(Ider::Message msg);
+	virtual void LoginProcess(Ider::Message msg);
+	virtual void CheckinProcess(Ider::Message msg);
+	virtual void DependencyProcess(Ider::Message msg);
+	virtual void WarningProcess(Ider::Message msg);
 
 
 protected:
-	virtual Message FileMessage();
-	virtual Message CheckinMessage();
-	virtual Message LoginMessage();
-	virtual Message DependencyMessage();
-	//virtual Message WarningMessage(std::string warning);
+	virtual Ider::Message FileMessage();
+	virtual Ider::Message CheckinMessage();
+	virtual Ider::Message LoginMessage();
+	virtual Ider::Message DependencyMessage();
+	//virtual Ider::Message WarningMessage(std::string warning);
 
 
 private:
-	Message _msg;
+	Ider::Message _msg;
 };
 
 

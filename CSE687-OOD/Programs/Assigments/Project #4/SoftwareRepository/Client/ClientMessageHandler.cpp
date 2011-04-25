@@ -3,7 +3,7 @@
 using namespace std;
 
 #include "ClientMessageHandler.h"
-
+using namespace Ider;
 
  void MessageHandler::ReceiveMessage(conStrRef message )
  {

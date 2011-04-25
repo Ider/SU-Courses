@@ -1,12 +1,15 @@
 
 #include "..\Foundation\Communicator.h"
 #include "ClientMessageHandler.h"
+
+#include "UserInterface.h"
+
 #include <conio.h>
+
 
 
 #ifdef MAIN_TEST
 
-#endif
 /////////////////////////////////////////////////////////////////////
 // Thread Proc classes for sender
 
@@ -141,3 +144,4 @@ void main()
 	}
 }
 
+#endif

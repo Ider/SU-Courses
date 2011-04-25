@@ -71,10 +71,27 @@
   <ItemGroup>
     <ClInclude Include="..\Foundation\Communicator.h" />
     <ClInclude Include="ClientMessageHandler.h" />
+    <ClInclude Include="ClientProcess.h" />
+    <ClInclude Include="UserInterface.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientProcess.cpp" />
     <ClCompile Include="ClientMessageHandler.cpp" />
+    <ClCompile Include="UserInterface.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UserInterface.resx">
+      <DependentUpon>UserInterface.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
