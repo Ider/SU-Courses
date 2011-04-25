@@ -5,39 +5,44 @@
 
 #include "XmlDoc.h"
 
-struct MsgType
+namespace Ider
 {
-	enum Value
+
+
+	struct MsgType
 	{
-		Login,
-		Dependency,
-		File,
-		Checkin,
-		Warning,
+		enum Value
+		{
+			Login,
+			Dependency,
+			File,
+			Checkin,
+			Warning,
 
-		Unknown
+			Unknown
+		};
+		static strVal EnumToString(MsgType::Value type);
+		static Value StringToEnum(conStrRef type);
 	};
-	static strVal EnumToString(MsgType::Value type);
-	static Value StringToEnum(conStrRef type);
-};
 
-class Message
-{
-public:
-	Message(){ type = MsgType::Unknown;}
-	Message(conStrRef xml);
+	class Message
+	{
+	public:
+		Message(){ type = MsgType::Unknown;}
+		Message(conStrRef xml);
 
-	MsgType::Value Type()const{return type;}
-	XmlDoc Doc()const{return doc;}
-	virtual void SetMessage(conStrRef xml);
-	strVal ToString()const{return doc.ToString();}
-protected:
-	virtual	void  SetType(strVal tagName);
+		MsgType::Value Type()const{return type;}
+		XmlDoc Doc()const{return doc;}
+		virtual void SetMessage(conStrRef xml);
+		strVal ToString()const{return doc.ToString();}
+	protected:
+		virtual	void  SetType(strVal tagName);
 
-private:
-	XmlDoc doc;
-	MsgType::Value type;
+	private:
+		XmlDoc doc;
+		MsgType::Value type;
 
-};
+	};
+}
 
 #endif

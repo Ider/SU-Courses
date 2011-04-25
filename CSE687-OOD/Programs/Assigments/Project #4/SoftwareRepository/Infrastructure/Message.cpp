@@ -1,8 +1,8 @@
-
+using namespace std;
 
 #include "Message.h"
 
-using namespace std;
+using namespace Ider;
 
 MsgType::Value MsgType::StringToEnum(conStrRef type)
 {
