@@ -62,7 +62,8 @@ public:
   std::string getIP();
   int getPort();
   operator std::string () { return _ipport; }
-  bool operator ==(const EndPoint& other){return _ipport == other._ipport;}
+  bool operator ==(const EndPoint& other)const{return _ipport == other._ipport;}
+  bool operator <(const EndPoint& other)const{return _ipport < other._ipport;}
   std::string toString() { return _ipport; }
 private:
   std::string _ipport;
