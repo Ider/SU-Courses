@@ -4,21 +4,32 @@ using namespace std;
 
 #include "FileSystem.h"
 #include "ServerMessageHandler.h"
-using namespace WinTools_Extracts;
 
-Message MessageHandler::RespondToMessage(conStrRef message)
+Message MessageHandler::RespondToMessage(conStrRef message, EndPoint curConnected)
 {
 	ReceiveMessage(message);
-	return MessageForSending(MsgType::Unknown);
+
+	_curIP = curConnected;
+	map<EndPoint,strVal>::iterator it = _loginUsers.find(_curIP);
+	if (it != _loginUsers.end())
+		_curUser = it->second;
+	
+	Message msg = MessageForSending(MsgType::Unknown);
+
+	_curUser.clear();
+	return msg;
 }
 
-void MessageHandler::ReceiveMessage(conStrRef message )
+void MessageHandler::ReceiveMessage(conStrRef message)
 {
 	_msg.SetMessage(message);
 }
 
 Message MessageHandler::MessageForSending(MsgType::Value type)
 {
+	if (_msg.Type()!= MsgType::Login && _curUser.size()<=0)
+		return WarningMessage("No user connected");
+
 	switch (_msg.Type())
 	{
 	case MsgType::Login: 
@@ -65,7 +76,7 @@ Message MessageHandler::FileMessage()
 	tag = "Name";
 	for (size_t i=0; i<refs.size(); ++i)
 	{
-		content = refs[i].body();
+		content = refs[i].InnerText();
 		content = GetKeyName(content);
 		xmlElem elem(tag,content);
 		rep.addSibling(elem);
@@ -79,25 +90,54 @@ Message MessageHandler::FileMessage()
 
 Message MessageHandler::CheckinMessage()
 {
+	const strVal name = GetName();
+	strVal tag = "User";
+	strVal content;
+	XmlDoc doc;
+	xmlRep rep;
 	return Message();
 }
 
 Message MessageHandler::LoginMessage()
 {
-	return Message();
+	strVal path = GetDirectory()+"Users.xml";
+	XmlDoc doc;
+	
+	if (!doc.LoadXmlFile(path))
+		return WarningMessage("Users file broken, please contact administrator.");
+	
+	strVal name = GetName();
+	strVal tag = "User";
+	strVal content;
+	xmlRep rep;
+
+	vector<XmlDoc> users = doc.Children(tag);
+
+	for (size_t i=0; i<users.size();++i)
+	{
+		strVal userName = users[i].Children("Name")[0].InnerText();
+		if (userName == name)
+		{
+			_loginUsers[_curUser] = name;
+			return _msg;
+		}
+	}
+
+	return WarningMessage("User is not in the repository.");
 }
 
 Message MessageHandler::DependencyMessage()
 {
 	const strVal name = GetName();
+	
+	if (name == "*.*")return AllPackageMesage();
+	
+	strVal path = GetDirectory()+_metaFolder+name+".xml";
 	strVal tag = "references";
 	strVal content;
 	XmlDoc doc;
 	xmlRep rep;
 
-	if (name == "*.*")return AllPackageMesage();
-
-	strVal path = GetDirectory()+_metaFolder+name+".xml";
 	if (!doc.LoadXmlFile(path))
 		return WarningMessage(name+": the package is not in the repository.");
 	
@@ -113,7 +153,7 @@ Message MessageHandler::DependencyMessage()
 	tag = "Name";
 	for (size_t i=0; i<refs.size(); ++i)
 	{
-		content = refs[i].body();
+		content = refs[i].InnerText();
 		content = GetKeyName(content);
 		xmlElem elem(tag,content);
 		rep.addSibling(elem);
@@ -136,7 +176,7 @@ Message MessageHandler::AllPackageMesage()
 {
 	strVal path = GetDirectory() + "MetaXML";
 	strVal tag = "Name";
-	FileHandler fh;
+	WinTools_Extracts::FileHandler fh;
 	xmlRep rep;
 	vector<strVal> files = fh.getFileSpecs(path,"*.xml");
 	
@@ -155,7 +195,7 @@ Message MessageHandler::AllPackageMesage()
 
 strVal MessageHandler::GetDirectory()
 {
-	strVal path = ".\\Repository\\Ider\\";
+	strVal path = ".\\Repository\\";
 	return path;
 }
 
@@ -208,56 +248,34 @@ strVal MessageHandler::GetKeyName(strVal filePath)
 	if (pos < filePath.size())
 		filePath.erase(pos,filePath.size());
 
-	Trim(filePath);
 	return filePath;
 }
 
-//////////////////////////////////////////////////////////////////////////
-//Removes all occurrences of white space characters from the beginning and 
-//end of string. 
-void MessageHandler::Trim(strRef value)
-{
-	const char * ch = value.c_str();
-	size_t top = 0;
-	size_t end = value.size() - 1;
-	while(top <= end && 
-		(ch[top] ==' ' || ch [top] == '\t'))
-		++top;
-	while(end >=0 && (ch[end] ==' ' || ch [end] == '\t'))
-		--end;
-
-	top = (top >= value.size())?top = 0 : top;
-	end  =  end<0? end = value.size() : end+1;
-
-	value.erase(end,value.size());
-	value.erase(0,top);
-
-}
 
 
 
 void main()
 {
-	string msg ="<Dependency><Name>Display</Name></Dependency>";
+	string msg ="<Login><Name>Ider</Name></Login>";
 
 	MessageHandler mh;
-	Message snd = mh.RespondToMessage(msg);
-
+	Message snd = mh.RespondToMessage(msg,EndPoint());
 	cout<<snd.ToString()<<endl;
 	cout<<"Message type: "<<snd.Type()<<endl<<endl;
 
 	msg ="<Dependency><Name>*.*</Name></Dependency>";
-
-	
-	snd = mh.RespondToMessage(msg);
-
+	snd = mh.RespondToMessage(msg,EndPoint());
 	cout<<snd.ToString()<<endl;
 	cout<<"Message type: "<<snd.Type()<<endl<<endl;
 
+	msg ="<Dependency><Name>Display</Name></Dependency>";
+	snd = mh.RespondToMessage(msg,EndPoint());
+	cout<<snd.ToString()<<endl;
+	cout<<"Message type: "<<snd.Type()<<endl<<endl;
+
+
 	msg ="*.*";
-
-	snd = mh.RespondToMessage(msg);
-
+	snd = mh.RespondToMessage(msg,EndPoint());
 	cout<<snd.ToString()<<endl;
 	cout<<"Message type: "<<snd.Type()<<endl<<endl;
 }

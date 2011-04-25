@@ -1,8 +1,9 @@
 #ifndef SERVER_MESSAGE_HANDLER_H
 #define SERVER_MESSAGE_HANDLER_H
 
+#include <map>
 #include "..\Infrastructure\IMessageHandler.h"
-
+#include "..\Foundation\MsgHandler.h"
 
 
 class MessageHandler:IMessageHandler
@@ -11,7 +12,7 @@ public:
 	MessageHandler():_metaFolder("MetaXML\\")
 		,_pacakgeFolder("Package\\"),_checkinFoler("Temp\\"){}
 
-	virtual Message RespondToMessage(conStrRef message);
+	virtual Message RespondToMessage(conStrRef message, EndPoint curConnected);
 	virtual void ReceiveMessage(conStrRef message );
 	virtual Message MessageForSending(MsgType::Value type);
 
@@ -40,7 +41,6 @@ public:
 
 	//}
 	strVal MessageHandler::GetKeyName(strVal filePath);
-	void MessageHandler::Trim(strRef value);
 	//void LoadMetaContent(strRef container, conStrRef name);
 	virtual Message WarningMessage(strVal warning);
 
@@ -60,6 +60,9 @@ private:
 	strVal _metaFolder;
 	strVal _pacakgeFolder;
 	strVal _checkinFoler;
+	std::map<EndPoint, strVal> _loginUsers;
+	std::string _curUser;
+	EndPoint _curIP;
 
 };
 
