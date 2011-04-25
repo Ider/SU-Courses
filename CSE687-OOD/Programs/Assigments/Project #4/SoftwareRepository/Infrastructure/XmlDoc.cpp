@@ -83,12 +83,47 @@ bool XmlDoc::LoadXmlFile(conStrRef fileName)
 	return false;
 }
 
-bool SaveToFile(conStrRef fileName)
+bool XmlDoc::SaveToFile(conStrRef fileName)
 {
-	throw string("To be implemeted.");
-	return false;
+	throw string("To be implemented.");
+
+	ofstream out(fileName.c_str());
+	if(!out.good())
+		return false;
+	
+	out << _elemStr;
+	out.flush();
+	return true;
 }
 
+strVal XmlDoc::InnerText()
+{
+	strVal text = body();
+	Trim(text);
+	return text;
+}
+
+//////////////////////////////////////////////////////////////////////////
+//Removes all occurrences of white space characters from the beginning and 
+//end of string. 
+void XmlDoc::Trim(strRef value)
+{
+	const char * ch = value.c_str();
+	size_t top = 0;
+	size_t end = value.size() - 1;
+	while(top <= end && 
+		(ch[top] ==' ' || ch [top] == '\t'))
+		++top;
+	while(end >=0 && (ch[end] ==' ' || ch [end] == '\t'))
+		--end;
+
+	top = (top >= value.size())?top = 0 : top;
+	end  =  end<0? end = value.size() : end+1;
+
+	value.erase(end,value.size());
+	value.erase(0,top);
+
+}
 
 #ifdef XMLDOC_TEST
 

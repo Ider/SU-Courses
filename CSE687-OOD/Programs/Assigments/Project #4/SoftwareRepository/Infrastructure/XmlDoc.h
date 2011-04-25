@@ -15,12 +15,14 @@ public:
 	XmlDoc Children(size_t index);
 
     strVal Name(){return tagName();}
-	strVal InnerText(){return body();}
+	strVal InnerText();
 	void LoadXml(conStrRef xml){_elemStr = xml;}
 	bool LoadXmlFile(conStrRef fileName);
 	bool SaveToFile(conStrRef fileName);
 	strVal ToString()const{return _elemStr;}
 private:
+	void Trim(strRef value);
+	
 
 };
 
