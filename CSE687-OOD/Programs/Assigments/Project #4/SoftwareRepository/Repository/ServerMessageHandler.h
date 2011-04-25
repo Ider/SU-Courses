@@ -6,57 +6,58 @@
 #include "..\Foundation\MsgHandler.h"
 
 
-class MessageHandler:IMessageHandler
+
+class MessageHandler:public Ider::IMessageHandler
 {
 public:
 	MessageHandler():_metaFolder("MetaXML\\")
 		,_pacakgeFolder("Package\\"),_checkinFoler("Temp\\"){}
 
-	virtual Message RespondToMessage(conStrRef message, EndPoint curConnected);
+	virtual Ider::Message RespondToMessage(conStrRef message, EndPoint curConnected);
 	virtual void ReceiveMessage(conStrRef message );
-	virtual Message MessageForSending(MsgType::Value type);
+	virtual Ider::Message MessageForSending(Ider::MsgType::Value type);
 
 
 	////
-	//virtual void FileProcess(Message msg)
+	//virtual void FileProcess(Ider::Message msg)
 	//{
-	//	if(msg.Type()!=Message::MsgType.File)return;
+	//	if(msg.Type()!=Ider::Message::Ider::MsgType.File)return;
 	//}
 
-	//virtual void LoginProcess(Message msg)
+	//virtual void LoginProcess(Ider::Message msg)
 	//{
-	//	if(msg.Type()!=Message::MsgType.Login)return;
-
-	//}
-
-	//virtual void CheckinProcess(Message msg)
-	//{
-	//	if(msg.Type()!=Message::MsgType.Checkin)return;
+	//	if(msg.Type()!=Ider::Message::Ider::MsgType.Login)return;
 
 	//}
 
-	//virtual void DependencyProcess(Message msg)
+	//virtual void CheckinProcess(Ider::Message msg)
 	//{
-	//	if(msg.Type()!=Message::MsgType.Dependency)return;
+	//	if(msg.Type()!=Ider::Message::Ider::MsgType.Checkin)return;
+
+	//}
+
+	//virtual void DependencyProcess(Ider::Message msg)
+	//{
+	//	if(msg.Type()!=Ider::Message::Ider::MsgType.Dependency)return;
 
 	//}
 	strVal MessageHandler::GetKeyName(strVal filePath);
 	//void LoadMetaContent(strRef container, conStrRef name);
-	virtual Message WarningMessage(strVal warning);
+	virtual Ider::Message WarningMessage(strVal warning);
 
 protected:
 	//Generate message for sending
-	virtual Message FileMessage();
-	virtual Message CheckinMessage();
-	virtual Message LoginMessage();
-	virtual Message DependencyMessage();
-	virtual Message AllPackageMesage();
+	virtual Ider::Message FileMessage();
+	virtual Ider::Message CheckinMessage();
+	virtual Ider::Message LoginMessage();
+	virtual Ider::Message DependencyMessage();
+	virtual Ider::Message AllPackageMesage();
 
 	strVal GetName();
 	strVal GetDirectory();
 
 private:
-	Message _msg;
+	Ider::Message _msg;
 	strVal _metaFolder;
 	strVal _pacakgeFolder;
 	strVal _checkinFoler;

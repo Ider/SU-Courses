@@ -4,6 +4,7 @@ using namespace std;
 
 #include "FileSystem.h"
 #include "ServerMessageHandler.h"
+using namespace Ider;
 
 Message MessageHandler::RespondToMessage(conStrRef message, EndPoint curConnected)
 {
@@ -118,7 +119,7 @@ Message MessageHandler::LoginMessage()
 		strVal userName = users[i].Children("Name")[0].InnerText();
 		if (userName == name)
 		{
-			_loginUsers[_curUser] = name;
+			_loginUsers[_curIP] = name;
 			return _msg;
 		}
 	}
@@ -252,6 +253,7 @@ strVal MessageHandler::GetKeyName(strVal filePath)
 }
 
 
+#ifdef SERVER_MESSAGE_HANDLER_TEST
 
 
 void main()
@@ -279,6 +281,5 @@ void main()
 	cout<<snd.ToString()<<endl;
 	cout<<"Message type: "<<snd.Type()<<endl<<endl;
 }
-#ifdef SERVER_MESSAGE_HANDLER_TEST
 
 #endif
