@@ -7,12 +7,12 @@ using namespace std;
 MsgType::Value MsgType::StringToEnum(conStrRef type)
 {
 	if(type == "Login")return Login;
-	else if(type == "Checkin")return Checkin;
-	else if(type == "Dependency")return Dependency;
-	else if(type == "File")return File;
-	else if(type == "Warning")return Warning;
+	if(type == "Checkin")return Checkin;
+	if(type == "Dependency")return Dependency;
+	if(type == "File")return File;
+	if(type == "Warning")return Warning;
 
-	else return Unknown;
+	return Unknown;
 }
 
 strVal MsgType::EnumToString(Value type)
