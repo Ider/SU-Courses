@@ -31,17 +31,15 @@ namespace Ider
 		Message(){ type = MsgType::Unknown;}
 		Message(conStrRef xml);
 
+		operator std::string(){return doc.ToString();}
 		MsgType::Value Type()const{return type;}
 		XmlDoc Doc()const{return doc;}
 		virtual void SetMessage(conStrRef xml);
 		strVal ToString()const{return doc.ToString();}
 	protected:
 		virtual	void  SetType(strVal tagName);
-
-	private:
 		XmlDoc doc;
 		MsgType::Value type;
-
 	};
 }
 
