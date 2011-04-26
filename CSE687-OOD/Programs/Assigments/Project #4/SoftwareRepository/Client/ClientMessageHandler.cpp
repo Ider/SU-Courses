@@ -64,7 +64,6 @@ void MessageHandler::LoginProcess()
 	if(_msg.Type()!=MsgType::Login)return;
 
 	_form->SendMessage(MsgType::Dependency);
-	_form->pnlLogin->Visible = false;
 }
 
 void MessageHandler::CheckinProcess()
@@ -79,11 +78,16 @@ void MessageHandler::DependencyProcess()
 
   	System::Collections::Generic::List<System::String^>^ packages
   		=gcnew System::Collections::Generic::List<System::String^>();
-   	packages->Add(L"..");
-  	packages->Add(L"*.*");
-  	packages->Add(L"Hello");
-  	packages->Add(L"Display");
- 	_form->ShowPackageListBox(packages);
+   	
+	vector<XmlDoc> deps = _msg.Doc().Children("Name");
+	strVal name;
+	for (size_t i = 0; i<deps.size(); ++i)
+	{
+		name = deps[i].InnerText();
+		packages->Add(Convert(name));
+	}
+
+ 	_form->Invoke(_form->ShowPackageListBox,packages);
 }
 
 void MessageHandler::WarningProcess()
