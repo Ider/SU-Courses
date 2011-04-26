@@ -114,6 +114,23 @@ namespace Client {
 	public: System::Windows::Forms::Button^  btnDep;
 	public: System::Windows::Forms::Button^  btnExt;
 	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Label^  lblCli;
+
+
+	private: System::Windows::Forms::Label^  lblSvr;
+	private: System::Windows::Forms::TextBox^  txtCitIP;
+	private: System::Windows::Forms::TextBox^  txtCitPort;
+
+
+	private: System::Windows::Forms::TextBox^  txtSvrPort;
+	private: System::Windows::Forms::TextBox^  txtSvrIP;
+	private: System::Windows::Forms::Button^  btnLogin;
+	private: System::Windows::Forms::TextBox^  textBox1;
+	private: System::Windows::Forms::Label^  lblUsrName;
+	private: System::Windows::Forms::Label^  lblCitColon;
+	private: System::Windows::Forms::Label^  lblSvrColon;
+
+
 	public: 
 	public: System::Windows::Forms::Panel^  pnlLogin;
 
@@ -147,14 +164,26 @@ namespace Client {
 		{
 			this->tabClient = (gcnew System::Windows::Forms::TabControl());
 			this->tabPackage = (gcnew System::Windows::Forms::TabPage());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->btnDep = (gcnew System::Windows::Forms::Button());
 			this->btnExt = (gcnew System::Windows::Forms::Button());
 			this->listDep = (gcnew System::Windows::Forms::ListBox());
 			this->tabCheckin = (gcnew System::Windows::Forms::TabPage());
 			this->pnlLogin = (gcnew System::Windows::Forms::Panel());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->btnLogin = (gcnew System::Windows::Forms::Button());
+			this->txtSvrIP = (gcnew System::Windows::Forms::TextBox());
+			this->txtSvrPort = (gcnew System::Windows::Forms::TextBox());
+			this->txtCitPort = (gcnew System::Windows::Forms::TextBox());
+			this->txtCitIP = (gcnew System::Windows::Forms::TextBox());
+			this->lblSvr = (gcnew System::Windows::Forms::Label());
+			this->lblCli = (gcnew System::Windows::Forms::Label());
+			this->lblSvrColon = (gcnew System::Windows::Forms::Label());
+			this->lblCitColon = (gcnew System::Windows::Forms::Label());
+			this->lblUsrName = (gcnew System::Windows::Forms::Label());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->tabClient->SuspendLayout();
 			this->tabPackage->SuspendLayout();
+			this->pnlLogin->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// tabClient
@@ -180,6 +209,16 @@ namespace Client {
 			this->tabPackage->TabIndex = 0;
 			this->tabPackage->Text = L"Packages";
 			this->tabPackage->UseVisualStyleBackColor = true;
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(378, 226);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 5;
+			this->button1->Text = L"button1";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &UserInterface::button1_Click);
 			// 
 			// btnDep
 			// 
@@ -222,31 +261,157 @@ namespace Client {
 			// 
 			// pnlLogin
 			// 
+			this->pnlLogin->Controls->Add(this->textBox1);
+			this->pnlLogin->Controls->Add(this->lblUsrName);
+			this->pnlLogin->Controls->Add(this->lblCitColon);
+			this->pnlLogin->Controls->Add(this->lblSvrColon);
+			this->pnlLogin->Controls->Add(this->lblCli);
+			this->pnlLogin->Controls->Add(this->lblSvr);
+			this->pnlLogin->Controls->Add(this->txtCitIP);
+			this->pnlLogin->Controls->Add(this->txtCitPort);
+			this->pnlLogin->Controls->Add(this->txtSvrPort);
+			this->pnlLogin->Controls->Add(this->txtSvrIP);
+			this->pnlLogin->Controls->Add(this->btnLogin);
 			this->pnlLogin->Location = System::Drawing::Point(0, 0);
 			this->pnlLogin->Name = L"pnlLogin";
-			this->pnlLogin->Size = System::Drawing::Size(600, 370);
+			this->pnlLogin->Size = System::Drawing::Size(580, 360);
 			this->pnlLogin->TabIndex = 1;
 			// 
-			// button1
+			// btnLogin
 			// 
-			this->button1->Location = System::Drawing::Point(378, 226);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
-			this->button1->TabIndex = 5;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &UserInterface::button1_Click);
+			this->btnLogin->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->btnLogin->Location = System::Drawing::Point(445, 291);
+			this->btnLogin->Name = L"btnLogin";
+			this->btnLogin->Size = System::Drawing::Size(85, 28);
+			this->btnLogin->TabIndex = 0;
+			this->btnLogin->Text = L"Log In";
+			this->btnLogin->UseVisualStyleBackColor = true;
+			this->btnLogin->Click += gcnew System::EventHandler(this, &UserInterface::btnLogin_Click);
+			// 
+			// txtSvrIP
+			// 
+			this->txtSvrIP->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->txtSvrIP->Location = System::Drawing::Point(200, 70);
+			this->txtSvrIP->Name = L"txtSvrIP";
+			this->txtSvrIP->ReadOnly = true;
+			this->txtSvrIP->Size = System::Drawing::Size(100, 26);
+			this->txtSvrIP->TabIndex = 1;
+			this->txtSvrIP->Text = L"127.0.0.1";
+			// 
+			// txtSvrPort
+			// 
+			this->txtSvrPort->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->txtSvrPort->Location = System::Drawing::Point(315, 70);
+			this->txtSvrPort->Name = L"txtSvrPort";
+			this->txtSvrPort->ReadOnly = true;
+			this->txtSvrPort->Size = System::Drawing::Size(50, 26);
+			this->txtSvrPort->TabIndex = 2;
+			this->txtSvrPort->Text = L"2107";
+			// 
+			// txtCitPort
+			// 
+			this->txtCitPort->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->txtCitPort->Location = System::Drawing::Point(315, 140);
+			this->txtCitPort->Name = L"txtCitPort";
+			this->txtCitPort->ReadOnly = true;
+			this->txtCitPort->Size = System::Drawing::Size(52, 26);
+			this->txtCitPort->TabIndex = 3;
+			this->txtCitPort->Text = L"0311";
+			// 
+			// txtCitIP
+			// 
+			this->txtCitIP->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->txtCitIP->Location = System::Drawing::Point(200, 140);
+			this->txtCitIP->Name = L"txtCitIP";
+			this->txtCitIP->ReadOnly = true;
+			this->txtCitIP->Size = System::Drawing::Size(100, 26);
+			this->txtCitIP->TabIndex = 4;
+			this->txtCitIP->Text = L"127.0.0.1";
+			// 
+			// lblSvr
+			// 
+			this->lblSvr->AutoSize = true;
+			this->lblSvr->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->lblSvr->Location = System::Drawing::Point(40, 70);
+			this->lblSvr->Name = L"lblSvr";
+			this->lblSvr->Size = System::Drawing::Size(144, 18);
+			this->lblSvr->TabIndex = 5;
+			this->lblSvr->Text = L"Server IP Address:";
+			// 
+			// lblCli
+			// 
+			this->lblCli->AutoSize = true;
+			this->lblCli->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->lblCli->Location = System::Drawing::Point(40, 140);
+			this->lblCli->Name = L"lblCli";
+			this->lblCli->Size = System::Drawing::Size(137, 18);
+			this->lblCli->TabIndex = 6;
+			this->lblCli->Text = L"Client IP Address:";
+			// 
+			// lblSvrColon
+			// 
+			this->lblSvrColon->AutoSize = true;
+			this->lblSvrColon->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->lblSvrColon->Location = System::Drawing::Point(300, 70);
+			this->lblSvrColon->Name = L"lblSvrColon";
+			this->lblSvrColon->Size = System::Drawing::Size(13, 18);
+			this->lblSvrColon->TabIndex = 7;
+			this->lblSvrColon->Text = L":";
+			// 
+			// lblCitColon
+			// 
+			this->lblCitColon->AutoSize = true;
+			this->lblCitColon->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->lblCitColon->Location = System::Drawing::Point(300, 140);
+			this->lblCitColon->Name = L"lblCitColon";
+			this->lblCitColon->Size = System::Drawing::Size(13, 18);
+			this->lblCitColon->TabIndex = 8;
+			this->lblCitColon->Text = L":";
+			// 
+			// lblUsrName
+			// 
+			this->lblUsrName->AutoSize = true;
+			this->lblUsrName->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->lblUsrName->Location = System::Drawing::Point(40, 200);
+			this->lblUsrName->Name = L"lblUsrName";
+			this->lblUsrName->Size = System::Drawing::Size(93, 18);
+			this->lblUsrName->TabIndex = 9;
+			this->lblUsrName->Text = L"User Name:";
+			// 
+			// textBox1
+			// 
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->textBox1->Location = System::Drawing::Point(200, 200);
+			this->textBox1->MaxLength = 100;
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(165, 26);
+			this->textBox1->TabIndex = 10;
+			this->textBox1->Text = L"Ider";
 			// 
 			// UserInterface
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(584, 362);
+			this->Controls->Add(this->pnlLogin);
 			this->Controls->Add(this->tabClient);
 			this->Name = L"UserInterface";
 			this->Text = L"UI";
 			this->tabClient->ResumeLayout(false);
 			this->tabPackage->ResumeLayout(false);
+			this->pnlLogin->ResumeLayout(false);
+			this->pnlLogin->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -265,18 +430,26 @@ namespace Client {
 
 		System::Collections::Generic::List<String^>^ selectionTrack;
 
+
+		System::Void btnLogin_Click(System::Object^  sender, System::EventArgs^  e)
+		{
+			SendMessage(Ider::MsgType::Login);
+		}
+
 		ICommunicator* sender;
 		Ider::IMessageHandler* mh;
-	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-				 System::Collections::Generic::List<String^>^ packages
-					 =gcnew System::Collections::Generic::List<String^>();
-				 packages->Add(L"..");
-				 packages->Add(L"*.*");
-				 packages->Add(L"Hello");
-				 packages->Add(L"Display");
-				 ShowPackageListBox(packages);
-			 }
-};
+
+
+		System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+			System::Collections::Generic::List<String^>^ packages
+				=gcnew System::Collections::Generic::List<String^>();
+			packages->Add(L"..");
+			packages->Add(L"*.*");
+			packages->Add(L"Hello");
+			packages->Add(L"Display");
+			ShowPackageListBox(packages);
+		}
+	};
 }
 
 

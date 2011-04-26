@@ -7,8 +7,8 @@ using namespace Client ;
 int main(array<System::String ^> ^args)
 {
 
-	EndPoint rep("127.0.0.1",2048);
-	EndPoint sep("127.0.0.1",2049);
+	EndPoint rep("127.0.0.1",2107);
+	EndPoint sep("127.0.0.1",0311);
 
 	// MsgSender_Proc is your sender's server message handling
 	//   If you don't have sender server file handling don't 
@@ -24,7 +24,7 @@ int main(array<System::String ^> ^args)
 	// don't connect the receiver - that's done
 	// by your server code (see above)
 
-	if(!sndr.connect("127.0.0.1",2048))
+	if(!sndr.connect("127.0.0.1",2107))
 	{
 		sout << "\n  failed to connect sndr\n\n";
 		return 0;
