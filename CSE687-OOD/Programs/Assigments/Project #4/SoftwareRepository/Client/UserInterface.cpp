@@ -30,21 +30,30 @@ int main(array<System::String ^> ^args)
 		return 0;
 	}
 
+
 	sout<<"  start posting\n";
-	MessageHandler mh;
-	Ider::Message msg = mh.MessageForSending(Ider::MsgType::Login);
 
-	sndr.postMessage(msg.ToString());
+	// Create the main window and run it
+	
 
-	_getche();
+
+	//_getche();
 
 
 	// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 
 
-	// Create the main window and run it
-	UserInterface^ ui = gcnew UserInterface();
-	Application::Run(gcnew UserInterface(&sndr,&mh));
+
+	UserInterface^ ui = gcnew UserInterface(&sndr);
+	MessageHandler* mh = new MessageHandler(ui);
+	ui->SetMessageHandler(mh);
+	Ider::Message msg = mh->MessageForSending(Ider::MsgType::Login);
+	sndr.postMessage(msg);
+
+	//Application::Run(ui);
+	Application::Run(ui);
+
+	delete mh;
 	return 0;
 }

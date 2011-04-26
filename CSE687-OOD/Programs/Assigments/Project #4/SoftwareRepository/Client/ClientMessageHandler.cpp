@@ -1,34 +1,36 @@
 
 #include <iostream>
+#include <stack>
 using namespace std;
 
 #include "ClientMessageHandler.h"
+
 using namespace Ider;
 
- void MessageHandler::ReceiveMessage(conStrRef message )
- {
+void MessageHandler::ReceiveMessage(conStrRef message )
+{
 
- }
+}
 
 
- Message MessageHandler::MessageForSending(MsgType::Value type)
- {
-	 switch (type)
-	 {
-	 case MsgType::Login: 
-		 return LoginMessage();
-	 case MsgType::Dependency: 
-		 return DependencyMessage();
-	 case MsgType::File: 
-		 return FileMessage();
-	 case MsgType::Checkin: 
-		 return CheckinMessage();
-	 default:
-		 break;
-	 }
+Message MessageHandler::MessageForSending(MsgType::Value type)
+{
+	switch (type)
+	{
+	case MsgType::Login: 
+		return LoginMessage();
+	case MsgType::Dependency: 
+		return DependencyMessage();
+	case MsgType::File: 
+		return FileMessage();
+	case MsgType::Checkin: 
+		return CheckinMessage();
+	default:
+		break;
+	}
 
-	 return Message();
- }
+	return Message();
+}
 
 
 void MessageHandler::FileProcess(Message msg)
@@ -57,7 +59,22 @@ void MessageHandler::WarningProcess(Message msg)
 {
 	if(msg.Type()!=MsgType::Warning)return;
 
-	cout<<msg.Doc().InnerText()<<endl;
+	ShowWarning(msg.Doc().InnerText());
+}
+
+strVal MessageHandler::Convert(System::String^ s)
+{
+	strVal temp;
+	for(int i=0; i<s->Length; ++i)
+		temp += (char)s[i];
+	return temp;
+}
+System::String^ MessageHandler::Convert(conStrRef s)
+{
+	System::Text::StringBuilder^ temp = gcnew System::Text::StringBuilder();
+	for(size_t i=0; i<s.size(); ++i)
+		temp->Append((wchar_t)s[i]);
+	return temp->ToString();
 }
 
 Message MessageHandler::FileMessage()
@@ -125,7 +142,9 @@ Message MessageHandler::DependencyMessage()
 	string typeTag = MsgType::EnumToString(MsgType::Dependency);
 	string nameTag = "Name";
 
-	string depName = "Display";// "*.*";
+	string depName = GetPackageName();// "*.*";
+
+	if (depName.size()<=0)return Message();
 
 	xmlElem elem(nameTag,depName);
 	xmlRep rep(elem.elemStr());
@@ -135,6 +154,18 @@ Message MessageHandler::DependencyMessage()
 	elem.elemStr() = rep.xmlStr();
 
 	return Message(elem);
+}
+
+strVal MessageHandler::GetPackageName()
+{
+	System::String^ name = _form->SelectedPackageName();
+
+	return Convert(name);
+}
+
+void MessageHandler::ShowWarning(strVal warning)
+{
+	_form->ShowMessageBox(Convert(warning));
 }
 
 
