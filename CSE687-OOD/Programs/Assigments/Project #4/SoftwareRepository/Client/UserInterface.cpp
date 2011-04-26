@@ -2,6 +2,8 @@
 
 using namespace Client ;
 
+extern Ider::IMessageHandler* FormMessageHanlder;
+
 
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
@@ -48,6 +50,8 @@ int main(array<System::String ^> ^args)
 	UserInterface^ ui = gcnew UserInterface();
 	MessageHandler* mh = new MessageHandler(ui);
 	ui->SetMessageHandler(mh);
+
+	FormMessageHanlder = mh;
 	//Ider::Message msg = mh->MessageForSending(Ider::MsgType::Login);
 	//sndr.postMessage(msg);
 

@@ -23,11 +23,6 @@ public:
 	virtual Ider::Message MessageForSending(Ider::MsgType::Value type);
 
 	//
-	virtual void FileProcess(Ider::Message msg);
-	virtual void LoginProcess(Ider::Message msg);
-	virtual void CheckinProcess(Ider::Message msg);
-	virtual void DependencyProcess(Ider::Message msg);
-	virtual void WarningProcess(Ider::Message msg);
 
 	strVal Convert(System::String^ s);
 	System::String^ Convert(conStrRef s);
@@ -35,6 +30,14 @@ public:
 	//void SetForm(Client::UserInterface^ form){_form = form;}
 
 protected:
+	//
+	virtual void FileProcess();
+	virtual void LoginProcess();
+	virtual void CheckinProcess();
+	virtual void DependencyProcess();
+	virtual void WarningProcess();
+
+	//
 	virtual Ider::Message FileMessage();
 	virtual Ider::Message CheckinMessage();
 	virtual Ider::Message LoginMessage();

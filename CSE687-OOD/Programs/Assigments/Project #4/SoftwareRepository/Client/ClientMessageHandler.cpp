@@ -7,8 +7,29 @@ using namespace std;
 
 using namespace Ider;
 
-void MessageHandler::ReceiveMessage(conStrRef message )
+void MessageHandler::ReceiveMessage(conStrRef message)
 {
+	_msg.SetMessage(message);
+	switch (_msg.Type())
+	{
+	case MsgType::Login: 
+		LoginProcess();
+		break;
+	case MsgType::Dependency: 
+		DependencyProcess();
+		break;
+	case MsgType::File: 
+		FileProcess();
+		break;
+	case MsgType::Checkin: 
+		CheckinProcess();
+		break;
+	case MsgType::Warning: 
+		WarningProcess();
+		break;
+	default:
+		break;
+	}
 
 }
 
@@ -33,33 +54,43 @@ Message MessageHandler::MessageForSending(MsgType::Value type)
 }
 
 
-void MessageHandler::FileProcess(Message msg)
+void MessageHandler::FileProcess()
 {
-	if(msg.Type()!=MsgType::File)return;
+	if(_msg.Type()!=MsgType::File)return;
 }
 
-void MessageHandler::LoginProcess(Message msg)
+void MessageHandler::LoginProcess()
 {
-	if(msg.Type()!=MsgType::Login)return;
+	if(_msg.Type()!=MsgType::Login)return;
+
+	_form->SendMessage(MsgType::Dependency);
+	_form->pnlLogin->Visible = false;
+}
+
+void MessageHandler::CheckinProcess()
+{
+	if(_msg.Type()!=MsgType::Checkin)return;
 
 }
 
-void MessageHandler::CheckinProcess(Message msg)
+void MessageHandler::DependencyProcess()
 {
-	if(msg.Type()!=MsgType::Checkin)return;
+	if(_msg.Type()!=MsgType::Dependency)return;
 
+  	System::Collections::Generic::List<System::String^>^ packages
+  		=gcnew System::Collections::Generic::List<System::String^>();
+   	packages->Add(L"..");
+  	packages->Add(L"*.*");
+  	packages->Add(L"Hello");
+  	packages->Add(L"Display");
+ 	_form->ShowPackageListBox(packages);
 }
 
-void MessageHandler::DependencyProcess(Message msg)
+void MessageHandler::WarningProcess()
 {
-	if(msg.Type()!=MsgType::Dependency)return;
-}
+	if(_msg.Type()!=MsgType::Warning)return;
 
-void MessageHandler::WarningProcess(Message msg)
-{
-	if(msg.Type()!=MsgType::Warning)return;
-
-	ShowWarning(msg.Doc().InnerText());
+	ShowWarning(_msg.Doc().InnerText());
 }
 
 strVal MessageHandler::Convert(System::String^ s)

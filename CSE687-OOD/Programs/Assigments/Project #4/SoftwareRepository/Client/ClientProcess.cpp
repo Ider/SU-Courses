@@ -6,6 +6,30 @@
 
 #include <conio.h>
 
+Ider::IMessageHandler* FormMessageHanlder;
+
+void ClientMessage_Proc::run()
+{
+	GLock<1> lock;
+	std::string msg;
+	lock.lock();
+	BQueue<std::string>* pBQ = _pMsgHandler->getQueue();
+	ICommunicator* pComm = _pMsgHandler->getCommunicator();
+	EndPoint remoteEp = _pMsgHandler->getEndPoint();
+	lock.unlock();
+	///////////////////////////////////////////////////////
+	// enter your server code here
+	while(true)
+	{
+		msg = pBQ->deQ();
+		sout << locker << "\n  sender received message: " 
+			<< msg << unlocker;
+
+		FormMessageHanlder->ReceiveMessage(msg);
+	}
+	// end of your code
+	///////////////////////////////////////////////////////
+}
 
 
 #ifdef MAIN_TEST
@@ -110,13 +134,13 @@ void main()
 
 		sout<<"  start posting\n";
 
-// 		sndr.postMessage("first message");
-// 		sndr.postMessage("second message");
-// 		sndr.postMessage("third and longer message");
-// 		sndr.postMessage("fourth and still longer and most verbose message");
-// 		sndr.postFile("test.txt");
-// 		sndr.postFile("Project #4 Analysis.docx");
-// 		sndr.postFile("FormWithCppThread.zip");
+		// 		sndr.postMessage("first message");
+		// 		sndr.postMessage("second message");
+		// 		sndr.postMessage("third and longer message");
+		// 		sndr.postMessage("fourth and still longer and most verbose message");
+		// 		sndr.postFile("test.txt");
+		// 		sndr.postFile("Project #4 Analysis.docx");
+		// 		sndr.postFile("FormWithCppThread.zip");
 		//sndr.postFile("notepad.exe");
 		//sndr.postMessage("quit");
 
