@@ -3,6 +3,8 @@
 #include "ServerMessageHandler.h"
 #include <conio.h>
 
+using namespace Ider;
+
 #ifdef MAIN_TEST
 #endif
 
@@ -30,10 +32,10 @@ public:
 			if(pComm->connect(remoteEp.getIP(), remoteEp.getPort()))
 			{
 				Message message(msg);
-				mh.ReceiveMessage(msg);
-				message = mh.MessageForSending(MsgType::Unknown);
+				
+				message = mh.RespondToMessage(message,remoteEp);
 
-				pComm->postMessage(message.ToString());
+				pComm->postMessage(message);
 				pComm->disconnect();
 			}
 			else
