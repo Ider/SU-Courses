@@ -51,7 +51,7 @@ protected:
 	virtual Ider::Message CheckinMessage();
 	virtual Ider::Message LoginMessage();
 	virtual Ider::Message DependencyMessage();
-	virtual Ider::Message AllPackageMesage();
+	virtual Ider::Message AllPackageMessage();
 
 	strVal GetName();
 	strVal GetDirectory();

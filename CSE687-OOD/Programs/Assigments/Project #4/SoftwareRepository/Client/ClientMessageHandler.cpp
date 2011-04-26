@@ -115,16 +115,21 @@ System::String^ MessageHandler::Convert(conStrRef s)
 
 Message MessageHandler::FileMessage()
 {
-	string typeTag = MsgType::EnumToString(MsgType::File);
+	const MsgType::Value type = MsgType::File;
+	string typeTag = MsgType::EnumToString(type);
 	string nameTag = "Name";
 	//indicate whether extract only this file
 	//or full dependencies
 	string flagTag = "Full";
 
-	string fileName = "Project #4 Analysis.docx";
+	string fileName = "xmlTran";
 	bool flag = false;
 
-	xmlElem elem(nameTag,fileName);
+	strVal depName = GetName(type);// "*.*";
+
+	if (depName.size()<=0)return Message();
+
+	xmlElem elem(nameTag,depName);
 	xmlRep rep(elem.elemStr());
 
 	if (flag) elem = xmlElem(flagTag,"true");
@@ -140,7 +145,8 @@ Message MessageHandler::FileMessage()
 
 Message MessageHandler::CheckinMessage()
 {
-	string typeTag = MsgType::EnumToString(MsgType::Checkin);
+	const MsgType::Value type = MsgType::Checkin;
+	string typeTag = MsgType::EnumToString(type);
 	string nameTag = "Action";
 
 	string userName = "Ider";

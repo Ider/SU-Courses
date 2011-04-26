@@ -532,8 +532,8 @@ namespace Client {
 
 		System::Void btnLogin_Click(System::Object^  sender, System::EventArgs^  e)
 		{
-			if (!connected)ConnectServer();
-			SendMessage(Ider::MsgType::Login);
+			if (ConnectServer())
+				SendMessage(Ider::MsgType::Login);
 			//this->pnlLogin->Visible = false;
 
 		}

@@ -2,7 +2,8 @@
 #include "..\Foundation\Communicator.h"
 #include "ServerMessageHandler.h"
 #include <conio.h>
-
+#include <vector>
+using namespace std;
 using namespace Ider;
 
 #ifdef MAIN_TEST
@@ -35,7 +36,10 @@ public:
 				
 				message = mh.RespondToMessage(message,remoteEp);
 
-				pComm->postMessage(message);
+				if (message.Type()== MsgType::File)
+					PostFile(message);
+				else
+					pComm->postMessage(message);
 				pComm->disconnect();
 			}
 			else
@@ -49,6 +53,46 @@ public:
 		///////////////////////////////////////////////////////
 	}
 private:
+
+	void PostFile(Message msg)
+	{
+		ICommunicator* pComm = _pMsgHandler->getCommunicator();
+		XmlDoc doc = msg.Doc();
+		vector<XmlDoc> names = doc.Children("Name");
+		strVal name;
+		strVal loaded;
+		strVal unload;
+		strVal info;
+		strVal prefix="\n  ";
+
+		for (size_t i=0; i<names.size(); ++i)
+		{
+			name = names[i].InnerText();
+			try
+			{
+				
+				pComm->postFile(name+".h");
+				loaded+=prefix+name+".h";
+			}
+			catch(std::exception ex)
+			{unload+=prefix+name+".h";}
+
+			try
+			{
+				pComm->postFile(name+".cpp");
+				loaded+=prefix+name+".cpp";
+			}
+			catch(std::exception ex)
+			{unload+=prefix+name+".cpp";}
+		}
+
+		if (loaded.size()>0)
+			info += "Files loaded:"+loaded;
+		if (unload.size()>0)
+			info += "\nFiles not in repository:"+unload;
+		if (info.size()>0)pComm->postMessage(mh.WarningMessage(info));
+	}
+
 	IMsgHandler* _pMsgHandler;
 	MessageHandler mh;
 };
@@ -115,9 +159,10 @@ void main()
 		rMsgHandler.setCommunicator(&rcvr);
 		rcvr.attachMsgHandler(&rMsgHandler);
 		FileHandler<FileReceiver_Proc> rFileHandler;
-		rFileHandler.setFileDestination(".\\FilePostTest\\Receiver\\");
+		rFileHandler.setFileDestination(".\\Repository\\Temp\\");
 		rFileHandler.setCommunicator(&rcvr);
 		rcvr.attachFileHandler(&rFileHandler);
+		rcvr.setFileSource(".\\Repository\\Package\\");
 		rcvr.listen();
 
 		_getche();

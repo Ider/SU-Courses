@@ -55,35 +55,26 @@ Message MessageHandler::FileMessage()
 
 	strVal name = GetName();
 	strVal path = GetDirectory()+_metaFolder+name+".xml";
-	strVal tag = "references";
-	strVal content;
-	XmlDoc doc;
-	xmlRep rep;
-	
-	if (!doc.LoadXmlFile(path))
-		return WarningMessage(name+": the package is not in the repository.");
 
-	vector<XmlDoc> refs = doc.Children(tag);
+	ifstream inf;
+	inf.open(path);
 
-	if (refs.size()<=0)
-		return WarningMessage(name+": the package does not depend on other package.");
-
-	doc.elemStr() = refs[0].elemStr();
-	refs = doc.Children();
-
-	if (refs.size()<=0)
-		return WarningMessage(name+": the package does not depend on other package.");
-
-	tag = "Name";
-	for (size_t i=0; i<refs.size(); ++i)
+	if(!inf.good())
 	{
-		content = refs[i].InnerText();
-		content = GetKeyName(content);
-		xmlElem elem(tag,content);
-		rep.addSibling(elem);
+		Message message = WarningMessage(name+": the package is not in the repository.");
+		inf.close();
+		return message;
 	}
 
-	tag = MsgType::EnumToString(MsgType::Dependency);
+	inf.close();
+
+	xmlRep rep;
+
+	strVal tag = "Name";
+	xmlElem elem(tag,name);
+	rep.addSibling(elem);
+
+	tag = MsgType::EnumToString(MsgType::File);
 	rep.makeParent(tag);
 
 	return Message(rep.xmlStr());
@@ -131,7 +122,7 @@ Message MessageHandler::DependencyMessage()
 {
 	const strVal name = GetName();
 	
-	if (name == "*.*")return AllPackageMesage();
+	if (name == "*.*")return AllPackageMessage();
 	
 	strVal path = GetDirectory()+_metaFolder+name+".xml";
 	strVal tag = "references";
@@ -173,7 +164,7 @@ Message MessageHandler::WarningMessage(strVal warning)
 	return Message(elem);
 }
 
-Message MessageHandler::AllPackageMesage()
+Message MessageHandler::AllPackageMessage()
 {
 	strVal path = GetDirectory() + "MetaXML";
 	strVal tag = "Name";
@@ -192,7 +183,6 @@ Message MessageHandler::AllPackageMesage()
 
 	return Message(rep.xmlStr());
 }
-
 
 strVal MessageHandler::GetDirectory()
 {
