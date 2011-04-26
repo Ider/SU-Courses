@@ -40,7 +40,7 @@ protected:
 	virtual Ider::Message LoginMessage();
 	virtual Ider::Message DependencyMessage();
 	//virtual Ider::Message WarningMessage(std::string warning);
-	strVal GetPackageName();
+	strVal GetName(Ider::MsgType::Value type);
 	void ShowWarning(strVal warning);
 
 private:
@@ -48,9 +48,6 @@ private:
 	//msclr::auto_gcroot<Client::UserInterface^>_form;
 	gcroot<Client::UserInterface^> _form;
 };
-
-
-
 
 
 #endif

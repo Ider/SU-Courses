@@ -10,12 +10,12 @@
 #include <conio.h>
 
 /////////////////////////////////////////////////////////////////////
-// Thread Proc classes for sender
+// Thread Proc classes for Client side
 
-class MsgSender_Proc : public Thread_Processing<MsgSender_Proc>
+class ClientMessage_Proc : public Thread_Processing<ClientMessage_Proc>
 {
 public:
-	MsgSender_Proc(IMsgHandler* pMsgHandler) : _pMsgHandler(pMsgHandler) {}
+	ClientMessage_Proc(IMsgHandler* pMsgHandler) : _pMsgHandler(pMsgHandler) {}
 	void run()
 	{
 		GLock<1> lock;
@@ -41,10 +41,10 @@ private:
 	IMsgHandler* _pMsgHandler;
 };
 
-class FileSender_Proc : public Thread_Processing<FileSender_Proc>
+class ClientFile_Proc : public Thread_Processing<ClientFile_Proc>
 {
 public:
-	FileSender_Proc(IFileHandler* pFileHandler) : _pFileHandler(pFileHandler) {}
+	ClientFile_Proc(IFileHandler* pFileHandler) : _pFileHandler(pFileHandler) {}
 	void run()
 	{
 		GLock<1> lock;

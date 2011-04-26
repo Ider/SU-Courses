@@ -69,6 +69,7 @@ strVal MessageHandler::Convert(System::String^ s)
 		temp += (char)s[i];
 	return temp;
 }
+
 System::String^ MessageHandler::Convert(conStrRef s)
 {
 	System::Text::StringBuilder^ temp = gcnew System::Text::StringBuilder();
@@ -122,14 +123,15 @@ Message MessageHandler::CheckinMessage()
 
 Message MessageHandler::LoginMessage()
 {
-	string typeTag = MsgType::EnumToString(MsgType::Login);
-	string nameTag = "Name";
+	const MsgType::Value type = MsgType::Login;
+	strVal typeTag = MsgType::EnumToString(type);
+	strVal nameTag = "Name";
 
-	string userName = "Ider";
+	strVal userName = GetName(type);
+	if (userName.size()<=0)return Message();
 
 	xmlElem elem(nameTag,userName);
 	xmlRep rep(elem.elemStr());
-
 	rep.makeParent(typeTag);
 
 	elem.elemStr() = rep.xmlStr();
@@ -139,16 +141,16 @@ Message MessageHandler::LoginMessage()
 
 Message MessageHandler::DependencyMessage()
 {
-	string typeTag = MsgType::EnumToString(MsgType::Dependency);
-	string nameTag = "Name";
+	const MsgType::Value type = MsgType::Dependency;
+	strVal typeTag = MsgType::EnumToString(type);
+	strVal nameTag = "Name";
 
-	string depName = GetPackageName();// "*.*";
+	strVal depName = GetName(type);// "*.*";
 
 	if (depName.size()<=0)return Message();
 
 	xmlElem elem(nameTag,depName);
 	xmlRep rep(elem.elemStr());
-
 	rep.makeParent(typeTag);
 
 	elem.elemStr() = rep.xmlStr();
@@ -156,10 +158,24 @@ Message MessageHandler::DependencyMessage()
 	return Message(elem);
 }
 
-strVal MessageHandler::GetPackageName()
+strVal MessageHandler::GetName(MsgType::Value type)
 {
-	System::String^ name = _form->SelectedPackageName();
-
+	System::String^ name;
+	switch (type)
+	{
+	case MsgType::Login: 
+		name = _form->UserName();
+		break;
+	case MsgType::Dependency: 
+	case MsgType::File:
+		name = _form->SelectedPackageName();
+		break;
+	case MsgType::Checkin: 
+	case MsgType::Warning: 
+	default:
+		name = System::String::Empty;
+		break;
+	}
 	return Convert(name);
 }
 
