@@ -106,7 +106,7 @@ void main()
 
 	try
 	{
-		EndPoint rep("127.0.0.1",2048);
+		EndPoint rep("127.0.0.1",2107);
 
 		// MsgReceiver_Proc is your receiver's server message handling
 		// FileReceiver_Proc is your receiver's server file handling
