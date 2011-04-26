@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+   <Users>
+      <User>
+		  <Name>
+			  Ider
+		  </Name>
+      </User>
+	   <User>
+		   <Name>
+			   Admin
+		   </Name>
+	   </User>
+	   <User>
+		   <Name>
+			   Jim Fawcett
+		   </Name>
+	   </User>
+	   <User>
+		   <Name>
+			   Hello World
+		   </Name>
+	   </User>
+	   <User>
+		   <Name>
+			   C++
+		   </Name>
+	   </User>
+   </Users>
+
