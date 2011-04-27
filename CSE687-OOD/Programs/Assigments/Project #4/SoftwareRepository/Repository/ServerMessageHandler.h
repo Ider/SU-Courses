@@ -45,6 +45,8 @@ public:
 	//void LoadMetaContent(strRef container, conStrRef name);
 	virtual Ider::Message WarningMessage(strVal warning);
 
+	virtual Ider::Message GetUserCheckedIn(EndPoint curConnected);
+
 protected:
 	//Generate message for sending
 	virtual Ider::Message FileMessage();
@@ -65,7 +67,7 @@ private:
 	std::map<EndPoint, strVal> _loginUsers;
 	std::string _curUser;
 	EndPoint _curIP;
-
+	
 };
 
 

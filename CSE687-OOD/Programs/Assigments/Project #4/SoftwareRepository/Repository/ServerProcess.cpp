@@ -9,10 +9,13 @@ using namespace Ider;
 #ifdef MAIN_TEST
 #endif
 
+static MessageHandler ServerMessageHandler;
+
 class MsgReceiver_Proc : public Thread_Processing<MsgReceiver_Proc>
 {
 public:
-	MsgReceiver_Proc(IMsgHandler* pMsgHandler) : _pMsgHandler(pMsgHandler) {}
+	MsgReceiver_Proc(IMsgHandler* pMsgHandler) : _pMsgHandler(pMsgHandler) 
+	,mh(::ServerMessageHandler){}
 	void run()
 	{
 		GLock<1> lock;
@@ -41,6 +44,7 @@ public:
 					PostFile(msgToSend);
 				else
 					pComm->postMessage(msgToSend);
+
 				pComm->disconnect();
 			}
 			else
@@ -95,13 +99,16 @@ private:
 	}
 
 	IMsgHandler* _pMsgHandler;
-	MessageHandler mh;
+	MessageHandler& mh;
 };
 
 class FileReceiver_Proc : public Thread_Processing<FileReceiver_Proc>
 {
 public:
-	FileReceiver_Proc(IFileHandler* pFileHandler) : _pFileHandler(pFileHandler) {}
+	FileReceiver_Proc(IFileHandler* pFileHandler) 
+		: _pFileHandler(pFileHandler) 
+		,mh(::ServerMessageHandler){}
+
 	void run()
 	{
 
@@ -122,6 +129,7 @@ public:
 			if(pComm->connect(remoteEp.getIP(), remoteEp.getPort()))
 			{
 				pComm->postMessage(std::string("got file\n"));
+				pComm->postMessage(mh.GetUserCheckedIn(remoteEp));
 				pComm->disconnect();
 			}
 			else
@@ -136,6 +144,7 @@ public:
 	}
 private:
 	IFileHandler* _pFileHandler;
+	MessageHandler& mh;
 };
 
 void main()

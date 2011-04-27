@@ -74,13 +74,28 @@ void MessageHandler::LoginProcess()
 {
 	if(_msg.Type()!=MsgType::Login)return;
 
+	//request unclosed packages that checked in by this user
+	_form->SendMessage(MsgType::Checkin);
+	//request all packages in repository
 	_form->SendMessage(MsgType::Dependency);
 }
 
 void MessageHandler::CheckinProcess()
 {
 	if(_msg.Type()!=MsgType::Checkin)return;
+	
+  	System::Collections::Generic::List<System::String^>^ packages
+  		=gcnew System::Collections::Generic::List<System::String^>();
+   	
+	vector<XmlDoc> deps = _msg.Doc().Children("Name");
+	strVal name;
+	for (size_t i = 0; i<deps.size(); ++i)
+	{
+		name = deps[i].InnerText();
+		packages->Add(Convert(name));
+	}
 
+ 	_form->Invoke(_form->ShowCheckinListBox,packages);
 }
 
 void MessageHandler::DependencyProcess()
@@ -160,14 +175,22 @@ Message MessageHandler::CheckinMessage()
 {
 	const MsgType::Value type = MsgType::Checkin;
 	strVal typeTag = MsgType::EnumToString(type);
+	strVal fileName ="*.*";
+	strVal tagName = "Name";
+	xmlRep  rep;
+	
+	if (_form->pnlLogin->Visible == true)
+	{
+		//request all unclosed packages that checked in by this user
+		rep.addSibling(xmlElem(tagName,fileName));
+		rep.makeParent(typeTag);
+		return Message(rep.xmlStr());
+	}
 
 	array<System::String^>^ fileNames = _form->fileDialog->FileNames;
 	int count = fileNames->Length;
 	if (count<=0)return Message(xmlElem::makeTag(typeTag));
-	
-	strVal fileName;
-	strVal tagName = "Name";
-	xmlRep  rep;
+
 	for (int i=0; i<fileNames->Length; ++i)
 	{
 		fileName = Convert(fileNames[i]);

@@ -28,6 +28,7 @@ namespace Client
 	public:
 		delegate System::Void ShowListBoxDelegate(System::Collections::Generic::List<System::String^>^ items);
 		ShowListBoxDelegate^ ShowPackageListBox;
+		ShowListBoxDelegate^ ShowCheckinListBox;
 
 		UserInterface(void)
 		{
@@ -111,7 +112,7 @@ namespace Client
 		}
 
 		//show packages on listbox
-		System::Void ShowListBox(System::Collections::Generic::List<System::String^>^ packages)
+		System::Void ShowDependencies(System::Collections::Generic::List<System::String^>^ packages)
 		{
 			if (this->selectionTrack->Count<=0)
 			{
@@ -140,6 +141,16 @@ namespace Client
 				this->listDep->Items->Add(packages[i]);
 		}
 
+		//show checked in on listbox
+		System::Void ShowCheckedin(System::Collections::Generic::List<System::String^>^ packages)
+		{
+			this->listCheckin->Items->Clear();
+
+			for (System::Int32 i=0; i<packages->Count; ++i)
+				this->listCheckin->Items->Add(packages[i]);
+		}
+
+		//post files to server
 		void UploadFiles(std::vector<std::string> files)
 		{
 			for (size_t i=0; i<files.size(); ++i)
@@ -208,7 +219,8 @@ namespace Client
 		//Initialize delegate for cross-thread control refresh
 		System::Void InitializeDelegate()
 		{
-			ShowPackageListBox += gcnew ShowListBoxDelegate(this,&UserInterface::ShowListBox);
+			ShowPackageListBox += gcnew ShowListBoxDelegate(this,&UserInterface::ShowDependencies);
+			ShowCheckinListBox += gcnew ShowListBoxDelegate(this,&UserInterface::ShowCheckedin);
 		}
 
 		//create a communicator socket

@@ -21,11 +21,16 @@ Message MessageHandler::RespondToMessage(conStrRef message, EndPoint curConnecte
 	return msg;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//receive a message from client
 void MessageHandler::ReceiveMessage(conStrRef message)
 {
 	_msg.SetMessage(message);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a message base on type
+//the MsgType of return message may not be the same as type
 Message MessageHandler::MessageForSending(MsgType::Value type)
 {
 	if (_msg.Type()!= MsgType::Login && _curUser.size()<=0)
@@ -49,6 +54,8 @@ Message MessageHandler::MessageForSending(MsgType::Value type)
 	return Message();
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a File type message
 Message MessageHandler::FileMessage()
 {
 	//recursion not implemented
@@ -80,12 +87,17 @@ Message MessageHandler::FileMessage()
 	return Message(rep.xmlStr());
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a File type message if ok to check in
 Message MessageHandler::CheckinMessage()
 {
 	strVal tag = "Name";
 	vector<XmlDoc> files = _msg.Doc().Children(tag);
 
 	//if (files.size()==0);//do check in close operation
+
+	if (files[0].InnerText()=="*.*")
+		return GetUserCheckedIn(_curIP);
 
 	strVal fileName;
 	strVal warning;
@@ -119,6 +131,10 @@ Message MessageHandler::CheckinMessage()
 	return Message(rep.xmlStr());
 }
 
+//////////////////////////////////////////////////////////////////////////
+//check whether user that request to log in from client side is in the repository
+//if so return Login type message
+//else return warning.
 Message MessageHandler::LoginMessage()
 {
 	strVal path = GetDirectory()+"Users.xml";
@@ -147,6 +163,8 @@ Message MessageHandler::LoginMessage()
 	return WarningMessage("User is not in the repository.");
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a Dependency type message
 Message MessageHandler::DependencyMessage()
 {
 	const strVal name = GetMessageName();
@@ -186,6 +204,8 @@ Message MessageHandler::DependencyMessage()
 	return Message(rep.xmlStr());
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a File type message
 Message MessageHandler::WarningMessage(strVal warning)
 {
 	strVal tag = MsgType::EnumToString(MsgType::Warning);
@@ -193,9 +213,11 @@ Message MessageHandler::WarningMessage(strVal warning)
 	return Message(elem);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a Dependency type message, it contains all packages in repository
 Message MessageHandler::AllPackageMessage()
 {
-	strVal path = GetDirectory() + "MetaXML";
+	strVal path = GetDirectory() + _metaFolder;
 	strVal tag = "Name";
 	WinTools_Extracts::FileHandler fh;
 	xmlRep rep;
@@ -213,12 +235,57 @@ Message MessageHandler::AllPackageMessage()
 	return Message(rep.xmlStr());
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a Checkin type message
+Message MessageHandler::GetUserCheckedIn(EndPoint curConnected)
+{
+	map<EndPoint,strVal>::iterator it = _loginUsers.find(curConnected);
+	if (it == _loginUsers.end()) 
+		return WarningMessage("No user connected");
+
+	//start get all checked in packages uploaded by the user
+
+	_curUser = it->second;
+
+	strVal path = GetDirectory() + _checkinFoler;
+	strVal tag = "Name";
+	strVal fileName;
+	WinTools_Extracts::FileHandler fh;
+	xmlRep rep;
+	vector<strVal> files = fh.getFileSpecs(path,"*.xml");
+
+	for (size_t i=0; i<files.size(); ++i)
+	{
+		fileName = GetKeyName(files[i]);
+		
+		//since the package is already in repository
+		//OKtoCheckin will return true only when user is owner
+		if (OKtoCheckin(fileName))
+		{
+			xmlElem elem (tag,fileName);
+			rep.addSibling(elem);
+		}
+	}
+
+	tag = MsgType::EnumToString(MsgType::Checkin);
+	rep.makeParent(tag);
+
+	_curUser.clear();
+
+	return Message(rep.xmlStr());
+
+}
+
+//////////////////////////////////////////////////////////////////////////
+//generate a File type message
 strVal MessageHandler::GetDirectory()
 {
 	strVal path = ".\\Repository\\";
 	return path;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Extract InnerText of Name tag in message
 strVal MessageHandler::GetMessageName()
 {
 	strVal tag = "Name";
@@ -228,7 +295,6 @@ strVal MessageHandler::GetMessageName()
 	strVal name = names[0].InnerText();
 	return names[0].InnerText();
 }
-
 
 //////////////////////////////////////////////////////////////////////////
 //Remove the path and file extension, return the pure file name
@@ -247,6 +313,9 @@ strVal MessageHandler::GetKeyName(strVal filePath)
 	return filePath;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//check whether uploaded file is not in repository
+//or user own the file
 bool MessageHandler::OKtoCheckin(strVal fileName)
 {
 	fileName = GetKeyName(fileName)+".xml";
