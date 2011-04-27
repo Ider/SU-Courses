@@ -208,8 +208,10 @@ strVal MessageHandler::GetName(MsgType::Value type)
 		name = _form->UserName();
 		break;
 	case MsgType::Dependency: 
-	case MsgType::File:
 		name = _form->SelectedPackageName();
+		break;
+	case MsgType::File:
+		name = _form->listDep->SelectedItem->ToString();
 		break;
 	case MsgType::Checkin: 
 	case MsgType::Warning: 

@@ -9,7 +9,8 @@ class MessageHandler;
 
 #pragma once
 
-namespace Client {
+namespace Client 
+{
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -35,13 +36,13 @@ namespace Client {
 			InitializeDelegate();
 		}
 
-// 		UserInterface(ICommunicator* sender)
-// 		{
-// 			this->sender = sender;
-// 			this->selectionTrack = gcnew System::Collections::Generic::List<String^>();
-// 			//SendMessage(Ider::MsgType::Login);
-// 			InitializeComponent();
-// 		}
+		// 		UserInterface(ICommunicator* sender)
+		// 		{
+		// 			this->sender = sender;
+		// 			this->selectionTrack = gcnew System::Collections::Generic::List<String^>();
+		// 			//SendMessage(Ider::MsgType::Login);
+		// 			InitializeComponent();
+		// 		}
 
 		System::Void SetMessageHandler(Ider::IMessageHandler* mh)
 		{
@@ -56,7 +57,6 @@ namespace Client {
 		System::Boolean SendMessage(Ider::MsgType::Value type)
 		{
 			Ider::Message msg = this->mh->MessageForSending(type);
-
 			if (msg.Type()==Ider::MsgType::Unknown)return false;
 
 			this->sender->postMessage(msg);
@@ -145,13 +145,17 @@ namespace Client {
 #pragma region Windows Form Controls
 
 
+
+	private: System::Windows::Forms::FolderBrowserDialog^ folderDialog;
+	private:	System::Windows::Forms::OpenFileDialog^ fileDialog;
+
 	public: System::Windows::Forms::TabControl^  tabClient;
 	public: System::Windows::Forms::TabPage^  tabPackage;
 	public: System::Windows::Forms::TabPage^  tabCheckin;
 	public: System::Windows::Forms::ListBox^  listDep;
 
-	public: System::Windows::Forms::Button^  btnDep;
-	public: System::Windows::Forms::Button^  btnExt;
+	private: System::Windows::Forms::Button^  btnDep;
+	private: System::Windows::Forms::Button^  btnExt;
 
 
 	private: System::Windows::Forms::Button^  button1;
@@ -205,7 +209,7 @@ namespace Client {
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
-		void InitializeComponent(void)
+		System::Void InitializeComponent()
 		{
 			this->tabClient = (gcnew System::Windows::Forms::TabControl());
 			this->tabPackage = (gcnew System::Windows::Forms::TabPage());
@@ -468,6 +472,17 @@ namespace Client {
 			this->pnlLogin->ResumeLayout(false);
 			this->pnlLogin->PerformLayout();
 			this->ResumeLayout(false);
+			//
+			//FolderBrowserDialog
+			//
+			this->folderDialog = gcnew System::Windows::Forms::FolderBrowserDialog();
+			//
+			//OpenFileDialog
+			//
+			this->fileDialog = gcnew System::Windows::Forms::OpenFileDialog();
+			this->fileDialog ->Multiselect = true;
+			this->fileDialog ->Filter = "*.h|*.cpp";
+
 
 		}
 
@@ -495,7 +510,7 @@ namespace Client {
 			sender = new Communicator(addr);
 
 			msgProc = new MsgHandler<ClientMessage_Proc>();
-				msgProc->setCommunicator(sender);
+			msgProc->setCommunicator(sender);
 			sender->attachMsgHandler(msgProc);
 
 			fileProc =new FileHandler<ClientFile_Proc>();
@@ -503,7 +518,7 @@ namespace Client {
 			sender->attachFileHandler(fileProc);
 
 			sender->setFileSource(".\\FilePostTest\\Sender\\");
-			fileProc->setFileDestination(".\\FilePostTest\\received2\\");
+			fileProc->setFileDestination(".\\FilePostTest\\Receiver\\");
 
 			sender->listen();
 		}
@@ -530,30 +545,52 @@ namespace Client {
 			return connected=true;
 		}
 
-		System::Void btnLogin_Click(System::Object^  sender, System::EventArgs^  e)
+		System::Void btnLogin_Click(System::Object^ sender, System::EventArgs^ e)
 		{
 			if (ConnectServer())
 				SendMessage(Ider::MsgType::Login);
 			//this->pnlLogin->Visible = false;
-
 		}
 
-		System::Void btnDep_Click(System::Object^  sender, System::EventArgs^  e)
+		System::Void btnDep_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			SendMessage(Ider::MsgType::Dependency);
+			if (this->listDep->SelectedItems->Count<=0)
+				ShowMessageBox("Please select a package name.");
+			else
+				SendMessage(Ider::MsgType::Dependency);
 		}
 
-		System::Void btnExt_Click(System::Object^  sender, System::EventArgs^  e) 
+		System::Void btnExt_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
-			SendMessage(Ider::MsgType::File);
-		}
+			if (this->listDep->SelectedItems->Count<=0
+				|| this->listDep->SelectedIndex<=0)
+			{
+				ShowMessageBox("Please select a file to download.");
+			}
+			else
+			{
+				System::Windows::Forms::DialogResult result = folderDialog->ShowDialog();
+				if (result == System::Windows::Forms::DialogResult::Cancel)return;
 
+				System::String^ text = folderDialog->SelectedPath;
+
+				std::string path;
+				for(int i=0; i<text->Length; ++i)
+					path += (char)text[i];
+				path+='\\';
+
+				fileProc->setFileDestination(path);
+				SendMessage(Ider::MsgType::File);
+			}
+		}
 
 		System::Void listDep_DoubleClick(System::Object^  sender, System::EventArgs^  e) 
 		{
-			SendMessage(Ider::MsgType::Dependency);
+			if (this->listDep->SelectedItems->Count<=0)
+				ShowMessageBox("Please select a package name.");
+			else
+				SendMessage(Ider::MsgType::Dependency);
 		}
-
 
 		System::Collections::Generic::List<String^>^ selectionTrack;
 		System::Boolean connected;
@@ -562,8 +599,6 @@ namespace Client {
 		Ider::IMessageHandler* mh;
 		MsgHandler<ClientMessage_Proc>* msgProc;
 		FileHandler<ClientFile_Proc>* fileProc;
-
-		
 
 
 		System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -575,8 +610,8 @@ namespace Client {
 			packages->Add(L"Display");
 			ShowPackageListBox(packages);
 		}
-		
-};
+
+	};
 }
 
 
