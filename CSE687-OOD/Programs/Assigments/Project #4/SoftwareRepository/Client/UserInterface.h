@@ -36,14 +36,6 @@ namespace Client
 			InitializeDelegate();
 		}
 
-		// 		UserInterface(ICommunicator* sender)
-		// 		{
-		// 			this->sender = sender;
-		// 			this->selectionTrack = gcnew System::Collections::Generic::List<String^>();
-		// 			//SendMessage(Ider::MsgType::Login);
-		// 			InitializeComponent();
-		// 		}
-
 		System::Void SetMessageHandler(Ider::IMessageHandler* mh)
 		{
 			this->mh=mh;
@@ -57,6 +49,7 @@ namespace Client
 		System::Boolean SendMessage(Ider::MsgType::Value type)
 		{
 			Ider::Message msg = this->mh->MessageForSending(type);
+
 			if (msg.Type()==Ider::MsgType::Unknown)return false;
 
 			this->sender->postMessage(msg);
@@ -144,18 +137,16 @@ namespace Client
 
 #pragma region Windows Form Controls
 
-
-
 	private: System::Windows::Forms::FolderBrowserDialog^ folderDialog;
-	private:	System::Windows::Forms::OpenFileDialog^ fileDialog;
+	private: System::Windows::Forms::OpenFileDialog^ fileDialog;
 
 	public: System::Windows::Forms::TabControl^  tabClient;
 	public: System::Windows::Forms::TabPage^  tabPackage;
 	public: System::Windows::Forms::TabPage^  tabCheckin;
 	public: System::Windows::Forms::ListBox^  listDep;
 
-	private: System::Windows::Forms::Button^  btnDep;
-	private: System::Windows::Forms::Button^  btnExt;
+	public: System::Windows::Forms::Button^  btnDep;
+	public: System::Windows::Forms::Button^  btnExt;
 
 
 	private: System::Windows::Forms::Button^  button1;
@@ -175,6 +166,8 @@ namespace Client
 	private: System::Windows::Forms::Label^  lblUsrName;
 	private: System::Windows::Forms::Label^  lblCitColon;
 	private: System::Windows::Forms::Label^  lblSvrColon;
+
+
 
 #pragma endregion
 
@@ -209,7 +202,7 @@ namespace Client
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
-		System::Void InitializeComponent()
+		void InitializeComponent(void)
 		{
 			this->tabClient = (gcnew System::Windows::Forms::TabControl());
 			this->tabPackage = (gcnew System::Windows::Forms::TabPage());
@@ -230,6 +223,8 @@ namespace Client
 			this->txtSvrPort = (gcnew System::Windows::Forms::TextBox());
 			this->txtSvrIP = (gcnew System::Windows::Forms::TextBox());
 			this->btnLogin = (gcnew System::Windows::Forms::Button());
+			this->folderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
+			this->fileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->tabClient->SuspendLayout();
 			this->tabPackage->SuspendLayout();
 			this->pnlLogin->SuspendLayout();
@@ -255,7 +250,7 @@ namespace Client
 			this->tabPackage->Controls->Add(this->listDep);
 			this->tabPackage->Location = System::Drawing::Point(4, 24);
 			this->tabPackage->Name = L"tabPackage";
-			this->tabPackage->Padding = System::Windows::Forms::Padding(3, 3, 3, 3);
+			this->tabPackage->Padding = System::Windows::Forms::Padding(3);
 			this->tabPackage->Size = System::Drawing::Size(572, 312);
 			this->tabPackage->TabIndex = 0;
 			this->tabPackage->Text = L"Packages";
@@ -312,7 +307,7 @@ namespace Client
 			// 
 			this->tabCheckin->Location = System::Drawing::Point(4, 24);
 			this->tabCheckin->Name = L"tabCheckin";
-			this->tabCheckin->Padding = System::Windows::Forms::Padding(3, 3, 3, 3);
+			this->tabCheckin->Padding = System::Windows::Forms::Padding(3);
 			this->tabCheckin->Size = System::Drawing::Size(572, 312);
 			this->tabCheckin->TabIndex = 1;
 			this->tabCheckin->Text = L"Checkin";
@@ -458,6 +453,11 @@ namespace Client
 			this->btnLogin->UseVisualStyleBackColor = true;
 			this->btnLogin->Click += gcnew System::EventHandler(this, &UserInterface::btnLogin_Click);
 			// 
+			// fileDialog
+			// 
+			this->fileDialog->Filter = L"*.h|*.cpp";
+			this->fileDialog->Multiselect = true;
+			// 
 			// UserInterface
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -472,17 +472,6 @@ namespace Client
 			this->pnlLogin->ResumeLayout(false);
 			this->pnlLogin->PerformLayout();
 			this->ResumeLayout(false);
-			//
-			//FolderBrowserDialog
-			//
-			this->folderDialog = gcnew System::Windows::Forms::FolderBrowserDialog();
-			//
-			//OpenFileDialog
-			//
-			this->fileDialog = gcnew System::Windows::Forms::OpenFileDialog();
-			this->fileDialog ->Multiselect = true;
-			this->fileDialog ->Filter = "*.h|*.cpp";
-
 
 		}
 
@@ -584,13 +573,15 @@ namespace Client
 			}
 		}
 
-		System::Void listDep_DoubleClick(System::Object^  sender, System::EventArgs^  e) 
+
+		System::Void listDep_DoubleClick(System::Object^ sender, System::EventArgs^ e) 
 		{
 			if (this->listDep->SelectedItems->Count<=0)
 				ShowMessageBox("Please select a package name.");
 			else
 				SendMessage(Ider::MsgType::Dependency);
 		}
+
 
 		System::Collections::Generic::List<String^>^ selectionTrack;
 		System::Boolean connected;
@@ -599,6 +590,8 @@ namespace Client
 		Ider::IMessageHandler* mh;
 		MsgHandler<ClientMessage_Proc>* msgProc;
 		FileHandler<ClientFile_Proc>* fileProc;
+
+
 
 
 		System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
