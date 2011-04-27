@@ -63,6 +63,10 @@ bool Includes::Next()
 
 	curInc="";
 	curName="";
+
+	std::ifstream* pFs = dynamic_cast<std::ifstream*>(inStream);
+	if(pFs)	pFs->close();
+
 	return false;
 }
 //////////////////////////////////////////////////////////////////////////
