@@ -262,6 +262,7 @@ public:
     lock.lock();
     _remoteEp = msg.substr(0,pos);
     msg = msg.substr(pos+1);
+	msg.erase(0,msg.find_last_of('\\')+1);//erase path
     msg = _path + msg;
     lock.unlock();
     writeBuff.open(msg.c_str(), std::ios::out | std::ios::binary | std::ios::trunc);
