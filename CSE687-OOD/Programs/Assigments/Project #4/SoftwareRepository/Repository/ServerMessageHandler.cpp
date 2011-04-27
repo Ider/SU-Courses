@@ -53,7 +53,7 @@ Message MessageHandler::FileMessage()
 {
 	//recursion not implemented
 
-	strVal name = GetName();
+	strVal name = GetMessageName();
 	strVal path = GetDirectory()+_metaFolder+name+".xml";
 
 	ifstream inf;
@@ -82,12 +82,41 @@ Message MessageHandler::FileMessage()
 
 Message MessageHandler::CheckinMessage()
 {
-	const strVal name = GetName();
-	strVal tag = "User";
-	strVal content;
-	XmlDoc doc;
+	strVal tag = "Name";
+	vector<XmlDoc> files = _msg.Doc().Children(tag);
+
+	//if (files.size()==0);//do check in close operation
+
+	strVal fileName;
+	strVal warning;
+	strVal prefix = "\n  ";
+
+	//check every file whether it is ok to check in
+	for (size_t i=0; i<files.size(); ++i)
+	{
+		fileName = files[i].InnerText();
+		if (!OKtoCheckin(fileName))
+			warning+=prefix+fileName;
+	}
+
+	//if at least one of the check in file is
+	//not ok to check in, check in failed
+	if (warning.size()>0)
+	{
+		warning = "Failed to upload.\n\n"
+			+("Follow files are already in the repository:\n"
+			+ warning)
+			+ "\n\nUnfortunately you are not the owner.";
+		return WarningMessage(warning);
+	}
+
+	//send file message to request file from client
 	xmlRep rep;
-	return Message();
+	tag = MsgType::EnumToString(MsgType::File);
+	rep.xmlStr() = _msg.Doc().InnerText();
+	rep.makeParent(tag);
+
+	return Message(rep.xmlStr());
 }
 
 Message MessageHandler::LoginMessage()
@@ -98,7 +127,7 @@ Message MessageHandler::LoginMessage()
 	if (!doc.LoadXmlFile(path))
 		return WarningMessage("Users file broken, please contact administrator.");
 	
-	strVal name = GetName();
+	strVal name = GetMessageName();
 	strVal tag = "User";
 	strVal content;
 	xmlRep rep;
@@ -120,7 +149,7 @@ Message MessageHandler::LoginMessage()
 
 Message MessageHandler::DependencyMessage()
 {
-	const strVal name = GetName();
+	const strVal name = GetMessageName();
 	
 	if (name == "*.*")return AllPackageMessage();
 	
@@ -190,7 +219,7 @@ strVal MessageHandler::GetDirectory()
 	return path;
 }
 
-strVal MessageHandler::GetName()
+strVal MessageHandler::GetMessageName()
 {
 	strVal tag = "Name";
 	XmlDoc doc = _msg.Doc();
@@ -199,35 +228,11 @@ strVal MessageHandler::GetName()
 	strVal name = names[0].InnerText();
 	return names[0].InnerText();
 }
-// 
-// void MessageHandler::LoadMetaContent(strRef container, conStrRef name)
-// {
-// 	ifstream inf;
-// 	container.clear();
-// 	strVal path = GetDirectory()+_metaFolder+name+".xml";
-// 
-// 	inf.open(path);
-// 	if (!inf.good())
-// 	{
-// 		//std::cout<<"Can't open File "<<name<<".xml"<<std::endl;
-// 		inf.close();
-// 		return;
-// 	}
-// 
-// 	char buffer[255];
-// 	while(inf.good())
-// 	{
-// 		inf.getline(buffer,255);
-// 		container += strVal(buffer);
-// 	}
-// 
-// 	inf.close();
-// }
-// 
 
 
 //////////////////////////////////////////////////////////////////////////
 //Remove the path and file extension, return the pure file name
+
 strVal MessageHandler::GetKeyName(strVal filePath)
 {
 	//remove path
@@ -240,6 +245,25 @@ strVal MessageHandler::GetKeyName(strVal filePath)
 		filePath.erase(pos,filePath.size());
 
 	return filePath;
+}
+
+bool MessageHandler::OKtoCheckin(strVal fileName)
+{
+	fileName = GetKeyName(fileName)+".xml";
+
+	XmlDoc doc;
+
+	//package not in the repository, ok to check in
+	if (!doc.LoadXmlFile(GetDirectory()+_metaFolder+fileName))
+		if (!doc.LoadXmlFile(GetDirectory()+_checkinFoler+fileName))
+			return true;
+
+	vector<XmlDoc> elems = doc.Children("owner");
+	if (elems.size()<=0)return false;
+
+	//check in depend on whether user is package owner
+	strVal owner = elems[0].InnerText();
+	return owner == _curUser;
 }
 
 

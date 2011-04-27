@@ -26,20 +26,21 @@ public:
 		// insert your server processing here
 		while(true)
 		{
-			sout << locker << "\n  receiver processing message: " 
+			sout << locker << "\n  Server processing message: " 
 				<< (msg = pBQ->deQ()).c_str() << unlocker;
 			lock.lock();
 			EndPoint remoteEp = _pMsgHandler->getEndPoint();
 			if(pComm->connect(remoteEp.getIP(), remoteEp.getPort()))
 			{
-				Message message(msg);
+				Message receivedMsg(msg);//received me
 				
-				message = mh.RespondToMessage(message,remoteEp);
+				Message msgToSend = mh.RespondToMessage(receivedMsg,remoteEp);
 
-				if (message.Type()== MsgType::File)
-					PostFile(message);
+				if (receivedMsg.Type() ==  MsgType::File
+					&& msgToSend.Type()== MsgType::File)
+					PostFile(msgToSend);
 				else
-					pComm->postMessage(message);
+					pComm->postMessage(msgToSend);
 				pComm->disconnect();
 			}
 			else

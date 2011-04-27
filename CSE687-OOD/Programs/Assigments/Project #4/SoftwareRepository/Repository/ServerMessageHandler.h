@@ -53,8 +53,9 @@ protected:
 	virtual Ider::Message DependencyMessage();
 	virtual Ider::Message AllPackageMessage();
 
-	strVal GetName();
+	strVal GetMessageName();
 	strVal GetDirectory();
+	bool OKtoCheckin(strVal fileName);
 
 private:
 	Ider::Message _msg;
