@@ -313,7 +313,7 @@ inline Block* Communicator::closeConnBlock(size_t BlkSize)
 inline void Communicator::attachMsgHandler(IMsgHandler* pMsgHandler)
 {
   lock.lock();
-  _pMsgHandler = pMsgHandler->clone();
+  _pMsgHandler = pMsgHandler;//->clone();
   _pMsgHandler->setCommunicator(this);
   lock.unlock();
 }
@@ -321,7 +321,7 @@ inline void Communicator::attachMsgHandler(IMsgHandler* pMsgHandler)
 inline void Communicator::attachFileHandler(IFileHandler* pFileHandler)
 {
   lock.lock();
-  _pFileHandler = pFileHandler->clone();
+  _pFileHandler = pFileHandler;//->clone();
   _pFileHandler->setCommunicator(this);
   lock.unlock();
 }
