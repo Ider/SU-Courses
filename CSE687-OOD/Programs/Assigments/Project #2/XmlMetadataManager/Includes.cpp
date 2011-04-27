@@ -134,6 +134,7 @@ bool Includes::ExtractInclude(char* buffer)
 	return false;
 
 	curInc = temp;
+	return true;
 }
 
 

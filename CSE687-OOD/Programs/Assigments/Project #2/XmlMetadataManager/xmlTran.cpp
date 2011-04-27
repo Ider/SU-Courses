@@ -321,10 +321,10 @@ strPos xmlRep::findFirstTag(strRef tag) {
 bool xmlRep::find(strRef tag, xmlElem &elem) {
   strVal temp  = "<"+tag;
   strVal foundTag; 
-  strPos start = -temp.size();
+  strPos start = 0;
   do
   {  
-	  start = _xmlStr.find(temp,start+temp.size());
+	  start = _xmlStr.find(temp, start==0? start: start+temp.size());
 	  if(start >= _xmlStr.size())
 		  return false;
 	  strPos end1  = _xmlStr.find(' ',start);
