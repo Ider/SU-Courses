@@ -25,10 +25,10 @@ vector<XmlDoc> XmlDoc::Children(conStrRef tagName)
 
 		rep.front();
 		strPos end = rep.findCloseTag(elem.tagName());
-		if (end+1 >= rep.xmlStr().size())break;
+		if (end >= rep.xmlStr().size())break;
 
 		strVal xml = rep.xmlStr();
-		rep.xmlStr() = xml.substr(end+1);
+		rep.xmlStr() = xml.substr(end);
 	}
 
 	return children;
