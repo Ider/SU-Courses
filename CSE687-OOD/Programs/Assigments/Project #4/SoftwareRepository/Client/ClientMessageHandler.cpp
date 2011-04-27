@@ -53,10 +53,21 @@ Message MessageHandler::MessageForSending(MsgType::Value type)
 	return Message();
 }
 
-
 void MessageHandler::FileProcess()
 {
 	if(_msg.Type()!=MsgType::File)return;
+	strVal tagName ="Name";
+
+	vector<XmlDoc> names = _msg.Doc().Children(tagName);
+	size_t count = names.size();
+	if (cout<=0)return;
+
+	vector<strVal> files;
+	files.reserve(count);
+	for (size_t i=0; i<count; ++i)
+		files.push_back(names[i].InnerText());
+
+	_form->UploadFiles(files);
 }
 
 void MessageHandler::LoginProcess()
@@ -97,6 +108,7 @@ void MessageHandler::WarningProcess()
 	ShowWarning(_msg.Doc().InnerText());
 }
 
+//convert cli String to std::string
 strVal MessageHandler::Convert(System::String^ s)
 {
 	strVal temp;
@@ -105,6 +117,7 @@ strVal MessageHandler::Convert(System::String^ s)
 	return temp;
 }
 
+//convert std::string to cli String
 System::String^ MessageHandler::Convert(conStrRef s)
 {
 	System::Text::StringBuilder^ temp = gcnew System::Text::StringBuilder();
@@ -146,20 +159,24 @@ Message MessageHandler::FileMessage()
 Message MessageHandler::CheckinMessage()
 {
 	const MsgType::Value type = MsgType::Checkin;
-	string typeTag = MsgType::EnumToString(type);
-	string nameTag = "Action";
+	strVal typeTag = MsgType::EnumToString(type);
 
-	string userName = "Ider";
-
-	xmlElem elem(nameTag,userName);
-	xmlRep rep(elem.elemStr());
+	array<System::String^>^ fileNames = _form->fileDialog->FileNames;
+	int count = fileNames->Length;
+	if (count<=0)return Message(xmlElem::makeTag(typeTag));
+	
+	strVal fileName;
+	strVal tagName = "Name";
+	xmlRep  rep;
+	for (int i=0; i<fileNames->Length; ++i)
+	{
+		fileName = Convert(fileNames[i]);
+		rep.addSibling(xmlElem(tagName,fileName));
+	}
 
 	rep.makeParent(typeTag);
 
-	elem.elemStr() = rep.xmlStr();
-
-	throw string("To be completed");
-	return Message(elem);
+	return Message(rep.xmlStr());
 }
 
 Message MessageHandler::LoginMessage()
