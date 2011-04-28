@@ -7,6 +7,8 @@ using namespace std;
 
 using namespace Ider;
 
+//////////////////////////////////////////////////////////////////////////
+//Receive message from server, call specific message process
 void MessageHandler::ReceiveMessage(conStrRef message)
 {
 	_msg.SetMessage(message);
@@ -39,7 +41,8 @@ void MessageHandler::ReceiveMessage(conStrRef message)
 
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+//Generate message for sending to server
 Message MessageHandler::MessageForSending(MsgType::Value type)
 {
 	switch (type)
@@ -63,6 +66,8 @@ Message MessageHandler::MessageForSending(MsgType::Value type)
 	return Message();
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Process File message
 void MessageHandler::FileProcess()
 {
 	if(_msg.Type()!=MsgType::File)return;
@@ -80,6 +85,8 @@ void MessageHandler::FileProcess()
 	_form->UploadFiles(files);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Process Login message
 void MessageHandler::LoginProcess()
 {
 	if(_msg.Type()!=MsgType::Login)return;
@@ -92,6 +99,8 @@ void MessageHandler::LoginProcess()
 	_form->SendMessage(MsgType::Dependency);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Process Checkin message
 void MessageHandler::CheckinProcess()
 {
 	if(_msg.Type()!=MsgType::Checkin)return;
@@ -110,6 +119,8 @@ void MessageHandler::CheckinProcess()
  	_form->Invoke(_form->ShowCheckinListBox,packages);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Process Dependency message
 void MessageHandler::DependencyProcess()
 {
 	if(_msg.Type()!=MsgType::Dependency)return;
@@ -128,15 +139,21 @@ void MessageHandler::DependencyProcess()
  	_form->Invoke(_form->ShowPackageListBox,packages);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Process warning message
 void MessageHandler::CommitProcess()
 {
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Process warning message
 void MessageHandler::PackageProcess()
 {
 	
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Process warning message
 void MessageHandler::WarningProcess()
 {
 	if(_msg.Type()!=MsgType::Warning)return;
@@ -144,6 +161,7 @@ void MessageHandler::WarningProcess()
 	ShowWarning(_msg.Doc().InnerText());
 }
 
+//////////////////////////////////////////////////////////////////////////
 //convert cli String to std::string
 strVal MessageHandler::Convert(System::String^ s)
 {
@@ -153,6 +171,7 @@ strVal MessageHandler::Convert(System::String^ s)
 	return temp;
 }
 
+//////////////////////////////////////////////////////////////////////////
 //convert std::string to cli String
 System::String^ MessageHandler::Convert(conStrRef s)
 {
@@ -162,6 +181,8 @@ System::String^ MessageHandler::Convert(conStrRef s)
 	return temp->ToString();
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a File type message
 Message MessageHandler::FileMessage()
 {
 	const MsgType::Value type = MsgType::File;
@@ -192,6 +213,8 @@ Message MessageHandler::FileMessage()
 	return Message(elem);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a chickin type message
 Message MessageHandler::CheckinMessage()
 {
 	const MsgType::Value type = MsgType::Checkin;
@@ -223,6 +246,8 @@ Message MessageHandler::CheckinMessage()
 	return Message(rep.xmlStr());
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a login type message
 Message MessageHandler::LoginMessage()
 {
 	const MsgType::Value type = MsgType::Login;
@@ -241,6 +266,8 @@ Message MessageHandler::LoginMessage()
 	return Message(elem);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a dependency type message
 Message MessageHandler::DependencyMessage()
 {
 	const MsgType::Value type = MsgType::Dependency;
@@ -260,6 +287,8 @@ Message MessageHandler::DependencyMessage()
 	return Message(elem);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a commit type message
 Message MessageHandler::CommitMessage()
 {
 	const MsgType::Value type = MsgType::Commit;
@@ -290,6 +319,8 @@ Message MessageHandler::CommitMessage()
 	return Message(rep.xmlStr());
 }
 
+//////////////////////////////////////////////////////////////////////////
+//generate a package type message
 Message MessageHandler::PackageMessage()
 {
 	if(_form->listDep->SelectedItems->Count <=0)return Message();
@@ -297,6 +328,8 @@ Message MessageHandler::PackageMessage()
 	return Message();
 }
 
+//////////////////////////////////////////////////////////////////////////
+//get name for generate package
 strVal MessageHandler::GetName(MsgType::Value type)
 {
 	System::String^ name;
@@ -320,6 +353,8 @@ strVal MessageHandler::GetName(MsgType::Value type)
 	return Convert(name);
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Show warning message on message box
 void MessageHandler::ShowWarning(strVal warning)
 {
 	_form->ShowMessageBox(Convert(warning));
