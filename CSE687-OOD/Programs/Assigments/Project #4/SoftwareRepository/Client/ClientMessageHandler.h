@@ -33,17 +33,21 @@ public:
 
 protected:
 	//Process message
-	virtual void FileProcess();
 	virtual void LoginProcess();
-	virtual void CheckinProcess();
 	virtual void DependencyProcess();
+	virtual void PackageProcess();
+	virtual void FileProcess();
+	virtual void CheckinProcess();
+	virtual void CommitProcess();
 	virtual void WarningProcess();
 
 	//Messages for sending
-	virtual Ider::Message FileMessage();
-	virtual Ider::Message CheckinMessage();
 	virtual Ider::Message LoginMessage();
 	virtual Ider::Message DependencyMessage();
+	virtual Ider::Message FileMessage();
+	virtual Ider::Message PackageMessage();
+	virtual Ider::Message CheckinMessage();
+	virtual Ider::Message CommitMessage();
 
 	//Auxiliary function
 	strVal GetName(Ider::MsgType::Value type);

@@ -31,6 +31,34 @@ namespace Client
 		ShowListBoxDelegate^ ShowPackageListBox;
 		ShowListBoxDelegate^ ShowCheckinListBox;
 
+
+	public: property System::Boolean CommitAll
+			{
+				System::Boolean get(){return (this->cbAll->Checked);}
+			}
+	public: property System::Windows::Forms::ListBox^ ListCheckin
+			{
+				System::Windows::Forms::ListBox^ get(){return this->listCheckin;}
+			}
+
+	public: property System::Windows::Forms::ListBox^ ListDependency
+			{
+				System::Windows::Forms::ListBox^ get(){return this->listDep;}
+			}
+	public: property System::Boolean RequestChickedin
+			{
+				System::Boolean get()
+				{
+					System::Boolean temp = requestChickedin;
+					requestChickedin = false;
+					return temp;
+				}
+				System::Void set(System::Boolean value){requestChickedin = value;}
+			}
+
+	public: 
+	
+
 		//constructor
 		UserInterface(void)
 		{
@@ -163,15 +191,9 @@ namespace Client
 				this->sender->postFile(files[i]);
 
 			System::Threading::Thread::Sleep(1000);
-			UnclosedCheckin = true;
+			this->requestChickedin = true;
 			SendMessage(Ider::MsgType::Checkin);
-			UnclosedCheckin = false;
 		}
-
-		//flag for Checkin message
-		bool CheckinClose;
-		bool UnclosedCheckin;
-
 
 
 	protected:
@@ -305,17 +327,19 @@ namespace Client
 			if (count<=0)return;
 
 			//set both flag to false, so that MessageHanlder would send Chickin messge for upload
-			CheckinClose = false;
-			UnclosedCheckin = false;
 			SendMessage(Ider::MsgType::Checkin);
 		}
 
 		//Checkin close button event
 		System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
-			CheckinClose =true;
-			SendMessage(Ider::MsgType::Checkin);
-			CheckinClose =false;
+			if (listCheckin->Items->Count<=0)
+				ShowMessageBox("All packages are closed.");
+
+			if (!cbAll->Checked && listCheckin->SelectedItems->Count<=0)
+				ShowMessageBox("Please select a package.");
+
+			SendMessage(Ider::MsgType::Commit);
 		}
 
 		//Dependency listbox event
@@ -330,14 +354,13 @@ namespace Client
 		//Refresh button event
 		System::Void btnRefresh_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
-			UnclosedCheckin = true;
+			this->requestChickedin = true;
 			SendMessage(Ider::MsgType::Checkin);
-			UnclosedCheckin = false;
 		}
 
 		System::Collections::Generic::List<String^>^ selectionTrack;
 		System::Boolean connected;
-
+		System::Boolean requestChickedin;
 		ICommunicator* sender;
 		Ider::IMessageHandler* mh;
 		MsgHandler<ClientMessage_Proc>* msgProc;
@@ -379,6 +402,7 @@ namespace Client
 	private: System::Windows::Forms::Label^  lblCheckin;
 	private: System::Windows::Forms::Label^  lblPack;
 
+	private: System::Windows::Forms::CheckBox^  cbAll;
 
 #pragma endregion
 
@@ -422,6 +446,7 @@ namespace Client
 			this->btnLogin = (gcnew System::Windows::Forms::Button());
 			this->folderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->fileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->cbAll = (gcnew System::Windows::Forms::CheckBox());
 			this->tabClient->SuspendLayout();
 			this->tabPackage->SuspendLayout();
 			this->tabCheckin->SuspendLayout();
@@ -504,6 +529,7 @@ namespace Client
 			// 
 			// tabCheckin
 			// 
+			this->tabCheckin->Controls->Add(this->cbAll);
 			this->tabCheckin->Controls->Add(this->btnRefresh);
 			this->tabCheckin->Controls->Add(this->lblCheckin);
 			this->tabCheckin->Controls->Add(this->btnClose);
@@ -722,6 +748,19 @@ namespace Client
 			this->fileDialog->Filter = L"Package Files(*.cpp, *.h)|*.cpp;*.h|Header Files(*.h)|*.h|Implement Files(*.cpp)|" 
 				L"*.cpp";
 			this->fileDialog->Multiselect = true;
+			// 
+			// cbAll
+			// 
+			this->cbAll->AutoSize = true;
+			this->cbAll->Checked = true;
+			this->cbAll->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->cbAll->Location = System::Drawing::Point(350, 130);
+			this->cbAll->Name = L"cbAll";
+			this->cbAll->Size = System::Drawing::Size(75, 19);
+			this->cbAll->TabIndex = 7;
+			this->cbAll->Text = L"Close All";
+			this->cbAll->UseVisualStyleBackColor = true;
+			this->cbAll->Visible = false;
 			// 
 			// UserInterface
 			// 

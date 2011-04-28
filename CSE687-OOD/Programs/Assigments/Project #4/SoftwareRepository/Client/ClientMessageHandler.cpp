@@ -24,6 +24,12 @@ void MessageHandler::ReceiveMessage(conStrRef message)
 	case MsgType::Checkin: 
 		CheckinProcess();
 		break;
+	case MsgType::Commit: 
+		CommitProcess();
+		break;
+	case MsgType::Package: 
+		PackageProcess();
+		break;
 	case MsgType::Warning: 
 		WarningProcess();
 		break;
@@ -46,6 +52,10 @@ Message MessageHandler::MessageForSending(MsgType::Value type)
 		return FileMessage();
 	case MsgType::Checkin: 
 		return CheckinMessage();
+	case MsgType::Commit: 
+		return CommitMessage();
+	case MsgType::Package: 
+		return PackageMessage();
 	default:
 		break;
 	}
@@ -75,9 +85,8 @@ void MessageHandler::LoginProcess()
 	if(_msg.Type()!=MsgType::Login)return;
 
 	//request unclosed packages that checked in by this user
-	_form->UnclosedCheckin = true;
+	_form->RequestChickedin = true;
 	_form->SendMessage(MsgType::Checkin);
-	_form->UnclosedCheckin = false;
 
 	//request all packages in repository
 	_form->SendMessage(MsgType::Dependency);
@@ -117,6 +126,15 @@ void MessageHandler::DependencyProcess()
 	}
 
  	_form->Invoke(_form->ShowPackageListBox,packages);
+}
+
+void MessageHandler::CommitProcess()
+{
+}
+
+void MessageHandler::PackageProcess()
+{
+	
 }
 
 void MessageHandler::WarningProcess()
@@ -182,15 +200,13 @@ Message MessageHandler::CheckinMessage()
 	strVal tagName = "Name";
 	xmlRep  rep;
 	
-	if (_form->UnclosedCheckin == true)
+	if (_form->RequestChickedin == true)
 	{
 		//request all unclosed packages that checked in by this user
 		rep.addSibling(xmlElem(tagName,fileName));
 		rep.makeParent(typeTag);
 		return Message(rep.xmlStr());
 	}
-
-	if (_form->CheckinClose == true)return Message(xmlElem::makeTag(typeTag));
 
 	array<System::String^>^ fileNames = _form->fileDialog->FileNames;
 	int count = fileNames->Length;
@@ -242,6 +258,43 @@ Message MessageHandler::DependencyMessage()
 	elem.elemStr() = rep.xmlStr();
 
 	return Message(elem);
+}
+
+Message MessageHandler::CommitMessage()
+{
+	const MsgType::Value type = MsgType::Commit;
+	strVal typeTag = MsgType::EnumToString(type);
+	strVal nameTag = "Name";
+	
+	System::Windows::Forms::ListBox::SelectedObjectCollection^ items
+		=_form->ListCheckin->SelectedItems;
+
+	//commit selected pack
+	if (_form->CommitAll == false)
+	{
+		if (items->Count<=0)return Message();
+
+		System::String^ pack = _form->ListCheckin->SelectedItem->ToString();
+		
+		xmlRep rep(xmlElem(nameTag,Convert(pack)));
+		rep.makeParent(typeTag);
+
+		return Message(rep.xmlStr());
+	}
+
+	//commit all package	
+	xmlRep rep;
+	for (int i=0; i<items->Count; ++i )
+		rep.addSibling(xmlElem(nameTag,Convert(items[i]->ToString())));
+
+	return Message(rep.xmlStr());
+}
+
+Message MessageHandler::PackageMessage()
+{
+	if(_form->listDep->SelectedItems->Count <=0)return Message();
+
+	return Message();
 }
 
 strVal MessageHandler::GetName(MsgType::Value type)
