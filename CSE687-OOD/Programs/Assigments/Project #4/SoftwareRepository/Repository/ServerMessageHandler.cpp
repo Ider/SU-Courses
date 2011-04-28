@@ -65,7 +65,7 @@ Message MessageHandler::FileMessage()
 	//recursion not implemented
 
 	strVal name = GetMessageName();
-	strVal path = GetDirectory()+_metaFolder+name+".xml";
+	strVal path = _repositoryPath+_metaFolder+name+".xml";
 
 	ifstream inf;
 	inf.open(path);
@@ -97,12 +97,12 @@ Message MessageHandler::CheckinMessage()
 {
 	strVal tag = "Name";
 	vector<XmlDoc> files = _msg.Doc().Children(tag);
-
-	if (files.size()==0)return WarningMessage("Checkin close is not implemented");
+	if (files.size()<=0)return WarningMessage("Please specify package.");
+	
 
 	if (files[0].InnerText()=="*.*")
 		return GetUserCheckedIn();
-
+	
 	strVal fileName;
 	strVal warning;
 	strVal prefix = "\n  ";
@@ -141,7 +141,7 @@ Message MessageHandler::CheckinMessage()
 //else return warning.
 Message MessageHandler::LoginMessage()
 {
-	strVal path = GetDirectory()+"Users.xml";
+	strVal path = _repositoryPath+"Users.xml";
 	XmlDoc doc;
 	
 	if (!doc.LoadXmlFile(path))
@@ -175,7 +175,7 @@ Message MessageHandler::DependencyMessage()
 	
 	if (name == "*.*")return AllPackageMessage();
 	
-	strVal path = GetDirectory()+_metaFolder+name+".xml";
+	strVal path = _repositoryPath+_metaFolder+name+".xml";
 	strVal tag = "references";
 	strVal content;
 	XmlDoc doc;
@@ -208,6 +208,19 @@ Message MessageHandler::DependencyMessage()
 	return Message(rep.xmlStr());
 }
 
+
+Message MessageHandler::CommitMessage()
+{
+	ClosePackage();
+	return WarningMessage("OK!!!");
+}
+
+
+Message MessageHandler::PackageMessage()
+{
+	return Message("Not implemented.");
+}
+
 //////////////////////////////////////////////////////////////////////////
 //generate a File type message
 Message MessageHandler::WarningMessage(strVal warning)
@@ -221,7 +234,7 @@ Message MessageHandler::WarningMessage(strVal warning)
 //generate a Dependency type message, it contains all packages in repository
 Message MessageHandler::AllPackageMessage()
 {
-	strVal path = GetDirectory() + _metaFolder;
+	strVal path = _repositoryPath + _metaFolder;
 	strVal tag = "Name";
 	WinTools_Extracts::FileHandler fh;
 	xmlRep rep;
@@ -243,7 +256,7 @@ Message MessageHandler::AllPackageMessage()
 //generate a Checkin type message
 Message MessageHandler::GetUserCheckedIn()
 {
-	strVal path = GetDirectory() + _checkinFoler;
+	strVal path = _repositoryPath + _checkinFoler;
 	strVal tag = "Name";
 	strVal fileName;
 	WinTools_Extracts::FileHandler fh;
@@ -299,12 +312,45 @@ bool MessageHandler::BuildCheckinMetadata(strVal fileName,EndPoint curConnected)
 	return doc.SaveToFile(path+fileName+".xml");
 }
 
+
+bool MessageHandler::ClosePackage()
+{
+	strVal tag ="Name";
+	vector<XmlDoc> files = _msg.Doc().Children(tag);
+	if (files.size() <=0)return true;
+
+	strVal fileName;
+	strVal command;
+	strVal sourceFolder = _repositoryPath+_checkinFoler;
+	strVal destFolder = _repositoryPath+_pacakgeFolder;;
+	vector<strVal> fileNames;
+
+	for (size_t i = 0; i<files.size(); ++i)
+	{
+		fileName = GetKeyName(files[i]);
+		if (!OKtoCheckin(fileName))continue;
+
+		command = "move /y "+ sourceFolder + fileName+".h "+destFolder;
+		system(command.c_str());
+		command = "move /y "+ sourceFolder + fileName+".h "+destFolder;
+		system(command.c_str());
+		
+		BuildMetadata(fileName);
+	}
+
+	return true;
+}
+
 //////////////////////////////////////////////////////////////////////////
 //Build meta data file
 bool MessageHandler::BuildMetadata(strVal fileName)
 {
 	fileName = GetKeyName(fileName);
 	strVal path = _repositoryPath+_pacakgeFolder;
+
+	strVal command = "del "+ _repositoryPath 
+		+ _checkinFoler + fileName+".xml ";
+	system(command.c_str());
 
 	PackageInfo pack;
 	pack.Name() = fileName;
@@ -321,14 +367,6 @@ bool MessageHandler::BuildMetadata(strVal fileName)
 
 	path = _repositoryPath+_metaFolder;
 	return doc.SaveToFile(path+fileName+".xml");
-}
-
-//////////////////////////////////////////////////////////////////////////
-//generate a File type message
-strVal MessageHandler::GetDirectory()
-{
-	strVal path = ".\\Repository\\";
-	return path;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -370,8 +408,8 @@ bool MessageHandler::OKtoCheckin(strVal fileName)
 	XmlDoc doc;
 
 	//package not in the repository, ok to check in
-	if (!doc.LoadXmlFile(GetDirectory()+_metaFolder+fileName))
-		if (!doc.LoadXmlFile(GetDirectory()+_checkinFoler+fileName))
+	if (!doc.LoadXmlFile(_repositoryPath+_metaFolder+fileName))
+		if (!doc.LoadXmlFile(_repositoryPath+_checkinFoler+fileName))
 			return true;
 
 	vector<XmlDoc> elems = doc.Children("owner");

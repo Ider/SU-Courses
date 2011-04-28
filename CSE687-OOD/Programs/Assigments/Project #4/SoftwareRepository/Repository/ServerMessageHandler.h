@@ -40,14 +40,16 @@ protected:
 	virtual Ider::Message CheckinMessage();
 	virtual Ider::Message LoginMessage();
 	virtual Ider::Message DependencyMessage();
+	virtual Ider::Message CommitMessage();
+	virtual Ider::Message PackageMessage();
 
 	virtual Ider::Message AllPackageMessage();
 	virtual Ider::Message GetUserCheckedIn();
 
 	//Auxiliary function
 	strVal GetMessageName();
-	strVal GetDirectory();
 	bool OKtoCheckin(strVal fileName);
+	bool ClosePackage();
 	bool BuildMetadata(strVal fileName);
 
 private:
