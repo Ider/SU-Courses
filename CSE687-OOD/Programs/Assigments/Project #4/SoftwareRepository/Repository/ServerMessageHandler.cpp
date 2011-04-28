@@ -98,10 +98,10 @@ Message MessageHandler::CheckinMessage()
 	strVal tag = "Name";
 	vector<XmlDoc> files = _msg.Doc().Children(tag);
 
-	//if (files.size()==0);//do check in close operation
+	if (files.size()==0)return WarningMessage("Checkin close is not implemented");
 
 	if (files[0].InnerText()=="*.*")
-		return GetUserCheckedIn(_curIP);
+		return GetUserCheckedIn();
 
 	strVal fileName;
 	strVal warning;
@@ -241,16 +241,8 @@ Message MessageHandler::AllPackageMessage()
 
 //////////////////////////////////////////////////////////////////////////
 //generate a Checkin type message
-Message MessageHandler::GetUserCheckedIn(EndPoint curConnected)
+Message MessageHandler::GetUserCheckedIn()
 {
-	map<EndPoint,strVal>::iterator it = _loginUsers.find(curConnected);
-	if (it == _loginUsers.end()) 
-		return WarningMessage("No user connected");
-
-	//start get all checked in packages uploaded by the user
-
-	_curUser = it->second;
-
 	strVal path = GetDirectory() + _checkinFoler;
 	strVal tag = "Name";
 	strVal fileName;
@@ -274,12 +266,8 @@ Message MessageHandler::GetUserCheckedIn(EndPoint curConnected)
 	tag = MsgType::EnumToString(MsgType::Checkin);
 	rep.makeParent(tag);
 
-	_curUser.clear();
-
 	return Message(rep.xmlStr());
-
 }
-
 
 //////////////////////////////////////////////////////////////////////////
 //Build meta data file
@@ -310,6 +298,7 @@ bool MessageHandler::BuildCheckinMetadata(strVal fileName,EndPoint curConnected)
 	
 	return doc.SaveToFile(path+fileName+".xml");
 }
+
 //////////////////////////////////////////////////////////////////////////
 //Build meta data file
 bool MessageHandler::BuildMetadata(strVal fileName)
@@ -333,7 +322,6 @@ bool MessageHandler::BuildMetadata(strVal fileName)
 	path = _repositoryPath+_metaFolder;
 	return doc.SaveToFile(path+fileName+".xml");
 }
-
 
 //////////////////////////////////////////////////////////////////////////
 //generate a File type message

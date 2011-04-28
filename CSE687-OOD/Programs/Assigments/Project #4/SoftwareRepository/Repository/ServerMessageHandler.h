@@ -23,8 +23,6 @@ public:
 	virtual Ider::Message MessageForSending(Ider::MsgType::Value type);
 	virtual Ider::Message WarningMessage(strVal warning);
 
-	//Generate message for sending
-	virtual Ider::Message GetUserCheckedIn(EndPoint curConnected);
 
 	//Auxiliary function
 	strVal MessageHandler::GetKeyName(strVal filePath);
@@ -42,7 +40,9 @@ protected:
 	virtual Ider::Message CheckinMessage();
 	virtual Ider::Message LoginMessage();
 	virtual Ider::Message DependencyMessage();
+
 	virtual Ider::Message AllPackageMessage();
+	virtual Ider::Message GetUserCheckedIn();
 
 	//Auxiliary function
 	strVal GetMessageName();

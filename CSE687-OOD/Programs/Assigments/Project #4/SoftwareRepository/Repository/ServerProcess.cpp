@@ -132,7 +132,6 @@ public:
 			{
 				pComm->postMessage(std::string("got file\n"));
 				mh.BuildCheckinMetadata(msg,remoteEp);
-				pComm->postMessage(mh.GetUserCheckedIn(remoteEp));
 				pComm->disconnect();
 			}
 			else
