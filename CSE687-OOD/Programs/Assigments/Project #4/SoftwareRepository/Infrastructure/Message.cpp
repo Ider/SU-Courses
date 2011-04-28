@@ -7,9 +7,11 @@ using namespace Ider;
 MsgType::Value MsgType::StringToEnum(conStrRef type)
 {
 	if(type == "Login")return Login;
-	if(type == "Checkin")return Checkin;
+	if(type == "Package")return Package;
 	if(type == "Dependency")return Dependency;
 	if(type == "File")return File;
+	if(type == "Checkin")return Checkin;
+	if(type == "Commit")return Commit;
 	if(type == "Warning")return Warning;
 
 	return Unknown;
@@ -27,6 +29,10 @@ strVal MsgType::EnumToString(Value type)
 		return "File";
 	case Checkin: 
 		return "Checkin";
+	case Package: 
+		return "Package";
+	case Commit: 
+		return "Commit";
 	case Warning: 
 		return "Warning";
 	default:
