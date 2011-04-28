@@ -75,7 +75,10 @@ void MessageHandler::LoginProcess()
 	if(_msg.Type()!=MsgType::Login)return;
 
 	//request unclosed packages that checked in by this user
+	_form->UnclosedCheckin = true;
 	_form->SendMessage(MsgType::Checkin);
+	_form->UnclosedCheckin = false;
+
 	//request all packages in repository
 	_form->SendMessage(MsgType::Dependency);
 }
@@ -179,7 +182,7 @@ Message MessageHandler::CheckinMessage()
 	strVal tagName = "Name";
 	xmlRep  rep;
 	
-	if (_form->pnlLogin->Visible == true)
+	if (_form->UnclosedCheckin == true)
 	{
 		//request all unclosed packages that checked in by this user
 		rep.addSibling(xmlElem(tagName,fileName));
@@ -187,9 +190,11 @@ Message MessageHandler::CheckinMessage()
 		return Message(rep.xmlStr());
 	}
 
+	if (_form->CheckinClose == true)return Message(xmlElem::makeTag(typeTag));
+
 	array<System::String^>^ fileNames = _form->fileDialog->FileNames;
 	int count = fileNames->Length;
-	if (count<=0)return Message(xmlElem::makeTag(typeTag));
+	if (count<=0)return Message();
 
 	for (int i=0; i<fileNames->Length; ++i)
 	{

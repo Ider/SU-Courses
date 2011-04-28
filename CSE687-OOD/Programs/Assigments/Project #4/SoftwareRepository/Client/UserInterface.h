@@ -26,10 +26,12 @@ namespace Client
 	public ref class UserInterface : public System::Windows::Forms::Form
 	{
 	public:
+		//delegate
 		delegate System::Void ShowListBoxDelegate(System::Collections::Generic::List<System::String^>^ items);
 		ShowListBoxDelegate^ ShowPackageListBox;
 		ShowListBoxDelegate^ ShowCheckinListBox;
 
+		//constructor
 		UserInterface(void)
 		{
 			this->selectionTrack = gcnew System::Collections::Generic::List<String^>();
@@ -121,6 +123,7 @@ namespace Client
 			}
 			else
 			{
+				//this branch would never be reached
 				if (this->listDep->SelectedItems->Count<=0)return;
 
 				if (this->listDep->SelectedIndex==0)
@@ -139,6 +142,9 @@ namespace Client
 
 			for (System::Int32 i=0; i<packages->Count; ++i)
 				this->listDep->Items->Add(packages[i]);
+
+			this->lblPack->Text = this->selectionTrack[this->selectionTrack->Count-1]+":";
+			if (this->lblPack->Text =="*.*:") this->lblPack->Text = "All Packages:";
 		}
 
 		//show checked in on listbox
@@ -154,51 +160,18 @@ namespace Client
 		void UploadFiles(std::vector<std::string> files)
 		{
 			for (size_t i=0; i<files.size(); ++i)
-				this->sender->postFile(files[0]);
+				this->sender->postFile(files[i]);
+
+			System::Threading::Thread::Sleep(1000);
+			UnclosedCheckin = true;
+			SendMessage(Ider::MsgType::Checkin);
+			UnclosedCheckin = false;
 		}
 
-#pragma region Windows Form Controls
+		//flag for Checkin message
+		bool CheckinClose;
+		bool UnclosedCheckin;
 
-	public: System::Windows::Forms::Panel^  pnlLogin;
-
-	private: System::Windows::Forms::FolderBrowserDialog^ folderDialog;
-	public: System::Windows::Forms::OpenFileDialog^ fileDialog;
-
-	public: System::Windows::Forms::TabControl^  tabClient;
-
-	public: System::Windows::Forms::TabPage^  tabPackage;
-	public: System::Windows::Forms::TabPage^  tabCheckin;
-
-	public: System::Windows::Forms::ListBox^  listDep;
-	private: System::Windows::Forms::ListBox^  listCheckin;
-
-	public: System::Windows::Forms::Button^  btnDep;
-	public: System::Windows::Forms::Button^  btnExt;
-	private: System::Windows::Forms::Button^  btnLogin;
-	private: System::Windows::Forms::Button^  btnClose;
-	private: System::Windows::Forms::Button^  btnUpload;
-
-
-	private: System::Windows::Forms::Button^  button1;
-
-
-	private: System::Windows::Forms::TextBox^  txtCitIP;
-	private: System::Windows::Forms::TextBox^  txtCitPort;
-	private: System::Windows::Forms::TextBox^  txtSvrPort;
-	private: System::Windows::Forms::TextBox^  txtSvrIP;
-	private: System::Windows::Forms::TextBox^  txtUsrName;
-
-	private: System::Windows::Forms::Label^  lblCli;
-	private: System::Windows::Forms::Label^  lblSvr;
-	private: System::Windows::Forms::Label^  lblUsrName;
-	private: System::Windows::Forms::Label^  lblCitColon;
-	private: System::Windows::Forms::Label^  lblSvrColon;
-
-
-
-
-
-#pragma endregion
 
 
 	protected:
@@ -326,28 +299,25 @@ namespace Client
 		System::Void btnUpload_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
 			System::Windows::Forms::DialogResult result = this->fileDialog->ShowDialog();
-			
+
 			if (result == System::Windows::Forms::DialogResult::Cancel)return;
 			int count = this->fileDialog->FileNames->Length;
 			if (count<=0)return;
-// 
-// 			for (int i=0; i <count;++i)
-// 			{
-// 				String^ temp = this->fileDialog->FileNames[i];
-// 
-// 				std::string name;
-// 				for(int i=0; i<temp->Length; ++i)
-// 					name += (char)temp[i];
-// 				this->sender->postFile(name);
-// 			}
+
+			//set both flag to false, so that MessageHanlder would send Chickin messge for upload
+			CheckinClose = false;
+			UnclosedCheckin = false;
 			SendMessage(Ider::MsgType::Checkin);
 		}
 
 		//Checkin close button event
 		System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
+			CheckinClose =true;
+			SendMessage(Ider::MsgType::Checkin);
+			CheckinClose =false;
 		}
-		
+
 		//Dependency listbox event
 		System::Void listDep_DoubleClick(System::Object^ sender, System::EventArgs^ e) 
 		{
@@ -357,6 +327,13 @@ namespace Client
 				SendMessage(Ider::MsgType::Dependency);
 		}
 
+		//Refresh button event
+		System::Void btnRefresh_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			UnclosedCheckin = true;
+			SendMessage(Ider::MsgType::Checkin);
+			UnclosedCheckin = false;
+		}
 
 		System::Collections::Generic::List<String^>^ selectionTrack;
 		System::Boolean connected;
@@ -366,6 +343,44 @@ namespace Client
 		MsgHandler<ClientMessage_Proc>* msgProc;
 		FileHandler<ClientFile_Proc>* fileProc;
 
+#pragma region Windows Form Controls
+
+	private: System::Windows::Forms::Panel^  pnlLogin;
+
+	private: System::Windows::Forms::FolderBrowserDialog^ folderDialog;
+	public: System::Windows::Forms::OpenFileDialog^ fileDialog;
+
+	public: System::Windows::Forms::TabControl^  tabClient;
+
+	private: System::Windows::Forms::TabPage^  tabPackage;
+	private: System::Windows::Forms::TabPage^  tabCheckin;
+
+	public: System::Windows::Forms::ListBox^  listDep;
+	private: System::Windows::Forms::ListBox^  listCheckin;
+
+	private: System::Windows::Forms::Button^  btnDep;
+	private: System::Windows::Forms::Button^  btnExt;
+	private: System::Windows::Forms::Button^  btnLogin;
+	private: System::Windows::Forms::Button^  btnClose;
+	private: System::Windows::Forms::Button^  btnUpload;
+	private: System::Windows::Forms::Button^  btnRefresh;
+
+	private: System::Windows::Forms::TextBox^  txtCitIP;
+	private: System::Windows::Forms::TextBox^  txtCitPort;
+	private: System::Windows::Forms::TextBox^  txtSvrPort;
+	private: System::Windows::Forms::TextBox^  txtSvrIP;
+	private: System::Windows::Forms::TextBox^  txtUsrName;
+
+	private: System::Windows::Forms::Label^  lblCli;
+	private: System::Windows::Forms::Label^  lblSvr;
+	private: System::Windows::Forms::Label^  lblUsrName;
+	private: System::Windows::Forms::Label^  lblCitColon;
+	private: System::Windows::Forms::Label^  lblSvrColon;
+	private: System::Windows::Forms::Label^  lblCheckin;
+	private: System::Windows::Forms::Label^  lblPack;
+
+
+#pragma endregion
 
 	private:
 		/// <summary>
@@ -383,11 +398,13 @@ namespace Client
 		{
 			this->tabClient = (gcnew System::Windows::Forms::TabControl());
 			this->tabPackage = (gcnew System::Windows::Forms::TabPage());
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->lblPack = (gcnew System::Windows::Forms::Label());
 			this->btnDep = (gcnew System::Windows::Forms::Button());
 			this->btnExt = (gcnew System::Windows::Forms::Button());
 			this->listDep = (gcnew System::Windows::Forms::ListBox());
 			this->tabCheckin = (gcnew System::Windows::Forms::TabPage());
+			this->btnRefresh = (gcnew System::Windows::Forms::Button());
+			this->lblCheckin = (gcnew System::Windows::Forms::Label());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
 			this->btnUpload = (gcnew System::Windows::Forms::Button());
 			this->listCheckin = (gcnew System::Windows::Forms::ListBox());
@@ -425,7 +442,7 @@ namespace Client
 			// 
 			// tabPackage
 			// 
-			this->tabPackage->Controls->Add(this->button1);
+			this->tabPackage->Controls->Add(this->lblPack);
 			this->tabPackage->Controls->Add(this->btnDep);
 			this->tabPackage->Controls->Add(this->btnExt);
 			this->tabPackage->Controls->Add(this->listDep);
@@ -437,15 +454,16 @@ namespace Client
 			this->tabPackage->Text = L"Packages";
 			this->tabPackage->UseVisualStyleBackColor = true;
 			// 
-			// button1
+			// lblPack
 			// 
-			this->button1->Location = System::Drawing::Point(378, 226);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
-			this->button1->TabIndex = 5;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &UserInterface::button1_Click);
+			this->lblPack->AutoSize = true;
+			this->lblPack->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->lblPack->Location = System::Drawing::Point(22, 11);
+			this->lblPack->Name = L"lblPack";
+			this->lblPack->Size = System::Drawing::Size(78, 18);
+			this->lblPack->TabIndex = 6;
+			this->lblPack->Text = L"Packages:";
 			// 
 			// btnDep
 			// 
@@ -478,14 +496,16 @@ namespace Client
 			this->listDep->FormattingEnabled = true;
 			this->listDep->ItemHeight = 15;
 			this->listDep->Items->AddRange(gcnew cli::array< System::Object^  >(2) {L"..", L"*.*"});
-			this->listDep->Location = System::Drawing::Point(20, 20);
+			this->listDep->Location = System::Drawing::Point(20, 40);
 			this->listDep->Name = L"listDep";
-			this->listDep->Size = System::Drawing::Size(292, 274);
+			this->listDep->Size = System::Drawing::Size(292, 244);
 			this->listDep->TabIndex = 0;
 			this->listDep->DoubleClick += gcnew System::EventHandler(this, &UserInterface::listDep_DoubleClick);
 			// 
 			// tabCheckin
 			// 
+			this->tabCheckin->Controls->Add(this->btnRefresh);
+			this->tabCheckin->Controls->Add(this->lblCheckin);
 			this->tabCheckin->Controls->Add(this->btnClose);
 			this->tabCheckin->Controls->Add(this->btnUpload);
 			this->tabCheckin->Controls->Add(this->listCheckin);
@@ -496,6 +516,29 @@ namespace Client
 			this->tabCheckin->TabIndex = 1;
 			this->tabCheckin->Text = L"Checkin";
 			this->tabCheckin->UseVisualStyleBackColor = true;
+			// 
+			// btnRefresh
+			// 
+			this->btnRefresh->Font = (gcnew System::Drawing::Font(L"Georgia", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->btnRefresh->Location = System::Drawing::Point(350, 260);
+			this->btnRefresh->Name = L"btnRefresh";
+			this->btnRefresh->Size = System::Drawing::Size(151, 23);
+			this->btnRefresh->TabIndex = 6;
+			this->btnRefresh->Text = L"Refresh List";
+			this->btnRefresh->UseVisualStyleBackColor = true;
+			this->btnRefresh->Click += gcnew System::EventHandler(this, &UserInterface::btnRefresh_Click);
+			// 
+			// lblCheckin
+			// 
+			this->lblCheckin->AutoSize = true;
+			this->lblCheckin->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->lblCheckin->Location = System::Drawing::Point(20, 10);
+			this->lblCheckin->Name = L"lblCheckin";
+			this->lblCheckin->Size = System::Drawing::Size(230, 18);
+			this->lblCheckin->TabIndex = 5;
+			this->lblCheckin->Text = L"Unclosed Checked In Packages:";
 			// 
 			// btnClose
 			// 
@@ -528,9 +571,9 @@ namespace Client
 			this->listCheckin->FormattingEnabled = true;
 			this->listCheckin->ItemHeight = 15;
 			this->listCheckin->Items->AddRange(gcnew cli::array< System::Object^  >(2) {L"..", L"*.*"});
-			this->listCheckin->Location = System::Drawing::Point(20, 20);
+			this->listCheckin->Location = System::Drawing::Point(20, 40);
 			this->listCheckin->Name = L"listCheckin";
-			this->listCheckin->Size = System::Drawing::Size(292, 274);
+			this->listCheckin->Size = System::Drawing::Size(292, 244);
 			this->listCheckin->TabIndex = 0;
 			this->listCheckin->DoubleClick += gcnew System::EventHandler(this, &UserInterface::listDep_DoubleClick);
 			// 
@@ -676,7 +719,8 @@ namespace Client
 			// 
 			// fileDialog
 			// 
-			this->fileDialog->Filter = L"Package Files(*.cpp, *.h)|*.cpp;*.h|Header Files(*.h)|*.h|Implement Files(*.cpp)|*.cpp";
+			this->fileDialog->Filter = L"Package Files(*.cpp, *.h)|*.cpp;*.h|Header Files(*.h)|*.h|Implement Files(*.cpp)|" 
+				L"*.cpp";
 			this->fileDialog->Multiselect = true;
 			// 
 			// UserInterface
@@ -690,7 +734,9 @@ namespace Client
 			this->Text = L"UI";
 			this->tabClient->ResumeLayout(false);
 			this->tabPackage->ResumeLayout(false);
+			this->tabPackage->PerformLayout();
 			this->tabCheckin->ResumeLayout(false);
+			this->tabCheckin->PerformLayout();
 			this->pnlLogin->ResumeLayout(false);
 			this->pnlLogin->PerformLayout();
 			this->ResumeLayout(false);
@@ -701,19 +747,6 @@ namespace Client
 
 
 #pragma endregion
-
-
-
-
-		System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-			System::Collections::Generic::List<String^>^ packages
-				=gcnew System::Collections::Generic::List<String^>();
-			packages->Add(L"..");
-			packages->Add(L"*.*");
-			packages->Add(L"Hello");
-			packages->Add(L"Display");
-			ShowPackageListBox(packages);
-		}
 	};
 }
 

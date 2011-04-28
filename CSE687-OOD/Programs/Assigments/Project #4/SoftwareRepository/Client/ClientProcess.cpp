@@ -22,7 +22,7 @@ void ClientMessage_Proc::run()
 	while(true)
 	{
 		msg = pBQ->deQ();
-		sout << locker << "\n  sender received message: " 
+		sout << locker << "\n\n  Client received message: \n" 
 			<< msg << unlocker;
 
 		FormMessageHanlder->ReceiveMessage(msg);
