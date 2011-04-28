@@ -210,6 +210,10 @@ namespace Client
 			if (components)
 			{
 				delete components;
+			}
+
+			if(sender)
+			{
 				delete sender;
 				delete msgProc;
 				delete fileProc;

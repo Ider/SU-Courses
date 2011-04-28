@@ -1,5 +1,4 @@
 #ifndef CLIENT_PROCESS_H
-
 #define CLIENT_PROCESS_H
 
 #include "..\Foundation\Communicator.h"
