@@ -10,6 +10,14 @@ using namespace std;
 
 using namespace Ider;
 
+
+#ifdef IDERDEGBU
+#include <iostream>
+#define SERVERACTION(msg) cout << "\n Server action: \n  " << (msg)<<endl;
+#else
+#define SERVERACTION(msg) ;
+#endif
+
 Message MessageHandler::RespondToMessage(conStrRef message, EndPoint curConnected)
 {
 	ReceiveMessage(message);
@@ -50,6 +58,10 @@ Message MessageHandler::MessageForSending(MsgType::Value type)
 		return FileMessage();
 	case MsgType::Checkin: 
 		return CheckinMessage();
+	case MsgType::Commit: 
+		return CommitMessage();
+	case MsgType::Package: 
+		return PackageMessage();
 	default:
 		return WarningMessage("Unknown message type.");
 		break;
@@ -327,12 +339,15 @@ bool MessageHandler::ClosePackage()
 
 	for (size_t i = 0; i<files.size(); ++i)
 	{
-		fileName = GetKeyName(files[i]);
+		fileName = GetKeyName(files[i].InnerText());
 		if (!OKtoCheckin(fileName))continue;
 
 		command = "move /y "+ sourceFolder + fileName+".h "+destFolder;
+		SERVERACTION(command);
 		system(command.c_str());
-		command = "move /y "+ sourceFolder + fileName+".h "+destFolder;
+
+		command = "move /y "+ sourceFolder + fileName+".cpp "+destFolder;
+		SERVERACTION(command);
 		system(command.c_str());
 		
 		BuildMetadata(fileName);
@@ -350,6 +365,9 @@ bool MessageHandler::BuildMetadata(strVal fileName)
 
 	strVal command = "del "+ _repositoryPath 
 		+ _checkinFoler + fileName+".xml ";
+
+	cout<<"command"<<command<<"\n\n";
+
 	system(command.c_str());
 
 	PackageInfo pack;

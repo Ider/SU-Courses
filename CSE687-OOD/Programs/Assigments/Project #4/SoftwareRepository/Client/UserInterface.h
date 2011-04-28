@@ -57,7 +57,7 @@ namespace Client
 			}
 
 	public: 
-	
+
 
 		//constructor
 		UserInterface(void)
@@ -76,7 +76,7 @@ namespace Client
 		//show message on message box
 		System::Void ShowMessageBox(System::String^ msg)
 		{
-			System::Windows::Forms::MessageBox::Show(msg, "Warning", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			System::Windows::Forms::MessageBox::Show(msg, "Message", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		}
 
 		//send message to server side
@@ -334,10 +334,16 @@ namespace Client
 		System::Void btnClose_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
 			if (listCheckin->Items->Count<=0)
+			{
 				ShowMessageBox("All packages are closed.");
+				return;
+			}
 
 			if (!cbAll->Checked && listCheckin->SelectedItems->Count<=0)
+			{
 				ShowMessageBox("Please select a package.");
+				return;
+			}
 
 			SendMessage(Ider::MsgType::Commit);
 		}

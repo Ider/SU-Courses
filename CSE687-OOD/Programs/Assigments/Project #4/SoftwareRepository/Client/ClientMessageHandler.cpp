@@ -295,13 +295,12 @@ Message MessageHandler::CommitMessage()
 	strVal typeTag = MsgType::EnumToString(type);
 	strVal nameTag = "Name";
 	
-	System::Windows::Forms::ListBox::SelectedObjectCollection^ items
-		=_form->ListCheckin->SelectedItems;
+	
 
 	//commit selected pack
 	if (_form->CommitAll == false)
 	{
-		if (items->Count<=0)return Message();
+		if (_form->ListCheckin->SelectedItems->Count<=0)return Message();
 
 		System::String^ pack = _form->ListCheckin->SelectedItem->ToString();
 		
@@ -312,9 +311,13 @@ Message MessageHandler::CommitMessage()
 	}
 
 	//commit all package	
+	System::Windows::Forms::ListBox::ObjectCollection^ items
+		= _form->ListCheckin->Items;
+
 	xmlRep rep;
 	for (int i=0; i<items->Count; ++i )
 		rep.addSibling(xmlElem(nameTag,Convert(items[i]->ToString())));
+	rep.makeParent(typeTag);
 
 	return Message(rep.xmlStr());
 }
