@@ -85,8 +85,6 @@ bool XmlDoc::LoadXmlFile(conStrRef fileName)
 
 bool XmlDoc::SaveToFile(conStrRef fileName)
 {
-	throw string("To be implemented.");
-
 	ofstream out(fileName.c_str());
 	if(!out.good())
 		return false;
