@@ -15,8 +15,10 @@ namespace Ider
 		{
 			Login,
 			Dependency,
+			Package,
 			File,
 			Checkin,
+			Commit,
 			Warning,
 
 			Unknown
