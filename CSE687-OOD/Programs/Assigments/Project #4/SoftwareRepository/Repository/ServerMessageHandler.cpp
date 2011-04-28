@@ -4,6 +4,10 @@ using namespace std;
 
 #include "FileSystem.h"
 #include "ServerMessageHandler.h"
+#include "..\XmlMetadataManager\Includes.h"
+#include "..\XmlMetadataManager\MetaGenerator.h"
+#include "..\XmlMetadataManager\PackageInfo.h"
+
 using namespace Ider;
 
 Message MessageHandler::RespondToMessage(conStrRef message, EndPoint curConnected)
@@ -275,6 +279,61 @@ Message MessageHandler::GetUserCheckedIn(EndPoint curConnected)
 	return Message(rep.xmlStr());
 
 }
+
+
+//////////////////////////////////////////////////////////////////////////
+//Build meta data file
+bool MessageHandler::BuildCheckinMetadata(strVal fileName,EndPoint curConnected)
+{
+ 	map<EndPoint,strVal>::iterator it = _loginUsers.find(curConnected);
+ 	if (it == _loginUsers.end()) 
+ 		return false;
+ 
+ 	//start save xml file
+ 
+	strVal userName = it->second;
+	fileName = GetKeyName(fileName);
+	strVal path = _repositoryPath+_checkinFoler;
+
+	PackageInfo pack;
+	pack.Name() = fileName;
+	pack.AddFileName(path+fileName+".h");
+	pack.AddFileName(path+fileName+".cpp");
+
+	ifstream fIn;
+	Includes inc(&fIn);
+	MetaGenerator gen(&inc);
+
+	gen.OwnerName()=userName;
+
+	XmlDoc doc(gen.GetMetadata(pack));
+	
+	return doc.SaveToFile(path+fileName+".xml");
+}
+//////////////////////////////////////////////////////////////////////////
+//Build meta data file
+bool MessageHandler::BuildMetadata(strVal fileName)
+{
+	fileName = GetKeyName(fileName);
+	strVal path = _repositoryPath+_pacakgeFolder;
+
+	PackageInfo pack;
+	pack.Name() = fileName;
+	pack.AddFileName(path+fileName+".h");
+	pack.AddFileName(path+fileName+".cpp");
+
+	ifstream fIn;
+	Includes inc(&fIn);
+	MetaGenerator gen(&inc);
+
+	gen.OwnerName()=_curUser;
+
+	XmlDoc doc(gen.GetMetadata(pack));
+
+	path = _repositoryPath+_metaFolder;
+	return doc.SaveToFile(path+fileName+".xml");
+}
+
 
 //////////////////////////////////////////////////////////////////////////
 //generate a File type message

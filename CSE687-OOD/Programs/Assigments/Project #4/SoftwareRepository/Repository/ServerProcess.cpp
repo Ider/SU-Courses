@@ -1,5 +1,7 @@
 
 #include "..\Foundation\Communicator.h"
+#include "..\XmlMetadataManager\MetaGenerator.h"
+#include "..\XmlMetadataManager\Includes.h"
 #include "ServerMessageHandler.h"
 #include <conio.h>
 #include <vector>
@@ -29,7 +31,7 @@ public:
 		// insert your server processing here
 		while(true)
 		{
-			sout << locker << "\n  Server processing message: " 
+			sout << locker << "\n\n  Server processing message: \n" 
 				<< (msg = pBQ->deQ()).c_str() << unlocker;
 			lock.lock();
 			EndPoint remoteEp = _pMsgHandler->getEndPoint();
@@ -75,7 +77,7 @@ private:
 			name = names[i].InnerText();
 			try
 			{
-				
+
 				pComm->postFile(name+".h");
 				loaded+=prefix+name+".h";
 			}
@@ -123,12 +125,13 @@ public:
 		// insert your server code here
 		while(true)
 		{
-			sout << locker << "\n  receiver processing file: " << (msg = pBQ->deQ()).c_str() << unlocker;
+			sout << locker << "\n\n  Server processing file: \n" << (msg = pBQ->deQ()).c_str() << unlocker;
 			lock.lock();
 			EndPoint remoteEp = _pFileHandler->getEndPoint();
 			if(pComm->connect(remoteEp.getIP(), remoteEp.getPort()))
 			{
 				pComm->postMessage(std::string("got file\n"));
+				mh.BuildCheckinMetadata(msg,remoteEp);
 				pComm->postMessage(mh.GetUserCheckedIn(remoteEp));
 				pComm->disconnect();
 			}
@@ -143,20 +146,15 @@ public:
 		///////////////////////////////////////////////////////
 	}
 private:
+
 	IFileHandler* _pFileHandler;
 	MessageHandler& mh;
 };
 
 void main()
 {
-	sout << locker << "\n  Testing Socket Communicator Server"
+	sout << locker << "\n  Running Socket Communicator Server"
 		<< "\n =============================\n" << unlocker;
-
-	//Application::EnableVisualStyles();
-	//Application::SetCompatibleTextRenderingDefault(false); 
-
-	//// Create the main window and run it
-	// Application::Run(gcnew SocketComm::DemoForm());
 
 	try
 	{

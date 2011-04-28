@@ -10,42 +10,31 @@
 class MessageHandler:public Ider::IMessageHandler
 {
 public:
+	//constructor
 	MessageHandler():_metaFolder("MetaXML\\")
-		,_pacakgeFolder("Package\\"),_checkinFoler("Temp\\"){}
+		,_pacakgeFolder("Package\\")
+		,_checkinFoler("Temp\\"),
+		_repositoryPath(".\\Repository\\"){}
 
+	//Generate a message base on received message
 	virtual Ider::Message RespondToMessage(conStrRef message, EndPoint curConnected);
+	//Implement IMessageHandler Interface
 	virtual void ReceiveMessage(conStrRef message );
 	virtual Ider::Message MessageForSending(Ider::MsgType::Value type);
-
-
-	////
-	//virtual void FileProcess(Ider::Message msg)
-	//{
-	//	if(msg.Type()!=Ider::Message::Ider::MsgType.File)return;
-	//}
-
-	//virtual void LoginProcess(Ider::Message msg)
-	//{
-	//	if(msg.Type()!=Ider::Message::Ider::MsgType.Login)return;
-
-	//}
-
-	//virtual void CheckinProcess(Ider::Message msg)
-	//{
-	//	if(msg.Type()!=Ider::Message::Ider::MsgType.Checkin)return;
-
-	//}
-
-	//virtual void DependencyProcess(Ider::Message msg)
-	//{
-	//	if(msg.Type()!=Ider::Message::Ider::MsgType.Dependency)return;
-
-	//}
-	strVal MessageHandler::GetKeyName(strVal filePath);
-	//void LoadMetaContent(strRef container, conStrRef name);
 	virtual Ider::Message WarningMessage(strVal warning);
 
+	//Generate message for sending
 	virtual Ider::Message GetUserCheckedIn(EndPoint curConnected);
+
+	//Auxiliary function
+	strVal MessageHandler::GetKeyName(strVal filePath);
+	bool BuildCheckinMetadata(strVal fileName,EndPoint curConnected);
+
+	//Data Accessors
+	strRef MetaFolder(){return _metaFolder;}
+	strRef PackageFolder(){return _pacakgeFolder;}
+	strRef ChickinFolder(){return _checkinFoler;}
+	strRef RepositoryPath(){return _repositoryPath;}
 
 protected:
 	//Generate message for sending
@@ -55,17 +44,20 @@ protected:
 	virtual Ider::Message DependencyMessage();
 	virtual Ider::Message AllPackageMessage();
 
+	//Auxiliary function
 	strVal GetMessageName();
 	strVal GetDirectory();
 	bool OKtoCheckin(strVal fileName);
+	bool BuildMetadata(strVal fileName);
 
 private:
 	Ider::Message _msg;
 	strVal _metaFolder;
 	strVal _pacakgeFolder;
 	strVal _checkinFoler;
+	strVal _repositoryPath;
 	std::map<EndPoint, strVal> _loginUsers;
-	std::string _curUser;
+	strVal _curUser;
 	EndPoint _curIP;
 	
 };
