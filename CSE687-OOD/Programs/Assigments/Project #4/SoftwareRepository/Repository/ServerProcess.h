@@ -5,14 +5,24 @@
 #include "..\Foundation\Communicator.h"
 #include "ServerMessageHandler.h"
 
-static MessageHandler ServerMessageHandler;
+class ServerMessageHandlerInstant
+{
+public:
+	static MessageHandler& Value()
+	{
+		return instant;
+	}
+private:
+	static MessageHandler instant;
+
+};
 
 class ServerMessage_Proc : public Thread_Processing<ServerMessage_Proc>
 {
 public:
 	ServerMessage_Proc(IMsgHandler* pMsgHandler) 
 		: _pMsgHandler(pMsgHandler) 
-		,mh(::ServerMessageHandler)
+		,mh(ServerMessageHandlerInstant::Value())
 	{}
  	void run();
 private:
@@ -28,7 +38,7 @@ class ServerFile_Proc : public Thread_Processing<ServerFile_Proc>
 public:
 	ServerFile_Proc(IFileHandler* pFileHandler) 
 		: _pFileHandler(pFileHandler) 
-		,mh(::ServerMessageHandler)
+		,mh(ServerMessageHandlerInstant::Value())
 	{}
 
  	void run();

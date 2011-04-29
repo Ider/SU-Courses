@@ -6,6 +6,9 @@
 using namespace std;
 using namespace Ider;
 
+//definition of static data
+MessageHandler ServerMessageHandlerInstant::instant;
+
 void ServerMessage_Proc::run()
 {
 	GLock<1> lock;
@@ -27,6 +30,7 @@ void ServerMessage_Proc::run()
 
 			Message msgToSend = mh.RespondToMessage(receivedMsg,remoteEp);
 
+			//request for file, response file, then post files
 			if (receivedMsg.Type() ==  MsgType::File
 				&& msgToSend.Type()== MsgType::File)
 				PostFile(msgToSend);
@@ -121,7 +125,7 @@ void main()
  	try
  	{
  		EndPoint rep("127.0.0.1",2107);
-		MessageHandler& mh = ServerMessageHandler;
+		MessageHandler& mh = ServerMessageHandlerInstant::Value();
  
  		// MsgReceiver_Proc is your receiver's server message handling
  		// FileReceiver_Proc is your receiver's server file handling
