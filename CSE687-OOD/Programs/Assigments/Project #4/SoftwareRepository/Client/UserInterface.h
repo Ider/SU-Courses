@@ -165,7 +165,7 @@ namespace Client
 			{
 				this->selectionTrack->Add(L"*.*");
 				this->pnlLogin->Visible = false;
-				this->Text = "Hello, "+this->lblUsrName->Text->Trim();
+				this->Text = "Hello, "+this->txtUsrName->Text->Trim();
 			}
 			else if (this->listDep->SelectedItems->Count>0)
 			{
@@ -618,7 +618,7 @@ namespace Client
 			// 
 			this->btnRefdep->Font = (gcnew System::Drawing::Font(L"Georgia", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->btnRefdep->Location = System::Drawing::Point(350, 261);
+			this->btnRefdep->Location = System::Drawing::Point(350, 260);
 			this->btnRefdep->Name = L"btnRefdep";
 			this->btnRefdep->Size = System::Drawing::Size(151, 23);
 			this->btnRefdep->TabIndex = 7;
@@ -961,7 +961,7 @@ namespace Client
 			System::String^ info = "Hello, do you looking for register? \n"
 				+"Sorry, no such functionality.\n"
 				+"You can use follow user name to log in:\n"
-				+"Ider\nAdmin\nJim Fawcett\nHello World\nC++\n"
+				+"Ider\nAdmin\nJim Fawcett\nHello World\nC++\n\n"
 				+"No password required.\n\n"
 				+"When you log in, no way to log out, think carefully.";
 
@@ -969,14 +969,23 @@ namespace Client
 		}
 		System::Void btnInfo2_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
-			System::String^ info = "UNknow";
+			System::String^ info = "You can do following actions:\n"
+				+"Double click to navigate the dependencies of package;\n"
+				+"View button could see the detail information of package;\n"
+				+"Extract button allow you to download a package from server;\n"
+				+"Refresh button would refresh the package list.";
 
 			ShowMessageBox(info);
 
 		}
 		System::Void btnInfo3_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			System::String^ info = "UNknow";
+			System::String^ info = "So happy you clicked it, I change the position of button\n"
+				+ "just want you know what I have done here. :-)\n\n"
+				+ "You can do following actions:\n"
+				+ "Upload button allow you to upload packages to server(.h,.cpp files only);\n"
+				+ "Close button let you close specific packages;\n"
+				+"Refresh button would refresh the package list.";
 
 			ShowMessageBox(info);
 		}
