@@ -162,7 +162,7 @@ void MessageHandler::CommitProcess()
 //Process warning message
 void MessageHandler::PackageProcess()
 {
-	
+	ShowWarning("Not implemented so far.");
 }
 
 //////////////////////////////////////////////////////////////////////////

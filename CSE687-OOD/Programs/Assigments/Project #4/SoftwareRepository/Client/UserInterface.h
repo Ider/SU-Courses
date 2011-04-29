@@ -476,6 +476,7 @@ namespace Client
 		{
 			this->tabClient = (gcnew System::Windows::Forms::TabControl());
 			this->tabPackage = (gcnew System::Windows::Forms::TabPage());
+			this->btnRefdep = (gcnew System::Windows::Forms::Button());
 			this->lblPack = (gcnew System::Windows::Forms::Label());
 			this->btnDep = (gcnew System::Windows::Forms::Button());
 			this->btnExt = (gcnew System::Windows::Forms::Button());
@@ -501,7 +502,6 @@ namespace Client
 			this->btnLogin = (gcnew System::Windows::Forms::Button());
 			this->folderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->fileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->btnRefdep = (gcnew System::Windows::Forms::Button());
 			this->tabClient->SuspendLayout();
 			this->tabPackage->SuspendLayout();
 			this->tabCheckin->SuspendLayout();
@@ -534,6 +534,18 @@ namespace Client
 			this->tabPackage->TabIndex = 0;
 			this->tabPackage->Text = L"Packages";
 			this->tabPackage->UseVisualStyleBackColor = true;
+			// 
+			// btnRefdep
+			// 
+			this->btnRefdep->Font = (gcnew System::Drawing::Font(L"Georgia", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->btnRefdep->Location = System::Drawing::Point(350, 260);
+			this->btnRefdep->Name = L"btnRefdep";
+			this->btnRefdep->Size = System::Drawing::Size(151, 23);
+			this->btnRefdep->TabIndex = 7;
+			this->btnRefdep->Text = L"Refresh List";
+			this->btnRefdep->UseVisualStyleBackColor = true;
+			this->btnRefdep->Click += gcnew System::EventHandler(this, &UserInterface::btnRefdep_Click);
 			// 
 			// lblPack
 			// 
@@ -602,15 +614,12 @@ namespace Client
 			// cbAll
 			// 
 			this->cbAll->AutoSize = true;
-			this->cbAll->Checked = true;
-			this->cbAll->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->cbAll->Location = System::Drawing::Point(350, 130);
 			this->cbAll->Name = L"cbAll";
 			this->cbAll->Size = System::Drawing::Size(75, 19);
 			this->cbAll->TabIndex = 7;
 			this->cbAll->Text = L"Close All";
 			this->cbAll->UseVisualStyleBackColor = true;
-			this->cbAll->Visible = false;
 			// 
 			// btnRefresh
 			// 
@@ -643,7 +652,7 @@ namespace Client
 			this->btnClose->Name = L"btnClose";
 			this->btnClose->Size = System::Drawing::Size(151, 23);
 			this->btnClose->TabIndex = 3;
-			this->btnClose->Text = L"Close All Check In";
+			this->btnClose->Text = L"Close Package";
 			this->btnClose->UseVisualStyleBackColor = true;
 			this->btnClose->Click += gcnew System::EventHandler(this, &UserInterface::btnClose_Click);
 			// 
@@ -817,18 +826,6 @@ namespace Client
 			this->fileDialog->Filter = L"Package Files(*.cpp, *.h)|*.cpp;*.h|Header Files(*.h)|*.h|Implement Files(*.cpp)|" 
 				L"*.cpp";
 			this->fileDialog->Multiselect = true;
-			// 
-			// btnRefdep
-			// 
-			this->btnRefdep->Font = (gcnew System::Drawing::Font(L"Georgia", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
-				static_cast<System::Byte>(0)));
-			this->btnRefdep->Location = System::Drawing::Point(350, 260);
-			this->btnRefdep->Name = L"btnRefdep";
-			this->btnRefdep->Size = System::Drawing::Size(151, 23);
-			this->btnRefdep->TabIndex = 7;
-			this->btnRefdep->Text = L"Extract File";
-			this->btnRefdep->UseVisualStyleBackColor = true;
-			this->btnRefdep->Click += gcnew System::EventHandler(this, &UserInterface::btnRefdep_Click);
 			// 
 			// UserInterface
 			// 
