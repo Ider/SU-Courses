@@ -103,7 +103,7 @@ namespace Client
 
 		System::Void ShowPackageDetail(System::String^ content)
 		{
-			txtDetail->Text = content;
+			txtDetail->Lines = content->Split('\n');
 		}
 
 		//get selected package name on listbox
@@ -290,7 +290,8 @@ namespace Client
 
 			System::String^ text = this->txtCitIP->Text->Trim();
 			int port =0;
-			if (!System::Int32::TryParse(this->txtSvrPort->Text->Trim(), port))
+			if (this->txtSvrPort->Text->Trim() == this->txtCitPort->Text->Trim()
+				|| !System::Int32::TryParse(this->txtCitPort->Text->Trim(), port))
 				ShowMessageBox("Number only!");
 
 			std::string ip;
@@ -325,7 +326,7 @@ namespace Client
 			System::String^ text = this->txtSvrIP->Text->Trim();
 			int port =0;
 			if (!System::Int32::TryParse(this->txtSvrPort->Text->Trim(), port))
-				ShowMessageBox("Number only!");
+				ShowMessageBox("Invalid port number");
 
 			std::string ip;
 			for(int i=0; i<text->Length; ++i)
@@ -957,7 +958,12 @@ namespace Client
 
 		System::Void btnInfo1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			System::String^ info = "UNknow";
+			System::String^ info = "Hello, do you looking for register? \n"
+				+"Sorry, no such functionality.\n"
+				+"You can use follow user name to log in:\n"
+				+"Ider\nAdmin\nJim Fawcett\nHello World\nC++\n"
+				+"No password required.\n\n"
+				+"When you log in, no way to log out, think carefully.";
 
 				ShowMessageBox(info);
 		}

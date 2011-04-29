@@ -273,7 +273,41 @@ Message MessageHandler::CommitMessage()
 //generate a package type message
 Message MessageHandler::PackageMessage()
 {
-	return Message("Not implemented.");
+	const strVal name = GetMessageName();
+
+	strVal path = _repositoryPath+_metaFolder+name+".xml";
+	XmlDoc doc;
+	strVal prefix = "\n  ";
+
+	if (!doc.LoadXmlFile(path))
+		return WarningMessage(name+": the package is not in the repository.");
+	vector<XmlDoc> refs ;
+
+	strVal packInfo;
+	if((refs=doc.Children("head")).size()>0)
+		packInfo+=prefix+refs[0].InnerText();
+
+	if((refs=doc.Children("implement")).size()>0)
+		packInfo+=prefix+refs[0].InnerText();
+
+	if (packInfo.size()>0) packInfo = "Package files: " + packInfo;
+	else return WarningMessage("Package metadata file broken, please administrator.");
+
+	strVal dependency="\n \nDependencies: ";
+	if ((refs=doc.Children("references")).size()>0)
+		if ((refs=refs[0].Children("reference")).size()>0)
+			for(size_t i=0; i<refs.size(); ++i)
+				dependency+=prefix+refs[i].InnerText();
+
+	strVal owner="\n \nPackage Owner: ";
+	if ((refs=doc.Children("owner")).size()>0)
+		owner+=prefix+refs[0].InnerText();
+
+
+	xmlRep	rep(xmlElem("Name",packInfo+dependency+owner));
+	rep.makeParent(MsgType::EnumToString(MsgType::Package));
+
+	return Message(rep.xmlStr());
 }
 
 //////////////////////////////////////////////////////////////////////////
