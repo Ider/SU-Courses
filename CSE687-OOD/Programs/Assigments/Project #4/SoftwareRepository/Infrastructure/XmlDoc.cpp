@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////////////////////////
+//  XmlDoc.cpp    -  facility to do operation on xml file   		   //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 2010                               //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #4	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
+
 
 #include <iostream>
 #include <fstream>
@@ -6,7 +16,9 @@ using namespace std;
 
 #include "XmlDoc.h"
 
-
+//////////////////////////////////////////////////////////////////////////
+//Get all direct child elements that tag name equal to tagName
+//or all elements if tagName is empty
 vector<XmlDoc> XmlDoc::Children(conStrRef tagName)
 {
 	vector<XmlDoc> children;
@@ -34,6 +46,9 @@ vector<XmlDoc> XmlDoc::Children(conStrRef tagName)
 	return children;
 }
 
+
+//////////////////////////////////////////////////////////////////////////
+//Get index-th child of xml, if out of range return empty XmlDoc
 XmlDoc XmlDoc::Children(size_t index)
 {
 	xmlRep rep(_elemStr);
@@ -60,6 +75,8 @@ XmlDoc XmlDoc::Children(size_t index)
 	return XmlDoc();
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Load xml from file which name is fileName
 bool XmlDoc::LoadXmlFile(conStrRef fileName)
 {
 	ifstream inf;
@@ -83,6 +100,8 @@ bool XmlDoc::LoadXmlFile(conStrRef fileName)
 	return false;
 }
 
+//////////////////////////////////////////////////////////////////////////
+//Save xml to file
 bool XmlDoc::SaveToFile(conStrRef fileName)
 {
 	ofstream out(fileName.c_str());
@@ -123,8 +142,14 @@ void XmlDoc::Trim(strRef value)
 
 }
 
-#ifdef XMLDOC_TEST
 
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////< test stub >///////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+
+#ifdef XMLDOC_TEST
 
 void title(string msg, char underChar='-') {
 
@@ -141,7 +166,6 @@ void title(string msg, char underChar='-') {
 
 void main()
 {
-
 	string xml ="<package name=\"Display\">		<head>Display.h  </head>  <implement>Display.cpp  </implement>  <references>  <reference name=\"Graph\">  Graph.h  </reference>  <reference name=\"Display\">  Display.h  </reference>  </references>  </package>";
 
 	XmlDoc doc(xml);
