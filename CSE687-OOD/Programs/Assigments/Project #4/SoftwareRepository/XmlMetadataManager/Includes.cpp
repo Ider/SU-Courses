@@ -125,7 +125,9 @@ void Includes::ExtractName()
 bool Includes::ExtractInclude(char* buffer)
 {
 	while(*buffer =='\t'||*buffer ==' ')++buffer;
-	if (*buffer!='#')return false;
+	if (*buffer!='#'
+		||(*buffer!='\0'&&*(buffer+1)!='i'))
+		return false;
 
 	//exclude the pro-process definitions
 	std::string temp (buffer);
