@@ -54,13 +54,16 @@ public:
 
 	//Auxiliary function
 	strVal MessageHandler::GetKeyName(strVal filePath);
-	bool BuildCheckinMetadata(strVal fileName,EndPoint curConnected);
 
 	//Data Accessors
 	strRef MetaFolder(){return _metaFolder;}
 	strRef PackageFolder(){return _pacakgeFolder;}
 	strRef ChickinFolder(){return _checkinFoler;}
 	strRef RepositoryPath(){return _repositoryPath;}
+
+	//Build Metadata for just uploaded file
+	bool BuildCheckinMetadata(strVal fileName,EndPoint curConnected);
+
 
 protected:
 	//Generate message for sending
