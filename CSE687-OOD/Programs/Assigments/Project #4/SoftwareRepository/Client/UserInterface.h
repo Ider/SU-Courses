@@ -703,7 +703,6 @@ namespace Client
 			this->listCheckin->Name = L"listCheckin";
 			this->listCheckin->Size = System::Drawing::Size(292, 244);
 			this->listCheckin->TabIndex = 0;
-			this->listCheckin->DoubleClick += gcnew System::EventHandler(this, &UserInterface::listDep_DoubleClick);
 			// 
 			// pnlLogin
 			// 
