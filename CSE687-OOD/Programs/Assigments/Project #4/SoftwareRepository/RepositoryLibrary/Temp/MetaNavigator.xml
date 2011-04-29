@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+   <package name="MetaNavigator">
+      <head>
+         MetaNavigator.h
+      </head>
+      <implement>
+         MetaNavigator.cpp
+      </implement>
+      <references>
+         <reference name="xmlTran">
+            xmlTran.h
+         </reference>
+         <reference name="MetaNavigator">
+            MetaNavigator.h
+         </reference>
+      </references>
+      <owner>
+         Ider
+      </owner>
+   </package>

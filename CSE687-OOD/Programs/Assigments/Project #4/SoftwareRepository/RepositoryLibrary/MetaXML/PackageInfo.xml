@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+   <package name="PackageInfo">
+      <head>
+         PackageInfo.h
+      </head>
+      <implement>
+         PackageInfo.cpp
+      </implement>
+      <references>
+         <reference name="FileSystem">
+            FileSystem.h
+         </reference>
+         <reference name="PackageInfo">
+            PackageInfo.h
+         </reference>
+      </references>
+      <owner>
+         Ider
+      </owner>
+   </package>

@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+   <package name="MetaManager">
+      <head>
+         MetaManager.h
+      </head>
+      <implement>
+         MetaManager.cpp
+      </implement>
+      <references>
+         <reference name="IIncludes">
+            IIncludes.h
+         </reference>
+         <reference name="MetaGenerator">
+            MetaGenerator.h
+         </reference>
+         <reference name="MetaNavigator">
+            MetaNavigator.h
+         </reference>
+         <reference name="PackageInfo">
+            PackageInfo.h
+         </reference>
+         <reference name="Includes">
+            Includes.h
+         </reference>
+         <reference name="MetaManager">
+            MetaManager.h
+         </reference>
+      </references>
+      <owner>
+         Ider
+      </owner>
+   </package>

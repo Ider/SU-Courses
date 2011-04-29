@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+   <package name="Includes">
+      <head>
+         Includes.h
+      </head>
+      <implement>
+         Includes.cpp
+      </implement>
+      <references>
+         <reference name="IIncludes">
+            IIncludes.h
+         </reference>
+         <reference name="Includes">
+            Includes.h
+         </reference>
+      </references>
+      <owner>
+         Ider
+      </owner>
+   </package>

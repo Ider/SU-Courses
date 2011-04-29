@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+   <package name="ClientMessageHandler">
+      <head>
+         ClientMessageHandler.h
+      </head>
+      <implement>
+         ClientMessageHandler.cpp
+      </implement>
+      <references>
+         <reference name="Infrastructure\IMessageHandler.h">
+            ..\Infrastructure\IMessageHandler.h
+         </reference>
+         <reference name="UserInterface">
+            UserInterface.h
+         </reference>
+      </references>
+      <owner>
+         Ider
+      </owner>
+   </package>

@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+   <package name="xmlTran">
+      <head>
+         xmlTran.h
+      </head>
+      <implement>
+         xmlTran.cpp
+      </implement>
+      <references>
+         <reference name="xmlTran">
+            xmlTran.h
+         </reference>
+      </references>
+      <owner>
+         Ider
+      </owner>
+   </package>
