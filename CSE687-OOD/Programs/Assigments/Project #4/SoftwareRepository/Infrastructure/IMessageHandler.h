@@ -1,3 +1,5 @@
+#ifndef IMESSAGE_HANDLER_H
+#define IMESSAGE_HANDLER_H
 /////////////////////////////////////////////////////////////////////////
 //  IMessageHandler.cpp    -  provide a interface for message Hanlder  //
 //  ver 1.0                                                            //
@@ -30,8 +32,6 @@
 */
 
 
-#ifndef IMESSAGE_HANDLER_H
-#define IMESSAGE_HANDLER_H
 
 #include "Message.h"
 

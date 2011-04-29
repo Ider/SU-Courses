@@ -1,3 +1,5 @@
+#ifndef XMLDOC_H
+#define XMLDOC_H
 /////////////////////////////////////////////////////////////////////////
 //  XmlDoc.h    -  facility to do operation on xml file   		   //
 //  ver 1.0                                                            //
@@ -28,8 +30,6 @@
 		xmlTran.h, xmlTran.cpp, XmlDoc.h, XmlDoc.cpp
 */
 
-#ifndef XMLDOC_H
-#define XMLDOC_H
 
 #include <vector>
 #include "xmlTran.h"
