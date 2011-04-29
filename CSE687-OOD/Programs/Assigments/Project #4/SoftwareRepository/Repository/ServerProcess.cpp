@@ -1,3 +1,12 @@
+/////////////////////////////////////////////////////////////////////////
+//  ServerProcess.cpp    -  Server side thread process	     		   //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 2010                               //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #4	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
 
 
 #include "ServerProcess.h"
@@ -42,9 +51,6 @@ void ServerMessage_Proc::run()
 		else
 			sout << "\n  failed to connect";
 		lock.unlock();
-
-		if(msg == "quit")
-			break;
 	}
 }
 
@@ -98,21 +104,19 @@ void ServerFile_Proc::run()
 
 	while(true)
 	{
-		sout << locker << "\n\n  Server processing file: \n" << (msg = pBQ->deQ()).c_str() << unlocker;
+		sout << locker << "\n\n  Server processing file: \n" 
+			<< (msg = pBQ->deQ()).c_str() << unlocker;
 		lock.lock();
 		EndPoint remoteEp = _pFileHandler->getEndPoint();
 		if(pComm->connect(remoteEp.getIP(), remoteEp.getPort()))
 		{
-			pComm->postMessage(std::string("got file\n"));
 			mh.BuildCheckinMetadata(msg,remoteEp);
+			pComm->postMessage(std::string(" File received: ")+msg);
 			pComm->disconnect();
 		}
 		else
 			sout << "\n  failed to connect";
 		lock.unlock();
-
-		if(msg == "quit")
-			break;
 	}
 }
 

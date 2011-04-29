@@ -1,4 +1,3 @@
-
 #ifndef SERVER_MESSAGE_HANDLER_H
 #define SERVER_MESSAGE_HANDLER_H
 /////////////////////////////////////////////////////////////////////////
@@ -13,12 +12,22 @@
 /*
    Module Operations:
    ==================
-   This module provide server side message
+   This module provide server side message handler class, this class receive
+   message from client side, and generate message for sending back.
 
+   The message will be analyzed base on its type, each type has one specific 
+   method to manage the type.
+   If message is unable to analyze, a warning message will return back.
+
+   See comments on the top of each Message method to know detail functionality
+   
    Public Interface:
    =================
    FormMessageHanlder->ReceiveMessage(msg);
-   
+   rFileHandler.setFileDestination(mh.RepositoryPath()+mh.ChickinFolder());
+   rcvr.setFileSource(mh.RepositoryPath()+mh.PackageFolder());
+   mh.BuildCheckinMetadata(msg,remoteEp);
+   mh.WarningMessage(info)
 
    Build Process:
    ==============
@@ -41,6 +50,7 @@ public:
 		,_checkinFoler("Temp\\"),
 		_repositoryPath("..\\RepositoryLibrary\\")
 	{}
+
 	//destructor
 	virtual ~MessageHandler(){}
 
@@ -50,7 +60,6 @@ public:
 	virtual void ReceiveMessage(conStrRef message );
 	virtual Ider::Message MessageForSending(Ider::MsgType::Value type);
 	virtual Ider::Message WarningMessage(strVal warning);
-
 
 	//Auxiliary function
 	strVal MessageHandler::GetKeyName(strVal filePath);

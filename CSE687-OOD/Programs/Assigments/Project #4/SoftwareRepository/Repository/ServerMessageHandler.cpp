@@ -1,3 +1,12 @@
+/////////////////////////////////////////////////////////////////////////
+//  MessageHandler.cpp    -  Server side message handler    		   //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 2010                               //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #4	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
 
 #include <fstream>
 using namespace std;
@@ -7,6 +16,8 @@ using namespace std;
 #include "ServerMessageHandler.h"
 #include "..\XmlMetadataManager\Includes.h"
 #include "..\XmlMetadataManager\MetaGenerator.h"
+
+
 #include "..\XmlMetadataManager\PackageInfo.h"
 
 using namespace Ider;
@@ -19,6 +30,9 @@ using namespace Ider;
 #define SERVERACTION(msg) ;
 #endif
 
+
+//////////////////////////////////////////////////////////////////////////
+//Receive message sent from client, generate a message for sending back
 Message MessageHandler::RespondToMessage(conStrRef message, EndPoint curConnected)
 {
 	ReceiveMessage(message);
@@ -105,13 +119,13 @@ Message MessageHandler::FileMessage()
 }
 
 //////////////////////////////////////////////////////////////////////////
-//generate a File type message if ok to check in
+//generate a File type message that contain file names that ok to check
+//if name is "*.*", return Chickin type message contains all unclosed package names
 Message MessageHandler::CheckinMessage()
 {
 	strVal tag = "Name";
 	vector<XmlDoc> files = _msg.Doc().Children(tag);
 	if (files.size()<=0)return WarningMessage("Please specify package.");
-	
 
 	if (files[0].InnerText()=="*.*")
 		return GetUserCheckedIn();
@@ -222,7 +236,8 @@ Message MessageHandler::DependencyMessage()
 }
 
 //////////////////////////////////////////////////////////////////////////
-//generate a Commit type message
+//move packages that required to be commited from temp to repositroy
+//generate metadata for the packages
 Message MessageHandler::CommitMessage()
 {
 	strVal tag ="Name";
@@ -262,7 +277,7 @@ Message MessageHandler::PackageMessage()
 }
 
 //////////////////////////////////////////////////////////////////////////
-//generate a File type message
+//generate a warning type message
 Message MessageHandler::WarningMessage(strVal warning)
 {
 	strVal tag = MsgType::EnumToString(MsgType::Warning);
@@ -323,7 +338,7 @@ Message MessageHandler::GetUserCheckedIn()
 }
 
 //////////////////////////////////////////////////////////////////////////
-//Build meta data file
+//Build meta data file for temp package
 bool MessageHandler::BuildCheckinMetadata(strVal fileName,EndPoint curConnected)
 {
  	map<EndPoint,strVal>::iterator it = _loginUsers.find(curConnected);
@@ -397,7 +412,6 @@ strVal MessageHandler::GetMessageName()
 
 //////////////////////////////////////////////////////////////////////////
 //Remove the path and file extension, return the pure file name
-
 strVal MessageHandler::GetKeyName(strVal filePath)
 {
 	//remove path
