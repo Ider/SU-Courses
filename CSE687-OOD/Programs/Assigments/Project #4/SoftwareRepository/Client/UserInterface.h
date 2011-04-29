@@ -85,12 +85,18 @@ namespace Client
 		//send message to server side
 		System::Boolean SendMessage(Ider::MsgType::Value type)
 		{
-			Ider::Message msg = this->mh->MessageForSending(type);
+			if (ConnectServer())
+			{
+				Ider::Message msg = this->mh->MessageForSending(type);
 
-			if (msg.Type()==Ider::MsgType::Unknown)return false;
+				if (msg.Type()==Ider::MsgType::Unknown)return false;
 
-			this->sender->postMessage(msg);
-			return true;
+				this->sender->postMessage(msg);
+				CloseConnection();
+				return true;
+			}
+
+			return false;
 		}
 
 		//get selected package name on listbox
@@ -192,12 +198,17 @@ namespace Client
 		//post files to server
 		void UploadFiles(std::vector<std::string> files)
 		{
-			for (size_t i=0; i<files.size(); ++i)
-				this->sender->postFile(files[i]);
+			if (ConnectServer())
+			{
+				for (size_t i=0; i<files.size(); ++i)
+					this->sender->postFile(files[i]);
 
-			System::Threading::Thread::Sleep(700);
-			this->requestChickedin = true;
-			SendMessage(Ider::MsgType::Checkin);
+				System::Threading::Thread::Sleep(700);
+				this->requestChickedin = true;
+				SendMessage(Ider::MsgType::Checkin);
+
+				CloseConnection();
+			}
 		}
 
 #pragma region properties
@@ -296,9 +307,9 @@ namespace Client
 		//connect to server
 		System::Boolean ConnectServer()
 		{
-			if (connected)return true;
+			if (this->connected)return true;
 
-			if (sender == NULL)CreateCommunicator();
+			if (this->sender == NULL)CreateCommunicator();
 
 			System::String^ text = this->txtSvrIP->Text->Trim();
 			int port = System::Int32::Parse(this->txtSvrPort->Text->Trim());
@@ -307,21 +318,33 @@ namespace Client
 			for(int i=0; i<text->Length; ++i)
 				ip += (char)text[i];
 
-			if (!sender->connect(ip ,port))
+			if (!this->sender->connect(ip ,port))
 			{
 				ShowMessageBox("Failed to connect repository server.\nPlease try again later.");
-				return connected=false;
+				return this->connected=false;
 			}
 
-			return connected=true;
+			return this->connected=true;
+		}
+
+
+		System::Void CloseConnection()
+		{
+			if (!this->connected)return;
+
+			this->sender->disconnect();
+
+			this->connected = false;
 		}
 
 		//Login button event
 		System::Void btnLogin_Click(System::Object^ sender, System::EventArgs^ e)
 		{
 			if (ConnectServer())
+			{
 				SendMessage(Ider::MsgType::Login);
-			//this->pnlLogin->Visible = false;
+				CloseConnection();
+			}
 		}
 
 		//Dependency button event
@@ -367,7 +390,7 @@ namespace Client
 			int count = this->fileDialog->FileNames->Length;
 			if (count<=0)return;
 
-			//set both flag to false, so that MessageHanlder would send Chickin messge for upload
+			//set both flag to false, so that MessageHanlder would send Chickin message for upload
 			SendMessage(Ider::MsgType::Checkin);
 		}
 
@@ -401,6 +424,7 @@ namespace Client
 		//Refresh dependency listbox button event
 		System::Void btnRefdep_Click(System::Object^ sender, System::EventArgs^ e)
 		{
+			this->listDep->SelectedItems->Clear();
 			SendMessage(Ider::MsgType::Dependency);
 		}
 
