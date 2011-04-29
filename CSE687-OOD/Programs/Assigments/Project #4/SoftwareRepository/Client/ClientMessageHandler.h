@@ -83,7 +83,6 @@ protected:
 	virtual Ider::Message CommitMessage();
 
 	//Auxiliary function
-	strVal GetName(Ider::MsgType::Value type);
 	void ShowWarning(strVal warning);
 
 private:

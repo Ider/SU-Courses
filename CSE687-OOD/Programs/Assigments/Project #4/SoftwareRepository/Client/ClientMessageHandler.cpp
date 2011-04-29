@@ -162,7 +162,12 @@ void MessageHandler::CommitProcess()
 //Process warning message
 void MessageHandler::PackageProcess()
 {
-	ShowWarning("Not implemented so far.");
+	System::String^ content = System::String::Empty;
+	vector<XmlDoc> name = _msg.Doc().Children("Name");
+	if (name.size()>0)
+		content = Convert(name[0].InnerText());
+
+	_form->Invoke(_form->ShowPackageLabel, content);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -208,7 +213,7 @@ Message MessageHandler::FileMessage()
 	string fileName = "xmlTran";
 	bool flag = false;
 
-	strVal depName = GetName(type);// "*.*";
+	strVal depName = Convert(_form->ListDependency->SelectedItem->ToString());// "*.*";
 
 	if (depName.size()<=0)return Message();
 
@@ -267,7 +272,7 @@ Message MessageHandler::LoginMessage()
 	strVal typeTag = MsgType::EnumToString(type);
 	strVal nameTag = "Name";
 
-	strVal userName = GetName(type);
+	strVal userName = Convert(_form->UserName());
 	if (userName.size()<=0)return Message();
 
 	xmlElem elem(nameTag,userName);
@@ -287,7 +292,7 @@ Message MessageHandler::DependencyMessage()
 	strVal typeTag = MsgType::EnumToString(type);
 	strVal nameTag = "Name";
 
-	strVal depName = GetName(type);// "*.*";
+	strVal depName = Convert(_form->SelectedPackageName());
 
 	if (depName.size()<=0)return Message();
 
@@ -308,8 +313,6 @@ Message MessageHandler::CommitMessage()
 	strVal typeTag = MsgType::EnumToString(type);
 	strVal nameTag = "Name";
 	
-	
-
 	//commit selected pack
 	if (_form->CommitAll == false)
 	{
@@ -341,32 +344,16 @@ Message MessageHandler::PackageMessage()
 {
 	if(_form->ListDependency->SelectedItems->Count <=0)return Message();
 
-	return Message();
-}
+	const MsgType::Value type = MsgType::Package;
+	strVal typeTag = MsgType::EnumToString(type);
+	strVal nameTag = "Name";
 
-//////////////////////////////////////////////////////////////////////////
-//get name for generate package
-strVal MessageHandler::GetName(MsgType::Value type)
-{
-	System::String^ name;
-	switch (type)
-	{
-	case MsgType::Login: 
-		name = _form->UserName();
-		break;
-	case MsgType::Dependency: 
-		name = _form->SelectedPackageName();
-		break;
-	case MsgType::File:
-		name = _form->ListDependency->SelectedItem->ToString();
-		break;
-	case MsgType::Checkin: 
-	case MsgType::Warning: 
-	default:
-		name = System::String::Empty;
-		break;
-	}
-	return Convert(name);
+	strVal pack =Convert(_form->ListDependency->SelectedItem->ToString());
+	
+	xmlRep rep(xmlElem(nameTag,pack));
+	rep.makeParent(typeTag);
+
+	return Message(rep.xmlStr());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -383,7 +370,6 @@ void main()
 {
 	Message msg;
 	MessageHandler mh;
-
 
 	msg = mh.MessageForSending(MsgType::Login);
 	cout<<msg.ToString()<<endl;

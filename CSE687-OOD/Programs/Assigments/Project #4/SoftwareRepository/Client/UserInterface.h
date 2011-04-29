@@ -10,26 +10,26 @@
 //                  (315) 560-4977, ider.cs@gmail.com				   //
 /////////////////////////////////////////////////////////////////////////
 /*
-   Module Operations:
-   ==================
-   This module is a windows form class.
-   It provide client interface for sending message to
-   and requesting information from server,
+Module Operations:
+==================
+This module is a windows form class.
+It provide client interface for sending message to
+and requesting information from server,
 
 
-   Public Interface:
-   =================
-   UserInterface^ ui = gcnew UserInterface();
-   ui->SetMessageHandler(mh);
-   _form->Invoke(_form->ShowCheckinListBox,packages);
-   _form->Invoke(_form->ShowPackageListBox,packages);
-   
+Public Interface:
+=================
+UserInterface^ ui = gcnew UserInterface();
+ui->SetMessageHandler(mh);
+_form->Invoke(_form->ShowCheckinListBox,packages);
+_form->Invoke(_form->ShowPackageListBox,packages);
 
-   Build Process:
-   ==============
-   Required Files:
-     ClientMessageHandler.h, ClientProcess.cpp, ClientProcess.h
-  
+
+Build Process:
+==============
+Required Files:
+ClientMessageHandler.h, ClientProcess.cpp, ClientProcess.h
+
 */
 
 #include "ClientMessageHandler.h"
@@ -57,8 +57,10 @@ namespace Client
 	public:
 		//delegate
 		delegate System::Void ShowListBoxDelegate(System::Collections::Generic::List<System::String^>^ items);
+		delegate System::Void ShowLabelDelegate(System::String^ content);
 		ShowListBoxDelegate^ ShowPackageListBox;
 		ShowListBoxDelegate^ ShowCheckinListBox;
+		ShowLabelDelegate^ ShowPackageLabel;
 
 	public: 
 
@@ -97,6 +99,11 @@ namespace Client
 			}
 
 			return false;
+		}
+
+		System::Void ShowPackageDetail(System::String^ content)
+		{
+			txtDetail->Text = content;
 		}
 
 		//get selected package name on listbox
@@ -158,6 +165,7 @@ namespace Client
 			{
 				this->selectionTrack->Add(L"*.*");
 				this->pnlLogin->Visible = false;
+				this->Text = "Hello, "+this->lblUsrName->Text->Trim();
 			}
 			else if (this->listDep->SelectedItems->Count>0)
 			{
@@ -174,8 +182,8 @@ namespace Client
 				}
 			}
 			//else { /* refresh current package dependency */}
-			
 
+			txtDetail->Text = System::String::Empty;
 			this->listDep->Items->Clear();
 			this->listDep->Items->Add("..");
 
@@ -272,6 +280,7 @@ namespace Client
 		{
 			ShowPackageListBox += gcnew ShowListBoxDelegate(this,&UserInterface::ShowDependencies);
 			ShowCheckinListBox += gcnew ShowListBoxDelegate(this,&UserInterface::ShowCheckedin);
+			ShowPackageLabel += gcnew ShowLabelDelegate(this,&UserInterface::ShowPackageDetail);
 		}
 
 		//create a communicator socket
@@ -280,7 +289,9 @@ namespace Client
 			if (sender!=NULL)return;
 
 			System::String^ text = this->txtCitIP->Text->Trim();
-			int port = System::Int32::Parse(this->txtCitPort->Text->Trim());
+			int port =0;
+			if (!System::Int32::TryParse(this->txtSvrPort->Text->Trim(), port))
+				ShowMessageBox("Number only!");
 
 			std::string ip;
 			for(int i=0; i<text->Length; ++i)
@@ -312,7 +323,9 @@ namespace Client
 			if (this->sender == NULL)CreateCommunicator();
 
 			System::String^ text = this->txtSvrIP->Text->Trim();
-			int port = System::Int32::Parse(this->txtSvrPort->Text->Trim());
+			int port =0;
+			if (!System::Int32::TryParse(this->txtSvrPort->Text->Trim(), port))
+				ShowMessageBox("Number only!");
 
 			std::string ip;
 			for(int i=0; i<text->Length; ++i)
@@ -327,7 +340,7 @@ namespace Client
 			return this->connected=true;
 		}
 
-
+		//Close server connection if connection is open
 		System::Void CloseConnection()
 		{
 			if (!this->connected)return;
@@ -352,8 +365,9 @@ namespace Client
 		{
 			if (this->listDep->SelectedItems->Count<=0)
 				ShowMessageBox("Please select a package name.");
-			else
-				SendMessage(Ider::MsgType::Dependency);
+			if (this->listDep->SelectedIndex == 0)return;
+
+			SendMessage(Ider::MsgType::Package);
 		}
 
 		//Extraction button event
@@ -471,6 +485,7 @@ namespace Client
 	private: System::Windows::Forms::TextBox^  txtSvrPort;
 	private: System::Windows::Forms::TextBox^  txtSvrIP;
 	private: System::Windows::Forms::TextBox^  txtUsrName;
+	private: System::Windows::Forms::TextBox^  txtDetail;
 
 	private: System::Windows::Forms::Label^  lblCli;
 	private: System::Windows::Forms::Label^  lblSvr;
@@ -479,6 +494,7 @@ namespace Client
 	private: System::Windows::Forms::Label^  lblSvrColon;
 	private: System::Windows::Forms::Label^  lblCheckin;
 	private: System::Windows::Forms::Label^  lblPack;
+	private: System::Windows::Forms::Label^  lblDetail;
 
 	private: System::Windows::Forms::CheckBox^  cbAll;
 
@@ -498,14 +514,19 @@ namespace Client
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(UserInterface::typeid));
 			this->tabClient = (gcnew System::Windows::Forms::TabControl());
 			this->tabPackage = (gcnew System::Windows::Forms::TabPage());
+			this->btnInfo2 = (gcnew System::Windows::Forms::Button());
+			this->txtDetail = (gcnew System::Windows::Forms::TextBox());
+			this->lblDetail = (gcnew System::Windows::Forms::Label());
 			this->btnRefdep = (gcnew System::Windows::Forms::Button());
 			this->lblPack = (gcnew System::Windows::Forms::Label());
 			this->btnDep = (gcnew System::Windows::Forms::Button());
 			this->btnExt = (gcnew System::Windows::Forms::Button());
 			this->listDep = (gcnew System::Windows::Forms::ListBox());
 			this->tabCheckin = (gcnew System::Windows::Forms::TabPage());
+			this->btnInfo3 = (gcnew System::Windows::Forms::Button());
 			this->cbAll = (gcnew System::Windows::Forms::CheckBox());
 			this->btnRefresh = (gcnew System::Windows::Forms::Button());
 			this->lblCheckin = (gcnew System::Windows::Forms::Label());
@@ -513,6 +534,7 @@ namespace Client
 			this->btnUpload = (gcnew System::Windows::Forms::Button());
 			this->listCheckin = (gcnew System::Windows::Forms::ListBox());
 			this->pnlLogin = (gcnew System::Windows::Forms::Panel());
+			this->btnInfo1 = (gcnew System::Windows::Forms::Button());
 			this->txtUsrName = (gcnew System::Windows::Forms::TextBox());
 			this->lblUsrName = (gcnew System::Windows::Forms::Label());
 			this->lblCitColon = (gcnew System::Windows::Forms::Label());
@@ -546,6 +568,9 @@ namespace Client
 			// 
 			// tabPackage
 			// 
+			this->tabPackage->Controls->Add(this->btnInfo2);
+			this->tabPackage->Controls->Add(this->txtDetail);
+			this->tabPackage->Controls->Add(this->lblDetail);
 			this->tabPackage->Controls->Add(this->btnRefdep);
 			this->tabPackage->Controls->Add(this->lblPack);
 			this->tabPackage->Controls->Add(this->btnDep);
@@ -559,11 +584,40 @@ namespace Client
 			this->tabPackage->Text = L"Packages";
 			this->tabPackage->UseVisualStyleBackColor = true;
 			// 
+			// btnInfo2
+			// 
+			this->btnInfo2->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"btnInfo2.Image")));
+			this->btnInfo2->Location = System::Drawing::Point(540, 280);
+			this->btnInfo2->Name = L"btnInfo2";
+			this->btnInfo2->Size = System::Drawing::Size(25, 25);
+			this->btnInfo2->TabIndex = 10;
+			this->btnInfo2->UseVisualStyleBackColor = true;
+			this->btnInfo2->Click += gcnew System::EventHandler(this, &UserInterface::btnInfo2_Click);
+			// 
+			// txtDetail
+			// 
+			this->txtDetail->Location = System::Drawing::Point(350, 90);
+			this->txtDetail->Multiline = true;
+			this->txtDetail->Name = L"txtDetail";
+			this->txtDetail->ReadOnly = true;
+			this->txtDetail->ScrollBars = System::Windows::Forms::ScrollBars::Both;
+			this->txtDetail->Size = System::Drawing::Size(215, 135);
+			this->txtDetail->TabIndex = 9;
+			// 
+			// lblDetail
+			// 
+			this->lblDetail->AutoSize = true;
+			this->lblDetail->Location = System::Drawing::Point(350, 71);
+			this->lblDetail->Name = L"lblDetail";
+			this->lblDetail->Size = System::Drawing::Size(96, 15);
+			this->lblDetail->TabIndex = 8;
+			this->lblDetail->Text = L"Pakcage Detail:";
+			// 
 			// btnRefdep
 			// 
 			this->btnRefdep->Font = (gcnew System::Drawing::Font(L"Georgia", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->btnRefdep->Location = System::Drawing::Point(350, 260);
+			this->btnRefdep->Location = System::Drawing::Point(350, 261);
 			this->btnRefdep->Name = L"btnRefdep";
 			this->btnRefdep->Size = System::Drawing::Size(151, 23);
 			this->btnRefdep->TabIndex = 7;
@@ -590,7 +644,7 @@ namespace Client
 			this->btnDep->Name = L"btnDep";
 			this->btnDep->Size = System::Drawing::Size(151, 23);
 			this->btnDep->TabIndex = 4;
-			this->btnDep->Text = L"Get Dependencies";
+			this->btnDep->Text = L"View Package Detail";
 			this->btnDep->UseVisualStyleBackColor = true;
 			this->btnDep->Click += gcnew System::EventHandler(this, &UserInterface::btnDep_Click);
 			// 
@@ -598,7 +652,7 @@ namespace Client
 			// 
 			this->btnExt->Font = (gcnew System::Drawing::Font(L"Georgia", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->btnExt->Location = System::Drawing::Point(350, 160);
+			this->btnExt->Location = System::Drawing::Point(350, 232);
 			this->btnExt->Name = L"btnExt";
 			this->btnExt->Size = System::Drawing::Size(151, 23);
 			this->btnExt->TabIndex = 3;
@@ -621,6 +675,7 @@ namespace Client
 			// 
 			// tabCheckin
 			// 
+			this->tabCheckin->Controls->Add(this->btnInfo3);
 			this->tabCheckin->Controls->Add(this->cbAll);
 			this->tabCheckin->Controls->Add(this->btnRefresh);
 			this->tabCheckin->Controls->Add(this->lblCheckin);
@@ -635,10 +690,20 @@ namespace Client
 			this->tabCheckin->Text = L"Checkin";
 			this->tabCheckin->UseVisualStyleBackColor = true;
 			// 
+			// btnInfo3
+			// 
+			this->btnInfo3->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"btnInfo3.Image")));
+			this->btnInfo3->Location = System::Drawing::Point(541, 8);
+			this->btnInfo3->Name = L"btnInfo3";
+			this->btnInfo3->Size = System::Drawing::Size(25, 25);
+			this->btnInfo3->TabIndex = 11;
+			this->btnInfo3->UseVisualStyleBackColor = true;
+			this->btnInfo3->Click += gcnew System::EventHandler(this, &UserInterface::btnInfo3_Click);
+			// 
 			// cbAll
 			// 
 			this->cbAll->AutoSize = true;
-			this->cbAll->Location = System::Drawing::Point(350, 130);
+			this->cbAll->Location = System::Drawing::Point(426, 189);
 			this->cbAll->Name = L"cbAll";
 			this->cbAll->Size = System::Drawing::Size(75, 19);
 			this->cbAll->TabIndex = 7;
@@ -706,6 +771,7 @@ namespace Client
 			// 
 			// pnlLogin
 			// 
+			this->pnlLogin->Controls->Add(this->btnInfo1);
 			this->pnlLogin->Controls->Add(this->txtUsrName);
 			this->pnlLogin->Controls->Add(this->lblUsrName);
 			this->pnlLogin->Controls->Add(this->lblCitColon);
@@ -721,6 +787,16 @@ namespace Client
 			this->pnlLogin->Name = L"pnlLogin";
 			this->pnlLogin->Size = System::Drawing::Size(580, 360);
 			this->pnlLogin->TabIndex = 1;
+			// 
+			// btnInfo1
+			// 
+			this->btnInfo1->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"btnInfo1.Image")));
+			this->btnInfo1->Location = System::Drawing::Point(529, 315);
+			this->btnInfo1->Name = L"btnInfo1";
+			this->btnInfo1->Size = System::Drawing::Size(25, 25);
+			this->btnInfo1->TabIndex = 12;
+			this->btnInfo1->UseVisualStyleBackColor = true;
+			this->btnInfo1->Click += gcnew System::EventHandler(this, &UserInterface::btnInfo1_Click);
 			// 
 			// txtUsrName
 			// 
@@ -805,7 +881,6 @@ namespace Client
 				static_cast<System::Byte>(0)));
 			this->txtCitPort->Location = System::Drawing::Point(315, 140);
 			this->txtCitPort->Name = L"txtCitPort";
-			this->txtCitPort->ReadOnly = true;
 			this->txtCitPort->Size = System::Drawing::Size(52, 26);
 			this->txtCitPort->TabIndex = 3;
 			this->txtCitPort->Text = L"0311";
@@ -836,7 +911,7 @@ namespace Client
 			// 
 			this->btnLogin->Font = (gcnew System::Drawing::Font(L"Georgia", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->btnLogin->Location = System::Drawing::Point(450, 300);
+			this->btnLogin->Location = System::Drawing::Point(384, 196);
 			this->btnLogin->Name = L"btnLogin";
 			this->btnLogin->Size = System::Drawing::Size(100, 26);
 			this->btnLogin->TabIndex = 0;
@@ -874,7 +949,32 @@ namespace Client
 
 
 #pragma endregion
-};
+
+	private: System::Windows::Forms::Button^  btnInfo1;
+	private: System::Windows::Forms::Button^  btnInfo2;
+	private: System::Windows::Forms::Button^  btnInfo3;
+	private:
+
+		System::Void btnInfo1_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			System::String^ info = "UNknow";
+
+				ShowMessageBox(info);
+		}
+		System::Void btnInfo2_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			System::String^ info = "UNknow";
+
+			ShowMessageBox(info);
+
+		}
+		System::Void btnInfo3_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			System::String^ info = "UNknow";
+
+			ShowMessageBox(info);
+		}
+	};
 }
 
 
