@@ -69,7 +69,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Foundation\Communicator.h" />
     <ClInclude Include="ClientMessageHandler.h" />
     <ClInclude Include="ClientProcess.h" />
     <ClInclude Include="UserInterface.h">

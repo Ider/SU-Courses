@@ -1,9 +1,16 @@
-
+/////////////////////////////////////////////////////////////////////////
+//  ClientProcess.h    -  Thread Process classes for Client side       //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 2010                               //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #4	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
+#include <conio.h>
 #include "..\Foundation\Communicator.h"
 #include "ClientMessageHandler.h"
-
 #include "UserInterface.h"
-#include <conio.h>
 
 Ider::IMessageHandler* FormMessageHanlder;
 

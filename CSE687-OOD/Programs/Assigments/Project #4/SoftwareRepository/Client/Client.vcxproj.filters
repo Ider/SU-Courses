@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Foundation\Communicator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ClientMessageHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -38,5 +35,10 @@
     <ClCompile Include="UserInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UserInterface.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

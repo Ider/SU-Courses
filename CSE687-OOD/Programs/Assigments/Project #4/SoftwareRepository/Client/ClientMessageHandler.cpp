@@ -1,10 +1,17 @@
-
+/////////////////////////////////////////////////////////////////////////
+//  ClientMessageHandler.h    - Client side message handler		       //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 2010                               //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #4	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
 #include <iostream>
 #include <stack>
 using namespace std;
 
 #include "ClientMessageHandler.h"
-
 using namespace Ider;
 
 //////////////////////////////////////////////////////////////////////////

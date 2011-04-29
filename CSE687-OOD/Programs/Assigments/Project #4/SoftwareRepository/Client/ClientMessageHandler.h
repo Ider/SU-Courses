@@ -1,5 +1,36 @@
 #ifndef CLIENT_MESSAGE_HANDLER_C_H
 #define CLIENT_MESSAGE_HANDLER_C_H
+/////////////////////////////////////////////////////////////////////////
+//  ClientMessageHandler.h    - Client side message handler		       //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 2010                               //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #4	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
+/*
+   Module Operations:
+   ==================
+   This module provides class to handler the message sent from server,
+   and send messages to server to request data.
+
+   This 
+
+   The class must inherit from template Thread_Processing<typename T>
+   where the typename should be itself.
+
+   Public Interface:
+   =================
+   ClientMessage_Proc.run()
+   ClientFile_Proc.run()
+
+   Build Process:
+   ==============
+   Required Files:
+     ClientMessageHandler.h, ClientMessageHandler.cpp, Communicator.h
+
+*/
 
 
 #include "..\Infrastructure\IMessageHandler.h"
@@ -29,7 +60,7 @@ public:
 	strVal Convert(System::String^ s);
 	System::String^ Convert(conStrRef s);
 
-	//void SetForm(Client::UserInterface^ form){_form = form;}
+	void SetForm(Client::UserInterface^ form){_form = form;}
 
 protected:
 	//Process message
