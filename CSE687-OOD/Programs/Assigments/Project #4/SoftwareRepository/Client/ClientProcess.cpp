@@ -3,7 +3,6 @@
 #include "ClientMessageHandler.h"
 
 #include "UserInterface.h"
-
 #include <conio.h>
 
 Ider::IMessageHandler* FormMessageHanlder;
@@ -29,6 +28,23 @@ void ClientMessage_Proc::run()
 	}
 	// end of your code
 	///////////////////////////////////////////////////////
+}
+
+void ClientFile_Proc::run()
+{
+	GLock<1> lock;
+	std::string msg;
+	lock.lock();
+	BQueue<std::string>* pBQ = _pFileHandler->getQueue();
+	//ICommunicator* pComm = _pFileHandler->getCommunicator();
+	//EndPoint remoteEp = _pFileHandler->getEndPoint();
+	lock.unlock();
+
+	while(true)
+	{
+		sout << locker << "\n  Client received file: " 
+			<< (msg = pBQ->deQ()).c_str() << unlocker;
+	}
 }
 
 
