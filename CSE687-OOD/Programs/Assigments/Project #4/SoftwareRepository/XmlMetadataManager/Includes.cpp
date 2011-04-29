@@ -124,9 +124,9 @@ void Includes::ExtractName()
 //Check whether the line get from file is include or not
 bool Includes::ExtractInclude(char* buffer)
 {
-	while(*buffer =='\t'||*buffer ==' ')++buffer;
-	if (*buffer!='#'
-		||(*buffer!='\0'&&*(buffer+1)!='i'))
+	while(*buffer =='\t'||*buffer ==' ')++buffer;//trim prefix blank space
+	if (*buffer!='#'	//check if this line is preprocessor
+		||(*buffer!='\0'&&*(buffer+1)!='i')) //check whether preprocessor is include
 		return false;
 
 	//exclude the pro-process definitions
