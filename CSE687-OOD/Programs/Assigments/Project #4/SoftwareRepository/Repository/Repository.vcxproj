@@ -49,7 +49,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;IDERDEGBU;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -71,6 +71,7 @@
   <ItemGroup>
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="ServerMessageHandler.h" />
+    <ClInclude Include="ServerProcess.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileSystem.cpp" />

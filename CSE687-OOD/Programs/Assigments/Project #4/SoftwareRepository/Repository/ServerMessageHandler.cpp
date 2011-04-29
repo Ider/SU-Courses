@@ -2,6 +2,7 @@
 #include <fstream>
 using namespace std;
 
+
 #include "FileSystem.h"
 #include "ServerMessageHandler.h"
 #include "..\XmlMetadataManager\Includes.h"
@@ -220,7 +221,8 @@ Message MessageHandler::DependencyMessage()
 	return Message(rep.xmlStr());
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+//generate a Commit type message
 Message MessageHandler::CommitMessage()
 {
 	strVal tag ="Name";
@@ -252,7 +254,8 @@ Message MessageHandler::CommitMessage()
 	return _msg;
 }
 
-
+//////////////////////////////////////////////////////////////////////////
+//generate a package type message
 Message MessageHandler::PackageMessage()
 {
 	return Message("Not implemented.");
@@ -359,7 +362,7 @@ bool MessageHandler::BuildMetadata(strVal fileName)
 	strVal command = "del "+ _repositoryPath 
 		+ _checkinFoler + fileName+".xml ";
 
-	cout<<"command"<<command<<"\n\n";
+	SERVERACTION(command);
 
 	system(command.c_str());
 
@@ -433,7 +436,6 @@ bool MessageHandler::OKtoCheckin(strVal fileName)
 
 
 #ifdef SERVER_MESSAGE_HANDLER_TEST
-
 
 void main()
 {

@@ -1,10 +1,35 @@
+
 #ifndef SERVER_MESSAGE_HANDLER_H
 #define SERVER_MESSAGE_HANDLER_H
+/////////////////////////////////////////////////////////////////////////
+//  ServerMessageHandler.cpp    -  Server side message handler   	   //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 2010                               //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #4	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
+/*
+   Module Operations:
+   ==================
+   This module provide server side message
+
+   Public Interface:
+   =================
+   FormMessageHanlder->ReceiveMessage(msg);
+   
+
+   Build Process:
+   ==============
+   Required Files:
+     MsgHandler.h, MsgHandler.cpp, IMessageHandler.h
+*/
+
 
 #include <map>
 #include "..\Infrastructure\IMessageHandler.h"
 #include "..\Foundation\MsgHandler.h"
-
 
 
 class MessageHandler:public Ider::IMessageHandler
@@ -14,7 +39,8 @@ public:
 	MessageHandler():_metaFolder("MetaXML\\")
 		,_pacakgeFolder("Package\\")
 		,_checkinFoler("Temp\\"),
-		_repositoryPath(".\\Repository\\"){}
+		_repositoryPath("..\\RepositoryLibrary\\")
+	{}
 
 	//Generate a message base on received message
 	virtual Ider::Message RespondToMessage(conStrRef message, EndPoint curConnected);
@@ -52,11 +78,14 @@ protected:
 	bool BuildMetadata(strVal fileName);
 
 private:
+	//data
 	Ider::Message _msg;
+	//repository folders path
 	strVal _metaFolder;
 	strVal _pacakgeFolder;
 	strVal _checkinFoler;
 	strVal _repositoryPath;
+	//user connection info
 	std::map<EndPoint, strVal> _loginUsers;
 	strVal _curUser;
 	EndPoint _curIP;
