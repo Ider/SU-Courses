@@ -42,6 +42,7 @@ namespace Ider
 	public:
 		virtual void ReceiveMessage(conStrRef message )=0;
 		virtual Message MessageForSending(MsgType::Value type)=0;
+		virtual ~IMessageHandler(){}
 	};
 
 }

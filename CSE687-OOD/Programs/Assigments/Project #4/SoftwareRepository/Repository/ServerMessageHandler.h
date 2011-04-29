@@ -41,6 +41,8 @@ public:
 		,_checkinFoler("Temp\\"),
 		_repositoryPath("..\\RepositoryLibrary\\")
 	{}
+	//destructor
+	virtual ~MessageHandler(){}
 
 	//Generate a message base on received message
 	virtual Ider::Message RespondToMessage(conStrRef message, EndPoint curConnected);

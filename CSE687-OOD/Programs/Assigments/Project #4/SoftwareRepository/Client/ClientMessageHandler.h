@@ -51,6 +51,8 @@ public:
 	//constructors
 	MessageHandler(){}
 	MessageHandler(Client::UserInterface^ form){_form = form;}
+	//destructor
+	virtual ~MessageHandler(){}
 
 	//Implement IMessageHandler interface
 	virtual void ReceiveMessage(conStrRef message );
