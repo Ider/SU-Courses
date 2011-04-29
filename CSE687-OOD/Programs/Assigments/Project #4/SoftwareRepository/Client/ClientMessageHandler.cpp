@@ -143,6 +143,12 @@ void MessageHandler::DependencyProcess()
 //Process warning message
 void MessageHandler::CommitProcess()
 {
+	//refresh the checked-in list box
+	_form->RequestChickedin = true;
+	_form->SendMessage(MsgType::Checkin);
+
+	//refresh the dependency list box
+	_form->SendMessage(MsgType::Dependency);
 }
 
 //////////////////////////////////////////////////////////////////////////

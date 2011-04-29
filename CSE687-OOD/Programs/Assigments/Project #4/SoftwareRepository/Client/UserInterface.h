@@ -11,7 +11,6 @@ class MessageHandler;
 
 namespace Client 
 {
-
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -29,35 +28,42 @@ namespace Client
 		//delegate
 		delegate System::Void ShowListBoxDelegate(System::Collections::Generic::List<System::String^>^ items);
 		ShowListBoxDelegate^ ShowPackageListBox;
+	private: System::Windows::Forms::Button^  btnRefdep;
+	public: 
 		ShowListBoxDelegate^ ShowCheckinListBox;
 
+#pragma region properties
 
-	public: property System::Boolean CommitAll
-			{
-				System::Boolean get(){return (this->cbAll->Checked);}
-			}
-	public: property System::Windows::Forms::ListBox^ ListCheckin
-			{
-				System::Windows::Forms::ListBox^ get(){return this->listCheckin;}
-			}
+	public:
+		property System::Boolean CommitAll
+		{
+			System::Boolean get(){return (this->cbAll->Checked);}
+		}
 
-	public: property System::Windows::Forms::ListBox^ ListDependency
+		property System::Windows::Forms::ListBox^ ListCheckin
+		{
+			System::Windows::Forms::ListBox^ get(){return this->listCheckin;}
+		}
+
+		property System::Windows::Forms::ListBox^ ListDependency
+		{
+			System::Windows::Forms::ListBox^ get(){return this->listDep;}
+		}
+
+		property System::Boolean RequestChickedin
+		{
+			System::Boolean get()
 			{
-				System::Windows::Forms::ListBox^ get(){return this->listDep;}
+				System::Boolean temp = requestChickedin;
+				requestChickedin = false;
+				return temp;
 			}
-	public: property System::Boolean RequestChickedin
-			{
-				System::Boolean get()
-				{
-					System::Boolean temp = requestChickedin;
-					requestChickedin = false;
-					return temp;
-				}
-				System::Void set(System::Boolean value){requestChickedin = value;}
-			}
+			System::Void set(System::Boolean value){requestChickedin = value;}
+		}
+
+#pragma endregion 
 
 	public: 
-
 
 		//constructor
 		UserInterface(void)
@@ -93,17 +99,17 @@ namespace Client
 		//get selected package name on listbox
 		System::String^ SelectedPackageName()
 		{
-			if (this->selectionTrack->Count<=0)
-			{
-				//this->selectionTrack->Add(L"*.*");
-				return L"*.*";
-			}
+			//first request, ask for all packages
+			if (this->selectionTrack->Count<=0)return L"*.*";
 
+			System::String^ preName = 
+				this->selectionTrack[this->selectionTrack->Count-1];
+
+			//no selection, refresh current package
 			if(this->listDep->SelectedItems->Count<=0)
-			{
-				ShowMessageBox(L"Please select a package name.");
-				return System::String::Empty;
-			}
+				return preName;
+
+			//go back up
 			System::String^ name;
 			if(this->listDep->SelectedIndex==0)
 			{
@@ -122,8 +128,9 @@ namespace Client
 				}
 			}
 
+			//request the selected package 
 			name = this->listDep->SelectedItem->ToString();
-			if (name == this->selectionTrack[this->selectionTrack->Count-1])
+			if (name == preName)
 				return System::String::Empty;
 
 			return name;
@@ -149,11 +156,9 @@ namespace Client
 				this->selectionTrack->Add(L"*.*");
 				this->pnlLogin->Visible = false;
 			}
-			else
+			else if (this->listDep->SelectedItems->Count>0)
 			{
-				//this branch would never be reached
-				if (this->listDep->SelectedItems->Count<=0)return;
-
+				//go back up, remove last one in track
 				if (this->listDep->SelectedIndex==0)
 				{
 					int last = this->selectionTrack->Count-1;
@@ -161,9 +166,12 @@ namespace Client
 				}
 				else
 				{
+					//push selection into tack to for go back
 					this->selectionTrack->Add(this->listDep->SelectedItem->ToString());
 				}
 			}
+			//else { /* refresh current package dependency */}
+			
 
 			this->listDep->Items->Clear();
 			this->listDep->Items->Add("..");
@@ -357,7 +365,13 @@ namespace Client
 				SendMessage(Ider::MsgType::Dependency);
 		}
 
-		//Refresh button event
+		//Refresh dependency listbox button event
+		System::Void btnRefdep_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			SendMessage(Ider::MsgType::Dependency);
+		}
+
+		//Refresh checked-in listbox button event
 		System::Void btnRefresh_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
 			this->requestChickedin = true;
@@ -433,6 +447,7 @@ namespace Client
 			this->btnExt = (gcnew System::Windows::Forms::Button());
 			this->listDep = (gcnew System::Windows::Forms::ListBox());
 			this->tabCheckin = (gcnew System::Windows::Forms::TabPage());
+			this->cbAll = (gcnew System::Windows::Forms::CheckBox());
 			this->btnRefresh = (gcnew System::Windows::Forms::Button());
 			this->lblCheckin = (gcnew System::Windows::Forms::Label());
 			this->btnClose = (gcnew System::Windows::Forms::Button());
@@ -452,7 +467,7 @@ namespace Client
 			this->btnLogin = (gcnew System::Windows::Forms::Button());
 			this->folderDialog = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->fileDialog = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->cbAll = (gcnew System::Windows::Forms::CheckBox());
+			this->btnRefdep = (gcnew System::Windows::Forms::Button());
 			this->tabClient->SuspendLayout();
 			this->tabPackage->SuspendLayout();
 			this->tabCheckin->SuspendLayout();
@@ -473,6 +488,7 @@ namespace Client
 			// 
 			// tabPackage
 			// 
+			this->tabPackage->Controls->Add(this->btnRefdep);
 			this->tabPackage->Controls->Add(this->lblPack);
 			this->tabPackage->Controls->Add(this->btnDep);
 			this->tabPackage->Controls->Add(this->btnExt);
@@ -548,6 +564,19 @@ namespace Client
 			this->tabCheckin->TabIndex = 1;
 			this->tabCheckin->Text = L"Checkin";
 			this->tabCheckin->UseVisualStyleBackColor = true;
+			// 
+			// cbAll
+			// 
+			this->cbAll->AutoSize = true;
+			this->cbAll->Checked = true;
+			this->cbAll->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->cbAll->Location = System::Drawing::Point(350, 130);
+			this->cbAll->Name = L"cbAll";
+			this->cbAll->Size = System::Drawing::Size(75, 19);
+			this->cbAll->TabIndex = 7;
+			this->cbAll->Text = L"Close All";
+			this->cbAll->UseVisualStyleBackColor = true;
+			this->cbAll->Visible = false;
 			// 
 			// btnRefresh
 			// 
@@ -755,18 +784,17 @@ namespace Client
 				L"*.cpp";
 			this->fileDialog->Multiselect = true;
 			// 
-			// cbAll
+			// btnRefdep
 			// 
-			this->cbAll->AutoSize = true;
-			this->cbAll->Checked = true;
-			this->cbAll->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->cbAll->Location = System::Drawing::Point(350, 130);
-			this->cbAll->Name = L"cbAll";
-			this->cbAll->Size = System::Drawing::Size(75, 19);
-			this->cbAll->TabIndex = 7;
-			this->cbAll->Text = L"Close All";
-			this->cbAll->UseVisualStyleBackColor = true;
-			this->cbAll->Visible = false;
+			this->btnRefdep->Font = (gcnew System::Drawing::Font(L"Georgia", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+				static_cast<System::Byte>(0)));
+			this->btnRefdep->Location = System::Drawing::Point(350, 260);
+			this->btnRefdep->Name = L"btnRefdep";
+			this->btnRefdep->Size = System::Drawing::Size(151, 23);
+			this->btnRefdep->TabIndex = 7;
+			this->btnRefdep->Text = L"Extract File";
+			this->btnRefdep->UseVisualStyleBackColor = true;
+			this->btnRefdep->Click += gcnew System::EventHandler(this, &UserInterface::btnRefdep_Click);
 			// 
 			// UserInterface
 			// 
@@ -792,7 +820,7 @@ namespace Client
 
 
 #pragma endregion
-	};
+};
 }
 
 
