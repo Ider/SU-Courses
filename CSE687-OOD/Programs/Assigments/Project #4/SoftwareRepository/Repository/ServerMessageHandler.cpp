@@ -223,8 +223,33 @@ Message MessageHandler::DependencyMessage()
 
 Message MessageHandler::CommitMessage()
 {
-	ClosePackage();
-	return WarningMessage("OK!!!");
+	strVal tag ="Name";
+	vector<XmlDoc> files = _msg.Doc().Children(tag);
+	if (files.size() <=0)return WarningMessage("Please specify a package");
+
+	strVal fileName;
+	strVal command;
+	strVal sourceFolder = _repositoryPath+_checkinFoler;
+	strVal destFolder = _repositoryPath+_pacakgeFolder;;
+	vector<strVal> fileNames;
+
+	//move package to repository
+	for (size_t i = 0; i<files.size(); ++i)
+	{
+		fileName = GetKeyName(files[i].InnerText());
+		if (!OKtoCheckin(fileName))continue;
+
+		command = "move /y "+ sourceFolder + fileName+".h "+destFolder;
+		SERVERACTION(command);
+		system(command.c_str());
+
+		command = "move /y "+ sourceFolder + fileName+".cpp "+destFolder;
+		SERVERACTION(command);
+		system(command.c_str());
+
+		BuildMetadata(fileName);
+	}
+	return _msg;
 }
 
 
@@ -322,38 +347,6 @@ bool MessageHandler::BuildCheckinMetadata(strVal fileName,EndPoint curConnected)
 	XmlDoc doc(gen.GetMetadata(pack));
 	
 	return doc.SaveToFile(path+fileName+".xml");
-}
-
-
-bool MessageHandler::ClosePackage()
-{
-	strVal tag ="Name";
-	vector<XmlDoc> files = _msg.Doc().Children(tag);
-	if (files.size() <=0)return true;
-
-	strVal fileName;
-	strVal command;
-	strVal sourceFolder = _repositoryPath+_checkinFoler;
-	strVal destFolder = _repositoryPath+_pacakgeFolder;;
-	vector<strVal> fileNames;
-
-	for (size_t i = 0; i<files.size(); ++i)
-	{
-		fileName = GetKeyName(files[i].InnerText());
-		if (!OKtoCheckin(fileName))continue;
-
-		command = "move /y "+ sourceFolder + fileName+".h "+destFolder;
-		SERVERACTION(command);
-		system(command.c_str());
-
-		command = "move /y "+ sourceFolder + fileName+".cpp "+destFolder;
-		SERVERACTION(command);
-		system(command.c_str());
-		
-		BuildMetadata(fileName);
-	}
-
-	return true;
 }
 
 //////////////////////////////////////////////////////////////////////////

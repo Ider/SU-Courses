@@ -49,7 +49,6 @@ protected:
 	//Auxiliary function
 	strVal GetMessageName();
 	bool OKtoCheckin(strVal fileName);
-	bool ClosePackage();
 	bool BuildMetadata(strVal fileName);
 
 private:
