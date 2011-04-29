@@ -35,6 +35,12 @@ namespace Client
 #pragma region properties
 
 	public:
+
+		property array<System::String^>^ FilesForUpload
+		{
+			array<System::String^>^ get(){return this->fileDialog->FileNames;}
+		}
+
 		property System::Boolean CommitAll
 		{
 			System::Boolean get(){return (this->cbAll->Checked);}
@@ -391,14 +397,14 @@ namespace Client
 	private: System::Windows::Forms::Panel^  pnlLogin;
 
 	private: System::Windows::Forms::FolderBrowserDialog^ folderDialog;
-	public: System::Windows::Forms::OpenFileDialog^ fileDialog;
+	private: System::Windows::Forms::OpenFileDialog^ fileDialog;
 
-	public: System::Windows::Forms::TabControl^  tabClient;
+	private: System::Windows::Forms::TabControl^  tabClient;
 
 	private: System::Windows::Forms::TabPage^  tabPackage;
 	private: System::Windows::Forms::TabPage^  tabCheckin;
 
-	public: System::Windows::Forms::ListBox^  listDep;
+	private: System::Windows::Forms::ListBox^  listDep;
 	private: System::Windows::Forms::ListBox^  listCheckin;
 
 	private: System::Windows::Forms::Button^  btnDep;

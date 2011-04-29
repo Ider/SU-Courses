@@ -237,7 +237,7 @@ Message MessageHandler::CheckinMessage()
 		return Message(rep.xmlStr());
 	}
 
-	array<System::String^>^ fileNames = _form->fileDialog->FileNames;
+	array<System::String^>^ fileNames = _form->FilesForUpload;
 	int count = fileNames->Length;
 	if (count<=0)return Message();
 
@@ -332,7 +332,7 @@ Message MessageHandler::CommitMessage()
 //generate a package type message
 Message MessageHandler::PackageMessage()
 {
-	if(_form->listDep->SelectedItems->Count <=0)return Message();
+	if(_form->ListDependency->SelectedItems->Count <=0)return Message();
 
 	return Message();
 }
@@ -351,7 +351,7 @@ strVal MessageHandler::GetName(MsgType::Value type)
 		name = _form->SelectedPackageName();
 		break;
 	case MsgType::File:
-		name = _form->listDep->SelectedItem->ToString();
+		name = _form->ListDependency->SelectedItem->ToString();
 		break;
 	case MsgType::Checkin: 
 	case MsgType::Warning: 
