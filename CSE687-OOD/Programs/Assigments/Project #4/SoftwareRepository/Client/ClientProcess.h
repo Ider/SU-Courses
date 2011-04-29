@@ -3,10 +3,8 @@
 
 #include "..\Foundation\Communicator.h"
 #include "ClientMessageHandler.h"
-
 #include "UserInterface.h"
 
-#include <conio.h>
 
 extern Ider::IMessageHandler* FormMessageHanlder;
 
@@ -16,7 +14,9 @@ extern Ider::IMessageHandler* FormMessageHanlder;
 class ClientMessage_Proc : public Thread_Processing<ClientMessage_Proc>
 {
 public:
-	ClientMessage_Proc(IMsgHandler* pMsgHandler) : _pMsgHandler(pMsgHandler) {}
+	ClientMessage_Proc(IMsgHandler* pMsgHandler) 
+		: _pMsgHandler(pMsgHandler) {}
+	//Implement interface Thread_Processing<ClientMessage_Proc>
 	void run();
 private:
 	IMsgHandler* _pMsgHandler;
@@ -25,28 +25,10 @@ private:
 class ClientFile_Proc : public Thread_Processing<ClientFile_Proc>
 {
 public:
-	ClientFile_Proc(IFileHandler* pFileHandler) : _pFileHandler(pFileHandler) {}
-	void run()
-	{
-		GLock<1> lock;
-		std::string msg;
-		lock.lock();
-		BQueue<std::string>* pBQ = _pFileHandler->getQueue();
-		ICommunicator* pComm = _pFileHandler->getCommunicator();
-		EndPoint remoteEp = _pFileHandler->getEndPoint();
-		lock.unlock();
-		///////////////////////////////////////////////////////
-		// enter your server code here
-		while(true)
-		{
-			sout << locker << "\n  sender received file: " 
-				<< (msg = pBQ->deQ()).c_str() << unlocker;
-			if(msg == "quit")
-				break;
-		}
-		// end of your code
-		///////////////////////////////////////////////////////
-	}
+	ClientFile_Proc(IFileHandler* pFileHandler) 
+		: _pFileHandler(pFileHandler) {}
+	//Implement interface Thread_Processing<ClientFile_Proc>
+	void run();
 private:
 	IFileHandler* _pFileHandler;
 };
