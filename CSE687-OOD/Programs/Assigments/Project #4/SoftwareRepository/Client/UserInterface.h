@@ -1,6 +1,36 @@
 #ifndef USER_INTERFACE_H
 #define USER_INTERFACE_H
+/////////////////////////////////////////////////////////////////////////
+//  UserInterface.h    -  User interface form on client side   		   //
+//  ver 1.0                                                            //
+//  Language:       Visual C++, ver 2010                               //
+//  Platform:       MacBook Pro, Windows7 Pro				           //
+//  Application:    CSE687 project #4	                               //
+//  Author:         Ider Zheng, Syracuse University					   //
+//                  (315) 560-4977, ider.cs@gmail.com				   //
+/////////////////////////////////////////////////////////////////////////
+/*
+   Module Operations:
+   ==================
+   This module is a windows form class.
+   It provide client interface for sending message to
+   and requesting information from server,
 
+
+   Public Interface:
+   =================
+   UserInterface^ ui = gcnew UserInterface();
+   ui->SetMessageHandler(mh);
+   _form->Invoke(_form->ShowCheckinListBox,packages);
+   _form->Invoke(_form->ShowPackageListBox,packages);
+   
+
+   Build Process:
+   ==============
+   Required Files:
+     ClientMessageHandler.h, ClientProcess.cpp, ClientProcess.h
+  
+*/
 
 #include "ClientMessageHandler.h"
 #include "ClientProcess.h"
@@ -28,46 +58,7 @@ namespace Client
 		//delegate
 		delegate System::Void ShowListBoxDelegate(System::Collections::Generic::List<System::String^>^ items);
 		ShowListBoxDelegate^ ShowPackageListBox;
-	private: System::Windows::Forms::Button^  btnRefdep;
-	public: 
 		ShowListBoxDelegate^ ShowCheckinListBox;
-
-#pragma region properties
-
-	public:
-
-		property array<System::String^>^ FilesForUpload
-		{
-			array<System::String^>^ get(){return this->fileDialog->FileNames;}
-		}
-
-		property System::Boolean CommitAll
-		{
-			System::Boolean get(){return (this->cbAll->Checked);}
-		}
-
-		property System::Windows::Forms::ListBox^ ListCheckin
-		{
-			System::Windows::Forms::ListBox^ get(){return this->listCheckin;}
-		}
-
-		property System::Windows::Forms::ListBox^ ListDependency
-		{
-			System::Windows::Forms::ListBox^ get(){return this->listDep;}
-		}
-
-		property System::Boolean RequestChickedin
-		{
-			System::Boolean get()
-			{
-				System::Boolean temp = requestChickedin;
-				requestChickedin = false;
-				return temp;
-			}
-			System::Void set(System::Boolean value){requestChickedin = value;}
-		}
-
-#pragma endregion 
 
 	public: 
 
@@ -204,11 +195,47 @@ namespace Client
 			for (size_t i=0; i<files.size(); ++i)
 				this->sender->postFile(files[i]);
 
-			System::Threading::Thread::Sleep(1000);
+			System::Threading::Thread::Sleep(700);
 			this->requestChickedin = true;
 			SendMessage(Ider::MsgType::Checkin);
 		}
 
+#pragma region properties
+
+	public:
+
+		property array<System::String^>^ FilesForUpload
+		{
+			array<System::String^>^ get(){return this->fileDialog->FileNames;}
+		}
+
+		property System::Boolean CommitAll
+		{
+			System::Boolean get(){return (this->cbAll->Checked);}
+		}
+
+		property System::Windows::Forms::ListBox^ ListCheckin
+		{
+			System::Windows::Forms::ListBox^ get(){return this->listCheckin;}
+		}
+
+		property System::Windows::Forms::ListBox^ ListDependency
+		{
+			System::Windows::Forms::ListBox^ get(){return this->listDep;}
+		}
+
+		property System::Boolean RequestChickedin
+		{
+			System::Boolean get()
+			{
+				System::Boolean temp = requestChickedin;
+				requestChickedin = false;
+				return temp;
+			}
+			System::Void set(System::Boolean value){requestChickedin = value;}
+		}
+
+#pragma endregion
 
 	protected:
 		/// <summary>
@@ -413,6 +440,7 @@ namespace Client
 	private: System::Windows::Forms::Button^  btnClose;
 	private: System::Windows::Forms::Button^  btnUpload;
 	private: System::Windows::Forms::Button^  btnRefresh;
+	private: System::Windows::Forms::Button^  btnRefdep;
 
 	private: System::Windows::Forms::TextBox^  txtCitIP;
 	private: System::Windows::Forms::TextBox^  txtCitPort;
