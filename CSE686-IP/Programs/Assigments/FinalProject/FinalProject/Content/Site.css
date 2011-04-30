@@ -2,12 +2,12 @@
 {
     background: #fff;
     color: #000;
-    margin: 10px;
+    margin: 12px;
     padding: 0;
 }
 body, th, tr
 {
-    font: normal 13px Verdana,Arial, 'Bitstream Vera Sans' ,Helvetica,sans-serif;
+    font: normal 15px Verdana,Arial, 'Bitstream Vera Sans' ,Helvetica,sans-serif;
 }
 h1, h2, h3, h4
 {
@@ -27,7 +27,7 @@ h2
 }
 h3
 {
-    font-size: 14px;
+    font-size: 16px;
 }
 hr
 {
@@ -111,13 +111,13 @@ h1:hover .anchor, h2:hover .anchor, h3:hover .anchor, h4:hover .anchor, h5:hover
 {
     a.ext-link .icon
     {
-        background: url(../extlink.gif) center center no-repeat;
-        padding-left: 12px;
+        background: url(./Image/extlink.gif) center center no-repeat;
+        padding-left: 14px;
     }
     a.mail-link .icon
     {
-        background: url(../envelope.png) center center no-repeat;
-        padding-left: 14px;
+        background: url(./Image/envelope.png) center center no-repeat;
+        padding-left: 16px;
     }
 }
 
@@ -257,14 +257,14 @@ label.disabled
 #search
 {
     clear: both;
-    font-size: 10px;
+    font-size: 12px;
     height: 2.2em;
     margin: 0 0 1em;
     text-align: right;
 }
 #search input
 {
-    font-size: 10px;
+    font-size: 12px;
 }
 #search label
 {
@@ -278,7 +278,7 @@ label.disabled
 }
 .nav ul
 {
-    font-size: 10px;
+    font-size: 12px;
     list-style: none;
     margin: 0;
     text-align: right;
@@ -298,9 +298,9 @@ label.disabled
 /* Main navigation bar */
 #mainnav
 {
-    background: #fff url(../topbar_gradient.png) 0 0;
+    background: #fff url(./Image/topbar_gradient.png) 0 0;
     border: 1px solid #000;
-    font: normal 10px verdana, 'Bitstream Vera Sans' ,helvetica,arial,sans-serif;
+    font: normal 12px verdana, 'Bitstream Vera Sans' ,helvetica,arial,sans-serif;
     margin: .66em 0 .33em;
     padding: .2em 0;
 }
@@ -311,7 +311,7 @@ label.disabled
 }
 #mainnav :link, #mainnav :visited
 {
-    background: url(../dots.gif) 0 0 no-repeat;
+    background: url(./Image/dots.gif) 0 0 no-repeat;
     border-right: 1px solid #fff;
     border-bottom: none;
     border-left: 1px solid #555;
@@ -329,7 +329,7 @@ label.disabled
 }
 #mainnav .active :link, #mainnav .active :visited
 {
-    background: #000 url(../topbar_gradient2.png) 0 0 repeat-x;
+    background: #000 url(./Image/topbar_gradient2.png) 0 0 repeat-x;
     border-top: none;
     border-right: 1px solid #000;
     color: #eee;
@@ -375,7 +375,7 @@ label.disabled
 }
 .trac-topnav
 {
-    margin-top: 14px;
+    margin-top: 16px;
 }
 
 /* Alternate links */
@@ -386,7 +386,7 @@ label.disabled
 }
 #altlinks h3
 {
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: normal;
     margin: 0;
 }
@@ -400,7 +400,7 @@ label.disabled
 {
     border-right: 1px solid #d7d7d7;
     display: inline;
-    font-size: 11px;
+    font-size: 13px;
     line-height: 1.5;
     padding: 0 1em;
     white-space: nowrap;
@@ -418,12 +418,12 @@ label.disabled
 }
 #altlinks li a.ics
 {
-    background-image: url(../ics.png);
+    background-image: url(./Image/ics.png);
     padding-left: 22px;
 }
 #altlinks li a.rss
 {
-    background-image: url(../feed.png);
+    background-image: url(./Image/feed.png);
     padding-left: 20px;
 }
 
@@ -432,7 +432,7 @@ label.disabled
 {
     clear: both;
     color: #bbb;
-    font-size: 10px;
+    font-size: 12px;
     border-top: 1px solid;
     height: 31px;
     padding: .25em 0;
@@ -498,7 +498,7 @@ label.disabled
 /* Section folding */
 .foldable :link, .foldable :visited
 {
-    background: url(../expanded.png) 0 50% no-repeat;
+    background: url(./Image/expanded.png) 0 50% no-repeat;
     border: none;
     padding-left: 16px;
 }
@@ -508,7 +508,7 @@ label.disabled
 }
 .collapsed > .foldable :link, .collapsed > .foldable :visited
 {
-    background-image: url(../collapsed.png);
+    background-image: url(./Image/collapsed.png);
 }
 .collapsed > div, .collapsed > table, .collapsed > ul, .collapsed > dl
 {
@@ -719,7 +719,7 @@ table.wiki th
 }
 .wikitoolbar :link, .wikitoolbar :visited
 {
-    background: transparent url(../edit_toolbar.png) no-repeat;
+    background: transparent url(./Image/edit_toolbar.png) no-repeat;
     border: 1px solid #fff;
     border-left-color: #d7d7d7;
     cursor: default;
@@ -763,7 +763,7 @@ table.wiki th
 }
 .wikitoolbar a#br
 {
-    background-position: 0 -112px;
+    background-position: 0 -114px;
 }
 .wikitoolbar a#img
 {
@@ -789,7 +789,7 @@ div.trac-grip
 {
     height: 5px;
     overflow: hidden;
-    background: #eee url(../grip.png) no-repeat center 1px;
+    background: #eee url(./Image/grip.png) no-repeat center 1px;
     border: 1px solid #ddd;
     border-top-width: 0;
     cursor: s-resize;
@@ -865,7 +865,7 @@ table.listing th
 {
     text-align: left;
     padding: 0 1em .1em 0;
-    font-size: 12px;
+    font-size: 14px;
 }
 table.listing thead tr
 {
@@ -875,7 +875,7 @@ table.listing thead th
 {
     border: 1px solid #d7d7d7;
     border-bottom-color: #999;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: bold;
     padding: 2px .5em;
     vertical-align: bottom;
@@ -888,7 +888,7 @@ table.listing thead th :link:hover, table.listing thead th :visited:hover
 table.listing thead th a
 {
     border: none;
-    padding-right: 12px;
+    padding-right: 14px;
 }
 table.listing th.asc a, table.listing th.desc a
 {
@@ -898,11 +898,11 @@ table.listing th.asc a, table.listing th.desc a
 }
 table.listing th.asc a
 {
-    background-image: url(../asc.png);
+    background-image: url(./Image/asc.png);
 }
 table.listing th.desc a
 {
-    background-image: url(../desc.png);
+    background-image: url(./Image/desc.png);
 }
 table.listing tbody td, table.listing tbody th
 {

@@ -1,30 +1,31 @@
 ﻿.map
 {
-    border: 1px solid #a62315;
+    border: 1px solid #D7D7D7;
     vertical-align: top;
     white-space: nowrap;
+    margin-bottom:20px;
 }
 .map thead
 {
-    color: #fff;
-    background-image: -moz-linear-gradient(0% 22px 90deg, #a62315, #f47321);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 70%, from(#f47321), to(#a62315));
-    background-color: #f47321;
+    color: #BB0000;
+    background-image: -moz-linear-gradient(0% 22px 90deg, #D7D7D7, #fff);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 70%, from(#fff), to(#D7D7D7));
+    background-color: #fff;
     font-weight: bold;
 }
 .map thead td
 {
-    border: 1px solid #a62315;
+    border: 1px solid #D7D7D7;
 }
 .map tbody td
 {
     vertical-align: top;
-    border: 1px solid #a62315;
+    border: 1px solid #D7D7D7;
 }
 
 .caption
 {
     font-size: 24px;
-    color: #893511;
+    color: #BB0000;
     padding: 10px 0px 5px 5px;
 }
