@@ -44,43 +44,45 @@
         </fieldset>
         <fieldset>
             <legend>Software Requirements</legend>
-            <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map">
-                <thead>
-                    <tr>
-                        <td>
-                            Title
-                        </td>
-                        <td>
-                            Platform
-                        </td>
-                        <td>
-                            Createdate
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        foreach (var p in Model.Package_Softwares)
-                        {
-                            var r = p.Software_Requirement;
-                    %>
-                    <tr id="row-<%:r.id %>">
-                        <td>
-                            <%= Html.ActionLink(r.title, "Details", "Requirement", new { id = r.id }, null)%>
-                        </td>
-                        <td>
-                            <%: r.platform%>
-                        </td>
-                        <td>
-                            <%= r.createddate%>
-                        </td>
-                    </tr>
-                    <% } %>
-                </tbody>
-            </table>
-            <p>
+            <div style="margin-top: 5px;">
+                <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map">
+                    <thead>
+                        <tr>
+                            <td>
+                                Title
+                            </td>
+                            <td>
+                                Platform
+                            </td>
+                            <td>
+                                Createdate
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            foreach (var p in Model.Package_Softwares)
+                            {
+                                var r = p.Software_Requirement;
+                        %>
+                        <tr id="row-<%:r.id %>">
+                            <td>
+                                <%= Html.ActionLink(r.title, "Details", "Requirement", new { id = r.id }, null)%>
+                            </td>
+                            <td>
+                                <%: r.platform%>
+                            </td>
+                            <td>
+                                <%= r.createddate%>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-top: 5px; clear:both;">
                 <%: Html.ActionLink("Edit Software Requirements", "Requirements", new { id = Model.id })%>
-            </p>
+            </div>
         </fieldset>
     </fieldset>
     <p>

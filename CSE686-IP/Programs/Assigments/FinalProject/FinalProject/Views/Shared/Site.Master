@@ -12,31 +12,23 @@
 </head>
 <body>
     <div class="page">
-        <div id="header">
-            <div id="title">
+        <div id="banner">
+            <div id="Div1">
                 <h1>
                     Ider's Final Project</h1>
+                <!-- <a href="/home/index" id="logo"><img width="60" height="75" alt="My Project" src="/TracProject/chrome/site/site_logo.png"></a> -->
             </div>
-            <div id="logindisplay">
-                <% Html.RenderPartial("LogOnUserControl"); %>
-            </div>
-            <div id="menucontainer">
-                <ul id="menu">
-                    <li>
-                        <%: Html.ActionLink("Home", "Index", "Home")%></li>
-                    <li>
-                        <%: Html.ActionLink("Software Requirement", "Index", "Requirement")%></li>
-                    <li>
-                        <%: Html.ActionLink("Work Package","Index", "Package")%></li>
-                    <li>
-                        <%: Html.ActionLink("Bug Report","Index", "BugReport")%></li>
-                    <li>
-                        <%: Html.ActionLink("Status Report","Index", "Status")%></li>
-                    <li>
-                        <%: Html.ActionLink("About", "About", "Home")%></li>
-                    <%--<li><%: Html.ActionLink("Layout", "Layout", "Home")%></li>--%>
+            <div class="nav" id="metanav">
+                <ul>
+                    <li class="first">
+                        <% Html.RenderPartial("LogOnUserControl"); %></li>
                 </ul>
             </div>
+        </div>
+        <div id="mainnav" class="nav">
+            <ul>
+                <li class="first"><%:Html.ActionLink("Home", "Index", "Home")%></li><li><%:Html.ActionLink("Software Requirement", "Index", "Requirement")%></li><li><%:Html.ActionLink("Work Package","Index", "Package")%></li><li><%:Html.ActionLink("Bug Report","Index", "BugReport")%></li><li><%:Html.ActionLink("Status Report","Index", "Status")%></li><li><%:Html.ActionLink("About", "About", "Home")%></li>
+            </ul>
         </div>
         <div id="main">
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />

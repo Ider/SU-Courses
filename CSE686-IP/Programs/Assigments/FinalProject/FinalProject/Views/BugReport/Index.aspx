@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<List<FinalProject.FinalService.BugReport>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<List<FinalProject.Models.BugReport>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Bug Report
@@ -49,7 +49,7 @@
         </thead>
         <tbody>
             <%
-                foreach (FinalProject.FinalService.BugReport r in Model)
+                foreach (FinalProject.Models.BugReport r in Model)
                 { %>
             <tr id="row-<%:r.Number %>">
                 <td>
