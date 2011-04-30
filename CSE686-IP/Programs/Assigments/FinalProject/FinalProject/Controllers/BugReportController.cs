@@ -6,28 +6,29 @@ using System.Web.Mvc;
 
 //using FinalProject.Models;
 using FinalProject.Helper;
-using FinalProject.FinalService;
+using FinalProject.Services;
+using FinalProject.Models;
 
 namespace FinalProject.Controllers
 {
     public class BugReportController : Controller
     {
-        FinalService.IFinalWCFService brService = new FinalService.FinalWCFServiceClient();
+        BugReportService brService = new BugReportService();
         //
         // GET: /Bug/
 
         public ActionResult Index()
         {
-            BugReport[] reports = brService.GetBugReports();
+            IList<BugReport> reports = brService.GetBugReports();
             return View(reports.ToList());
         }
 
         //
-        // GET: /Bug/Details/5
+        // GET: /Bug/Details/5s
 
         public ActionResult Details(int id)
         {
-            
+
             return View();
         }
 
@@ -36,7 +37,6 @@ namespace FinalProject.Controllers
 
         public ActionResult Create()
         {
-            ViewData["Caption"] = brService.DoWork();
             return View();
         }
 
@@ -125,6 +125,41 @@ namespace FinalProject.Controllers
             {
                 return View();
             }
+        }
+
+
+        public ActionResult Sort(string key,bool asc)
+        {
+            ViewData["OrderAsc"] = (asc = !asc);
+
+            IList<BugReport> reports = brService.GetBugReports();
+            IOrderedEnumerable<BugReport> sorted = reports.OrderByDescending(m => m.ReportedTime);
+
+            switch (key)
+            {
+                case "Number":
+                    sorted = asc ?
+                        reports.OrderBy(m => m.Number)
+                        : reports.OrderByDescending(m => m.Number);
+                    break;
+                case "ReportedBy":
+                    sorted = asc ?
+                        reports.OrderBy(m => m.ReportedBy)
+                        : reports.OrderByDescending(m => m.ReportedBy);
+                    break;
+                case "ReportedTime":
+                    sorted = asc ?
+                        reports.OrderBy(m => m.ReportedTime)
+                        : reports.OrderByDescending(m => m.ReportedTime);
+                    break;
+                case "Name":
+                    sorted = asc ?
+                        reports.OrderBy(m => m.OwnedBy)
+                        : reports.OrderByDescending(m => m.OwnedBy);
+                    break;
+            }
+
+            return View("Index", sorted.ToList());
         }
     }
 }

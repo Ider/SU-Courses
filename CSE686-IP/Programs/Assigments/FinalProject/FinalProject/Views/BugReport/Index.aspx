@@ -25,10 +25,12 @@
         <thead>
             <tr>
                 <td>
-                    Number
+                    <%: Html.ActionLink("Number", "Sort"
+                       , new { key = "Number", asc = System.Convert.ToBoolean(ViewData["OrderAsc"]) })%>
                 </td>
                 <td>
-                    ReportedBy
+                    <%: Html.ActionLink("ReportedBy", "Sort"
+                                            , new { key = "ReportedBy", asc = System.Convert.ToBoolean(ViewData["OrderAsc"]) })%>
                 </td>
                 <td>
                     OwnedBy
@@ -37,7 +39,8 @@
                     Keywords
                 </td>
                 <td>
-                    ReportedTime
+                    <%: Html.ActionLink("ReportedTime", "Sort"
+                                            , new { key = "ReportedTime", asc = System.Convert.ToBoolean(ViewData["OrderAsc"]) })%>
                 </td>
                 <td style="width: 20px;">
                     Edit
@@ -53,7 +56,7 @@
                 { %>
             <tr id="row-<%:r.Number %>">
                 <td>
-                    <%= r.Number %>
+                    <%= "#"+r.Number %>
                 </td>
                 <td>
                     <%= r.ReportedBy%>

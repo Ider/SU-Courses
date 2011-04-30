@@ -10,31 +10,27 @@
     <fieldset>
         <legend>Fields</legend>
         <div class="display-label">
-            id</div>
-        <div class="display-field">
-            <%: Model.id %></div>
-        <div class="display-label">
-            name</div>
+            Name</div>
         <div class="display-field">
             <%: Model.name %></div>
         <div class="display-label">
-            task_id</div>
+           Task Id</div>
         <div class="display-field">
             <%: Model.task_id %></div>
         <div class="display-label">
-            status</div>
+            Status</div>
         <div class="display-field">
             <%: Model.status %></div>
         <div class="display-label">
-            notes</div>
+            Notes</div>
         <div class="display-field">
             <%: Model.notes %></div>
         <div class="display-label">
-            workorder</div>
+            WorkOrder</div>
         <div class="display-field">
             <%: Model.workorder %></div>
         <div class="display-label">
-            createddate</div>
+            Createddate</div>
         <div class="display-field">
             <%: String.Format("{0:g}", Model.createddate) %></div>
         <fieldset>

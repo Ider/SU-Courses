@@ -14,6 +14,8 @@
     <AssemblyName>FinalProject</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
+    <SilverlightApplicationList>
+    </SilverlightApplicationList>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -80,6 +82,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IWCFService.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BugModels.cs" />
     <Compile Include="Models\IPFinalDB.designer.cs">
@@ -90,13 +93,12 @@
     <Compile Include="Models\ModelExtension.cs" />
     <Compile Include="Models\PackageRequirementsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\FinalService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
+    <Compile Include="Services\BugService.cs" />
     <Compile Include="Services\PackageService.cs" />
     <Compile Include="Services\RequirementService.cs" />
+    <Compile Include="WCFService.svc.cs">
+      <DependentUpon>WCFService.svc</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\ASPNETDB.MDF" />
@@ -116,16 +118,6 @@
     <Content Include="Scripts\jquery.ui.datepicker.js" />
     <Content Include="Scripts\jquery.ui.widget.js" />
     <Content Include="Scripts\jquery.ui.core.js" />
-    <None Include="Service References\FinalService\FinalProject.FinalService.BugReport.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\FinalService\FinalWCFService.disco" />
-    <None Include="Service References\FinalService\configuration91.svcinfo" />
-    <None Include="Service References\FinalService\configuration.svcinfo" />
-    <None Include="Service References\FinalService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Views\BugReport\Create.aspx" />
     <Content Include="Views\BugReport\Details.aspx" />
     <Content Include="Views\BugReport\Edit.aspx" />
@@ -141,6 +133,7 @@
     <Content Include="Views\Shared\EditorTemplates\DateTime.ascx" />
     <Content Include="Views\Status\Edit.aspx" />
     <Content Include="Views\Status\Index.aspx" />
+    <Content Include="WCFService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -181,16 +174,6 @@
       <LastGenOutput>IPFinalDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\FinalService\FinalWCFService.wsdl" />
-    <None Include="Service References\FinalService\FinalWCFService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FinalService\FinalWCFService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FinalService\FinalWCFService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -204,9 +187,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\FinalService\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Folder Include="Content\Image\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -224,7 +205,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62893</DevelopmentServerPort>
+          <DevelopmentServerPort>55360</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

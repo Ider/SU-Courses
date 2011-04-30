@@ -1217,3 +1217,43 @@ div.system-message p.system-message-title
         display: block;
     }
 }
+
+
+editor-label, .display-label
+{
+    color:#999;
+}
+
+.display-field
+{
+    padding:0px 0px 5px 20px;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
