@@ -190,8 +190,9 @@ namespace Client
 			for (System::Int32 i=0; i<packages->Count; ++i)
 				this->listDep->Items->Add(packages[i]);
 
-			this->lblPack->Text = this->selectionTrack[this->selectionTrack->Count-1]+":";
-			if (this->lblPack->Text =="*.*:") this->lblPack->Text = "All Packages:";
+			this->lblPack->Text = this->selectionTrack[this->selectionTrack->Count-1];
+			if (this->lblPack->Text =="*.*") this->lblPack->Text = "All Packages:";
+			else this->lblPack->Text = "Dependencies of "+ this->lblPack->Text+":" ;
 		}
 
 		//show checked in on listbox
