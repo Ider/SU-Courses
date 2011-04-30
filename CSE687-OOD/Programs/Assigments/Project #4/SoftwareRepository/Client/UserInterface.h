@@ -364,7 +364,8 @@ namespace Client
 		//Dependency button event
 		System::Void btnDep_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			if (this->listDep->SelectedItems->Count<=0)
+			if (this->listDep->SelectedItems->Count<=0
+				|| this->listDep->SelectedIndex == 0)
 				ShowMessageBox("Please select a package name.");
 			if (this->listDep->SelectedIndex == 0)return;
 
@@ -424,6 +425,7 @@ namespace Client
 				return;
 			}
 
+			listDep->SelectedItems->Clear();
 			SendMessage(Ider::MsgType::Commit);
 		}
 
