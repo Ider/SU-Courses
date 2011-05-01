@@ -17,7 +17,7 @@
         <div class="display-field">
             <%: String.Format("{0:g}", Model.createddate) %></div>
         <fieldset>
-            <legend>description</legend>
+            <legend>Description</legend>
             <div class="display-field">
                 <%: Model.description %></div>
         </fieldset>

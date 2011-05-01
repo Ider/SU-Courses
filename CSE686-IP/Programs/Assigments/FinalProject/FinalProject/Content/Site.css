@@ -1219,14 +1219,20 @@ div.system-message p.system-message-title
 }
 
 
-editor-label, .display-label
+.editor-label, .display-label
 {
-    color:#999;
+    color:#777;
 }
 
 .display-field
 {
     padding:0px 0px 5px 20px;
+}
+
+.readonly-text
+{
+    background: #EEE;
+    
 }
 
 /* Styles for validation helpers

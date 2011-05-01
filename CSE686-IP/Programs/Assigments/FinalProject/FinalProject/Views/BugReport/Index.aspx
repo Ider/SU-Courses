@@ -33,7 +33,8 @@
                                             , new { key = "ReportedBy", asc = System.Convert.ToBoolean(ViewData["OrderAsc"]) })%>
                 </td>
                 <td>
-                    OwnedBy
+                    <%: Html.ActionLink("OwnedBy", "Sort"
+                                    , new { key = "OwnedBy", asc = System.Convert.ToBoolean(ViewData["OrderAsc"]) })%>
                 </td>
                 <td>
                     Keywords
@@ -42,12 +43,17 @@
                     <%: Html.ActionLink("ReportedTime", "Sort"
                                             , new { key = "ReportedTime", asc = System.Convert.ToBoolean(ViewData["OrderAsc"]) })%>
                 </td>
+                <% if (Page.User.IsInRole("Manager") || Page.User.IsInRole("Admin"))
+                   {
+                
+                %>
                 <td style="width: 20px;">
                     Edit
                 </td>
                 <td style="width: 20px;">
                     Delete
                 </td>
+                <%} %>
             </tr>
         </thead>
         <tbody>
@@ -56,20 +62,23 @@
                 { %>
             <tr id="row-<%:r.Number %>">
                 <td>
-                    <%= "#"+r.Number %>
+                    <%:Html.ActionLink("#" + r.Number, "Detail")%>
                 </td>
                 <td>
-                    <%= r.ReportedBy%>
+                    <%: r.ReportedBy%>
                 </td>
                 <td>
-                    <%= r.OwnedBy%>
+                    <%: r.OwnedBy%>
                 </td>
                 <td>
-                    <%= r.Keywords%>
+                    <%: r.Keywords%>
                 </td>
                 <td>
                     <%= r.ReportedTime.ToString("MM/dd/yyyy HH:mm:ss")%>
                 </td>
+                <% if (Page.User.IsInRole("Manager") || Page.User.IsInRole("Admin"))
+                   {
+                %>
                 <td>
                     <%: Html.ActionLink("Edit", "Edit",
                     new { id = r.Number }, null)%>
@@ -79,13 +88,17 @@
                                         new { id = r.Number }, 
                     new AjaxOptions { OnSuccess = "handleUpdate" })%>
                 </td>
+                <%} %>
             </tr>
             <% } %>
         </tbody>
     </table>
+    <% if (Page.User.IsInRole("Admin"))
+       { %>
     <div>
         <%: Html.ActionLink("Add", "Edit")%>
     </div>
+    <%} %>
     <div id="update-message">
     </div>
 </asp:Content>

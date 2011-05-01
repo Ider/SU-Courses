@@ -21,4 +21,8 @@
             <%: Html.ActionLink("Status Report","Index", "Status")%></li>
         <%--<li><%: Html.ActionLink("Layout", "Layout", "Home")%></li>--%>
     </ul>
+
+
+  
+
 </asp:Content>

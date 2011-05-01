@@ -21,9 +21,9 @@
     <ReportedBy>Wengjing Wang</ReportedBy>
     <OwnedBy>Ider Zheng</OwnedBy>
     <Component>Software Requirement</Component>
-    <Keywords>item count</Keywords>
+    <Keywords></Keywords>
     <ReportedTime>03/01/2011 20:06:03</ReportedTime>
-    <Description>Here is description for this bug.</Description>
+    <Description>Here is decription for this bug.</Description>
     <Comments>
       <Comment>
         <CommentedBy>Jian</CommentedBy>
@@ -81,7 +81,7 @@
   <BugReport>
     <Number>6378</Number>
     <ReportedBy></ReportedBy>
-    <OwnedBy></OwnedBy>
+    <OwnedBy>77</OwnedBy>
     <Component></Component>
     <Keywords></Keywords>
     <ReportedTime>03/08/2011 19:14:47</ReportedTime>
@@ -133,9 +133,9 @@
     <ReportedBy>Wengjing Wang</ReportedBy>
     <OwnedBy></OwnedBy>
     <Component>Wengjing Wang</Component>
-    <Keywords>Wengjing WangWengjing WangWengjing Wang</Keywords>
+    <Keywords>Wengjing Wang</Keywords>
     <ReportedTime>03/08/2011 19:31:20</ReportedTime>
-    <Description>Wengjing WangWengjing WangWengjing WangWengjing Wang</Description>
+    <Description>Wengjing WangWengjing WangWengjing</Description>
     <Comments></Comments>
   </BugReport>
   <BugReport>
@@ -156,6 +156,16 @@
     <Keywords>Final Project</Keywords>
     <ReportedTime>03/09/2011 11:33:55</ReportedTime>
     <Description>asdf</Description>
+    <Comments></Comments>
+  </BugReport>
+  <BugReport>
+    <Number>7939</Number>
+    <ReportedBy>test</ReportedBy>
+    <OwnedBy>Me</OwnedBy>
+    <Component>Me</Component>
+    <Keywords>readonly</Keywords>
+    <ReportedTime>04/30/2011 20:05:09</ReportedTime>
+    <Description>test readonly</Description>
     <Comments></Comments>
   </BugReport>
 </BugReports>

@@ -27,7 +27,7 @@ namespace FinalProject
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
+            //ModelBinders.Binders.DefaultBinder = new Microsoft.Web.Mvc.DataAnnotations.DataAnnotationsModelBinder();
             RegisterRoutes(RouteTable.Routes);
         }
     }

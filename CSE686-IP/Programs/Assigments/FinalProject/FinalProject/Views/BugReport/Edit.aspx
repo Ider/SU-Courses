@@ -23,7 +23,14 @@
             <%: Html.LabelFor(model => model.ReportedBy) %>
         </div>
         <div class="editor-field">
-            <%: Html.TextBoxFor(model => model.ReportedBy) %>
+            <%if (Model.Number <= 0) %>
+            <%{ %>
+            <input name="ReportedBy" type="text" readonly="readonly" value="<%= User.Identity.Name %>" class="readonly-text" />
+            <%} %>
+            <%else %>
+            <%{ %>
+            <%: Html.TextBoxFor(model => model.ReportedBy, new { @readonly = "readonly", @class = "readonly-text" })%>
+            <%} %>
             <%: Html.ValidationMessageFor(model => model.ReportedBy) %>
         </div>
         <div class="editor-label">

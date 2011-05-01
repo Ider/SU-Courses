@@ -11,6 +11,7 @@ using FinalProject.Models;
 
 namespace FinalProject.Controllers
 {
+   
     public class BugReportController : Controller
     {
         BugReportService brService = new BugReportService();
@@ -60,7 +61,7 @@ namespace FinalProject.Controllers
 
         //
         // GET: /Bug/Edit/5
-
+        [Authorize(Roles = "Admin,Manager")]
         public ActionResult Edit(int? id)
         {
             BugReport br = brService.GetBugReportByID(id ?? -1);
@@ -128,12 +129,12 @@ namespace FinalProject.Controllers
         }
 
 
-        public ActionResult Sort(string key,bool asc)
+        public ActionResult Sort(string key, bool asc)
         {
-            ViewData["OrderAsc"] = (asc = !asc);
+            ViewData["OrderAsc"] = !asc;
 
             IList<BugReport> reports = brService.GetBugReports();
-            IOrderedEnumerable<BugReport> sorted = reports.OrderByDescending(m => m.ReportedTime);
+            IOrderedEnumerable<BugReport> sorted;
 
             switch (key)
             {
@@ -152,10 +153,13 @@ namespace FinalProject.Controllers
                         reports.OrderBy(m => m.ReportedTime)
                         : reports.OrderByDescending(m => m.ReportedTime);
                     break;
-                case "Name":
+                case "OwnedBy":
                     sorted = asc ?
                         reports.OrderBy(m => m.OwnedBy)
                         : reports.OrderByDescending(m => m.OwnedBy);
+                    break;
+                default:
+                    sorted = reports.OrderByDescending(m => m.ReportedTime);
                     break;
             }
 

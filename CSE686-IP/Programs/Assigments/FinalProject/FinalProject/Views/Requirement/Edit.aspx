@@ -20,27 +20,27 @@
     <fieldset>
         <legend>Software Requirement</legend>
         <div class="editor-label">
-            <%: Html.LabelFor(model => model.title) %>
+            Titilt
         </div>
         <div class="editor-field">
             <%: Html.TextBoxFor(model => model.title) %>
             <%: Html.ValidationMessageFor(model => model.title) %>
         </div>
         <div class="editor-label">
-            <%: Html.LabelFor(model => model.createddate) %>
+            Create Date
         </div>
-        <div class="editor-field">
+        <div class="display-field">
             <%:String.Format("{0:MM/dd/yyyy}", Model.createddate)%>
         </div>
         <div class="editor-label">
-            <%: Html.LabelFor(model => model.platform) %>
+            Platform
         </div>
         <div class="editor-field">
             <%: Html.TextBoxFor(model => model.platform) %>
             <%: Html.ValidationMessageFor(model => model.platform) %>
         </div>
         <div class="editor-label">
-            <%: Html.LabelFor(model => model.description) %>
+            Description
         </div>
         <div class="editor-field">
             <%: Html.TextAreaFor(model => model.description, 10, 100, null)%>

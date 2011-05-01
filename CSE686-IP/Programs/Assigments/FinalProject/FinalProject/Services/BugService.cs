@@ -13,7 +13,6 @@ namespace FinalProject.Services
     public class BugReportService
     {
         //revise this class to be singleton
-
         public IList<BugReport> GetBugReports()
         {
             IList<BugReport> reports = new List<BugReport>();
