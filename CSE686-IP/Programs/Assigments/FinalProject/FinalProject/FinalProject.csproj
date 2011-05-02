@@ -112,6 +112,16 @@
     <Content Include="App_Data\FinalDB_log.ldf">
       <DependentUpon>FinalDB.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Image\collapsed.png" />
+    <Content Include="Content\Image\dots.gif" />
+    <Content Include="Content\Image\edit_toolbar.png" />
+    <Content Include="Content\Image\envelope.png" />
+    <Content Include="Content\Image\expanded.png" />
+    <Content Include="Content\Image\extlink.gif" />
+    <Content Include="Content\Image\feed.png" />
+    <Content Include="Content\Image\ics.png" />
+    <Content Include="Content\Image\topbar_gradient.png" />
+    <Content Include="Content\Image\topbar_gradient2.png" />
     <Content Include="Content\jquery.ui.datepicker.css" />
     <Content Include="Content\tableformat.css" />
     <Content Include="Global.asax" />
@@ -187,7 +197,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Image\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

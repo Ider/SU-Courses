@@ -168,4 +168,14 @@
     <Description>test readonly</Description>
     <Comments></Comments>
   </BugReport>
+  <BugReport>
+    <Number>7321</Number>
+    <ReportedBy>test</ReportedBy>
+    <OwnedBy>Ider</OwnedBy>
+    <Component>unknow</Component>
+    <Keywords>key</Keywords>
+    <ReportedTime>05/01/2011 00:04:44</ReportedTime>
+    <Description>here is description for this bugreport</Description>
+    <Comments></Comments>
+  </BugReport>
 </BugReports>
