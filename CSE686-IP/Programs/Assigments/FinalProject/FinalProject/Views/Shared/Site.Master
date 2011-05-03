@@ -27,7 +27,7 @@
         </div>
         <div id="mainnav" class="nav">
             <ul>
-                <li class="first"><%:Html.ActionLink("Home", "Index", "Home")%></li><li><%:Html.ActionLink("Software Requirement", "Index", "Requirement")%></li><li><%:Html.ActionLink("Work Package","Index", "Package")%></li><li><%:Html.ActionLink("Bug Report","Index", "BugReport")%></li><li><%:Html.ActionLink("Status Report","Index", "Status")%></li><li><%:Html.ActionLink("About", "About", "Home")%></li>
+                <li class="first"><%:Html.ActionLink("Home", "Index", "Home")%></li><li><%:Html.ActionLink("Software Requirement", "Index", "Requirement")%></li><li><%:Html.ActionLink("Work Package","Index", "Package")%></li><li><%:Html.ActionLink("Bug Report","Index", "BugReport")%></li><li><%:Html.ActionLink("Status Report","Index", "Status")%></li><li><%:Html.ActionLink("Wiki", "Wiki", "Home")%></li>
             </ul>
         </div>
         <div id="main">

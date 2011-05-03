@@ -44,5 +44,10 @@ namespace FinalProject.Controllers
 
             RedirectToAction("Index");
         }
+
+        public ActionResult  Wiki()
+        {
+            return Redirect(Constant.WIKI_WEBSITE);
+        }
     }
 }
