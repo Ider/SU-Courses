@@ -178,4 +178,14 @@
     <Description>here is description for this bugreport</Description>
     <Comments></Comments>
   </BugReport>
+  <BugReport>
+    <Number>4239</Number>
+    <ReportedBy>test</ReportedBy>
+    <OwnedBy>qe</OwnedBy>
+    <Component>qwe</Component>
+    <Keywords>qwe</Keywords>
+    <ReportedTime>05/02/2011 01:47:22</ReportedTime>
+    <Description>qew</Description>
+    <Comments></Comments>
+  </BugReport>
 </BugReports>
