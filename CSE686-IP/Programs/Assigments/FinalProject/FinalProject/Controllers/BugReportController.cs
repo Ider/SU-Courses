@@ -29,8 +29,9 @@ namespace FinalProject.Controllers
 
         public ActionResult Details(int id)
         {
+            BugReport br = brService.GetBugReportByID(id);
 
-            return View();
+            return View(br);
         }
 
         //

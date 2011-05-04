@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<List<FinalProject.Models.BugReport>>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<List<FinalProject.Models.StatusReport>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Bug Report
+    Status Report
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <script src="../../Scripts/MicrosoftAjax.js" type="text/javascript"></script>
@@ -19,31 +19,27 @@
         }
     </script>
     <div class="caption">
-        Bug Reports
+        Status Reports
     </div>
     <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map">
         <thead>
             <tr>
                 <td>
-                    <%: Html.ActionLink("Number", "Sort"
-                       , new { key = "Number", asc = System.Convert.ToBoolean(ViewData["OrderAsc"]) })%>
+                    Number
                 </td>
                 <td>
-                    <%: Html.ActionLink("ReportedBy", "Sort"
-                                            , new { key = "ReportedBy", asc = System.Convert.ToBoolean(ViewData["OrderAsc"]) })%>
+                    ReportedBy
                 </td>
                 <td>
-                    <%: Html.ActionLink("OwnedBy", "Sort"
-                                    , new { key = "OwnedBy", asc = System.Convert.ToBoolean(ViewData["OrderAsc"]) })%>
+                    OwnedBy
                 </td>
                 <td>
                     Keywords
                 </td>
                 <td>
-                    <%: Html.ActionLink("ReportedTime", "Sort"
-                                            , new { key = "ReportedTime", asc = System.Convert.ToBoolean(ViewData["OrderAsc"]) })%>
+                    ReportedTime
                 </td>
-                <% if (Page.User.IsInRole("Manager") || Page.User.IsInRole("Admin"))
+                <% if (false)
                    {
                 
                 %>
@@ -58,11 +54,11 @@
         </thead>
         <tbody>
             <%
-                foreach (FinalProject.Models.BugReport r in Model)
+                foreach (FinalProject.Models.StatusReport r in Model)
                 { %>
             <tr id="row-<%:r.Number %>">
                 <td>
-                    <%:Html.ActionLink("#" + r.Number, "Details", new { id = r.Number})%>
+                    #<%:r.Number%>
                 </td>
                 <td>
                     <%: r.ReportedBy%>
@@ -76,7 +72,7 @@
                 <td>
                     <%= r.ReportedTime.ToString("MM/dd/yyyy HH:mm:ss")%>
                 </td>
-                <% if (Page.User.IsInRole("Manager") || Page.User.IsInRole("Admin"))
+                <% if (false)
                    {
                 %>
                 <td>
@@ -84,7 +80,7 @@
                     new { id = r.Number }, null)%>
                 </td>
                 <td>
-                    <%: Ajax.ActionLink("Delete", "DeleteBugReport",
+                    <%: Ajax.ActionLink("Delete", "DeleteStatusReport",
                                         new { id = r.Number }, 
                     new AjaxOptions { OnSuccess = "handleUpdate" })%>
                 </td>
@@ -93,7 +89,7 @@
             <% } %>
         </tbody>
     </table>
-    <% if (Page.User.IsInRole("Admin") || Page.User.IsInRole("Manager"))
+    <% if (false)
        { %>
     <div>
         <%: Html.ActionLink("Add", "Edit")%>

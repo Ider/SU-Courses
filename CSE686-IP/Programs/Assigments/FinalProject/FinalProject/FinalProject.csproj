@@ -92,10 +92,12 @@
     </Compile>
     <Compile Include="Models\ModelExtension.cs" />
     <Compile Include="Models\PackageRequirementsModel.cs" />
+    <Compile Include="Models\StatusModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BugService.cs" />
     <Compile Include="Services\PackageService.cs" />
     <Compile Include="Services\RequirementService.cs" />
+    <Compile Include="Services\StatusService.cs" />
     <Compile Include="WCFService.svc.cs">
       <DependentUpon>WCFService.svc</DependentUpon>
     </Compile>
@@ -112,7 +114,7 @@
     <Content Include="App_Data\FinalDB_log.ldf">
       <DependentUpon>FinalDB.mdf</DependentUpon>
     </Content>
-    <Content Include="App_Data\StatusReport.xml" />
+    <Content Include="App_Data\StatusReports.xml" />
     <Content Include="Content\Image\collapsed.png" />
     <Content Include="Content\Image\dots.gif" />
     <Content Include="Content\Image\edit_toolbar.png" />
@@ -142,8 +144,8 @@
     <Content Include="Views\Requirement\Edit.aspx" />
     <Content Include="Views\Requirement\Index.aspx" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.ascx" />
-    <Content Include="Views\Status\Edit.aspx" />
-    <Content Include="Views\Status\Index.aspx" />
+    <Content Include="Views\StatusReport\Edit.aspx" />
+    <Content Include="Views\StatusReport\Index.aspx" />
     <Content Include="WCFService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

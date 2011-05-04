@@ -5,10 +5,9 @@
     Index
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Software Requirement is under construction...</h2>
-    <br />
-    <br />
+    <div class="caption">
+        Software Requirements</div>
+   
     <div>
         <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map">
             <thead>

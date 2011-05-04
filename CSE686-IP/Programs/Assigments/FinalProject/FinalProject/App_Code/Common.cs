@@ -17,6 +17,14 @@ namespace FinalProject.Helper
             }
         }
 
+        public static string STATUS_XML_PATH
+        {
+            get
+            {
+                return HttpContext.Current.Server.MapPath("~\\App_Data\\StatusReports.xml");
+            }
+        }
+
         public static string DATETIME_FORMAT
         {
             get
