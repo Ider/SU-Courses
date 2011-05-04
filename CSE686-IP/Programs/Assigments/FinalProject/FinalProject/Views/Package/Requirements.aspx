@@ -1,57 +1,50 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<PackageRequirementsModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<IEnumerable<FinalProject.Models.SelectedPakcagesResult>>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Requirements
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>
-        Requirements</h2>
-    <table>
+    <div class="caption">
+        Softerware Requirements
+    </div>
+    <% using (Html.BeginForm())
+       { %>
+    <table width="100%" border="0" align="left" cellpadding="5" cellspacing="0" class="map">
+        <thead>
+            <tr>
+                <td>
+                    Title
+                </td>
+                <td>
+                    Platform
+                </td>
+                <td>
+                    Selected
+                </td>
+            </tr>
+        </thead>
+        <% foreach (var item in Model)
+           { %>
         <tr>
-            <th>
-                Selected
-            </th>
-            <th>
-                title
-            </th>
-            <th>
-                createddate
-            </th>
-            <th>
-                platform
-            </th>
-            <th>
-                description
-            </th>
-        </tr>
-        <% foreach (var item in Model.Selected) { %>
-        <tr>
             <td>
-                <%: Html.ActionLink("Edit", "Edit", new { id=item.id }) %>
-                |
-                <%: Html.ActionLink("Details", "Details", new { id=item.id })%>
-                |
-                <%:Html.%>
+                <%= Html.ActionLink(item.title, "Details", "Requirement", new { id = item.id }, null)%>
             </td>
             <td>
-                <%: item.id %>
+                <%: item.platform%>
             </td>
-            <td>
-                <%: item.title %>
-            </td>
-            <td>
-                <%: String.Format("{0:g}", item.createddate) %>
-            </td>
-            <td>
-                <%: item.platform %>
-            </td>
-            <td>
-                <%: item.description %>
+            <td style="width: 5%; text-align: center;">
+                <input id="cb" type="checkbox" name="requirements" value="<%: item.id %>" <% if(item.selected??false) {%>checked="checked"
+                    <%} %> />
             </td>
         </tr>
         <% } %>
     </table>
     <p>
-        <%: Html.ActionLink("Create New", "Create") %>
+        <input type="submit" value="Save" />
     </p>
+    <%} %>
+
+     <div>
+        <%: Html.ActionLink("Back to Details", "Details", new { id = ViewData["WPid"]})%>
+    </div>
 </asp:Content>

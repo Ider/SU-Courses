@@ -20,14 +20,14 @@
         <elementListCompartment Id="88734cf9-5b21-4167-a947-065a946ea3b9" absoluteBounds="0.765, 5.335, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 1.78929768880208); (3.5 : 1.78929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 1.78929768880208); (3.5 : 1.78929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/IPFinalDBDataContext/Software_Requirement/Software_Requirement_Package_Software" />
       <nodes>
         <classShapeMoniker Id="231c0f65-0c50-48ed-84a6-550ef7f2738b" />
         <classShapeMoniker Id="d0deb212-b9f2-4f9a-bf96-ae108a7b3413" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 6.04890055338542); (4.5 : 6.04890055338542); (4.5 : 2.57859537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 6.04890055338542); (4.5 : 6.04890055338542); (4.5 : 2.57859537760417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/IPFinalDBDataContext/Work_Package/Work_Package_Package_Software" />
       <nodes>
         <classShapeMoniker Id="2a126e3c-ba92-41e0-bfa3-fffe7b7ce370" />

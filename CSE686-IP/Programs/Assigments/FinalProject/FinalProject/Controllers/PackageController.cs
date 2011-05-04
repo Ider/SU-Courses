@@ -124,8 +124,21 @@ namespace FinalProject.Controllers
 
         public ActionResult Requirements(int id)
         {
-           
-            return View("Under Construction...");
+            ViewData["WPid"] = id;
+            return View(ps.SelectedPackages(id));
+        }
+
+        [HttpPost]
+        public ActionResult Requirements(int id, List<int> requirements)
+        {
+            List<Package_Software> reqs = new List<Package_Software>();
+
+            foreach (int reqId in requirements)
+                reqs.Add(new Package_Software() { sr_id = reqId, wp_id = id, createddate = DateTime.Now });
+
+            ps.UpdateRequirements(id, reqs);
+
+            return RedirectToAction("Details", new { id = id });
         }
     }
 }

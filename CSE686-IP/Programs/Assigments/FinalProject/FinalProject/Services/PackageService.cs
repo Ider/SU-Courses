@@ -5,6 +5,7 @@ using System.Web;
 using System.Xml.Linq;
 using FinalProject.Helper;
 using FinalProject.Models;
+using System.Collections;
 
 namespace FinalProject.Services
 {
@@ -92,29 +93,57 @@ namespace FinalProject.Services
             PackageRequirementsModel prm = new PackageRequirementsModel();
             IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
             var req1 = from sr in finalDB.Software_Requirements
-                      join ps in finalDB.Package_Softwares
-                      on sr.id equals ps.sr_id
-                      where ps.wp_id == id
-                      select new Software_Requirement
-                      {
-                          id = sr.id,
-                          title = sr.title
-                      };
+                       join ps in finalDB.Package_Softwares
+                       on sr.id equals ps.sr_id
+                       where ps.wp_id == id
+                       select new Software_Requirement
+                       {
+                           id = sr.id,
+                           title = sr.title
+                       };
             if (req1 != null) prm.Selected = req1.ToList();
 
             var req2 = from sr in finalDB.Software_Requirements
-                      join ps in finalDB.Package_Softwares
-                      on sr.id equals ps.sr_id
-                      where ps.wp_id == id
-                      select new Software_Requirement
-                      {
-                          id = sr.id,
-                          title = sr.title
-                      };
+                       join ps in finalDB.Package_Softwares
+                       on sr.id equals ps.sr_id
+                       where ps.wp_id == id
+                       select new Software_Requirement
+                       {
+                           id = sr.id,
+                           title = sr.title
+                       };
 
             //Not Completed...
             return null;
 
+        }
+
+        public IList<SelectedPakcagesResult> SelectedPackages(int id)
+        {
+
+            IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
+
+            return finalDB.SelectedPakcages(id).ToList<SelectedPakcagesResult>();
+        }
+
+
+        public bool UpdateRequirements(int id, List<Package_Software> reqs)
+        {
+           // try
+            //{
+                IPFinalDBDataContext finalDB = new IPFinalDBDataContext();
+                finalDB.DeletePackageSoftware(id);
+
+                foreach (Package_Software item in reqs)
+                {
+                    finalDB.Package_Softwares.InsertOnSubmit(item);
+                }
+
+                finalDB.SubmitChanges();
+
+                return true;
+            //}
+            //catch { return false; }
         }
     }
 }

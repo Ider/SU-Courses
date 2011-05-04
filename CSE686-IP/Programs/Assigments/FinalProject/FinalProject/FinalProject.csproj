@@ -112,6 +112,7 @@
     <Content Include="App_Data\FinalDB_log.ldf">
       <DependentUpon>FinalDB.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\StatusReport.xml" />
     <Content Include="Content\Image\collapsed.png" />
     <Content Include="Content\Image\dots.gif" />
     <Content Include="Content\Image\edit_toolbar.png" />
