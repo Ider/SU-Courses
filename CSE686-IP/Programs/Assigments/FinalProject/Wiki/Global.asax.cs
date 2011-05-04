@@ -14,8 +14,9 @@ namespace Wiki
         {
             // Code that runs on application startup
 
-            string DataDirectory = @"C:\Users\Ider\Project\SU\CSE686-IP\Programs\Assigments\FinalProject\FinalProject\App_Data";
-            AppDomain.CurrentDomain.SetData("DataDirectory", DataDirectory);
+            /*set DataDirectory for connectionstring in web.config*/
+            //string DataDirectory = @"C:\Users\Ider\Project\SU\CSE686-IP\Programs\Assigments\FinalProject\FinalProject\App_Data";
+            //AppDomain.CurrentDomain.SetData("DataDirectory", DataDirectory);
         }
 
         void Application_End(object sender, EventArgs e)
