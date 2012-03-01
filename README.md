@@ -15,11 +15,11 @@ To know more information, please view the [course home page](http://www.lcs.syr.
 This contains most materials that I have got and developed in [CSE687 - Object Oriented Design](http://www.lcs.syr.edu/faculty/fawcett/handouts/webpages/CSE687.htm "Course Page") course in Spring 2011.    
 This course using C++ to demonstrate the principle of Object Oriented Design. I learned much more knowledge of OO than I learned from C#, as the C# has done too much for programmer. And I begin to love C++ after this class.    
 Under CSE687-OOD, there are three folders:    
-*Examples    
+- Examples    
 	> The example demos that download from Professor Fawcett's Class.    
-*Lectures    
+- Lectures    
 	> Leature documents that distributed by Professor Fawcett    
-*Programs    
+- Programs    
 	> Programs that I developed for the assignments from the course.    
 	> *Test* folder contains programs used for testing part fuctinoality.    
 	> *Assignments* folder contains four programs, in each foled, there is \.doc file that descripts the requirement.
