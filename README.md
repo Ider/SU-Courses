@@ -16,13 +16,13 @@ This contains most materials that I have got and developed in [CSE687 - Object O
 This course using C++ to demonstrate the principle of Object Oriented Design. I learned much more knowledge of OO than I learned from C#, as the C# has done too much for programmer. And I begin to love C++ after this class.    
 Under CSE687-OOD, there are three folders:    
 
-- [Examples](SU-Courses/CSE687-OOD/Examples "Go into folder")    
+- [Examples](SU-Courses/tree/master/CSE687-OOD/Examples "Go into folder")    
 	> The example demos that download from Professor Fawcett's Class.   
 	
-- [Lectures](SU-Courses/CSE687-OOD/Lectures "Go into folder")   
+- [Lectures](SU-Courses/tree/master/CSE687-OOD/Lectures "Go into folder")   
 	> Leature documents that distributed by Professor Fawcett    
 	
-- [Programs](SU-Courses/CSE687-OOD/Programs "Go into folder")    
+- [Programs](SU-Courses/tree/master/CSE687-OOD/Programs "Go into folder")    
 	> Programs that I developed for the assignments from the course.    
 	> *Test* folder contains programs used for testing part fuctinoality.    
 	> *Assignments* folder contains four programs, in each foled, there is \.doc file that descripts the requirement.
