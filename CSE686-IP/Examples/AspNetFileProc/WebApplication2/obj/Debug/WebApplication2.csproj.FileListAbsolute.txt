@@ -1,5 +1,0 @@
-C:\Temp\WebApplication2\WebApplication2\bin\WebApplication2.dll
-C:\Temp\WebApplication2\WebApplication2\bin\WebApplication2.pdb
-C:\Temp\WebApplication2\WebApplication2\obj\Debug\ResolveAssemblyReference.cache
-C:\Temp\WebApplication2\WebApplication2\obj\Debug\WebApplication2.dll
-C:\Temp\WebApplication2\WebApplication2\obj\Debug\WebApplication2.pdb
