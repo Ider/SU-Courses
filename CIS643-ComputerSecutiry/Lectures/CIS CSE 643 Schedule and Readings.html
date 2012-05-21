@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0058)http://www.cis.syr.edu/~wedu/Teaching/cis643/schedule.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>CIS/CSE 643 Schedule and Readings</title>
+
+</head>
+
+<body bgcolor="fffff0">
+
+
+<center>
+<h1>Schedule and Readings</h1>
+</center>
+<hr>
+
+
+<h3>Introduction and Overview</h3>
+
+
+<ul>
+<li>Overview of Computer Security (<font color="green">Lecture Notes:</font>
+   <a href="notes/Security_Overview.pdf">pdf</a>)
+         
+</li></ul>
+
+<hr>
+<h3>Vulnerabilities in General Software</h3>
+
+<ul>
+<li>Unix Security Basics (<font color="green">Lecture Notes:</font>
+   <a href="notes/Unix_Security_Overview.pdf">pdf</a>)
+   <ul>
+   <li> Users and Groups.
+   </li><li> File Permissions: access control, umask, chmod, chown, chgrp, Set-UID.  
+   </li></ul>
+
+
+</li><li>Set-UID Programs and Vulnerabilities (<font color="green">Lecture Notes:</font>
+   <a href="notes\Set_UID.pdf">pdf</a>)
+      <ul>
+      <li> <font color="red"><b>Required Reading:</b></font> <a href="notes/1987-sproglogin.pdf">
+           Bishop: How to Write a Setuid Program</a>
+
+      </li><li> Reading: <a href="http://man.netbsd.se/?find=setuid+7+20">
+            Checklist for Security of Setuid Programs</a> 
+            (a <a href="notes/setuid.pdf">local 
+	 copy</a>)
+
+      </li></ul>
+
+
+</li><li>Vulnerabilities <br>
+   <font color="green">Lecture Notes:</font>
+   <a href="notes/Buffer_Overflow.pdf">Buffer_Overflow.pdf</a>&nbsp;&nbsp;
+   <a href="notes/Race_Condition.pdf">Race_Condition.pdf</a>&nbsp;&nbsp;<br>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <a href="notes/Input_Validation.pdf">Input_Validation.pdf</a>&nbsp;
+   <a href="notes/Format_String.pdf">Format_String.pdf</a>&nbsp;&nbsp;
+
+   <ul>
+   <li> Buffer Overflow: 
+	<ul>
+        <li><font color="red"><b>Required Reading:</b></font> 
+            <a href="http://dirac.org/linux/gdb/02a-Memory_Layout_And_The_Stack.php">
+            Memory layout and stack</a>  
+	</li><li>Stack Buffer Overflow: <a href="http://www.cs.wright.edu/people/faculty/tkprasad/courses/cs781/alephOne.html">
+        Smashing The Stack For Fun And Profit (Aleph One)</a>  
+       </li><li> Heap Overflow: 
+	<a href="http://www.w00w00.org/files/articles/heaptut.txt">
+        w00w00 on Heap Overflows (by Matt Conover)</a>
+        </li></ul>	
+   </li><li> Format String
+        <ul>
+        <li><font color="red"><b>Required Reading:</b></font> 
+            <a href="http://www.cis.syr.edu/~wedu/Teaching/cis643/Papers/formatstring-1.2.pdf">
+            Exploiting Format Strng Vulnerabilities (scut / team teso)</a>
+        </li></ul>
+   </li><li> Race Condition:
+        <ul>
+        <li><font color="red"><b>Required Reading:</b></font> 
+        <a href="http://www-128.ibm.com/developerworks/linux/library/l-sprace.html">
+	Secure programmer: Prevent race conditions (by David Wheeler)</a> 
+        </li></ul>
+   </li><li> Integer Overflow
+	<ul>
+        <li><a href="http://www.phrack.org/issues.html?issue=60&id=10&mode=txt">
+          Basic Integer Overflows</a>  
+        (<a href="notes/integer_overflow.txt">A local copy</a>)
+        </li></ul>	
+   </li><li> Input Validation
+       <ul>
+       <li><font color="red"><b>Required Reading:</b></font> 
+       <a href="http://www.dwheeler.com/secure-programs/">
+       Chapter 5: Secure Programming for Linux and Unix HOWTO (by David Wheeler)</a>
+       </li></ul>
+   </li><li>David Wheeler's book: 
+       <a href="http://www.dwheeler.com/secure-programs/">Secure Programming for 
+       Linux and Unix HOWTO -- Creating Secure Software</a>
+   </li></ul>
+   </li></ul>
+
+
+<hr>
+<h3>Vulnerabilities in Web Applications (<font color="green">Lecture Notes:</font>
+    <a href="notes/Web_Security.pdf">pdf</a>)
+</h3>
+
+<ul>
+<li> Basics of Web Security
+   <ul>  
+   <li> Session ID and Cookies
+   </li><li> DOM objects
+   </li><li> Same Origin Policy (SOP) 
+   </li></ul>
+</li><li>Vulnerabilities
+   <ul>
+   <li> Cross-Site Scripting (XSS) Attacks
+       <ul>
+       <li><font color="red"><b>Required Reading:</b></font> <a href="http://en.wikipedia.org/wiki/Cross-site_scripting">Cross-site
+            Scripting from Wikipedia</a>
+       </li><li><font color="red"><b>Required Reading:</b></font> <a href="notes/WHXSSThreats.pdf">Cross-Site
+            Scripting Worms and Virses</a>
+       </li><li><a href="http://it.slashdot.org/article.pl?sid=05/10/14/126233">
+            News: Cross-Site Scripting Worm Floods MySpace</a>
+       </li><li><a href="http://namb.la/popular/tech.html">Technical Details of the Samy
+            Worm</a>
+       </li></ul>
+   </li><li> Cross-Site Request Forgery (CSRF) Attacks
+       <ul>
+       <li><font color="red"><b>Required Reading:</b></font> <a href="notes/csrf.pdf">
+	   Cross-Site Request Forgeries: Exploitation and Prevention</a> 
+           (<a href="http://www.cis.syr.edu/~wedu/Teaching/cis643/Papers/csrf.pdf">A local copy</a>)
+       </li></ul>
+   </li><li> SQL Injection Attacks
+        <ul>
+        <li><font color="red"><b>Required Reading:</b></font> 
+        <a href="http://www.unixwiz.net/techtips/sql-injection.html">
+            Steve Friedl's Unixwiz.net Tech Tips: SQL Injection Attacks by Example</a>
+        </li><li>
+	<a href="http://xkcd.com/327/">SQL Injection Comic</a>
+        </li><li>
+            <a href="http://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project">
+            OWASP's Top-10 List in 2010</a>: The 10 Most Critical
+            Web Application Security Vulnerabilities.
+        </li></ul>
+   </li><li> Web Tracking and Privacy
+        <ul>
+        <li><font color="red"><b>Required Reading:</b></font> 
+	<a href="http://online.wsj.com/article/SB10001424052748703940904575395073512989404.html">The Web's New Gold Mine: Your Secrets</a> 
+        (<i>The Wall Street Journal</i>, July 30, 2010).
+
+        </li><li>
+	<a href="http://blogs.wsj.com/digits/2010/10/25/firesheep-highlights-web-privacy-problem/">Firesheep Highlights Web Privacy Problem</a>
+        (<i>The Wall Street Journal</i>, August 25, 2010).
+
+        </li><li>
+	<a href="http://online.wsj.com/article/SB10001424052702304772804575558484075236968.html">
+	Facebook in Privacy Breach: Top-Ranked Applications Transmit Personal IDs, a Journal 
+        Investigation Finds</a>
+        (<i>The Wall Street Journal</i>, October 18, 2010).
+
+	</li><li>
+	<a href="http://online.wsj.com/article/SB10001424052702304410504575560243259416072.html">
+	A Web Pioneer Profiles Users by Name</a>
+        (<i>The Wall Street Journal</i>, October 25, 2010).
+        </li></ul>
+   </li></ul>
+</li></ul>
+
+
+<hr>
+<h3>System Security (General Concepts)</h3>
+<ul>
+
+<li>Access Control<br>
+   <ul>
+   <li> Basic concepts (<font color="green">Lecture Notes:</font>
+   <a href="notes/Access_Control.pdf">pdf</a>)
+        <ul> 
+	<li> Access Control Matrix
+        </li><li> Access Control List (ACL)
+        </li><li> DAC: Descretionary Access Control
+        </li><li> MAC: Mandatory Access Control
+        </li><li> Reference Monitor
+        </li><li> Design Principles
+	</li><li><font color="red"><b>Required Reading:</b></font> 
+            Saltzer and Schroeder.
+            <a href="http://www.acsac.org/secshelf/papers/protection_information.pdf">
+            The Protection of Information in Computer Systems</a> (read Section I.A)
+	</li></ul>
+   </li><li> Capabilities (<font color="green">Lecture Notes:</font>
+   <a href="notes/Capability.pdf">pdf</a>)
+	<ul>
+	<li><font color="red"><b>Required Reading:</b></font> 
+            Henry M. Levy, 
+	    <a href="http://www.cs.washington.edu/homes/levy/capabook/">
+	    Capability-Based Computer Systems</a>. (read chapter 1).
+        </li><li>(Case Study) 
+            <a href="http://www.sun.com/software/whitepapers/wp-ts8/ts8-wp.pdf">
+	    White Paper: Trusted Solaris 8 Operating Environment</a>.
+        </li></ul>
+   </li><li> Role Based Access Control (RBAC) (<font color="green">Lecture Notes:</font>
+   <a href="notes/RBAC.pdf">pdf</a>)
+        <ul>
+	<li><font color="red"><b>Required Reading (First 5 pages):</b></font> 
+        R. S. Sandhu, E.J. Coyne, H.L. Feinstein, C.E. Youman,
+	    <a href="http://csrc.nist.gov/rbac/sandhu96.pdf">
+            Role-Based Access Control Models</a>, 
+            IEEE Computer 29(2): 38-47, IEEE Press, 1996.
+            - original paper on RBAC framework.
+	</li><li><font color="red"><b>Required Reading:</b></font> 
+            NIST. <a href="http://csrc.nist.gov/rbac/NIST-ITL-RBAC-bulletin.html">
+	    An introduction to Role Based Access Control</a>
+        </li><li>(Case Study) Solaris RBAC Implementation: 
+	    <a href="http://www.sun.com/software/whitepapers/wp-rbac/wp-rbac.pdf">
+	    White Paper: RBAC in the Solaris Operating Environment</a>.
+        </li><li>(Case Study) The <tt>sudo</tt> (superuser do) program.
+	</li></ul>
+
+   </li><li> Mandatory Access Control (MAC) and security policy 
+        (<font color="green">Lecture Notes:</font>
+         <a href="notes/MAC.pdf">pdf</a>)
+   </li></ul> 
+
+<p>
+</p></li><li>Authentication and Password (<font color="green">Lecture Notes:</font>
+   <a href="notes/Authentication.pdf">pdf</a>&nbsp;
+   <a href="notes/Authentication.doc">doc</a>)
+   <ul>
+   <li> The process of login.
+   </li><li> Password, /etc/passwd, shadow password. 
+   </li><li> Pluggable Authentication Modules (PAM)
+        <ul>
+        <li><a href="http://www.redhat.com/docs/manuals/linux/RHL-9-Manual/pdf/rhl-rg-en-9.pdf">
+            Red Hat Linux 9 Reference Guide (Chapter 7)</a>
+        </li><li>Samar and Lai.
+            <a href="http://www.sun.com/software/solaris/pam/pam.external.pdf">
+            Making Login Services Independent of Authentication Technologies</a>
+        </li></ul>
+   </li><li> Dictionary attacks, Login spoofing attacks.
+   </li><li> Key logger.
+        <ul>
+        <li> <a href="notes/BHUSA09-Chen-RevAppleFirm-PAPER.pdf">Reversing and exploiting an Apple firmware update</a> 
+        </li></ul>
+   </li></ul>
+
+
+<p>
+</p></li><li>Sandboxing Techniques 
+   (<font color="green">Lecture Notes:</font>
+   <a href="notes/Sandboxing.pdf">pdf</a>&nbsp;)
+  <ul>
+  <li>The <tt>chroot</tt> Sandbox
+      <ul>
+      <li><font color="red"><b>Required Reading:</b></font>
+         Steve Friedl, <a href="http://www.unixwiz.net/techtips/chroot-practices.html">
+         Best Practices for UNIX <tt>chroot()</tt> Operations</a>.
+      </li><li><font color="red"><b>Required Reading (Sections 1 - 6):</b></font>
+         (Case Study: The FreeBSD Jail Sandbox) Kamp and Watson,
+         <a href="notes/sane2000-jail.pdf">
+         Jails: Confining the Omnipotent Root</a>.
+      </li></ul>
+  </li><li>Virtual Machines.
+</li></ul>
+
+
+<p>
+</p></li><li>Intel x86 Protection Mode
+   (<font color="green">Lecture Notes:</font> 
+             <a href="notes/Protection_80386.pdf">pdf</a>&nbsp;)
+<ul>
+  <li><a href="http://people.freebsd.org/~jhb/386htm/toc.htm">
+      Intel 80386 Reference Programmer's Manual (Chapter 5.1, 6.3, and 8.3)</a>.
+  </li><li><a href="http://download.intel.com/design/PentiumII/manuals/24319202.pdf">
+      Intel Architecture Software Developer's Guide (Chapter 4)</a>.
+</li></ul>
+
+
+
+</li></ul>
+
+
+
+
+
+
+
+
+</body></html>
