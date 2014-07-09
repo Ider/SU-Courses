@@ -32,4 +32,4 @@ Under CSE687-OOD, there are three folders:
 
 
 
-![Folders in VisualSVN Server](SU-Courses/raw/master/VisualSVN_Server_Snapshot.png)
+![Folders in VisualSVN Server](https://raw.githubusercontent.com/Ider/SU-Courses/master/VisualSVN_Server_Snapshot.png)
